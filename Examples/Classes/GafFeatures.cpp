@@ -1,10 +1,10 @@
 #include "GafFeatures.h"
-#include "SimpleAudioEngine.h"
+
 #include "GAFAnimatedObject.h"
 #include "GAFAsset.h"
 
 using namespace cocos2d;
-using namespace CocosDenshion;
+
 
 GafFeatures::GafFeatures()
 :
@@ -48,22 +48,22 @@ CCMenuItemImage * GafFeatures::addBtn(const char * text, float px, float py, SEL
 	return res;
 }
 
-void GafFeatures::black()
+void GafFeatures::black(CCObject*)
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void GafFeatures::white()
+void GafFeatures::white(CCObject*)
 {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-void GafFeatures::gray()
+void GafFeatures::gray(CCObject*)
 {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 }
 
-void GafFeatures::prevFrame()
+void GafFeatures::prevFrame(CCObject*)
 {
 	int f = frameNumber();
 	if (-1 == f)
@@ -76,7 +76,7 @@ void GafFeatures::prevFrame()
 	}
 }
 
-void GafFeatures::nextFrame()
+void GafFeatures::nextFrame(CCObject*)
 {
 	int f = frameNumber();
 	if (-1 == f)
@@ -131,7 +131,7 @@ bool GafFeatures::init()
 	_jsons.push_back("SampleAnimations/3/3.json");	
 	_jsons.push_back("SampleAnimations/4/4.json");
 	addObjectsToScene(1);
-	black();
+	black(NULL);
 	
 	setTouchEnabled(true);
 	return true;
@@ -149,13 +149,13 @@ void GafFeatures::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 }
 
 
-void GafFeatures::next_anim()
+void GafFeatures::next_anim(CCObject*)
 {
 	if (!_jsons.size())
 	{
 		return;
 	}
-	cleanup();
+	cleanup(NULL);
 	++_anim_index;
 	if (_anim_index >= _jsons.size())
 	{
@@ -165,13 +165,13 @@ void GafFeatures::next_anim()
 		
 }
 
-void GafFeatures::prev_anim()
+void GafFeatures::prev_anim(CCObject*)
 {
 	if (!_jsons.size())
 	{
 		return;
 	}
-	cleanup();
+	cleanup(NULL);
 	--_anim_index;
 	if (_anim_index < 0)
 	{
@@ -180,7 +180,7 @@ void GafFeatures::prev_anim()
 	addObjectsToScene(1);
 }
 
-void GafFeatures::restart()
+void GafFeatures::restart(CCObject*)
 {
 	if (!_objects || !_objects->count())
 	{
@@ -191,7 +191,7 @@ void GafFeatures::restart()
 	object->start();
 }
 
-void GafFeatures::playpause()
+void GafFeatures::playpause(CCObject*)
 {
 	if (!_objects || !_objects->count())
 	{
@@ -242,17 +242,17 @@ int GafFeatures::frameNumber()
 }
 
 
-void GafFeatures::set1()
+void GafFeatures::set1(CCObject*)
 {
 	set(1);
 }
 
-void GafFeatures::set5()
+void GafFeatures::set5(CCObject*)
 {
 	set(5);
 }
 
-void GafFeatures::set10()
+void GafFeatures::set10(CCObject*)
 {
 	set(10);
 }
@@ -279,17 +279,17 @@ void GafFeatures::set(int n)
 	}
 }
 
-void GafFeatures::addOne()
+void GafFeatures::addOne(CCObject*)
 {
 	addObjectsToScene(1);
 }
 
-void GafFeatures::removeOne()
+void GafFeatures::removeOne(CCObject*)
 {
 	removeFromScene(1);
 }
 
-void GafFeatures::cleanup()
+void GafFeatures::cleanup(CCObject*)
 {
 	CC_SAFE_RELEASE_NULL(_asset);
 	if (!_objects)

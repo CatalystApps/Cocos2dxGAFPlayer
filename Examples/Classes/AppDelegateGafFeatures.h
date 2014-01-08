@@ -11,7 +11,7 @@ public:
     virtual bool applicationDidFinishLaunching();
     virtual void applicationDidEnterBackground();
     virtual void applicationWillEnterForeground();	
-	void updateGLstates(float dt);
+    void updateGLstates(float dt);
 };
 
 #endif // _APP_DELEGATE_H_

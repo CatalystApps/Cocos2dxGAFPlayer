@@ -10,17 +10,17 @@ using namespace cocos2d;
 
 class GAFFilterData : public CCObject
 {
-	
+
 };
 
 class GAFBlurFilterData : public GAFFilterData
 {
 public:
-	static GAFBlurFilterData * create(float _blurX, float _blurY);
-	
-	CCSize blurSize;
+    static GAFBlurFilterData * create(float _blurX, float _blurY);
+
+    CCSize blurSize;
 protected:
-	GAFBlurFilterData();
+    GAFBlurFilterData();
 };
 
 #endif // __GAF_FILTER_DATA__

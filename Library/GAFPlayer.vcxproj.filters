@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{9ef8cf67-1c21-48c5-a77c-f1d0ec54bb9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\cJSON">
+      <UniqueIdentifier>{27cc8984-119a-435d-b22f-5093882653fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\ShadersPrecompiled">
+      <UniqueIdentifier>{1169a39c-df34-4412-b3ee-3384e0c77c91}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Sources\CCJSONConverter.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFActionObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFAnimatedObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFAnimation.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFAnimationFrame.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFAnimationSequence.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFAsset.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFFilterData.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFInteractionObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFShaderManager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFSprite.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFSpriteWithAlpha.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFStencilMaskSprite.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFSubobjectState.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFTextureAtlas.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFTextureAtlasElement.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFTextureEffectsConverter.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\cJSON\cJSON.cpp">
+      <Filter>Sources\cJSON</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sources\CCJSONConverter.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CCJSONData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFActionObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFAnimatedObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFAnimation.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFAnimationFrame.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFAnimationSequence.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFAsset.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFFilterData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFInteractionObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFShaderManager.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFSprite.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFSpriteWithAlpha.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFStencilMaskSprite.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFSubobjectState.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTextureAtlas.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTextureAtlasElement.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTextureEffectsConverter.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h">
+      <Filter>Sources\ShadersPrecompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\ShadersPrecompiled\GaussianBlur.h">
+      <Filter>Sources\ShadersPrecompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\ShadersPrecompiled\kGAFScrollLayerAlphaFilterProgramCacheKey.h">
+      <Filter>Sources\ShadersPrecompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\ShadersPrecompiled\kGAFSpriteWithAlphaShaderProgramCache.h">
+      <Filter>Sources\ShadersPrecompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\cJSON\cJSON.h">
+      <Filter>Sources\cJSON</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

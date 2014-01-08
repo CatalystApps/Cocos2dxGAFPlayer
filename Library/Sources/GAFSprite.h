@@ -9,15 +9,15 @@
 
 typedef struct _gafBlendFuncSeparate
 {
-	// source blend function
-	GLenum src;
-	// destination blend function
-	GLenum dst;
+    // source blend function
+    GLenum src;
+    // destination blend function
+    GLenum dst;
     // source alpha channel blend function
-	GLenum srcAlpha;
+    GLenum srcAlpha;
     // destination alpha channel blend function
-	GLenum dstAlpha;
-    
+    GLenum dstAlpha;
+
 } gafBlendFuncSeparate;
 
 using namespace cocos2d;
@@ -25,40 +25,40 @@ using namespace cocos2d;
 class GAFSprite : public CCSprite
 {
 public:
-	GAFSprite();
-	void setExternaTransform(const CCAffineTransform& transform);
-	void setChildTransform(const CCAffineTransform& transform);
+    GAFSprite();
+    void setExternaTransform(const CCAffineTransform& transform);
+    void setChildTransform(const CCAffineTransform& transform);
     //virtual CCAffineTransform nodeToParentTransform(void);
-	std::string objectId;
-	virtual void draw();
-	virtual void setUniformsForFragmentShader();
+    std::string objectId;
+    virtual void draw();
+    virtual void setUniformsForFragmentShader();
 
-	inline const CCAffineTransform &childTransform() const
-	{
-		return _childTransform;
-	}
-	const CCAffineTransform& getExternalTransform() const
-	{
-		return _externalTransform;
-	}
-	inline void setLocator(bool locator)
-	{
-		_isLocator = locator;
-	}
-	void setAtlasScale(float scale);
-	CCAffineTransform nodeToParentTransform(void);
-	void setTexture(CCTexture2D *texture);
-	bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
+    inline const CCAffineTransform &childTransform() const
+    {
+        return _childTransform;
+    }
+    const CCAffineTransform& getExternalTransform() const
+    {
+        return _externalTransform;
+    }
+    inline void setLocator(bool locator)
+    {
+        _isLocator = locator;
+    }
+    void setAtlasScale(float scale);
+    CCAffineTransform nodeToParentTransform(void);
+    void setTexture(CCTexture2D *texture);
+    bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
 protected:
-	CCAffineTransform _externalTransform;
-	CCAffineTransform _childTransform;
-	void invalidateTransformCache();
+    CCAffineTransform _externalTransform;
+    CCAffineTransform _childTransform;
+    void invalidateTransformCache();
 private:
-	gafBlendFuncSeparate _blendFuncSeparate;
-	bool _useSeparateBlendFunc;
-	bool _isLocator;
-	GLint _blendEquation;
-	float _atlasScale;
+    gafBlendFuncSeparate _blendFuncSeparate;
+    bool _useSeparateBlendFunc;
+    bool _isLocator;
+    GLint _blendEquation;
+    float _atlasScale;
 };
 
 

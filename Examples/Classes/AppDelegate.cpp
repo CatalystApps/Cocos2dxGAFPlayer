@@ -9,14 +9,12 @@
 #include "AppDelegate.h"
 
 #include "cocos2d.h"
-#include "SimpleAudioEngine.h"
 #include "GafFeatures.h"
 #include <vector>
 #include <string>
 
 static int const kGlobalFPS = 30.0;
 USING_NS_CC;
-using namespace CocosDenshion;
 
 AppDelegate::AppDelegate()
 {
@@ -31,7 +29,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 {
     // initialize director
 	std::vector<std::string> paths;
-	paths.push_back("Shaders");
+	//paths.push_back("Shaders");
+    paths.push_back("Resources");
 	
 	CCFileUtils::sharedFileUtils()->setSearchPaths(paths);
     CCDirector *pDirector = CCDirector::sharedDirector();
@@ -59,14 +58,23 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     CCDirector::sharedDirector()->stopAnimation();
-    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->pauseAllEffects();
 }
-
 
 void AppDelegate::applicationWillEnterForeground()
 {
     CCDirector::sharedDirector()->startAnimation();
-    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+}
+
+int WINAPI WinMain(__in HINSTANCE hInstance,
+    __in_opt HINSTANCE hPrevInstance,
+    __in LPSTR lpCmdLine,
+    __in int nShowCmd
+    )
+{
+    AppDelegate app;
+    CCEGLView* eglView = CCEGLView::sharedOpenGLView();
+    eglView->setViewName("GAF Animation sample");
+    eglView->setFrameSize(1024, 768);
+
+    return CCApplication::sharedApplication()->run();
 }

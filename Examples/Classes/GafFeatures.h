@@ -28,22 +28,22 @@ public:
 	
 	CCMenuItemImage * addBtn(const char * text, float px, float py, SEL_MenuHandler handler, float k = 1);
 
-	void black();
-	void white();
-	void gray();
-	void addOne();
-	void prevFrame();
-	void nextFrame();
-	void removeOne();
-	void set1();
-	void set5();
-	void set10();
+    void black(CCObject*);
+    void white(CCObject*);
+    void gray(CCObject*);
+    void addOne(CCObject*);
+    void prevFrame(CCObject*);
+    void nextFrame(CCObject*);
+    void removeOne(CCObject*);
+    void set1(CCObject*);
+    void set5(CCObject*);
+    void set10(CCObject*);
 	void set(int n);
-	void restart();
-	void playpause();
-	void cleanup();
-	void next_anim();
-	void prev_anim();
+    void restart(CCObject*);
+    void playpause(CCObject*);
+    void cleanup(CCObject*);
+    void next_anim(CCObject*);
+    void prev_anim(CCObject*);
 	int maxFrameNumber();
 	void setFrameNumber(int aFrameNumber);
 	int frameNumber();

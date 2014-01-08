@@ -8,7 +8,7 @@
 
 namespace cocos2d
 {
-	class CCDictionary;
+    class CCDictionary;
 }
 
 using namespace cocos2d;
@@ -16,16 +16,16 @@ using namespace cocos2d;
 class GAFTextureAtlasElement : public CCObject
 {
 public:
-	std::string name;	
-	CCPoint     pivotPoint;
-	CCRect      bounds;
-	float       scale;
-	int         atlasIdx;
+    std::string name;
+    CCPoint     pivotPoint;
+    CCRect      bounds;
+    float       scale;
+    unsigned int atlasIdx;
 
-	static GAFTextureAtlasElement * create(CCDictionary * aDictionary);
-	bool initWithDictionary(CCDictionary * aDictionary);
+    static GAFTextureAtlasElement * create(CCDictionary * aDictionary);
+    bool initWithDictionary(CCDictionary * aDictionary);
 private:
-	GAFTextureAtlasElement();
+    GAFTextureAtlasElement();
 }; // GAFTextureAtlasElement
 
 #endif // __GAF_TEXTURE_ATLAS_ELEMENT__

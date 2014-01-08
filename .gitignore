@@ -11,3 +11,16 @@
 *.lai
 *.la
 *.a
+Library/Sources/html
+Library/Sources/latex
+# Compiled Static libraries
+#*.exe
+*.ilk
+*.tlog
+*.obj
+*.user
+*.opensdf
+*.sdf
+*.suo
+*.idb
+*.pdb

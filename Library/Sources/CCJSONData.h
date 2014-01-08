@@ -13,11 +13,11 @@ private:
     double m_dValue;
 public:
     CCNumber(int v)
-    : m_nValue(v),m_dValue(v) {}
-    
+        : m_nValue(v), m_dValue(v) {}
+
     CCNumber(double v)
-    : m_nValue(v),m_dValue(v) {}
-    
+        : m_nValue(static_cast<int>(v)), m_dValue(v) {}
+
     static CCNumber * create(int v)
     {
         CCNumber* pRet = new CCNumber(v);
@@ -30,10 +30,10 @@ public:
         pRet->autorelease();
         return pRet;
     }
-    int getIntValue() const {return m_nValue;}
-    double getDoubleValue() const {return m_dValue;}
-    void setValue(int v)  { m_nValue=v; m_dValue=v;}
-    void setValue(double v)  { m_nValue=v; m_dValue=v;}
+    int getIntValue() const { return m_nValue; }
+    double getDoubleValue() const { return m_dValue; }
+    void setValue(int v)  { m_nValue = v; m_dValue = v; }
+    void setValue(double v)  { m_nValue = static_cast<int>(v); m_dValue = v; }
 };
 
 class CCNull : public CCObject {

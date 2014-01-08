@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GAFPlayer", "Library\GAFPlayer.vcxproj", "{4E240210-2D26-4D4C-9329-E912FDAC94CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Examples", "Examples\Examples.vcxproj", "{EEB05DD6-9AF2-4343-B477-4C43419749EF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcocos2d", "..\..\cocos2dx\proj.win32\cocos2d.vcxproj", "{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Debug|Win32.Build.0 = Debug|Win32
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Release|Win32.ActiveCfg = Release|Win32
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Release|Win32.Build.0 = Release|Win32
+		{EEB05DD6-9AF2-4343-B477-4C43419749EF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EEB05DD6-9AF2-4343-B477-4C43419749EF}.Debug|Win32.Build.0 = Debug|Win32
+		{EEB05DD6-9AF2-4343-B477-4C43419749EF}.Release|Win32.ActiveCfg = Release|Win32
+		{EEB05DD6-9AF2-4343-B477-4C43419749EF}.Release|Win32.Build.0 = Release|Win32
+		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Debug|Win32.Build.0 = Debug|Win32
+		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Release|Win32.ActiveCfg = Release|Win32
+		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

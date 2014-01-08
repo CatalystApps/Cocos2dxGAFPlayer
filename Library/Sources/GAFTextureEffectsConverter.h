@@ -9,10 +9,10 @@
 
 namespace cocos2d
 {
-	class CCTexture2D;
-	class CCRenderTexture;
-	class CCDictionary;
-	class CCGLProgram;
+    class CCTexture2D;
+    class CCRenderTexture;
+    class CCDictionary;
+    class CCGLProgram;
 }
 
 using namespace cocos2d;
@@ -20,13 +20,13 @@ using namespace cocos2d;
 class GAFTextureEffectsConverter : public CCObject
 {
 public:
-	GAFTextureEffectsConverter();
-	~GAFTextureEffectsConverter();
-	static GAFTextureEffectsConverter * sharedConverter();
-	CCRenderTexture * gaussianBlurredTextureFromTexture(CCTexture2D * aTexture, const CCRect& rect, float aBlurRadiusX, float aBlurRadiusY);
-	static CCGLProgram * programForBlurShaderWithName(const char * aShaderName, const char * aVertexShaderFile, const char * aFragmentShaderFile);
+    GAFTextureEffectsConverter();
+    ~GAFTextureEffectsConverter();
+    static GAFTextureEffectsConverter * sharedConverter();
+    CCRenderTexture * gaussianBlurredTextureFromTexture(CCTexture2D * aTexture, const CCRect& rect, float aBlurRadiusX, float aBlurRadiusY);
+    static CCGLProgram * programForBlurShaderWithName(const char * aShaderName, const char * aVertexShaderFile, const char * aFragmentShaderFile);
 private:
-	CCDictionary * _vertexShaderUniforms;
+    CCDictionary * _vertexShaderUniforms;
 };
 
 

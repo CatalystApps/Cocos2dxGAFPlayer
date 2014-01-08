@@ -13,15 +13,15 @@ class GAFAnimatable;
 
 namespace cocos2d
 {
-	class CCDictionary;
+    class CCDictionary;
 }
 
 using namespace cocos2d;
 
 enum AnimSetSequenceHint
 {
-	ASSH_CONTINUE,
-	ASSH_RESTART
+    ASSH_CONTINUE,
+    ASSH_RESTART
 };
 
 class GAFAnimatedObject;
@@ -29,57 +29,58 @@ class GAFAnimatedObject;
 class GAFSequenceDelegate
 {
 public:
-	virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName) = 0;
+    virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName) = 0;
 };
 
 class GAFAnimation
 {
 public:
-	~GAFAnimation();
-	bool init(GAFAsset * anAnimationData);
-	
-	virtual void processAnimation();
-	virtual void start();
-	virtual void pause();
-	virtual void resume();
-	virtual void stop();
-	virtual void step();
-	
-	bool isDone() const;
-	bool isAnimationRunning() const;
-	bool isLooped() const;
-	void setLooped(bool looped);
-	int totalFrameCount() const;
-	int currentFrameIndex() const;
+    ~GAFAnimation();
+    bool init(GAFAsset * anAnimationData);
 
-	bool setFrame(int index);
-	
-	bool gotoAndStop(const char * frameLabel);
-	bool gotoAndStop(int frameNumber);
-	
-	bool gotoAndPlay(const char * frameLabel);
-	bool gotoAndPlay(int frameNumber);
-	
-	
-	int getStartFrame(const char * frameLabel);
-	int getEndFrame(const char * frameLabel);
-	
-	bool playSequence(const char * name, bool looped = false, bool resume = true, AnimSetSequenceHint hint = ASSH_RESTART);
-	void clearSequence();
-	// do not forget to call setSequenceDelegate(NULL) before deleting your subscriber
-	void setSequenceDelegate(GAFSequenceDelegate * delegate);
+    virtual void processAnimation();
+    virtual void start();
+    virtual void pause();
+    virtual void resume();
+    virtual void stop();
+    virtual void step();
+
+    bool isDone() const;
+    bool isAnimationRunning() const;
+    bool isLooped() const;
+    void setLooped(bool looped);
+    int totalFrameCount() const;
+    int currentFrameIndex() const;
+
+    bool setFrame(int index);
+
+    bool gotoAndStop(const char * frameLabel);
+    bool gotoAndStop(int frameNumber);
+
+    bool gotoAndPlay(const char * frameLabel);
+    bool gotoAndPlay(int frameNumber);
+
+
+    int getStartFrame(const char * frameLabel);
+    int getEndFrame(const char * frameLabel);
+
+    bool playSequence(const char * name, bool looped = false, bool resume = true, AnimSetSequenceHint hint = ASSH_RESTART);
+    void clearSequence();
+    // do not forget to call setSequenceDelegate(NULL) before deleting your subscriber
+    void setSequenceDelegate(GAFSequenceDelegate * delegate);
+    bool hasSequences() const;
 protected:
-	GAFAnimation();
+    GAFAnimation();
 protected:
-	GAFAsset * _asset;
-	int _currentFrameIndex;
+    GAFAsset * _asset;
+    int _currentFrameIndex;
 private:
-	GAFSequenceDelegate * _sequenceDelegate;
-	int _totalFrameCount;
-	int _currentSequenceStart;
-	int _currentSequenceEnd;
-	bool _isRunning;
-	bool _isLooped;
+    GAFSequenceDelegate * _sequenceDelegate;
+    int _totalFrameCount;
+    int _currentSequenceStart;
+    int _currentSequenceEnd;
+    bool _isRunning;
+    bool _isLooped;
 };
 
 

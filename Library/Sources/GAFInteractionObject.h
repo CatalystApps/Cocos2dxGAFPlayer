@@ -8,7 +8,7 @@
 
 namespace cocos2d
 {
-	class CCDictionary;
+    class CCDictionary;
 }
 
 using namespace cocos2d;
@@ -16,14 +16,14 @@ using namespace cocos2d;
 class GAFInteractionObject : public CCObject
 {
 public:
-	std::string name; // TODO : think what is it better than CCString
-	CCPoint     pivotPoint;
-	CCRect      bounds;
-	
-	static GAFInteractionObject * create(CCDictionary * aDictionary);
-	bool initWithDictionary(CCDictionary * aDictionary);
+    std::string name; // TODO : think what is it better than CCString
+    CCPoint     pivotPoint;
+    CCRect      bounds;
+
+    static GAFInteractionObject * create(CCDictionary * aDictionary);
+    bool initWithDictionary(CCDictionary * aDictionary);
 protected:
-	GAFInteractionObject();
+    GAFInteractionObject();
 
 }; // GAFInteractionObject
 
