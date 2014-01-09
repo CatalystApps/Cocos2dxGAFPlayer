@@ -24,3 +24,11 @@ Library/Sources/latex
 *.suo
 *.idb
 *.pdb
+
+/Debug.win32
+
+/Debug
+
+/Examples/Debug
+
+/Library/Debug
