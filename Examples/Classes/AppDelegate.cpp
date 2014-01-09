@@ -65,6 +65,8 @@ void AppDelegate::applicationWillEnterForeground()
     CCDirector::sharedDirector()->startAnimation();
 }
 
+#ifdef WIN32
+
 int WINAPI WinMain(__in HINSTANCE hInstance,
     __in_opt HINSTANCE hPrevInstance,
     __in LPSTR lpCmdLine,
@@ -78,3 +80,5 @@ int WINAPI WinMain(__in HINSTANCE hInstance,
 
     return CCApplication::sharedApplication()->run();
 }
+
+#endif

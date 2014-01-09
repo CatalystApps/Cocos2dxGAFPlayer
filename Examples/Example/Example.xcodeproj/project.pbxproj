@@ -1,0 +1,772 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CF59E90B187DAB2D003A6524 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90A187DAB2D003A6524 /* Foundation.framework */; };
+		CF59E90D187DAB2D003A6524 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */; };
+		CF59E90F187DAB2D003A6524 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90E187DAB2D003A6524 /* UIKit.framework */; };
+		CF59E915187DAB2D003A6524 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF59E913187DAB2D003A6524 /* InfoPlist.strings */; };
+		CF59E917187DAB2D003A6524 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF59E916187DAB2D003A6524 /* main.m */; };
+		CF59E91D187DAB2D003A6524 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF59E91C187DAB2D003A6524 /* Images.xcassets */; };
+		CF59E924187DAB2D003A6524 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E923187DAB2D003A6524 /* XCTest.framework */; };
+		CF59E925187DAB2D003A6524 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90A187DAB2D003A6524 /* Foundation.framework */; };
+		CF59E926187DAB2D003A6524 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90E187DAB2D003A6524 /* UIKit.framework */; };
+		CF59E92E187DAB2D003A6524 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF59E92C187DAB2D003A6524 /* InfoPlist.strings */; };
+		CF59E930187DAB2D003A6524 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CF59E92F187DAB2D003A6524 /* ExampleTests.m */; };
+		CF59E93D187DB29D003A6524 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E939187DB29D003A6524 /* AppDelegate.cpp */; };
+		CF59E93E187DB29D003A6524 /* GafFeatures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E93B187DB29D003A6524 /* GafFeatures.cpp */; };
+		CF59E96D187DB3DB003A6524 /* CCJSONConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E941187DB3DB003A6524 /* CCJSONConverter.cpp */; };
+		CF59E96E187DB3DB003A6524 /* cJSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E945187DB3DB003A6524 /* cJSON.cpp */; };
+		CF59E96F187DB3DB003A6524 /* GAFActionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E947187DB3DB003A6524 /* GAFActionObject.cpp */; };
+		CF59E970187DB3DB003A6524 /* GAFAnimatedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E949187DB3DB003A6524 /* GAFAnimatedObject.cpp */; };
+		CF59E971187DB3DB003A6524 /* GAFAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E94B187DB3DB003A6524 /* GAFAnimation.cpp */; };
+		CF59E972187DB3DB003A6524 /* GAFAnimationFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E94D187DB3DB003A6524 /* GAFAnimationFrame.cpp */; };
+		CF59E973187DB3DB003A6524 /* GAFAnimationSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E94F187DB3DB003A6524 /* GAFAnimationSequence.cpp */; };
+		CF59E974187DB3DB003A6524 /* GAFAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E951187DB3DB003A6524 /* GAFAsset.cpp */; };
+		CF59E975187DB3DB003A6524 /* GAFFilterData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E954187DB3DB003A6524 /* GAFFilterData.cpp */; };
+		CF59E976187DB3DB003A6524 /* GAFInteractionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E956187DB3DB003A6524 /* GAFInteractionObject.cpp */; };
+		CF59E977187DB3DB003A6524 /* GAFShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E958187DB3DB003A6524 /* GAFShaderManager.cpp */; };
+		CF59E978187DB3DB003A6524 /* GAFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E95A187DB3DB003A6524 /* GAFSprite.cpp */; };
+		CF59E979187DB3DB003A6524 /* GAFSpriteWithAlpha.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E95C187DB3DB003A6524 /* GAFSpriteWithAlpha.cpp */; };
+		CF59E97A187DB3DB003A6524 /* GAFStencilMaskSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E95E187DB3DB003A6524 /* GAFStencilMaskSprite.cpp */; };
+		CF59E97B187DB3DB003A6524 /* GAFSubobjectState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E960187DB3DB003A6524 /* GAFSubobjectState.cpp */; };
+		CF59E97C187DB3DB003A6524 /* GAFTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E962187DB3DB003A6524 /* GAFTextureAtlas.cpp */; };
+		CF59E97D187DB3DB003A6524 /* GAFTextureAtlasElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E964187DB3DB003A6524 /* GAFTextureAtlasElement.cpp */; };
+		CF59E97E187DB3DB003A6524 /* GAFTextureEffectsConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF59E966187DB3DB003A6524 /* GAFTextureEffectsConverter.cpp */; };
+		CF59E986187DBA11003A6524 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CF59E985187DBA11003A6524 /* AppController.mm */; };
+		CF59E989187DBA49003A6524 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CF59E988187DBA49003A6524 /* RootViewController.mm */; };
+		CF59E98D187DBC78003A6524 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E98B187DBC78003A6524 /* OpenAL.framework */; };
+		CF59E98E187DBC78003A6524 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E98C187DBC78003A6524 /* OpenGLES.framework */; };
+		CF59E990187DBC87003A6524 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E98F187DBC87003A6524 /* QuartzCore.framework */; };
+		CF59E992187DBC8E003A6524 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E991187DBC8E003A6524 /* AudioToolbox.framework */; };
+		CF59E994187DBC94003A6524 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E993187DBC94003A6524 /* AVFoundation.framework */; };
+		CF59E9A0187DC19E003A6524 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E99F187DC19E003A6524 /* libz.dylib */; };
+		CF59E9A3187DC4A1003A6524 /* libcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E99A187DBCD8003A6524 /* libcocos2dx.a */; };
+		CF59E9C1187DC54F003A6524 /* button_off.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9A5187DC54F003A6524 /* button_off.png */; };
+		CF59E9C2187DC54F003A6524 /* button_on.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9A6187DC54F003A6524 /* button_on.png */; };
+		CF59E9C3187DC54F003A6524 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9A7187DC54F003A6524 /* CloseNormal.png */; };
+		CF59E9C4187DC54F003A6524 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9A8187DC54F003A6524 /* CloseSelected.png */; };
+		CF59E9D7187DC928003A6524 /* SampleAnimations in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9D6187DC928003A6524 /* SampleAnimations */; };
+		CF59E9D9187DC93A003A6524 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9D8187DC93A003A6524 /* Shaders */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CF59E927187DAB2D003A6524 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CF59E8FF187DAB2D003A6524 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CF59E906187DAB2D003A6524;
+			remoteInfo = Example;
+		};
+		CF59E999187DBCD8003A6524 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CF59E995187DBCD8003A6524 /* cocos2dx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1551A33F158F2AB200E66CFE;
+			remoteInfo = cocos2dx;
+		};
+		CF59E9A1187DC496003A6524 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CF59E995187DBCD8003A6524 /* cocos2dx.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1551A33E158F2AB200E66CFE;
+			remoteInfo = cocos2dx;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CF59E907187DAB2D003A6524 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF59E90A187DAB2D003A6524 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CF59E90E187DAB2D003A6524 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CF59E912187DAB2D003A6524 /* Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Example-Info.plist"; sourceTree = "<group>"; };
+		CF59E914187DAB2D003A6524 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF59E916187DAB2D003A6524 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CF59E918187DAB2D003A6524 /* Example-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Prefix.pch"; sourceTree = "<group>"; };
+		CF59E91C187DAB2D003A6524 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CF59E922187DAB2D003A6524 /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF59E923187DAB2D003A6524 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CF59E92B187DAB2D003A6524 /* ExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ExampleTests-Info.plist"; sourceTree = "<group>"; };
+		CF59E92D187DAB2D003A6524 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF59E92F187DAB2D003A6524 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
+		CF59E939187DB29D003A6524 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
+		CF59E93A187DB29D003A6524 /* AppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = AppDelegate.h; path = ../../Classes/AppDelegate.h; sourceTree = "<group>"; };
+		CF59E93B187DB29D003A6524 /* GafFeatures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GafFeatures.cpp; path = ../../Classes/GafFeatures.cpp; sourceTree = "<group>"; };
+		CF59E93C187DB29D003A6524 /* GafFeatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GafFeatures.h; path = ../../Classes/GafFeatures.h; sourceTree = "<group>"; };
+		CF59E941187DB3DB003A6524 /* CCJSONConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCJSONConverter.cpp; path = ../../../Library/Sources/CCJSONConverter.cpp; sourceTree = "<group>"; };
+		CF59E942187DB3DB003A6524 /* CCJSONConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCJSONConverter.h; path = ../../../Library/Sources/CCJSONConverter.h; sourceTree = "<group>"; };
+		CF59E943187DB3DB003A6524 /* CCJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCJSONData.h; path = ../../../Library/Sources/CCJSONData.h; sourceTree = "<group>"; };
+		CF59E945187DB3DB003A6524 /* cJSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cJSON.cpp; sourceTree = "<group>"; };
+		CF59E946187DB3DB003A6524 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		CF59E947187DB3DB003A6524 /* GAFActionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFActionObject.cpp; path = ../../../Library/Sources/GAFActionObject.cpp; sourceTree = "<group>"; };
+		CF59E948187DB3DB003A6524 /* GAFActionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFActionObject.h; path = ../../../Library/Sources/GAFActionObject.h; sourceTree = "<group>"; };
+		CF59E949187DB3DB003A6524 /* GAFAnimatedObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAnimatedObject.cpp; path = ../../../Library/Sources/GAFAnimatedObject.cpp; sourceTree = "<group>"; };
+		CF59E94A187DB3DB003A6524 /* GAFAnimatedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAnimatedObject.h; path = ../../../Library/Sources/GAFAnimatedObject.h; sourceTree = "<group>"; };
+		CF59E94B187DB3DB003A6524 /* GAFAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAnimation.cpp; path = ../../../Library/Sources/GAFAnimation.cpp; sourceTree = "<group>"; };
+		CF59E94C187DB3DB003A6524 /* GAFAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAnimation.h; path = ../../../Library/Sources/GAFAnimation.h; sourceTree = "<group>"; };
+		CF59E94D187DB3DB003A6524 /* GAFAnimationFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAnimationFrame.cpp; path = ../../../Library/Sources/GAFAnimationFrame.cpp; sourceTree = "<group>"; };
+		CF59E94E187DB3DB003A6524 /* GAFAnimationFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAnimationFrame.h; path = ../../../Library/Sources/GAFAnimationFrame.h; sourceTree = "<group>"; };
+		CF59E94F187DB3DB003A6524 /* GAFAnimationSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAnimationSequence.cpp; path = ../../../Library/Sources/GAFAnimationSequence.cpp; sourceTree = "<group>"; };
+		CF59E950187DB3DB003A6524 /* GAFAnimationSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAnimationSequence.h; path = ../../../Library/Sources/GAFAnimationSequence.h; sourceTree = "<group>"; };
+		CF59E951187DB3DB003A6524 /* GAFAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAsset.cpp; path = ../../../Library/Sources/GAFAsset.cpp; sourceTree = "<group>"; };
+		CF59E952187DB3DB003A6524 /* GAFAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAsset.h; path = ../../../Library/Sources/GAFAsset.h; sourceTree = "<group>"; };
+		CF59E953187DB3DB003A6524 /* GAFData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFData.h; path = ../../../Library/Sources/GAFData.h; sourceTree = "<group>"; };
+		CF59E954187DB3DB003A6524 /* GAFFilterData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFFilterData.cpp; path = ../../../Library/Sources/GAFFilterData.cpp; sourceTree = "<group>"; };
+		CF59E955187DB3DB003A6524 /* GAFFilterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFFilterData.h; path = ../../../Library/Sources/GAFFilterData.h; sourceTree = "<group>"; };
+		CF59E956187DB3DB003A6524 /* GAFInteractionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFInteractionObject.cpp; path = ../../../Library/Sources/GAFInteractionObject.cpp; sourceTree = "<group>"; };
+		CF59E957187DB3DB003A6524 /* GAFInteractionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFInteractionObject.h; path = ../../../Library/Sources/GAFInteractionObject.h; sourceTree = "<group>"; };
+		CF59E958187DB3DB003A6524 /* GAFShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFShaderManager.cpp; path = ../../../Library/Sources/GAFShaderManager.cpp; sourceTree = "<group>"; };
+		CF59E959187DB3DB003A6524 /* GAFShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFShaderManager.h; path = ../../../Library/Sources/GAFShaderManager.h; sourceTree = "<group>"; };
+		CF59E95A187DB3DB003A6524 /* GAFSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFSprite.cpp; path = ../../../Library/Sources/GAFSprite.cpp; sourceTree = "<group>"; };
+		CF59E95B187DB3DB003A6524 /* GAFSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFSprite.h; path = ../../../Library/Sources/GAFSprite.h; sourceTree = "<group>"; };
+		CF59E95C187DB3DB003A6524 /* GAFSpriteWithAlpha.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFSpriteWithAlpha.cpp; path = ../../../Library/Sources/GAFSpriteWithAlpha.cpp; sourceTree = "<group>"; };
+		CF59E95D187DB3DB003A6524 /* GAFSpriteWithAlpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFSpriteWithAlpha.h; path = ../../../Library/Sources/GAFSpriteWithAlpha.h; sourceTree = "<group>"; };
+		CF59E95E187DB3DB003A6524 /* GAFStencilMaskSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFStencilMaskSprite.cpp; path = ../../../Library/Sources/GAFStencilMaskSprite.cpp; sourceTree = "<group>"; };
+		CF59E95F187DB3DB003A6524 /* GAFStencilMaskSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFStencilMaskSprite.h; path = ../../../Library/Sources/GAFStencilMaskSprite.h; sourceTree = "<group>"; };
+		CF59E960187DB3DB003A6524 /* GAFSubobjectState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFSubobjectState.cpp; path = ../../../Library/Sources/GAFSubobjectState.cpp; sourceTree = "<group>"; };
+		CF59E961187DB3DB003A6524 /* GAFSubobjectState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFSubobjectState.h; path = ../../../Library/Sources/GAFSubobjectState.h; sourceTree = "<group>"; };
+		CF59E962187DB3DB003A6524 /* GAFTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextureAtlas.cpp; path = ../../../Library/Sources/GAFTextureAtlas.cpp; sourceTree = "<group>"; };
+		CF59E963187DB3DB003A6524 /* GAFTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextureAtlas.h; path = ../../../Library/Sources/GAFTextureAtlas.h; sourceTree = "<group>"; };
+		CF59E964187DB3DB003A6524 /* GAFTextureAtlasElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextureAtlasElement.cpp; path = ../../../Library/Sources/GAFTextureAtlasElement.cpp; sourceTree = "<group>"; };
+		CF59E965187DB3DB003A6524 /* GAFTextureAtlasElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextureAtlasElement.h; path = ../../../Library/Sources/GAFTextureAtlasElement.h; sourceTree = "<group>"; };
+		CF59E966187DB3DB003A6524 /* GAFTextureEffectsConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextureEffectsConverter.cpp; path = ../../../Library/Sources/GAFTextureEffectsConverter.cpp; sourceTree = "<group>"; };
+		CF59E967187DB3DB003A6524 /* GAFTextureEffectsConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextureEffectsConverter.h; path = ../../../Library/Sources/GAFTextureEffectsConverter.h; sourceTree = "<group>"; };
+		CF59E969187DB3DB003A6524 /* GAFPrecompiledShaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFPrecompiledShaders.h; sourceTree = "<group>"; };
+		CF59E96A187DB3DB003A6524 /* GaussianBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaussianBlur.h; sourceTree = "<group>"; };
+		CF59E96B187DB3DB003A6524 /* kGAFScrollLayerAlphaFilterProgramCacheKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kGAFScrollLayerAlphaFilterProgramCacheKey.h; sourceTree = "<group>"; };
+		CF59E96C187DB3DB003A6524 /* kGAFSpriteWithAlphaShaderProgramCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kGAFSpriteWithAlphaShaderProgramCache.h; sourceTree = "<group>"; };
+		CF59E984187DBA11003A6524 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ../../Classes/AppController.h; sourceTree = "<group>"; };
+		CF59E985187DBA11003A6524 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = ../../Classes/AppController.mm; sourceTree = "<group>"; };
+		CF59E987187DBA49003A6524 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = ../../Classes/RootViewController.h; sourceTree = "<group>"; };
+		CF59E988187DBA49003A6524 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RootViewController.mm; path = ../../Classes/RootViewController.mm; sourceTree = "<group>"; };
+		CF59E98B187DBC78003A6524 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		CF59E98C187DBC78003A6524 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		CF59E98F187DBC87003A6524 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CF59E991187DBC8E003A6524 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CF59E993187DBC94003A6524 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CF59E995187DBCD8003A6524 /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = ../../../../cocos2dx/proj.ios/cocos2dx.xcodeproj; sourceTree = "<group>"; };
+		CF59E99F187DC19E003A6524 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CF59E9A5187DC54F003A6524 /* button_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_off.png; sourceTree = "<group>"; };
+		CF59E9A6187DC54F003A6524 /* button_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_on.png; sourceTree = "<group>"; };
+		CF59E9A7187DC54F003A6524 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
+		CF59E9A8187DC54F003A6524 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
+		CF59E9D6187DC928003A6524 /* SampleAnimations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleAnimations; sourceTree = "<group>"; };
+		CF59E9D8187DC93A003A6524 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CF59E904187DAB2D003A6524 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF59E9A3187DC4A1003A6524 /* libcocos2dx.a in Frameworks */,
+				CF59E9A0187DC19E003A6524 /* libz.dylib in Frameworks */,
+				CF59E994187DBC94003A6524 /* AVFoundation.framework in Frameworks */,
+				CF59E992187DBC8E003A6524 /* AudioToolbox.framework in Frameworks */,
+				CF59E990187DBC87003A6524 /* QuartzCore.framework in Frameworks */,
+				CF59E98D187DBC78003A6524 /* OpenAL.framework in Frameworks */,
+				CF59E98E187DBC78003A6524 /* OpenGLES.framework in Frameworks */,
+				CF59E90D187DAB2D003A6524 /* CoreGraphics.framework in Frameworks */,
+				CF59E90F187DAB2D003A6524 /* UIKit.framework in Frameworks */,
+				CF59E90B187DAB2D003A6524 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF59E91F187DAB2D003A6524 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF59E924187DAB2D003A6524 /* XCTest.framework in Frameworks */,
+				CF59E926187DAB2D003A6524 /* UIKit.framework in Frameworks */,
+				CF59E925187DAB2D003A6524 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CF59E8FE187DAB2D003A6524 = {
+			isa = PBXGroup;
+			children = (
+				CF59E9A4187DC54F003A6524 /* Resources */,
+				CF59E995187DBCD8003A6524 /* cocos2dx.xcodeproj */,
+				CF59E910187DAB2D003A6524 /* Example */,
+				CF59E929187DAB2D003A6524 /* ExampleTests */,
+				CF59E909187DAB2D003A6524 /* Frameworks */,
+				CF59E908187DAB2D003A6524 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CF59E908187DAB2D003A6524 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E907187DAB2D003A6524 /* Example.app */,
+				CF59E922187DAB2D003A6524 /* ExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF59E909187DAB2D003A6524 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E99F187DC19E003A6524 /* libz.dylib */,
+				CF59E993187DBC94003A6524 /* AVFoundation.framework */,
+				CF59E991187DBC8E003A6524 /* AudioToolbox.framework */,
+				CF59E98F187DBC87003A6524 /* QuartzCore.framework */,
+				CF59E98B187DBC78003A6524 /* OpenAL.framework */,
+				CF59E98C187DBC78003A6524 /* OpenGLES.framework */,
+				CF59E90A187DAB2D003A6524 /* Foundation.framework */,
+				CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */,
+				CF59E90E187DAB2D003A6524 /* UIKit.framework */,
+				CF59E923187DAB2D003A6524 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF59E910187DAB2D003A6524 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E97F187DB9A1003A6524 /* ios */,
+				CF59E940187DB3C8003A6524 /* Library */,
+				CF59E939187DB29D003A6524 /* AppDelegate.cpp */,
+				CF59E93A187DB29D003A6524 /* AppDelegate.h */,
+				CF59E93B187DB29D003A6524 /* GafFeatures.cpp */,
+				CF59E93C187DB29D003A6524 /* GafFeatures.h */,
+				CF59E91C187DAB2D003A6524 /* Images.xcassets */,
+				CF59E911187DAB2D003A6524 /* Supporting Files */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		CF59E911187DAB2D003A6524 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E912187DAB2D003A6524 /* Example-Info.plist */,
+				CF59E913187DAB2D003A6524 /* InfoPlist.strings */,
+				CF59E916187DAB2D003A6524 /* main.m */,
+				CF59E918187DAB2D003A6524 /* Example-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CF59E929187DAB2D003A6524 /* ExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E92F187DAB2D003A6524 /* ExampleTests.m */,
+				CF59E92A187DAB2D003A6524 /* Supporting Files */,
+			);
+			path = ExampleTests;
+			sourceTree = "<group>";
+		};
+		CF59E92A187DAB2D003A6524 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E92B187DAB2D003A6524 /* ExampleTests-Info.plist */,
+				CF59E92C187DAB2D003A6524 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CF59E940187DB3C8003A6524 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E941187DB3DB003A6524 /* CCJSONConverter.cpp */,
+				CF59E942187DB3DB003A6524 /* CCJSONConverter.h */,
+				CF59E943187DB3DB003A6524 /* CCJSONData.h */,
+				CF59E944187DB3DB003A6524 /* cJSON */,
+				CF59E947187DB3DB003A6524 /* GAFActionObject.cpp */,
+				CF59E948187DB3DB003A6524 /* GAFActionObject.h */,
+				CF59E949187DB3DB003A6524 /* GAFAnimatedObject.cpp */,
+				CF59E94A187DB3DB003A6524 /* GAFAnimatedObject.h */,
+				CF59E94B187DB3DB003A6524 /* GAFAnimation.cpp */,
+				CF59E94C187DB3DB003A6524 /* GAFAnimation.h */,
+				CF59E94D187DB3DB003A6524 /* GAFAnimationFrame.cpp */,
+				CF59E94E187DB3DB003A6524 /* GAFAnimationFrame.h */,
+				CF59E94F187DB3DB003A6524 /* GAFAnimationSequence.cpp */,
+				CF59E950187DB3DB003A6524 /* GAFAnimationSequence.h */,
+				CF59E951187DB3DB003A6524 /* GAFAsset.cpp */,
+				CF59E952187DB3DB003A6524 /* GAFAsset.h */,
+				CF59E953187DB3DB003A6524 /* GAFData.h */,
+				CF59E954187DB3DB003A6524 /* GAFFilterData.cpp */,
+				CF59E955187DB3DB003A6524 /* GAFFilterData.h */,
+				CF59E956187DB3DB003A6524 /* GAFInteractionObject.cpp */,
+				CF59E957187DB3DB003A6524 /* GAFInteractionObject.h */,
+				CF59E958187DB3DB003A6524 /* GAFShaderManager.cpp */,
+				CF59E959187DB3DB003A6524 /* GAFShaderManager.h */,
+				CF59E95A187DB3DB003A6524 /* GAFSprite.cpp */,
+				CF59E95B187DB3DB003A6524 /* GAFSprite.h */,
+				CF59E95C187DB3DB003A6524 /* GAFSpriteWithAlpha.cpp */,
+				CF59E95D187DB3DB003A6524 /* GAFSpriteWithAlpha.h */,
+				CF59E95E187DB3DB003A6524 /* GAFStencilMaskSprite.cpp */,
+				CF59E95F187DB3DB003A6524 /* GAFStencilMaskSprite.h */,
+				CF59E960187DB3DB003A6524 /* GAFSubobjectState.cpp */,
+				CF59E961187DB3DB003A6524 /* GAFSubobjectState.h */,
+				CF59E962187DB3DB003A6524 /* GAFTextureAtlas.cpp */,
+				CF59E963187DB3DB003A6524 /* GAFTextureAtlas.h */,
+				CF59E964187DB3DB003A6524 /* GAFTextureAtlasElement.cpp */,
+				CF59E965187DB3DB003A6524 /* GAFTextureAtlasElement.h */,
+				CF59E966187DB3DB003A6524 /* GAFTextureEffectsConverter.cpp */,
+				CF59E967187DB3DB003A6524 /* GAFTextureEffectsConverter.h */,
+				CF59E968187DB3DB003A6524 /* ShadersPrecompiled */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		CF59E944187DB3DB003A6524 /* cJSON */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E945187DB3DB003A6524 /* cJSON.cpp */,
+				CF59E946187DB3DB003A6524 /* cJSON.h */,
+			);
+			name = cJSON;
+			path = ../../../Library/Sources/cJSON;
+			sourceTree = "<group>";
+		};
+		CF59E968187DB3DB003A6524 /* ShadersPrecompiled */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E969187DB3DB003A6524 /* GAFPrecompiledShaders.h */,
+				CF59E96A187DB3DB003A6524 /* GaussianBlur.h */,
+				CF59E96B187DB3DB003A6524 /* kGAFScrollLayerAlphaFilterProgramCacheKey.h */,
+				CF59E96C187DB3DB003A6524 /* kGAFSpriteWithAlphaShaderProgramCache.h */,
+			);
+			name = ShadersPrecompiled;
+			path = ../../../Library/Sources/ShadersPrecompiled;
+			sourceTree = "<group>";
+		};
+		CF59E97F187DB9A1003A6524 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E984187DBA11003A6524 /* AppController.h */,
+				CF59E985187DBA11003A6524 /* AppController.mm */,
+				CF59E987187DBA49003A6524 /* RootViewController.h */,
+				CF59E988187DBA49003A6524 /* RootViewController.mm */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
+		CF59E996187DBCD8003A6524 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E99A187DBCD8003A6524 /* libcocos2dx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF59E9A4187DC54F003A6524 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CF59E9D8187DC93A003A6524 /* Shaders */,
+				CF59E9D6187DC928003A6524 /* SampleAnimations */,
+				CF59E9A5187DC54F003A6524 /* button_off.png */,
+				CF59E9A6187DC54F003A6524 /* button_on.png */,
+				CF59E9A7187DC54F003A6524 /* CloseNormal.png */,
+				CF59E9A8187DC54F003A6524 /* CloseSelected.png */,
+			);
+			name = Resources;
+			path = ../Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CF59E906187DAB2D003A6524 /* Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF59E933187DAB2D003A6524 /* Build configuration list for PBXNativeTarget "Example" */;
+			buildPhases = (
+				CF59E903187DAB2D003A6524 /* Sources */,
+				CF59E904187DAB2D003A6524 /* Frameworks */,
+				CF59E905187DAB2D003A6524 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CF59E9A2187DC496003A6524 /* PBXTargetDependency */,
+			);
+			name = Example;
+			productName = Example;
+			productReference = CF59E907187DAB2D003A6524 /* Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CF59E921187DAB2D003A6524 /* ExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF59E936187DAB2D003A6524 /* Build configuration list for PBXNativeTarget "ExampleTests" */;
+			buildPhases = (
+				CF59E91E187DAB2D003A6524 /* Sources */,
+				CF59E91F187DAB2D003A6524 /* Frameworks */,
+				CF59E920187DAB2D003A6524 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CF59E928187DAB2D003A6524 /* PBXTargetDependency */,
+			);
+			name = ExampleTests;
+			productName = ExampleTests;
+			productReference = CF59E922187DAB2D003A6524 /* ExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CF59E8FF187DAB2D003A6524 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = CatalystApps;
+				TargetAttributes = {
+					CF59E921187DAB2D003A6524 = {
+						TestTargetID = CF59E906187DAB2D003A6524;
+					};
+				};
+			};
+			buildConfigurationList = CF59E902187DAB2D003A6524 /* Build configuration list for PBXProject "Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF59E8FE187DAB2D003A6524;
+			productRefGroup = CF59E908187DAB2D003A6524 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CF59E996187DBCD8003A6524 /* Products */;
+					ProjectRef = CF59E995187DBCD8003A6524 /* cocos2dx.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				CF59E906187DAB2D003A6524 /* Example */,
+				CF59E921187DAB2D003A6524 /* ExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CF59E99A187DBCD8003A6524 /* libcocos2dx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libcocos2dx.a;
+			remoteRef = CF59E999187DBCD8003A6524 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CF59E905187DAB2D003A6524 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF59E9C2187DC54F003A6524 /* button_on.png in Resources */,
+				CF59E9D9187DC93A003A6524 /* Shaders in Resources */,
+				CF59E9C1187DC54F003A6524 /* button_off.png in Resources */,
+				CF59E9C3187DC54F003A6524 /* CloseNormal.png in Resources */,
+				CF59E915187DAB2D003A6524 /* InfoPlist.strings in Resources */,
+				CF59E9D7187DC928003A6524 /* SampleAnimations in Resources */,
+				CF59E91D187DAB2D003A6524 /* Images.xcassets in Resources */,
+				CF59E9C4187DC54F003A6524 /* CloseSelected.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF59E920187DAB2D003A6524 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF59E92E187DAB2D003A6524 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CF59E903187DAB2D003A6524 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF59E975187DB3DB003A6524 /* GAFFilterData.cpp in Sources */,
+				CF59E986187DBA11003A6524 /* AppController.mm in Sources */,
+				CF59E989187DBA49003A6524 /* RootViewController.mm in Sources */,
+				CF59E96D187DB3DB003A6524 /* CCJSONConverter.cpp in Sources */,
+				CF59E976187DB3DB003A6524 /* GAFInteractionObject.cpp in Sources */,
+				CF59E93D187DB29D003A6524 /* AppDelegate.cpp in Sources */,
+				CF59E970187DB3DB003A6524 /* GAFAnimatedObject.cpp in Sources */,
+				CF59E93E187DB29D003A6524 /* GafFeatures.cpp in Sources */,
+				CF59E97B187DB3DB003A6524 /* GAFSubobjectState.cpp in Sources */,
+				CF59E97C187DB3DB003A6524 /* GAFTextureAtlas.cpp in Sources */,
+				CF59E973187DB3DB003A6524 /* GAFAnimationSequence.cpp in Sources */,
+				CF59E97D187DB3DB003A6524 /* GAFTextureAtlasElement.cpp in Sources */,
+				CF59E96E187DB3DB003A6524 /* cJSON.cpp in Sources */,
+				CF59E917187DAB2D003A6524 /* main.m in Sources */,
+				CF59E978187DB3DB003A6524 /* GAFSprite.cpp in Sources */,
+				CF59E97A187DB3DB003A6524 /* GAFStencilMaskSprite.cpp in Sources */,
+				CF59E97E187DB3DB003A6524 /* GAFTextureEffectsConverter.cpp in Sources */,
+				CF59E96F187DB3DB003A6524 /* GAFActionObject.cpp in Sources */,
+				CF59E972187DB3DB003A6524 /* GAFAnimationFrame.cpp in Sources */,
+				CF59E971187DB3DB003A6524 /* GAFAnimation.cpp in Sources */,
+				CF59E974187DB3DB003A6524 /* GAFAsset.cpp in Sources */,
+				CF59E979187DB3DB003A6524 /* GAFSpriteWithAlpha.cpp in Sources */,
+				CF59E977187DB3DB003A6524 /* GAFShaderManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF59E91E187DAB2D003A6524 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF59E930187DAB2D003A6524 /* ExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CF59E928187DAB2D003A6524 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CF59E906187DAB2D003A6524 /* Example */;
+			targetProxy = CF59E927187DAB2D003A6524 /* PBXContainerItemProxy */;
+		};
+		CF59E9A2187DC496003A6524 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = cocos2dx;
+			targetProxy = CF59E9A1187DC496003A6524 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CF59E913187DAB2D003A6524 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF59E914187DAB2D003A6524 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CF59E92C187DAB2D003A6524 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF59E92D187DAB2D003A6524 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CF59E931187DAB2D003A6524 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CF59E932187DAB2D003A6524 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CF59E934187DAB2D003A6524 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					CC_TARGET_OS_IPHONE,
+					"$(inherited)",
+					USE_FILE32API,
+					"COCOS2D_DEBUG=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../Classes,
+					../../Library,
+					../../../../cocos2dx,
+					../../../../cocos2dx/include,
+					../../../../cocos2dx/platform/third_party/ios,
+					../../../../cocos2dx/platform/ios,
+					../../../../cocos2dx/kazmath/include,
+					../../../../cocos2dx/extensions,
+				);
+				INFOPLIST_FILE = "Example/Example-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CF59E935187DAB2D003A6524 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../Classes,
+					../../Library,
+					../../../../cocos2dx,
+					../../../../cocos2dx/include,
+					../../../../cocos2dx/platform/third_party/ios,
+					../../../../cocos2dx/platform/ios,
+					../../../../cocos2dx/kazmath/include,
+					../../../../cocos2dx/extensions,
+				);
+				INFOPLIST_FILE = "Example/Example-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		CF59E937187DAB2D003A6524 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ExampleTests/ExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CF59E938187DAB2D003A6524 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
+				INFOPLIST_FILE = "ExampleTests/ExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CF59E902187DAB2D003A6524 /* Build configuration list for PBXProject "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF59E931187DAB2D003A6524 /* Debug */,
+				CF59E932187DAB2D003A6524 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CF59E933187DAB2D003A6524 /* Build configuration list for PBXNativeTarget "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF59E934187DAB2D003A6524 /* Debug */,
+				CF59E935187DAB2D003A6524 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CF59E936187DAB2D003A6524 /* Build configuration list for PBXNativeTarget "ExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF59E937187DAB2D003A6524 /* Debug */,
+				CF59E938187DAB2D003A6524 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CF59E8FF187DAB2D003A6524 /* Project object */;
+}
