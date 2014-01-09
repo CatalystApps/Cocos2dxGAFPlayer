@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 static const char * kStateName = "st";
 static const char * kColorName = "c";
@@ -18,20 +19,23 @@ static const char * kGAFBlurFilterName = "Fblur";
 
 using namespace std;
 
-static vector<string> split(const string& s, const string& delim, const bool keep_empty = true)
+#define USE_PLAIN_SPLIT 1
+
+#if USE_PLAIN_SPLIT
+static void split(const string& s, const string& delim, std::vector<string>& result)
 {
-    vector<string> result;
     if (delim.empty())
     {
         result.push_back(s);
-        return result;
+        return;
     }
+
     string::const_iterator substart = s.begin(), subend;
     while (true)
     {
         subend = search(substart, s.end(), delim.begin(), delim.end());
         string temp(substart, subend);
-        if (keep_empty || !temp.empty())
+        if (!temp.empty())
         {
             result.push_back(temp);
         }
@@ -41,8 +45,38 @@ static vector<string> split(const string& s, const string& delim, const bool kee
         }
         substart = subend + delim.size();
     }
-    return result;
 }
+
+#else
+
+struct tokens : std::ctype<char>
+{
+    tokens() : std::ctype<char>(get_table()) {}
+
+    static std::ctype_base::mask const* get_table()
+    {
+        typedef std::ctype<char> cctype;
+        static const cctype::mask *const_rc = cctype::classic_table();
+
+        static cctype::mask rc[cctype::table_size];
+        std::memcpy(rc, const_rc, cctype::table_size * sizeof(cctype::mask));
+
+        rc[','] = std::ctype_base::space;
+        return &rc[0];
+    }
+};
+
+static void split(const string& s, const string& delim, std::vector<std::string>& out)
+{
+    std::stringstream ss(s);
+    ss.imbue(std::locale(std::locale(), new tokens()));
+
+    std::istream_iterator<std::string> begin(ss);
+    std::istream_iterator<std::string> end;
+
+    out.assign(begin, end);
+}
+#endif
 
 GAFSubobjectState::GAFSubobjectState()
 :
@@ -117,7 +151,15 @@ bool GAFSubobjectState::initWithStateDictionary(CCDictionary * dict, const char 
     temp = str.substr(e + 2, str.length() - e - 2);
     _colorMults[GAFCTI_A] = static_cast<float>(atof(temp.c_str()));
     temp = str.substr(s + 1, e - s - 1);
-    vector<string> transform = split(temp, ",", false);
+#if USE_PLAIN_SPLIT
+    vector<string> transform;
+    transform.reserve(6);
+    split(temp, ",", transform);
+#else
+    vector<string> transform;
+    transform.reserve(6);
+    split(temp, ",", transform);
+#endif
     if (6 != transform.size())
     {
         CCLOGERROR("Error while creating GAFSubobjectState. Initial transform data '%s'", temp.c_str());
@@ -137,7 +179,15 @@ bool GAFSubobjectState::initWithStateDictionary(CCDictionary * dict, const char 
     if (color)
     {
         std::string c(color->getCString());
-        vector<string> color = split(c, ",", false);
+#if USE_PLAIN_SPLIT
+        vector<string> color;
+        color.reserve(7);
+        split(c, ",", color);
+#else
+        vector<string> color;
+        color.reserve(7);
+        split(c, ",", color);
+#endif
         if (7 != color.size())
         {
             CCLOGERROR("Error while creating GAFSubobjectState. Invalid color data '%s'", c.c_str());

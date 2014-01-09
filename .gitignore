@@ -32,3 +32,9 @@ Library/Sources/latex
 /Examples/Debug
 
 /Library/Debug
+
+/Release.win32
+
+/Release
+
+/ipch/gafplayer-b41ae148/*.ipch
