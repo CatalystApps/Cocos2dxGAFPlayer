@@ -1,0 +1,27 @@
+/**
+\mainpage GAF Marmalade Library
+
+<b>Overview</b>
+
+GAF stands for "Generic Animation Format". GAF is designed to store Flash animations in an open cross platform format and play it back in a multitude of different frameworks - including Starling!
+A while ago, we decided to port our popular Facebook social game to iOS. We faced a simple yet tough to solve problem. The game included more than 4000 unique flash animations. There were no online solutions able to convert these Flash animations into a size-effective format and at the same time offer a high performance playback. Converting into frame sequences was not an option because full code control over animations and the resulting file's size were crucial.
+But even more important was the fact that our developers needed a reliable tool to continue using Flash CS as animation editor and Starling as their game dev framework without any limitations. This is how GAF Converter was born.
+
+<b>Main Features:</b>
+
+	Support for nesting without any limitations
+	Shape tweens conversion
+	Animated masks support
+	Blur and Glow filters supported
+	
+<b>Unique Features:</b>
+
+    All visually identical symbols inside the swf are changed into a single sprite.
+    Symbols forming a static object are joined into one single static sprite.
+    When forming texture atlas scales of symbols are taken into account. Spites saved are never larger than needed for the playback. Texture atlas is highly optimized.
+    Animations can be saved into a bundle. Texture atlas will be shared between animations saving a lot of disk space.
+    HD version of texture atlas is automatically created.
+
+For more information regarding GAF, please visit our web site http://gafmedia.com/converter/
+	
+*/

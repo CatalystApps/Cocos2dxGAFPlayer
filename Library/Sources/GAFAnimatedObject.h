@@ -38,9 +38,18 @@ enum GAFAnimatedObjectControlFlags
     kGAFAnimatedObjectControl_ApplyState = 1 << 0
 };
 
+/// @class GAFFramePlayedDelegate
+/// You can get notification when particular frame of any GAFAnimatedObject is played.
+/// To do this you have to inherit GAFFramePlayedDelegate and call setFramePlayedDelegate
+/// method of your GAFAnimatedObject
+
 class GAFFramePlayedDelegate
 {
 public:
+    /// Callback function, called by GAF.
+    /// @param object - selected animated object
+    /// @param frame - frame number that is just played
+
     virtual void onFramePlayed(GAFAnimatedObject * object, int frame);
 };
 
@@ -68,6 +77,7 @@ public:
     CCDictionary * subObjects();
     CCDictionary * masks();
     void animatorDidPlayedFrame(GAFAnimator * anAnimator, int aFrameNo);
+    /// Returns subobject which has specified name assigned to it ("namedParts" section in config)
     GAFSprite * subobjectByName(const char * name);
     // call this function only if you really know what you do
     GAFSprite * subobjectByRawName(const char * name);
@@ -81,6 +91,7 @@ public:
     /// @param controlFlags flags specifying what played will do with subobjects controlled externally
     /// @returns YES if control was successfully taken and all future
     bool captureControlOverSubobjectNamed(const char * aName, GAFAnimatedObjectControlFlags aControlFlags);
+    /// Releases control over subobject captured earlier	
     void releaseControlOverSubobjectNamed(const char * aName);
 
     void setFramePlayedDelegate(GAFFramePlayedDelegate * delegate);

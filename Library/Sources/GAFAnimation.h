@@ -44,7 +44,7 @@ public:
     virtual void resume();
     virtual void stop();
     virtual void step();
-
+    /// @returns true if the animation is finished, otherwise NO	
     bool isDone() const;
     bool isAnimationRunning() const;
     bool isLooped() const;
@@ -54,9 +54,11 @@ public:
 
     bool setFrame(int index);
 
+    /// Plays specified frame and then stops	
     bool gotoAndStop(const char * frameLabel);
     bool gotoAndStop(int frameNumber);
 
+    /// Plays animation from specified frame	
     bool gotoAndPlay(const char * frameLabel);
     bool gotoAndPlay(int frameNumber);
 
@@ -64,9 +66,15 @@ public:
     int getStartFrame(const char * frameLabel);
     int getEndFrame(const char * frameLabel);
 
+    /// Plays animation sequence with specified name
+    /// @param name a sequence name
+    /// @param looped if true - sequence should play in cycle
+    /// @param resume if true - animation will be played immediately, if false - playback will be paused after the first frame is shown
+    /// @param hint specific animation playback parameters
+
     bool playSequence(const char * name, bool looped = false, bool resume = true, AnimSetSequenceHint hint = ASSH_RESTART);
     void clearSequence();
-    // do not forget to call setSequenceDelegate(NULL) before deleting your subscriber
+    /// @note do not forget to call setSequenceDelegate(NULL) before deleting your subscriber
     void setSequenceDelegate(GAFSequenceDelegate * delegate);
     bool hasSequences() const;
 protected:

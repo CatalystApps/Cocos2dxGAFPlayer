@@ -21,27 +21,40 @@ class GAFAnimationSequence;
 class GAFAsset : public CCObject
 {
 public:
+    /// Initializes asset with JSON data
     static GAFAsset * create(const std::string& jsonPath);
     bool  initWithImageData(const std::string& jsonPath);
     GAFAsset();
     ~GAFAsset();
+    /// total number of frames in animation
     int animationFramesCount() const;
     GAFTextureAtlas * textureAtlas();
+    /// Dictionary of objects [ObjectId -> AtlasElementName]
     CCDictionary   * objects();
+    /// Dictionary of masks [MaskId -> AtlasElementName]
     CCDictionary   * masks();
+    /// Dictionary of masks [MaskId -> AtlasElementName]
     CCDictionary   * namedParts();
+    /// List of GAFAnimationSequences objects	
     CCDictionary   * animationSequences();
+    /// get GAFAnimationSequence by name specified in editor
     GAFAnimationSequence   * getSequence(const char * name);
+    /// get all of the sequences
     CCDictionary* getSequences() const;
+    /// get GAFAnimationSequence by last frame number in sequence	
     GAFAnimationSequence   * getSequenceByLastFrame(int frame);
+    /// List of GAFAnimationFrame objects	
     CCArray        * animationFrames();
     static bool isAssetVersionPlayable(const char * version);
 
     GAFAnimatedObject * createObject();
     GAFAnimatedObject * createObjectAndRun(bool looped = false);
 
+    /// desired content scale factor
     static int desiredCsf();
+    /// sets desired content scale factor
     static void setDesiredCsf(int csf);
+    /// used content scale factor		
     inline float usedAtlasContentScaleFactor()const
     {
         return _usedAtlasContentScaleFactor;

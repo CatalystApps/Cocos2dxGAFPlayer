@@ -8,7 +8,12 @@
 
 using namespace cocos2d;
 
-// by default it does NOT own data!!!
+    /**
+    @class GAFData
+    Simple NSData-like class for internal usage. Made public since it can be useful
+    for GAF Marmalade users. It does NOT release memory by default - be careful.
+    By default it does NOT own data!!!
+    */
 
 class GAFData : public CCObject
 {
@@ -21,6 +26,10 @@ public:
     {
 
     }
+
+    /// By default GAFData does NOT release memory.
+    /// However, it is possible to delete internal array in destructor.
+    /// @param deleteData - delete internal array in destructor or not
 
     inline GAFData(unsigned char * _ptr, int _size, bool _delete_data = false)
         :
