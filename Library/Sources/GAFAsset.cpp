@@ -14,6 +14,9 @@
 #include "cocoa/CCArray.h"
 #include "cocoa/CCDictionary.h"
 
+#include "ccMacros.h"
+#include "CCDirector.h"
+
 static const char *  kAnimationFrameCountKey = "animationFrameCount";
 static const char *  kAnimationConfigFramesKey = "animationConfigFrames";
 static const char *  kAnimationObjectsKey = "animationObjects";
@@ -37,11 +40,11 @@ static const char *  kAtlasInfoKey = "atlases";
 
 static float _currentDeviceScale = 1.0f;
 static bool  _makeExactScaleForObject = false;
-static int   _desiredCsf = 1;
+static int   _desiredCsf = 2;
 
 int GAFAsset::desiredCsf()
 {
-    return _desiredCsf;
+    return CC_CONTENT_SCALE_FACTOR();
 }
 
 void GAFAsset::setDesiredCsf(int csf)

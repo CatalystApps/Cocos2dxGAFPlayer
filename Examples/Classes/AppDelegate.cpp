@@ -6,6 +6,7 @@
 #include <string>
 #include "GAFShaderManager.h"
 
+
 static int const kGlobalFPS = 30;
 USING_NS_CC;
 
@@ -36,6 +37,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
 
     pDirector->setAnimationInterval(1.0 / kGlobalFPS);
+
+    //pDirector->setContentScaleFactor(2.f);
 
     // create a scene. it's an autorelease object
     CCScene *pScene = GafFeatures::scene();
