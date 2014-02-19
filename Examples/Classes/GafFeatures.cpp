@@ -163,13 +163,13 @@ bool GafFeatures::init()
     addChild(pMenu, 10000);
     m_anim_index = 0;
 
-    m_jsons.push_back("SampleAnimations/2/2.json");
     m_jsons.push_back("SampleAnimations/1/1.json");
+    m_jsons.push_back("SampleAnimations/2/2.json");
     m_jsons.push_back("SampleAnimations/3/3.json");
     m_jsons.push_back("SampleAnimations/4/4.json");
 
     addObjectsToScene(1);
-    black(NULL);
+    gray(NULL);
 
     setTouchEnabled(true);
     return true;

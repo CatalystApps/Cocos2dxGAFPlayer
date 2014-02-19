@@ -9,6 +9,8 @@
 #include "GAFSpriteWithAlpha.h"
 #include "shaders/CCShaderCache.h"
 #include "sprite_nodes/CCSpriteBatchNode.h"
+#include "draw_nodes/CCDrawingPrimitives.h"
+#include "support/CCPointExtension.h"
 
 GAFSprite::GAFSprite()
 :
@@ -120,6 +122,26 @@ void GAFSprite::draw(void)
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     CHECK_GL_ERROR_DEBUG();
+
+#if CC_SPRITE_DEBUG_DRAW == 1
+    // draw bounding box
+    CCPoint vertices[4] = {
+        ccp(m_sQuad.tl.vertices.x, m_sQuad.tl.vertices.y),
+        ccp(m_sQuad.bl.vertices.x, m_sQuad.bl.vertices.y),
+        ccp(m_sQuad.br.vertices.x, m_sQuad.br.vertices.y),
+        ccp(m_sQuad.tr.vertices.x, m_sQuad.tr.vertices.y),
+    };
+    ccDrawPoly(vertices, 4, true);
+#elif CC_SPRITE_DEBUG_DRAW == 2
+    // draw texture box
+    CCSize s = this->getTextureRect().size;
+    CCPoint offsetPix = this->getOffsetPosition();
+    CCPoint vertices[4] = {
+        ccp(offsetPix.x, offsetPix.y), ccp(offsetPix.x + s.width, offsetPix.y),
+        ccp(offsetPix.x + s.width, offsetPix.y + s.height), ccp(offsetPix.x, offsetPix.y + s.height)
+    };
+    ccDrawPoly(vertices, 4, true);
+#endif // CC_SPRITE_DEBUG_DRAW
 
     CC_INCREMENT_GL_DRAWS(1);
 

@@ -8,6 +8,7 @@
 #include "shaders/ccShaders.h"
 
 #include "GAFSpriteWithAlpha.h"
+#include "draw_nodes/CCDrawingPrimitives.h"
 
 static const char * kAlphaFragmentShaderFilename = "Shaders/pcShader_PositionTextureAlpha_frag.fs";
 static GLuint _colorTrasformLocation = 0;
@@ -156,6 +157,12 @@ void GAFSpriteWithAlpha::_setBlendingFunc()
     bf.src = GL_ONE;
     bf.dst = GL_ONE_MINUS_SRC_ALPHA;
     setBlendFunc(bf);
+}
+
+void GAFSpriteWithAlpha::draw()
+{
+    GAFSprite::draw();
+    //ccDrawCircle(getAnchorPointInPoints(), 5, 0, 8, false);
 }
 
 #if CC_ENABLE_CACHE_TEXTURE_DATA

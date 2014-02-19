@@ -17,12 +17,26 @@
 
 #include "support/CCPointExtension.h"
 #include <algorithm>
+#include "misc_nodes/CCRenderTexture.h"
+#include "draw_nodes/CCDrawingPrimitives.h"
 
 
 #ifdef max
 #undef max
 #endif
 
+static unsigned long ccNextPOT(unsigned long x)
+{
+    x = x - 1;
+    x = x | (x >> 1);
+    x = x | (x >> 2);
+    x = x | (x >> 4);
+    x = x | (x >> 8);
+    x = x | (x >> 16);
+    return x + 1;
+}
+
+#define DEBUG_RTT_DRAWING 0
 
 static const char * kGAFBlurFilterName = "Fblur";
 static float const kAnimationFPS = 30.0;   // we keep this number 'almost' synchronized with web. The reason it's
@@ -115,6 +129,9 @@ bool GAFAnimatedObject::init(GAFAsset * anAsset)
     _FPSType = kGAFAnimationFPSType_30;
     _extraFramesCounter = 0;
     _animationsSelectorScheduled = false;
+
+    addSubObjectsUsingAnimationObjectsDictionary(_asset->objects(), _asset->masks(), _asset->animationFrames());
+
     return true;
 }
 
@@ -409,15 +426,10 @@ CCDictionary * GAFAnimatedObject::masks()
 
 void GAFAnimatedObject::start()
 {
-
     GAFAnimation::start();
-    removeAllSubObjects();
-    addSubObjectsUsingAnimationObjectsDictionary(_asset->objects(), _asset->masks(), _asset->animationFrames());
 
     schedule(SEL_SCHEDULE(&GAFAnimatedObject::processAnimations));
     _animationsSelectorScheduled = true;
-
-
 }
 
 void GAFAnimatedObject::stop()
@@ -442,7 +454,54 @@ int GAFAnimatedObject::numberOfGlobalFramesForOneAnimationFrame()
     }
 }
 
-void GAFAnimatedObject::processAnimation()
+CCSprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextures)
+{
+    CCRect frameRect = realBoundingBoxForCurrentFrame();
+
+    if (frameRect.size.width == 0.f || frameRect.size.height == 0.f)
+    {
+        return NULL;
+    }
+
+    CCPoint originalPos = getPosition();
+
+    int width = 0;
+    int height = 0;
+
+    if (usePOTTextures)
+    {
+        width = ccNextPOT((int)frameRect.size.width);
+        height = ccNextPOT((int)frameRect.size.height);
+    }
+    else
+    {
+        width = (int)frameRect.size.width;
+        height = (int)frameRect.size.height;
+    }
+
+    CCRenderTexture* rt = CCRenderTexture::create(width, height, kCCTexture2DPixelFormat_RGBA8888, GL_DEPTH24_STENCIL8);
+
+    setPosition(ccp(originalPos.x - frameRect.origin.x, originalPos.y - frameRect.origin.y));
+
+#if DEBUG_RTT_DRAWING
+    rt->beginWithClear(0, 1, 0, 0.5);
+#else
+    rt->begin();
+#endif
+
+    visit();
+
+    rt->end();
+
+    setPosition(originalPos);
+
+    CCSprite* res = CCSprite::createWithTexture(rt->getSprite()->getTexture());
+    res->setAnchorPoint(ccp(0, 0));
+    res->setPosition(frameRect.origin);
+    return(res);
+}
+
+void GAFAnimatedObject::realizeFrame(CCNode* out, int frameIndex)
 {
     GAFAnimationFrame *currentFrame = (GAFAnimationFrame*)_asset->animationFrames()->objectAtIndex(_currentFrameIndex);
     setSubobjectsVisible(false);
@@ -585,6 +644,11 @@ void GAFAnimatedObject::processAnimation()
     }
 }
 
+void GAFAnimatedObject::processAnimation()
+{
+    realizeFrame(this, _currentFrameIndex);
+}
+
 void GAFAnimatedObject::setFramePlayedDelegate(GAFFramePlayedDelegate * delegate)
 {
     _framePlayedDelegate = delegate;
@@ -598,16 +662,42 @@ void GAFAnimatedObject::setControlDelegate(GAFAnimatedObjectControlDelegate * de
 
 static CCRect GAFCCRectUnion(const CCRect& src1, const CCRect& src2)
 {
-    CCRect result;
+    float thisLeftX = src1.origin.x;
+    float thisRightX = src1.origin.x + src1.size.width;
+    float thisTopY = src1.origin.y + src1.size.height;
+    float thisBottomY = src1.origin.y;
 
-    float x1 = std::min(src1.getMinX(), src2.getMinX());
-    float y1 = std::min(src1.getMinY(), src2.getMinY());
-    float x2 = std::max(src1.getMaxX(), src2.getMaxX());
-    float y2 = std::max(src1.getMaxY(), src2.getMaxY());
+    if (thisRightX < thisLeftX)
+    {
+        std::swap(thisRightX, thisLeftX); // This rect has negative width
+    }
 
-    result.origin = ccp(x1, x2);
-    result.size = CCSizeMake(x2 - x1, y2 - y1);
-    return result;
+    if (thisTopY < thisBottomY)
+    {
+        std::swap(thisTopY, thisBottomY); // This rect has negative height
+    }
+
+    float otherLeftX = src2.origin.x;
+    float otherRightX = src2.origin.x + src2.size.width;
+    float otherTopY = src2.origin.y + src2.size.height;
+    float otherBottomY = src2.origin.y;
+
+    if (otherRightX < otherLeftX)
+    {
+        std::swap(otherRightX, otherLeftX); // Other rect has negative width
+    }
+
+    if (otherTopY < otherBottomY)
+    {
+        std::swap(otherTopY, otherBottomY); // Other rect has negative height
+    }
+
+    float combinedLeftX = std::min(thisLeftX, otherLeftX);
+    float combinedRightX = std::max(thisRightX, otherRightX);
+    float combinedTopY = std::max(thisTopY, otherTopY);
+    float combinedBottomY = std::min(thisBottomY, otherBottomY);
+
+    return CCRect(combinedLeftX, combinedBottomY, combinedRightX - combinedLeftX, combinedTopY - combinedBottomY);
 }
 
 CCRect GAFAnimatedObject::realBoundingBoxForCurrentFrame()
@@ -628,4 +718,11 @@ CCRect GAFAnimatedObject::realBoundingBoxForCurrentFrame()
     return CCRectApplyAffineTransform(result, nodeToParentTransform());
 }
 
+void GAFAnimatedObject::draw()
+{
+    CCLayer::draw();
+#if DEBUG_RTT_DRAWING
+    ccDrawCircle(getAnchorPointInPoints(), 5, 0, 8, false);
+#endif
+}
 

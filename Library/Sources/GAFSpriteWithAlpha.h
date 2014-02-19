@@ -24,6 +24,8 @@ public:
     }
     void setColorTransform(const GLfloat * colorTransform);
     void setBlurRadius(const CCSize& blurRadius);
+
+    virtual void draw();
 protected:
     void updateTextureWithEffects();
 private:

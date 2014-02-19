@@ -19,6 +19,7 @@ namespace cocos2d
     class CCDictionary;
     class CCArray;
     class CCString;
+    class CCSprite;
 }
 
 using namespace cocos2d;
@@ -97,6 +98,12 @@ public:
     void setFramePlayedDelegate(GAFFramePlayedDelegate * delegate);
     void setControlDelegate(GAFAnimatedObjectControlDelegate * delegate);
     CCRect realBoundingBoxForCurrentFrame();
+
+    CCSprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
+
+    void realizeFrame(CCNode* out, int frameIndex);
+
+    virtual void draw();
 protected:
     GAFAnimatedObject();
     GAFSprite * subObjectForInnerObjectId(const char * anInnerObjectId);
