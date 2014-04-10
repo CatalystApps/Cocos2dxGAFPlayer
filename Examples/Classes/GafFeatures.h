@@ -8,9 +8,12 @@
 
 #include "GAFAnimation.h"
 
-using namespace cocos2d;
+#include "GAFDelegates.h"
 
-class GafFeatures : public cocos2d::CCLayer, public GAFSequenceDelegate
+using namespace cocos2d;
+class GAFAnimatedObject;
+
+class GafFeatures : public cocos2d::CCLayer, public GAFSequenceDelegate, public GAFTextureLoadDelegate
 {
 public:
     typedef std::pair<CCMenuItemImage*, CCLabelTTF*> MenuItemPair_t;
@@ -29,6 +32,8 @@ private:
     typedef std::vector<std::string> ObjectSequencesNames_t;
     ObjectSequencesNames_t  m_objectSequencesNames;
     unsigned int m_currentSequence;
+
+    CCLabelTTF* m_loadingTimeLabel;
 public:
     GafFeatures();
     ~GafFeatures();
@@ -73,10 +78,12 @@ public:
 
     virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName);
 
+    virtual void onTexturePreLoad(std::string& path);
+
 private:	
     GAFAsset*              m_asset;
     CCArray*               m_objects;
-    std::vector<std::string> m_jsons;
+    std::vector<std::string> m_files;
     int                     m_anim_index;
 
 };

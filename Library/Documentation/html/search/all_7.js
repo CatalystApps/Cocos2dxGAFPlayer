@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['masks',['masks',['../class_g_a_f_asset.html#ae1aac8283d2376932d830b009a3db091',1,'GAFAsset']]]
+  ['playsequence',['playSequence',['../class_g_a_f_animation.html#a30841ed98b6634d877fba24060a5d62b',1,'GAFAnimation']]],
+  ['primitivedeserializer',['PrimitiveDeserializer',['../class_primitive_deserializer.html',1,'']]]
 ];

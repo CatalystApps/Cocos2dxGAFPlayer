@@ -7,7 +7,7 @@
 #include "GAFShaderManager.h"
 
 
-static int const kGlobalFPS = 30;
+static int const kGlobalFPS = 60;
 USING_NS_CC;
 
 AppDelegate::AppDelegate()

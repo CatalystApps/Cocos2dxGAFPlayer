@@ -3,87 +3,90 @@
 #ifndef __GAF_ASSET_H__
 #define __GAF_ASSET_H__
 
-#include "cocoa/CCObject.h"
-#include <string>
-#include <vector>
+#include "GAFCollections.h"
+#include "GAFHeader.h"
 
-namespace cocos2d
-{
-    class CCDictionary;
-    class CCArray;
-}
+#include "GAFDelegates.h"
+
 using namespace cocos2d;
 
 class GAFTextureAtlas;
 class GAFAnimatedObject;
 class GAFAnimationSequence;
+class GAFAnimationFrame;
+
+class GAFLoader;
 
 class GAFAsset : public CCObject
 {
-public:
-    /// Initializes asset with JSON data
-    static GAFAsset * create(const std::string& jsonPath);
-    bool  initWithImageData(const std::string& jsonPath);
-    GAFAsset();
-    ~GAFAsset();
-    /// total number of frames in animation
-    int animationFramesCount() const;
-    GAFTextureAtlas * textureAtlas();
-    /// Dictionary of objects [ObjectId -> AtlasElementName]
-    CCDictionary   * objects();
-    /// Dictionary of masks [MaskId -> AtlasElementName]
-    CCDictionary   * masks();
-    /// Dictionary of masks [MaskId -> AtlasElementName]
-    CCDictionary   * namedParts();
-    /// List of GAFAnimationSequences objects	
-    CCDictionary   * animationSequences();
-    /// get GAFAnimationSequence by name specified in editor
-    GAFAnimationSequence   * getSequence(const char * name);
-    /// get all of the sequences
-    CCDictionary* getSequences() const;
-    /// get GAFAnimationSequence by last frame number in sequence	
-    GAFAnimationSequence   * getSequenceByLastFrame(int frame);
-    /// List of GAFAnimationFrame objects	
-    CCArray        * animationFrames();
-    static bool isAssetVersionPlayable(const char * version);
-
-    GAFAnimatedObject * createObject();
-    GAFAnimatedObject * createObjectAndRun(bool looped = false);
-
-    /// desired content scale factor
-    static int desiredCsf();
-    /// sets desired content scale factor
-    static void setDesiredCsf(int csf);
-    /// used content scale factor		
-    inline float usedAtlasContentScaleFactor()const
-    {
-        return _usedAtlasContentScaleFactor;
-    }
 private:
-    void loadAnimationSequences(CCArray * aSequencesNodes);
-    void loadFramesFromConfigDictionary(CCDictionary * aConfigDictionary);
-    CCArray * objectStatesFromConfigFrame(CCDictionary * configFrame);
+    TextureAtlases_t        m_textureAtlases;
+    AnimationMasks_t        m_animationMasks;
+    AnimationObjects_t      m_animationObjects;
+    AnimationFrames_t       m_animationFrames;
+    AnimationSequences_t    m_animationSequences;
+    NamedParts_t            m_namedParts;
+    GAFHeader               m_header;
+
+    GAFTextureAtlas*        m_currentTextureAtlas;
+    GAFTextureLoadDelegate* m_textureLoadDelegate;
 
 private:
     float _usedAtlasContentScaleFactor;
-    float atlasScaleFromAtlasConfig(CCDictionary * anAtlasConfigDictionary);
     int _majorVersion;
     int _minorVersion;
-    GAFTextureAtlas * _textureAtlas;
-    // dictionary of objects [ObjectId -> AtlasElementName]	
-    CCDictionary   * _objects;
-    // dictionary of masks [MaskId -> AtlasElementName]	
-    CCDictionary   * _masks;
-    /// List of GAFActionObject-s representing zones to interact with	
-    CCArray        * _interactionObjects;
-    /// List of GAFActionObject-s representing zones on which objects can be put
-    CCArray        * _standObjects;
 
-    ///< List of GAFAnimationFrame objects
-    CCArray        * _animationFrames;
-    CCDictionary   * _animationSequences;
+public:
+    /// Initializes asset with bGAF data
 
-    CCDictionary   * _namedParts;
+    bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate = NULL);
+
+    void                        pushTextureAtlas(GAFTextureAtlas* atlas);
+    void                        pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef);
+    void                        pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef);
+    void                        pushAnimationFrame(GAFAnimationFrame* frame);
+    void                        pushAnimationSequence(const std::string nameId, int start, int end);
+    void                        pushNamedPart(unsigned int objectIdRef, const std::string& name);
+
+    void                        setHeader(GAFHeader& h);
+    const GAFHeader&            getHeader() const;
+
+    const AnimationObjects_t&   getAnimationObjects() const;
+    const AnimationMasks_t&     getAnimationMasks() const;
+    const AnimationFrames_t&    getAnimationFrames() const;
+    const NamedParts_t&         getNamedParts() const;
+
+    /// get all of the sequences
+    const AnimationSequences_t& getAnimationSequences() const;
+
+    static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate = NULL);
+
+    GAFAsset();
+    ~GAFAsset();
+    /// total number of frames in animation
+    int                         animationFramesCount() const;
+
+    GAFTextureAtlas *           textureAtlas();
+
+    /// get GAFAnimationSequence by name specified in editor
+    const GAFAnimationSequence* getSequence(const std::string& name) const;
+
+    /// get GAFAnimationSequence by last frame number in sequence	
+    const GAFAnimationSequence* getSequenceByLastFrame(int frame) const;
+    /// List of GAFAnimationFrame objects	
+    static bool                 isAssetVersionPlayable(const char * version);
+
+    GAFAnimatedObject *         createObject();
+    GAFAnimatedObject *         createObjectAndRun(bool looped = false);
+
+    /// desired content scale factor
+    static float                desiredCsf();
+    /// sets desired content scale factor
+    static void                 setDesiredCsf(float csf);
+    /// used content scale factor		
+    float                       usedAtlasContentScaleFactor()const;
+
+    void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
 };
 
 

@@ -1,4 +1,4 @@
-#include "sprite_nodes/CCSprite.h"
+#include "GAFPrecompiled.h"
 #include "GAFSprite.h"
 
 #if CC_SPRITEBATCHNODE_RENDER_SUBPIXEL
@@ -7,10 +7,6 @@
 #define RENDER_IN_SUBPIXEL(__A__) ( (int)(__A__))
 #endif
 #include "GAFSpriteWithAlpha.h"
-#include "shaders/CCShaderCache.h"
-#include "sprite_nodes/CCSpriteBatchNode.h"
-#include "draw_nodes/CCDrawingPrimitives.h"
-#include "support/CCPointExtension.h"
 
 GAFSprite::GAFSprite()
 :

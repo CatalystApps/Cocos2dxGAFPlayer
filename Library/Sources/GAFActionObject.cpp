@@ -1,7 +1,5 @@
+#include "GAFPrecompiled.h"
 #include "GAFActionObject.h"
-
-#include "cocoa/CCInteger.h"
-#include "cocoa/CCDictionary.h"
 
 static const char * kNameKey = "name";
 static const char * kXKey = "x";

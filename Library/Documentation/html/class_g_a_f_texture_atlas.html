@@ -84,30 +84,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_g_a_f_texture_atlas-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">GAFTextureAtlas Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for GAFTextureAtlas:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_g_a_f_texture_atlas.png" usemap="#GAFTextureAtlas_map" alt=""/>
-  <map id="GAFTextureAtlas_map" name="GAFTextureAtlas_map">
-</map>
- </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_g_a_f_texture_atlas_1_1_atlas_info.html">AtlasInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a20607d431dc3a24dda5ba0523abb1712"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20607d431dc3a24dda5ba0523abb1712"></a>
+typedef std::vector&lt; <a class="el" href="struct_g_a_f_texture_atlas_1_1_atlas_info.html">AtlasInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>AtlasInfos_t</b></td></tr>
+<tr class="separator:a20607d431dc3a24dda5ba0523abb1712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa4b1ae63a30444218514d983051ca9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2fa4b1ae63a30444218514d983051ca9"></a>
+typedef std::map&lt; unsigned int, <br class="typebreak"/>
+<a class="el" href="class_g_a_f_texture_atlas_element.html">GAFTextureAtlasElement</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Elements_t</b></td></tr>
+<tr class="separator:a2fa4b1ae63a30444218514d983051ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad4725b041cfa21f929b96e3f69065315"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4725b041cfa21f929b96e3f69065315"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const char *aTexturesDirectory, CCDictionary *aTextureAtlasConfigDictionary)</td></tr>
-<tr class="separator:ad4725b041cfa21f929b96e3f69065315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4bfaec23ef811ffb31f65152b54565"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf4bfaec23ef811ffb31f65152b54565"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>pushAtlasInfo</b> (const <a class="el" href="struct_g_a_f_texture_atlas_1_1_atlas_info.html">AtlasInfo</a> &amp;ai)</td></tr>
+<tr class="separator:acf4bfaec23ef811ffb31f65152b54565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d4cd3cb238026fdab8cf61a6cda5ea0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d4cd3cb238026fdab8cf61a6cda5ea0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>pushElement</b> (unsigned int idx, <a class="el" href="class_g_a_f_texture_atlas_element.html">GAFTextureAtlasElement</a> *el)</td></tr>
+<tr class="separator:a3d4cd3cb238026fdab8cf61a6cda5ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2672ddc9cad6ac02ba23807c4ac288f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2672ddc9cad6ac02ba23807c4ac288f8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadImages</b> (const std::string &amp;dir, <a class="el" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a> *delegate)</td></tr>
+<tr class="separator:a2672ddc9cad6ac02ba23807c4ac288f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a334da7f9849a70dd2c7f1ef971da47c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a334da7f9849a70dd2c7f1ef971da47c7"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>loaded</b> () const </td></tr>
 <tr class="separator:a334da7f9849a70dd2c7f1ef971da47c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b131f200575a0a4835c6ecac2b85dbd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b131f200575a0a4835c6ecac2b85dbd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setScale</b> (float val)</td></tr>
+<tr class="separator:a8b131f200575a0a4835c6ecac2b85dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d27a36a40ffb7cdf0dc55bad0c7160b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d27a36a40ffb7cdf0dc55bad0c7160b"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>getScale</b> () const </td></tr>
+<tr class="separator:a5d27a36a40ffb7cdf0dc55bad0c7160b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19b24db317fd6b4038bec4cdfa9d5b90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19b24db317fd6b4038bec4cdfa9d5b90"></a>
 CCImage *&#160;</td><td class="memItemRight" valign="bottom"><b>image</b> ()</td></tr>
 <tr class="separator:a19b24db317fd6b4038bec4cdfa9d5b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,18 +140,9 @@ CCTexture2D *&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b> 
 <tr class="memitem:a8d43a3121f93587af836940b6914dadc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d43a3121f93587af836940b6914dadc"></a>
 CCArray *&#160;</td><td class="memItemRight" valign="bottom"><b>textures</b> ()</td></tr>
 <tr class="separator:a8d43a3121f93587af836940b6914dadc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a344efd01f027dfc3518b613a5e800887"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a344efd01f027dfc3518b613a5e800887"></a>
-CCDictionary *&#160;</td><td class="memItemRight" valign="bottom"><b>elements</b> ()</td></tr>
-<tr class="separator:a344efd01f027dfc3518b613a5e800887"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f4b17d3006f537c920d7f3907b6bfa2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f4b17d3006f537c920d7f3907b6bfa2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadElementsFromAnimationConfigDictionary</b> (CCDictionary *aConfigDictionary)</td></tr>
-<tr class="separator:a2f4b17d3006f537c920d7f3907b6bfa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab20445bbff91fec90a0658f192b3421f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab20445bbff91fec90a0658f192b3421f"></a>
-static <a class="el" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (const char *aTexturesDirectory, CCDictionary *aTextureAtlasConfigDictionary)</td></tr>
-<tr class="separator:ab20445bbff91fec90a0658f192b3421f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a608d1ebc010c1d05cf9ad29bc4106577"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a608d1ebc010c1d05cf9ad29bc4106577"></a>
+const Elements_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getElements</b> () const </td></tr>
+<tr class="separator:a608d1ebc010c1d05cf9ad29bc4106577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_g_a_f_texture_atlas_8h_source.html">GAFTextureAtlas.h</a></li>
@@ -140,7 +151,7 @@ static <a class="el" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a> *
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 9 2014 17:36:45 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 10 2014 12:59:53 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

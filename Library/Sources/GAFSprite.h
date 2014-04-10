@@ -3,10 +3,6 @@
 #ifndef __GAF_SPRITE__
 #define __GAF_SPRITE__
 
-#include "sprite_nodes/CCSprite.h"
-#include "cocoa/CCAffineTransform.h"
-#include <string>
-
 typedef struct _gafBlendFuncSeparate
 {
     // source blend function
@@ -20,8 +16,6 @@ typedef struct _gafBlendFuncSeparate
 
 } gafBlendFuncSeparate;
 
-using namespace cocos2d;
-
 /// @class GAFSprite 
 ///	This is utility class used by GAF playback. It does not perform rendering or use OpenGL.
 /// Instead, it references backend object via GAFSprite::getExternalPointer.
@@ -32,8 +26,9 @@ public:
     GAFSprite();
     void setExternaTransform(const CCAffineTransform& transform);
     void setChildTransform(const CCAffineTransform& transform);
-    //virtual CCAffineTransform nodeToParentTransform(void);
-    std::string objectId;
+
+    unsigned int objectIdRef;
+
     virtual void draw();
     virtual void setUniformsForFragmentShader();
 

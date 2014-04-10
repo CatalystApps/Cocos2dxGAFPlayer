@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['desiredcsf',['desiredCsf',['../class_g_a_f_asset.html#a2ef191e5bff436d36b31e560af63eb85',1,'GAFAsset']]]
+  ['decstencillayer',['decStencilLayer',['../class_g_a_f_animated_object.html#a7db814f27b1297785604d33ee1eb249d',1,'GAFAnimatedObject']]],
+  ['definitiontagbase',['DefinitionTagBase',['../class_definition_tag_base.html',1,'']]],
+  ['desiredcsf',['desiredCsf',['../class_g_a_f_asset.html#a9ff163431342d8706dd055e995169e2f',1,'GAFAsset']]]
 ];

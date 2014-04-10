@@ -5,8 +5,6 @@
 
 #include "GAFSprite.h"
 
-
-
 namespace cocos2d
 {
     class CCArray;
@@ -19,7 +17,7 @@ using namespace cocos2d;
 class GAFStencilMaskSprite : public GAFSprite
 {
 public:
-    GAFStencilMaskSprite();
+    GAFStencilMaskSprite(int stencilLayer);
     ~GAFStencilMaskSprite();
     virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
     static CCGLProgram * programShaderForMask();
@@ -35,8 +33,12 @@ public:
 protected:
     void sortAllMaskedObjects();
 private:
+    int       m_stencilLayer;
     CCArray * _maskedObjects;
     bool     _isReorderMaskedObjectsDirty;
+    void     _setupStencilForMask();
+    void     _setupStencilForContent();
+    void     _disableStencil();
 };
 
 #endif // __GAF_STENCIL_MASK_SPRITE__

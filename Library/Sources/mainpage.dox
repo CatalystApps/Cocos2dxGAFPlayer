@@ -1,5 +1,5 @@
 /**
-\mainpage GAF Marmalade Library
+\mainpage GAF Cocos2d-x Library
 
 <b>Overview</b>
 
@@ -12,7 +12,7 @@ But even more important was the fact that our developers needed a reliable tool 
 	Support for nesting without any limitations
 	Shape tweens conversion
 	Animated masks support
-	Blur and Glow filters supported
+	Blur, Glow, Drop Shadow, Colour Adjust filters supported
 	
 <b>Unique Features:</b>
 

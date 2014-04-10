@@ -1,10 +1,8 @@
+#include "GAFPrecompiled.h"
 #include "GAFAnimation.h"
 #include "GAFAnimationSequence.h"
 #include "GAFAsset.h"
 #include "GAFAnimatedObject.h"
-#include "ccMacros.h"
-#include "cocoa/CCDictionary.h"
-#include "cocoa/CCInteger.h"
 
 GAFAnimation::GAFAnimation()
 :
@@ -52,7 +50,7 @@ void GAFAnimation::step()
 {
     if (_sequenceDelegate && _asset)
     {
-        GAFAnimationSequence * seq = _asset->getSequenceByLastFrame(_currentFrameIndex);
+        const GAFAnimationSequence * seq = _asset->getSequenceByLastFrame(_currentFrameIndex);
         if (seq)
         {
             _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
@@ -214,7 +212,7 @@ int GAFAnimation::getStartFrame(const char * sequence_name)
     {
         return -1;
     }
-    GAFAnimationSequence * seq = _asset->getSequence(sequence_name);
+    const GAFAnimationSequence * seq = _asset->getSequence(sequence_name);
     if (seq)
     {
         return seq->startFrameNo;
@@ -228,7 +226,7 @@ int GAFAnimation::getEndFrame(const char * sequence_name)
     {
         return -1;
     }
-    GAFAnimationSequence * seq = _asset->getSequence(sequence_name);
+    const GAFAnimationSequence * seq = _asset->getSequence(sequence_name);
     if (seq)
     {
         return seq->endFrameNo;
@@ -283,5 +281,5 @@ bool GAFAnimation::playSequence(const char * name, bool looped, bool _resume, An
 }
 bool GAFAnimation::hasSequences() const
 {
-    return _asset->animationSequences() != NULL;
+    return !_asset->getAnimationSequences().empty();
 }

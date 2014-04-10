@@ -1,10 +1,10 @@
+#include "GAFPrecompiled.h"
 #include "GAFStencilMaskSprite.h"
 #include "GAFShaderManager.h"
-#include "shaders/CCShaderCache.h"
-#include "shaders/ccShaders.h"
-#include <algorithm>
 
 static const char * kPCStencilMaskAlphaFilterFragmentShaderFilename = "Shaders/pcShader_PositionTexture_alphaFilter.fs";
+
+#define USE_LAYERED_STENCIL 0
 
 
 static bool compare_stencil_sprites(const void* p1, const void* p2)
@@ -15,10 +15,11 @@ static bool compare_stencil_sprites(const void* p1, const void* p2)
     return sp1->getZOrder() < sp2->getZOrder();
 }
 
-GAFStencilMaskSprite::GAFStencilMaskSprite()
+GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
 _maskedObjects(NULL),
-_isReorderMaskedObjectsDirty(false)
+_isReorderMaskedObjectsDirty(false),
+m_stencilLayer(stencilLayer)
 {
 }
 
@@ -76,7 +77,12 @@ void GAFStencilMaskSprite::visit()
         CCNode * object = (CCNode *)_maskedObjects->objectAtIndex(i);
         object->visit();
     }
+#if USE_LAYERED_STENCIL
+    _disableStencil();
+#else
     glDisable(GL_STENCIL_TEST);
+#endif
+    
 }
 
 void GAFStencilMaskSprite::sortAllMaskedObjects()
@@ -90,22 +96,64 @@ void GAFStencilMaskSprite::sortAllMaskedObjects()
     }
 }
 
-void GAFStencilMaskSprite::draw()
+void GAFStencilMaskSprite::_setupStencilForMask()
 {
-    // Prepare stencil
-    glEnable(GL_STENCIL_TEST);
-    glClear(GL_STENCIL_BUFFER_BIT);
+    if (m_stencilLayer == 0)
+    {
+        glEnable(GL_STENCIL_TEST);
+        glClear(GL_STENCIL_BUFFER_BIT);
+    }
 
     glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
-    glStencilFunc(GL_ALWAYS, 1, 1);
+    glStencilFunc(GL_ALWAYS, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
+    //glStencilMask(0xFF);
 
     // Draw mask
     GAFSprite::draw();
 
-    // Use stencil
+    //glStencilMask(0x00);
+}
+
+void GAFStencilMaskSprite::_setupStencilForContent()
+{
     glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-    glStencilFunc(GL_EQUAL, 1, 1);
+    
+    glStencilFunc(GL_LEQUAL, ++m_stencilLayer, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+}
+
+void GAFStencilMaskSprite::_disableStencil()
+{
+    m_stencilLayer = std::max(--m_stencilLayer, 0);
+
+    if (m_stencilLayer == 0)
+    {
+        glDisable(GL_STENCIL_TEST);
+    }
+}
+
+void GAFStencilMaskSprite::draw()
+{
+    // Prepare stencil
+#if USE_LAYERED_STENCIL
+    _setupStencilForMask();
+    _setupStencilForContent();
+#else
+     glEnable(GL_STENCIL_TEST);
+     glClear(GL_STENCIL_BUFFER_BIT);
+ 
+     glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+     glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
+     glStencilFunc(GL_ALWAYS, 1, 1);
+ 
+     // Draw mask
+     GAFSprite::draw();
+ 
+     // Use stencil
+     glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+     glStencilFunc(GL_EQUAL, 1, 1);
+#endif
 }
 
 void GAFStencilMaskSprite::addMaskedObject(CCNode * anObject)

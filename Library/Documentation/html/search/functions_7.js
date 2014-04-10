@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['namedparts',['namedParts',['../class_g_a_f_asset.html#a9cf9a842fd57f479b01f80bfcf3ff61b',1,'GAFAsset']]]
+  ['releasecontroloversubobjectnamed',['releaseControlOverSubobjectNamed',['../class_g_a_f_animated_object.html#a44dd2ee5c774f5de849b42af5f7d4f76',1,'GAFAnimatedObject']]]
 ];

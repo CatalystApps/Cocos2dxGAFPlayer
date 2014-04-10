@@ -1,3 +1,4 @@
+#include "GAFPrecompiled.h"
 #include "GAFAsset.h"
 #include "GAFAnimatedObject.h"
 #include "GAFTextureAtlas.h"
@@ -8,21 +9,13 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFFilterData.h"
 
-#include "CCDirector.h"
-#include "cocoa/CCDictionary.h"
-#include "cocoa/CCInteger.h"
-#include "textures/CCTexture2D.h"
-#include "sprite_nodes/CCSpriteFrame.h"
-#include <limits>
-
-#include "support/CCPointExtension.h"
-#include <algorithm>
-#include "misc_nodes/CCRenderTexture.h"
-#include "draw_nodes/CCDrawingPrimitives.h"
-
-
-#ifdef max
-#undef max
+// Detect whether it is Visual Studio 2010 or lower
+#if defined(_MSC_VER) && _MSC_VER < 1700 
+// If so, implement roundf manually
+static inline float roundf(float x)
+    {
+        return x >= 0.0f ? floorf(x + 0.5f) : ceilf(x - 0.5f);
+    }
 #endif
 
 static unsigned long ccNextPOT(unsigned long x)
@@ -38,11 +31,6 @@ static unsigned long ccNextPOT(unsigned long x)
 
 #define DEBUG_RTT_DRAWING 0
 
-static const char * kGAFBlurFilterName = "Fblur";
-static float const kAnimationFPS = 30.0;   // we keep this number 'almost' synchronized with web. The reason it's
-// not 31 fps is that we will have some animation artifacts when running
-// on 30/60 fps device.
-
 static CCAffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(CCAffineTransform aTransform)
 {
     CCAffineTransform transform = aTransform;
@@ -55,21 +43,20 @@ static CCAffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(CCAffin
 GAFAnimatedObject::GAFAnimatedObject()
 :
 _asset(NULL),
-_subObjects(NULL),
-_masks(NULL),
-_capturedObjects(NULL),
 _extraFramesCounter(0),
 _framePlayedDelegate(NULL),
-_controlDelegate(NULL)
+_controlDelegate(NULL),
+m_stencilLayer(0)
 {
 }
 
 GAFAnimatedObject::~GAFAnimatedObject()
 {
     CC_SAFE_RELEASE(_asset);
-    CC_SAFE_RELEASE(_subObjects);
-    CC_SAFE_RELEASE(_masks);
-    CC_SAFE_RELEASE(_capturedObjects);
+
+    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
+
+    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
 }
 
 GAFAnimatedObject * GAFAnimatedObject::create(GAFAsset * anAsset)
@@ -84,17 +71,9 @@ GAFAnimatedObject * GAFAnimatedObject::create(GAFAsset * anAsset)
     return NULL;
 }
 
-
-GAFAnimatedObject * GAFAnimatedObject::create(const char * jsonPath)
+GAFAnimatedObject * GAFAnimatedObject::createAndRun(const std::string& gafPath, bool looped)
 {
-    GAFAsset * asset = GAFAsset::create(jsonPath);
-    return asset->createObject();
-}
-
-
-GAFAnimatedObject * GAFAnimatedObject::createAndRun(const char * jsonPath, bool looped)
-{
-    GAFAsset * asset = GAFAsset::create(jsonPath);
+    GAFAsset * asset = GAFAsset::create(gafPath);
     return asset->createObjectAndRun(looped);
 }
 
@@ -104,194 +83,140 @@ bool GAFAnimatedObject::init(GAFAsset * anAsset)
     {
         return false;
     }
+
     if (!GAFAnimation::init(anAsset))
     {
         return false;
     }
+
     if (_asset != anAsset)
     {
         CC_SAFE_RELEASE(_asset);
         _asset = anAsset;
         CC_SAFE_RETAIN(_asset);
     }
-    CC_SAFE_RELEASE(_subObjects);
-    _subObjects = CCDictionary::create();
-    CC_SAFE_RETAIN(_subObjects);
 
-    CC_SAFE_RELEASE(_masks);
-    _masks = CCDictionary::create();
-    CC_SAFE_RETAIN(_masks);
+    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
 
-    CC_SAFE_RELEASE(_capturedObjects);
-    _capturedObjects = CCDictionary::create();
-    CC_SAFE_RETAIN(_capturedObjects);
-
-    _FPSType = kGAFAnimationFPSType_30;
+    _FPSType = kGAFAnimationFPSType_60;
     _extraFramesCounter = 0;
     _animationsSelectorScheduled = false;
 
-    addSubObjectsUsingAnimationObjectsDictionary(_asset->objects(), _asset->masks(), _asset->animationFrames());
+    instantiateObject(_asset->getAnimationObjects(), _asset->getAnimationMasks());
 
     return true;
 }
 
-static bool util_ccarray_contains_string(CCArray * array, const std::string& str)
+unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
 {
-    if (!array)
+    const NamedParts_t& np = _asset->getNamedParts();
+
+    NamedParts_t::const_iterator it = np.find(aName);
+
+    if (it != np.end())
     {
-        return false;
-    }
-    for (unsigned int i = 0; i < array->count(); ++i)
-    {
-        CCString * obj = (CCString *)array->objectAtIndex(i);
-        if (obj->getCString() == str)
-        {
-            return true;
-        }
+        return it->second;
     }
 
-    return false;
+    return IDNONE;
 }
 
-GAFSprite * GAFAnimatedObject::subobjectByName(const char * name)
+void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
 {
-    std::string rawName = objectIdByObjectName(name);
-    if (!rawName.length())
+    for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
-        return 0;
-    }
-    return subobjectByRawName(rawName.c_str());
-}
-
-GAFSprite * GAFAnimatedObject::subobjectByRawName(const char * name)
-{
-    if (!_subObjects)
-    {
-        return 0;
-    }
-    return (GAFSprite *)_subObjects->objectForKey(name);
-}
-
-GAFSprite * GAFAnimatedObject::subObjectForInnerObjectId(const char * anInnerObjectId)
-{
-    CCDictElement* pElement = 0;
-    CCDICT_FOREACH(_subObjects, pElement)
-    {
-        GAFSprite * obj = (GAFSprite*)pElement->getObject();
-        if (obj->objectId == anInnerObjectId)
-        {
-            return obj;
-        }
-    }
-    return 0;
-}
-
-std::string GAFAnimatedObject::objectIdByObjectName(const char * name)
-{
-    if (!name)
-    {
-        return 0;
-    }
-    CCDictionary * namedParts = _asset->namedParts();
-    if (!namedParts)
-    {
-        return 0;
-    }
-    CCDictElement* pElement = 0;
-    CCDICT_FOREACH(namedParts, pElement)
-    {
-        CCString * str = (CCString*)pElement->getObject();
-        if (0 == strcmp(str->getCString(), name))
-        {
-            return pElement->getStrKey();
-        }
-    }
-    return std::string();
-}
-
-void GAFAnimatedObject::addSubObjectsUsingAnimationObjectsDictionary(CCDictionary * anAnimationObjects,
-    CCDictionary * anAnimationMasks, CCArray * anAnimationFrames)
-{
-    CCDictElement* pElement = NULL;
-    CCDICT_FOREACH(anAnimationObjects, pElement)
-    {
-
-        CCString * atlasElementId = (CCString *)pElement->getObject();
+        GAFTextureAtlas* atlas = _asset->textureAtlas();
+        const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
         CCSpriteFrame * spriteFrame = NULL;
-        GAFTextureAtlas * atlas = _asset->textureAtlas();
 
-        GAFTextureAtlasElement *element = (GAFTextureAtlasElement *)atlas->elements()->objectForKey(atlasElementId->getCString());
+        unsigned int atlasElementIdRef = i->second;
 
-        if (element)
+        GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by its xref
+
+        assert(elIt != elementsMap.end());
+
+        const GAFTextureAtlasElement* txElemet = NULL;
+
+        if (elIt != elementsMap.end())
         {
-            if (atlas->textures()->count() >= element->atlasIdx + 1)
+            txElemet = elIt->second;
+
+            if (atlas->textures()->count() >= txElemet->atlasIdx + 1)
             {
-                CCTexture2D * texture = (CCTexture2D *)atlas->textures()->objectAtIndex(element->atlasIdx);
-                spriteFrame = CCSpriteFrame::createWithTexture(texture, element->bounds);
+                CCTexture2D * texture = (CCTexture2D *)atlas->textures()->objectAtIndex(txElemet->atlasIdx);
+                spriteFrame = CCSpriteFrame::createWithTexture(texture, txElemet->bounds);
             }
             else
             {
-                CCLOGERROR("Cannot add sub object with Id: %s, atlas with idx: %d not found.", atlasElementId->getCString(), element->atlasIdx);
+                CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
             }
         }
 
-        if (spriteFrame)
+        if (spriteFrame && txElemet)
         {
             GAFSpriteWithAlpha *sprite = new GAFSpriteWithAlpha();
             sprite->initWithSpriteFrame(spriteFrame);
 
-            sprite->objectId = atlasElementId->getCString();
+            sprite->objectIdRef = atlasElementIdRef;
 
             sprite->setVisible(false);
-            CCPoint pt = CCPointMake(0 - (0 - (element->pivotPoint.x / sprite->getContentSize().width)),
-                0 + (1 - (element->pivotPoint.y / sprite->getContentSize().height)));
+            CCPoint pt = CCPointMake(0 - (0 - (txElemet->pivotPoint.x / sprite->getContentSize().width)),
+                0 + (1 - (txElemet->pivotPoint.y / sprite->getContentSize().height)));
             sprite->setAnchorPoint(pt);
 
-            if (element->scale != 1.0f)
+            if (txElemet->scale != 1.0f)
             {
-                sprite->setAtlasScale(1.0f / element->scale);
+                sprite->setAtlasScale(1.0f / txElemet->scale);
             }
             // visual studio compile fix
             ccBlendFunc blend = { GL_ONE, GL_ONE_MINUS_SRC_ALPHA };
             sprite->setBlendFunc(blend);
-            _subObjects->setObject(sprite, pElement->getStrKey());
-            sprite->release();
+            m_subObjects[i->first] = sprite;
         }
         else
         {
-            CCLOGERROR("Cannot add subnode with AtlasElementName: %s, not found in atlas(es). Ignoring.", atlasElementId->getCString());
+            assert(false);
+            CCLOGERROR("Cannot add subnode with AtlasElementRef: %d, not found in atlas(es). Ignoring.", atlasElementIdRef);
         }
+
     }
 
-
-    CCDICT_FOREACH(anAnimationMasks, pElement)
+    for (AnimationMasks_t::const_iterator i = masks.begin(), e = masks.end(); i != e; ++i)
     {
-        CCString * atlasElementId = (CCString *)pElement->getObject();
+        GAFTextureAtlas* atlas = _asset->textureAtlas();
+        const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
 
-        CCSpriteFrame *spriteFrame = NULL;
-        GAFTextureAtlas * atlas = _asset->textureAtlas();
-        GAFTextureAtlasElement *element = (GAFTextureAtlasElement *)atlas->elements()->objectForKey(atlasElementId->getCString());
+        unsigned int atlasElementIdRef = i->second;
 
-        if (element)
+        GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by it's xref
+
+        assert(elIt != elementsMap.end());
+
+        const GAFTextureAtlasElement* txElemet = NULL;
+
+        if (elIt != elementsMap.end())
         {
-            spriteFrame = CCSpriteFrame::createWithTexture(atlas->texture(), element->bounds);
+            txElemet = elIt->second;
+
+            CCSpriteFrame * spriteFrame = CCSpriteFrame::createWithTexture(atlas->texture(), txElemet->bounds);
 
             if (spriteFrame)
             {
-                GAFStencilMaskSprite *mask = new GAFStencilMaskSprite();
+                GAFStencilMaskSprite *mask = new GAFStencilMaskSprite(m_stencilLayer);
                 mask->initWithSpriteFrame(spriteFrame);
-                mask->objectId = pElement->getStrKey();
-                CCPoint pt = CCPointMake(0 - (0 - (element->pivotPoint.x / mask->getContentSize().width)),
-                    0 + (1 - (element->pivotPoint.y / mask->getContentSize().height)));
+                mask->objectIdRef = i->first;
+                CCPoint pt = CCPointMake(0 - (0 - (txElemet->pivotPoint.x / mask->getContentSize().width)),
+                    0 + (1 - (txElemet->pivotPoint.y / mask->getContentSize().height)));
 
                 mask->setAnchorPoint(pt);
-                if (element->scale != 1.0f)
+                if (txElemet->scale != 1.0f)
                 {
-                    mask->setAtlasScale(1.0f / element->scale);
+                    mask->setAtlasScale(1.0f / txElemet->scale);
                 }
-                _masks->setObject(mask, pElement->getStrKey());
-                addChild(mask);
-                mask->release();
+
+                m_masks[i->first] = mask;
+                //addChild(mask);
             }
         }
     }
@@ -299,46 +224,54 @@ void GAFAnimatedObject::addSubObjectsUsingAnimationObjectsDictionary(CCDictionar
 
 bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAFAnimatedObjectControlFlags aControlFlags)
 {
-    std::string objectId = objectIdByObjectName(aName);
-    if (0 == objectId.length())
+    unsigned int objectId = objectIdByObjectName(aName);
+    if (IDNONE == objectId)
     {
         return false;
     }
-    if (_capturedObjects->objectForKey(objectId))
+
+    CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(objectId);
+
+    if (cpoIt != m_capturedObjects.end())
     {
         return false;
     }
-    _capturedObjects->setObject(CCInteger::create(aControlFlags), objectId);
+
+    m_capturedObjects[objectId] = aControlFlags;
     return true;
 }
 
 void GAFAnimatedObject::releaseControlOverSubobjectNamed(const char * aName)
 {
-    std::string objectId = objectIdByObjectName(aName);
-    if (objectId.length())
+    unsigned int objectId = objectIdByObjectName(aName);
+    if (objectId != IDNONE)
     {
-        _capturedObjects->removeObjectForKey(objectId);
+        CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(objectId);
+
+        if (cpoIt != m_capturedObjects.end())
+        {
+            m_capturedObjects.erase(cpoIt);
+        }
     }
 }
 
 void GAFAnimatedObject::removeAllSubObjects()
 {
-    CCDictElement* pElement = NULL;
-    CCDICT_FOREACH(_subObjects, pElement)
+    for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* sprite = (GAFSprite*)pElement->getObject();
+        GAFSprite* sprite = i->second;
         sprite->setVisible(false);
         sprite->removeFromParentAndCleanup(true);
     }
-    _subObjects->removeAllObjects();
+
+    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
 }
 
 void GAFAnimatedObject::setSubobjectsVisible(bool visible)
 {
-    CCDictElement* pElement = NULL;
-    CCDICT_FOREACH(_subObjects, pElement)
+    for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        CCSprite* sprite = (CCSprite*)pElement->getObject();
+        GAFSprite* sprite = i->second;
         sprite->setVisible(visible);
     }
 }
@@ -358,7 +291,6 @@ void GAFAnimatedObject::processAnimations(float dt)
         }
     }
 }
-
 
 CCPoint GAFAnimatedObject::pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, CCPoint aCenter, CCPoint anExternalPoint)
 {
@@ -399,29 +331,27 @@ CCPoint GAFAnimatedObject::pupilCoordinatesWithXSemiaxis(float anXSemiaxis, floa
     return rePoint;
 }
 
-GAFSprite * GAFAnimatedObject::subObjectForInnerObjectId(CCString * anInnerObjectId)
+GAFSprite * GAFAnimatedObject::subObjectForInnerObjectId(unsigned int anInnerObjectId)
 {
-    CCDictElement* pElement = NULL;
-    CCDICT_FOREACH(_subObjects, pElement)
+    for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* anim = (GAFSprite*)pElement->getObject();
-        if (anim->objectId == anInnerObjectId->getCString())
+        GAFSprite* anim = i->second;
+        if (anim->objectIdRef == anInnerObjectId)
         {
             return anim;
         }
     }
     return NULL;
-
 }
 
-CCDictionary * GAFAnimatedObject::subObjects()
+const SubObjects_t& GAFAnimatedObject::getSubojects() const
 {
-    return _subObjects;
+    return m_subObjects;
 }
 
-CCDictionary * GAFAnimatedObject::masks()
+const SubObjects_t& GAFAnimatedObject::getMasks() const
 {
-    return _masks;
+    return m_masks;
 }
 
 void GAFAnimatedObject::start()
@@ -484,7 +414,7 @@ CCSprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextures)
     setPosition(ccp(originalPos.x - frameRect.origin.x, originalPos.y - frameRect.origin.y));
 
 #if DEBUG_RTT_DRAWING
-    rt->beginWithClear(0, 1, 0, 0.5);
+    rt->beginWithClear(0, 0, 0, 0);
 #else
     rt->begin();
 #endif
@@ -503,44 +433,58 @@ CCSprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextures)
 
 void GAFAnimatedObject::realizeFrame(CCNode* out, int frameIndex)
 {
-    GAFAnimationFrame *currentFrame = (GAFAnimationFrame*)_asset->animationFrames()->objectAtIndex(_currentFrameIndex);
+    GAFAnimationFrame *currentFrame = _asset->getAnimationFrames()[frameIndex];
     setSubobjectsVisible(false);
-
-    CCArray * arr = currentFrame->objectStates();
-
-    if (arr)
+    
+    const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
     {
-        int n = arr->count();
-        for (int i = 0; i < n; ++i)
+        size_t statesCount = states.size();
+        for (size_t i = 0; i < statesCount; ++i)
         {
-            GAFSubobjectState *state = (GAFSubobjectState*)arr->objectAtIndex(i);
+            const GAFSubobjectState *state = states[i];
             {
-                CCDictionary * subobjects = subObjects();
                 GAFSpriteWithAlpha *subObject = NULL;
-                if (subobjects)
+
+                SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
+
+                if (sboIt != m_subObjects.end())
                 {
-                    subObject = (GAFSpriteWithAlpha *)subobjects->objectForKey(state->objectId);
+                    subObject = static_cast<GAFSpriteWithAlpha*>(sboIt->second);
                 }
 
                 if (subObject)
                 {
                     // Validate sprite type (w/ or w/o filter)
-                    GAFBlurFilterData *blurFilter = NULL;
+                    const Filters_t& filters = state->getFilters();
+                    GAFFilterData* filter = NULL;
 
-                    if (state->filters())
+                    if (!filters.empty())
                     {
-                        blurFilter = (GAFBlurFilterData *)state->filters()->objectForKey(kGAFBlurFilterName);
+                        filter = filters[0];
+                        filter->apply(subObject);
                     }
+
                     CCPoint prevAP = subObject->getAnchorPoint();
                     CCSize  prevCS = subObject->getContentSize();
 
-                    if (blurFilter)
+                    if (!filter || filter->getType() != GFT_Blur)
                     {
-                        subObject->setBlurRadius(CCSizeMake(blurFilter->blurSize.width / 4, blurFilter->blurSize.height / 4));
+                        subObject->setBlurFilterData(NULL);
                     }
-                    else
+
+                    if (!filter || filter->getType() != GFT_ColorMatrix)
                     {
-                        subObject->setBlurRadius(CCSizeZero);
+                        subObject->setColorMarixFilterData(NULL);
+                    }
+
+                    if (!filter || filter->getType() != GFT_Glow)
+                    {
+                        subObject->setGlowFilterData(NULL);
+                    }
+
+                    if (!filter || filter->getType() != GFT_DropShadow)
+                    {
+                        GAFDropShadowFilterData::reset(subObject);
                     }
 
                     CCSize newCS = subObject->getContentSize();
@@ -548,38 +492,47 @@ void GAFAnimatedObject::realizeFrame(CCNode* out, int frameIndex)
                         ((prevAP.y - 0.5) * prevCS.height) / newCS.height + 0.5);
                     subObject->setAnchorPoint(newAP);
 
-                    if (!state->maskObjectId.length())
+                    if (state->maskObjectIdRef == IDNONE)
                     {
                         if (!subObject->getParent())
                         {
-                            addChild(subObject);
+                            out->addChild(subObject);
                         }
                     }
                     else
                     {
                         if (subObject->getParent())
                         {
-                            removeChild(subObject, false);
+                            out->removeChild(subObject, false);
                         }
                         GAFStencilMaskSprite * mask = NULL;
-                        if (_masks)
+
+                        if (!m_masks.empty())
                         {
-                            mask = (GAFStencilMaskSprite *)_masks->objectForKey(state->maskObjectId);
+                            mask = static_cast<GAFStencilMaskSprite *>(m_masks[state->maskObjectIdRef]);
                         }
+
                         if (mask)
                         {
                             mask->addMaskedObject(subObject);
+
+                            if (mask->getParent() != this)
+                            {
+                                addChild(mask);
+                            }
                         }
                     }
 
                     bool subobjectCaptured = false;
                     GAFAnimatedObjectControlFlags controlFlags = kGAFAnimatedObjectControl_None;
-                    CCInteger * flagsNum = (CCInteger *)_capturedObjects->objectForKey(state->objectId);
-                    if (flagsNum)
+
+                    CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
+                    if (cpoIt != m_capturedObjects.end())
                     {
                         subobjectCaptured = true;
-                        controlFlags = (GAFAnimatedObjectControlFlags)flagsNum->getValue();
+                        controlFlags = (GAFAnimatedObjectControlFlags)cpoIt->second;
                     }
+
                     if (!subobjectCaptured ||
                         (subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
                     {
@@ -594,17 +547,18 @@ void GAFAnimatedObject::realizeFrame(CCNode* out, int frameIndex)
                             subObject->setZOrder(state->zIndex);
                             GAFStencilMaskSprite::updateMaskContainerOf(subObject);
                         }
-                        subObject->setVisible(state->isVisisble());
+                        subObject->setVisible(state->isVisible());
                         subObject->setColorTransform(state->colorMults(), state->colorOffsets());
                     }
                 }
                 else
                 {
                     GAFSprite * mask = NULL;
-                    if (_masks)
+                    if (!m_masks.empty())
                     {
-                        mask = (GAFSprite *)_masks->objectForKey(state->objectId);
+                        mask = m_masks[state->objectIdRef];
                     }
+
                     if (mask)
                     {
                         mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
@@ -620,17 +574,22 @@ void GAFAnimatedObject::realizeFrame(CCNode* out, int frameIndex)
         }
     }
 
-    if (_controlDelegate && arr)
+    if (_controlDelegate)
     {
-        int n = arr->count();
-        for (int i = 0; i < n; ++i)
+        size_t statesCount = states.size();
+        for (size_t i = 0; i < statesCount; ++i)
         {
+            const GAFSubobjectState *state = states[i];
 
-            GAFSubobjectState *state = (GAFSubobjectState*)arr->objectAtIndex(i);
-            GAFSpriteWithAlpha *subObject = (GAFSpriteWithAlpha *)subObjects()->objectForKey(state->objectId);
-            if (subObject)
+            SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
+
+            if (sboIt != m_subObjects.end())
             {
-                bool subobjectCaptured = NULL != _capturedObjects->objectForKey(state->objectId);
+                const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
+
+                CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
+
+                bool subobjectCaptured = cpoIt != m_capturedObjects.end();
                 if (subobjectCaptured && _controlDelegate)
                 {
                     _controlDelegate->onFrameDisplayed(this, subObject);
@@ -658,7 +617,6 @@ void GAFAnimatedObject::setControlDelegate(GAFAnimatedObjectControlDelegate * de
 {
     _controlDelegate = delegate;
 }
-
 
 static CCRect GAFCCRectUnion(const CCRect& src1, const CCRect& src2)
 {
@@ -702,19 +660,18 @@ static CCRect GAFCCRectUnion(const CCRect& src1, const CCRect& src2)
 
 CCRect GAFAnimatedObject::realBoundingBoxForCurrentFrame()
 {
-
     CCRect result = CCRectZero;
 
-    CCDictElement* pElement = NULL;
-    CCDICT_FOREACH(_subObjects, pElement)
+    for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* anim = (GAFSprite*)pElement->getObject();
+        GAFSprite* anim = i->second;
         if (anim->isVisible())
         {
             CCRect bb = anim->boundingBox();
             result = GAFCCRectUnion(result, bb);
         }
     }
+
     return CCRectApplyAffineTransform(result, nodeToParentTransform());
 }
 
@@ -724,5 +681,25 @@ void GAFAnimatedObject::draw()
 #if DEBUG_RTT_DRAWING
     ccDrawCircle(getAnchorPointInPoints(), 5, 0, 8, false);
 #endif
+}
+
+void GAFAnimatedObject::setStencilLayer(int newLayer)
+{
+    m_stencilLayer = std::max(0, std::min(newLayer, 255));
+}
+
+void GAFAnimatedObject::incStencilLayer()
+{
+    m_stencilLayer = std::max(0, std::min(++m_stencilLayer, 255));
+}
+
+void GAFAnimatedObject::decStencilLayer()
+{
+    m_stencilLayer = std::max(0, std::min(--m_stencilLayer, 255));
+}
+
+int GAFAnimatedObject::getStencilLayer() const
+{
+    return m_stencilLayer;
 }
 

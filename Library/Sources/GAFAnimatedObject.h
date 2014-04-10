@@ -3,26 +3,16 @@
 #ifndef __GAF_ANIMATED_OBJECT_H__
 #define __GAF_ANIMATED_OBJECT_H__
 
-#include "layers_scenes_transitions_nodes/CCLayer.h"
 #include "GAFAnimation.h"
-#include <vector>
-#include <string>
+#include "GAFCollections.h"
+
+#include "GAFDelegates.h"
 
 class GAFAnimation;
 class GAFSprite;
 class GAFAnimator;
 class GAFAnimatedObject;
 class GAFAsset;
-
-namespace cocos2d
-{
-    class CCDictionary;
-    class CCArray;
-    class CCString;
-    class CCSprite;
-}
-
-using namespace cocos2d;
 
 enum PCAnimationFPSType
 {
@@ -39,49 +29,47 @@ enum GAFAnimatedObjectControlFlags
     kGAFAnimatedObjectControl_ApplyState = 1 << 0
 };
 
-/// @class GAFFramePlayedDelegate
-/// You can get notification when particular frame of any GAFAnimatedObject is played.
-/// To do this you have to inherit GAFFramePlayedDelegate and call setFramePlayedDelegate
-/// method of your GAFAnimatedObject
-
-class GAFFramePlayedDelegate
-{
-public:
-    /// Callback function, called by GAF.
-    /// @param object - selected animated object
-    /// @param frame - frame number that is just played
-
-    virtual void onFramePlayed(GAFAnimatedObject * object, int frame);
-};
-
-class GAFAnimatedObjectControlDelegate
-{
-public:
-    virtual void onFrameDisplayed(GAFAnimatedObject * object, GAFSprite * subobject);
-};
 
 class GAFAnimatedObject : public CCLayer, public GAFAnimation
 {
+protected:
+    GAFAnimatedObject();
+private:
+    GAFAsset * _asset;
+
+    SubObjects_t m_subObjects;
+    SubObjects_t m_masks;
+
+    int         m_stencilLayer;
+
+    CaptureObjects_t m_capturedObjects;
+    bool _animationsSelectorScheduled;
+    GAFFramePlayedDelegate * _framePlayedDelegate;
+    GAFAnimatedObjectControlDelegate * _controlDelegate;
+
+    int numberOfGlobalFramesForOneAnimationFrame();
+    int _extraFramesCounter;
+    PCAnimationFPSType _FPSType;
+
 public:
     ~GAFAnimatedObject();
     static GAFAnimatedObject * create(GAFAsset * anAsset);
-    static GAFAnimatedObject * create(const char * jsonPath);
-    static GAFAnimatedObject * createAndRun(const char * jsonPath, bool looped = false);
+    static GAFAnimatedObject * createAndRun(const std::string& gafPath, bool looped = false);
 
     bool init(GAFAsset * anAsset);
     void processAnimations(float dt);
     CCPoint pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, CCPoint aCenter, CCPoint anExternalPoint);
-    GAFSprite * subObjectForInnerObjectId(CCString * anInnerObjectId);
     void removeAllSubObjects();
-    void addSubObjectsUsingAnimationObjectsDictionary(CCDictionary * anAnimationObjects, CCDictionary * anAnimationMasks, CCArray * anAnimationFrames);
+    
+    void instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
+
     void setSubobjectsVisible(bool visible);
-    CCDictionary * subObjects();
-    CCDictionary * masks();
+
+    const SubObjects_t& getSubojects() const;
+    const SubObjects_t& getMasks() const;
+
     void animatorDidPlayedFrame(GAFAnimator * anAnimator, int aFrameNo);
-    /// Returns subobject which has specified name assigned to it ("namedParts" section in config)
-    GAFSprite * subobjectByName(const char * name);
-    // call this function only if you really know what you do
-    GAFSprite * subobjectByRawName(const char * name);
+
     virtual void start();
     virtual void stop();
     virtual void processAnimation();
@@ -99,28 +87,28 @@ public:
     void setControlDelegate(GAFAnimatedObjectControlDelegate * delegate);
     CCRect realBoundingBoxForCurrentFrame();
 
+    /// Returns subobject by it id
+    GAFSprite * subObjectForInnerObjectId(unsigned int anInnerObjectId);
+    /// Returns object id by it name, defined in NamedParts
+    unsigned int objectIdByObjectName(const std::string& aName);
+
     CCSprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
 
     void realizeFrame(CCNode* out, int frameIndex);
 
+    //! 0 means all masked pixels will be marked as 1 and so on
+    void setStencilLayer(int newLayer);
+
+    //! 0 means all masked pixels will be marked as 1 and so on
+    void incStencilLayer();
+
+    //! 0 means all masked pixels will be marked as 1 and so on
+    void decStencilLayer();
+
+    //! 0 means all masked pixels will be marked as 1 and so on
+    int  getStencilLayer() const;
+
     virtual void draw();
-protected:
-    GAFAnimatedObject();
-    GAFSprite * subObjectForInnerObjectId(const char * anInnerObjectId);
-    std::string objectIdByObjectName(const char * aName);
-
-private:
-    GAFAsset * _asset;
-    CCDictionary   * _subObjects;
-    CCDictionary   * _masks;
-    CCDictionary   * _capturedObjects;
-    bool _animationsSelectorScheduled;
-    GAFFramePlayedDelegate * _framePlayedDelegate;
-    GAFAnimatedObjectControlDelegate * _controlDelegate;
-
-    int numberOfGlobalFramesForOneAnimationFrame();
-    int _extraFramesCounter;
-    PCAnimationFPSType _FPSType;
 
 }; // GAFAnimatedObject
 

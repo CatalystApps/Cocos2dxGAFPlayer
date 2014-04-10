@@ -3,13 +3,62 @@
 #include "GAFAsset.h"
 #include "GAFAnimatedObject.h"
 
-using namespace cocos2d;
+#ifdef WIN32
+#include <windows.h>
+
+CCPoint centerScreenPosition(GAFAsset* ast, const CCSize& screenSize)
+{
+    const GAFHeader& headInfo = ast->getHeader();
+
+    return CCPoint(-headInfo.frameSize.getMinX() + (screenSize.width - headInfo.frameSize.size.width) / 2,
+        headInfo.frameSize.getMinY() + (screenSize.height + headInfo.frameSize.size.height) / 2);
+}
+
+double PCFreq = 0.0;
+__int64 CounterStart = 0;
+
+void StartCounter()
+{
+    LARGE_INTEGER li;
+    if (!QueryPerformanceFrequency(&li))
+        std::cout << "QueryPerformanceFrequency failed!\n";
+
+    PCFreq = double(li.QuadPart) / 1000.0;
+
+    QueryPerformanceCounter(&li);
+    CounterStart = li.QuadPart;
+}
+double GetCounter()
+{
+    LARGE_INTEGER li;
+    QueryPerformanceCounter(&li);
+    return double(li.QuadPart - CounterStart) / PCFreq;
+}
+#else
+static double startCounter = 0.0;
+void StartCounter()
+{
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    startCounter = double(tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+double GetCounter()
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+
+    return double(tv.tv_sec * 1000 + tv.tv_usec / 1000) - startCounter;
+}
+#endif
+
 
 GafFeatures::GafFeatures()
     :
     m_asset(NULL),
     m_objects(NULL),
     m_currentSequence(0)
+    , m_loadingTimeLabel(NULL)
 {
 }
 GafFeatures::~GafFeatures()
@@ -124,9 +173,6 @@ bool GafFeatures::init()
 #endif
     CCSize size = CCDirector::sharedDirector()->getWinSizeInPixels();
 
-    /*float s = size.height / 640.f;
-    if (s > 1) s = 1.f;*/
-
     float s = 1.f;
 
     float dp = 0.13f;
@@ -163,10 +209,17 @@ bool GafFeatures::init()
     addChild(pMenu, 10000);
     m_anim_index = 0;
 
-    m_jsons.push_back("SampleAnimations/1/1.json");
-    m_jsons.push_back("SampleAnimations/2/2.json");
-    m_jsons.push_back("SampleAnimations/3/3.json");
-    m_jsons.push_back("SampleAnimations/4/4.json");
+    m_files.push_back("slime/slimeBin.gaf");
+    m_files.push_back("jester/jesterBin.gaf");
+    m_files.push_back("skeleton/skeletonBin.gaf");
+    m_files.push_back("ufo/ufoBin.gaf");
+
+    m_loadingTimeLabel = CCLabelTTF::create("", "Marker Felt", 24);
+    m_loadingTimeLabel->setColor(ccc3(0, 0, 255));
+    m_loadingTimeLabel->setAnchorPoint(CCPoint(1, 0.5));
+    m_loadingTimeLabel->setPosition(ccp(300, 300));
+
+    //addChild(m_loadingTimeLabel);
 
     addObjectsToScene(1);
     gray(NULL);
@@ -229,7 +282,7 @@ void GafFeatures::prevSequence( CCObject* )
 
 void GafFeatures::next_anim(CCObject*)
 {
-    if (!m_jsons.size())
+    if (!m_files.size())
     {
         return;
     }
@@ -237,7 +290,7 @@ void GafFeatures::next_anim(CCObject*)
     cleanup(NULL);
     ++m_anim_index;
 
-    if (m_anim_index >= (int)m_jsons.size())
+    if (m_anim_index >= (int)m_files.size())
     {
         m_anim_index = 0;
     }
@@ -246,7 +299,7 @@ void GafFeatures::next_anim(CCObject*)
 
 void GafFeatures::prev_anim(CCObject*)
 {
-    if (!m_jsons.size())
+    if (!m_files.size())
     {
         return;
     }
@@ -255,7 +308,7 @@ void GafFeatures::prev_anim(CCObject*)
     --m_anim_index;
     if (m_anim_index < 0)
     {
-        m_anim_index = m_jsons.size() - 1;
+        m_anim_index = m_files.size() - 1;
     }
 
     addObjectsToScene(1);
@@ -417,7 +470,18 @@ void GafFeatures::addObjectsToScene(int aCount)
 
     if (!m_asset)
     {
-        m_asset =  GAFAsset::create(m_jsons[m_anim_index]);
+        StartCounter();
+        m_asset = GAFAsset::create(m_files[m_anim_index], this);
+        double loadingTime = GetCounter();
+
+        cocos2d::CCLog("Loading time [%f]\n", loadingTime);
+
+        std::ostringstream ss;
+        ss << m_files[m_anim_index] << " ";
+        ss << loadingTime;
+
+        //m_loadingTimeLabel->setString(ss.str().c_str());
+
         CC_SAFE_RETAIN(m_asset);
     }
 
@@ -435,30 +499,33 @@ void GafFeatures::addObjectsToScene(int aCount)
 
         for (int i = initialCount; i < initialCount + aCount; ++i)
         {
-            GAFAnimatedObject *object = m_asset->createObjectAndRun(true);
-
+            GAFAnimatedObject *object = m_asset->createObject();
+ 
             object->setZOrder(100 * i);
+
             addChild(object);
 
-            object->setPosition(size.width * 0.5f, size.height * 0.5f);
+            object->setPosition(centerScreenPosition(m_asset, size));
+
             m_objects->addObject(object);
 
             enableSequenceControllers(object->hasSequences());
 
             m_objectSequencesNames.clear();
 
-            CCDictionary* secDictionary = m_asset->getSequences();
-            if (secDictionary)
+            const AnimationSequences_t& secDictionary = m_asset->getAnimationSequences();
+            if (!secDictionary.empty())
             {
-                CCDictElement* pElement = 0;
-                CCDICT_FOREACH(secDictionary, pElement)
+                for (AnimationSequences_t::const_iterator i = secDictionary.begin(), e = secDictionary.end(); i != e; ++i)
                 {
-                    m_objectSequencesNames.push_back(pElement->getStrKey());
+                    m_objectSequencesNames.push_back(i->first);
                 }
             }
 
             // will work only if animation has a sequence
             object->playSequence("walk", true);
+
+            object->start();
 
             object->setSequenceDelegate(this);
         }
@@ -468,4 +535,10 @@ void GafFeatures::addObjectsToScene(int aCount)
 void GafFeatures::onFinishSequence( GAFAnimatedObject * object, const std::string& sequenceName )
 {
     //! This function will be triggered once a sequence completed
+}
+
+//! path parameter could be changed
+void GafFeatures::onTexturePreLoad(std::string& path)
+{
+    CCLOG("Loading texture %s", path.c_str());
 }

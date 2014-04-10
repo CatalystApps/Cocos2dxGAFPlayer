@@ -3,9 +3,6 @@
 #ifndef __GAF_ACTION_OBJECT__
 #define __GAF_ACTION_OBJECT__
 
-#include <string>
-#include "cocoa/CCGeometry.h"
-
 namespace cocos2d
 {
     class CCDictionary;

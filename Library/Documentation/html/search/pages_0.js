@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gaf_20marmalade_20library',['GAF Marmalade Library',['../index.html',1,'']]]
+  ['gaf_20cocos2d_2dx_20library',['GAF Cocos2d-x Library',['../index.html',1,'']]]
 ];

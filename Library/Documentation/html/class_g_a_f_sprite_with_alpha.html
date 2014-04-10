@@ -85,7 +85,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_g_a_f_sprite_with_alpha-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -110,18 +109,36 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setUniformsFo
 <tr class="memitem:a231de78c181f36acac0c469b2689c6e9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a231de78c181f36acac0c469b2689c6e9"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>initWithTexture</b> (CCTexture2D *pTexture, const CCRect &amp;rect, bool rotated)</td></tr>
 <tr class="separator:a231de78c181f36acac0c469b2689c6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1850b26537c6e6de84772b2825205ec1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1850b26537c6e6de84772b2825205ec1"></a>
+CCGLProgram *&#160;</td><td class="memItemRight" valign="bottom"><b>programForShader</b> ()</td></tr>
+<tr class="separator:a1850b26537c6e6de84772b2825205ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c2200d4d9f4fe1a60cb8c2a3fb8305d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c2200d4d9f4fe1a60cb8c2a3fb8305d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setColorTransform</b> (const GLfloat *mults, const GLfloat *offsets)</td></tr>
 <tr class="separator:a1c2200d4d9f4fe1a60cb8c2a3fb8305d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84d6068e22b1a4de2ce86bd506ebe8aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84d6068e22b1a4de2ce86bd506ebe8aa"></a>
+<tr class="memitem:a2e92ccf8f268e44b0c02340d73f2ae65"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e92ccf8f268e44b0c02340d73f2ae65"></a>
 const GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><b>getColorTransform</b> () const </td></tr>
-<tr class="separator:a84d6068e22b1a4de2ce86bd506ebe8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a2e92ccf8f268e44b0c02340d73f2ae65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd2bc3bf55632fb83f8e6026d0af917f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd2bc3bf55632fb83f8e6026d0af917f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setColorTransform</b> (const GLfloat *colorTransform)</td></tr>
 <tr class="separator:abd2bc3bf55632fb83f8e6026d0af917f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cd8f3d6c1fd934861aec78a3eab9fab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8cd8f3d6c1fd934861aec78a3eab9fab"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setBlurRadius</b> (const CCSize &amp;blurRadius)</td></tr>
-<tr class="separator:a8cd8f3d6c1fd934861aec78a3eab9fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a427bbafce20fe27f889982a53a340ec4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a427bbafce20fe27f889982a53a340ec4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setColorMarixFilterData</b> (<a class="el" href="class_g_a_f_color_color_matrix_filter_data.html">GAFColorColorMatrixFilterData</a> *data)</td></tr>
+<tr class="separator:a427bbafce20fe27f889982a53a340ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf6489f877afabe1909ec5b592d30dfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf6489f877afabe1909ec5b592d30dfa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setGlowFilterData</b> (<a class="el" href="class_g_a_f_glow_filter_data.html">GAFGlowFilterData</a> *data)</td></tr>
+<tr class="separator:abf6489f877afabe1909ec5b592d30dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86397ce57219dfad1705af9c5234bf38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a86397ce57219dfad1705af9c5234bf38"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setBlurFilterData</b> (<a class="el" href="class_g_a_f_blur_filter_data.html">GAFBlurFilterData</a> *data)</td></tr>
+<tr class="separator:a86397ce57219dfad1705af9c5234bf38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9f6557cefb1cfc4c047ccab498739fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9f6557cefb1cfc4c047ccab498739fb"></a>
+CCTexture2D *&#160;</td><td class="memItemRight" valign="bottom"><b>getInitialTexture</b> () const </td></tr>
+<tr class="separator:aa9f6557cefb1cfc4c047ccab498739fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad953c5049b39baa64e408bf81b3d727f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad953c5049b39baa64e408bf81b3d727f"></a>
+const CCRect &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getInitialTextureRect</b> () const </td></tr>
+<tr class="separator:ad953c5049b39baa64e408bf81b3d727f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e15ae446f5eb928446cdfd622927d0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4e15ae446f5eb928446cdfd622927d0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isCTXIdentity</b> () const </td></tr>
+<tr class="separator:ac4e15ae446f5eb928446cdfd622927d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_g_a_f_sprite"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_g_a_f_sprite')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_g_a_f_sprite.html">GAFSprite</a></td></tr>
 <tr class="memitem:ad9a4c2931a9e98695ea96e5126a175a3 inherit pub_methods_class_g_a_f_sprite"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9a4c2931a9e98695ea96e5126a175a3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setExternaTransform</b> (const CCAffineTransform &amp;transform)</td></tr>
@@ -154,12 +171,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setTexture</b> (CCTex
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>initWithTexture</b> (CCTexture2D *pTexture, const CCRect &amp;rect, bool rotated)</td></tr>
 <tr class="separator:a017f9e68c46d9ebeb3491909b249ed8d inherit pub_methods_class_g_a_f_sprite"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1850b26537c6e6de84772b2825205ec1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1850b26537c6e6de84772b2825205ec1"></a>
-static CCGLProgram *&#160;</td><td class="memItemRight" valign="bottom"><b>programForShader</b> ()</td></tr>
-<tr class="separator:a1850b26537c6e6de84772b2825205ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ab0045019685edb0484710d7f9324d7b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0045019685edb0484710d7f9324d7b0"></a>
@@ -173,9 +184,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>invalidateTransformCa
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_class_g_a_f_sprite"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_g_a_f_sprite')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_g_a_f_sprite.html">GAFSprite</a></td></tr>
-<tr class="memitem:acad00819ec5f60de86f8c3f686e90df7 inherit pub_attribs_class_g_a_f_sprite"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acad00819ec5f60de86f8c3f686e90df7"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>objectId</b></td></tr>
-<tr class="separator:acad00819ec5f60de86f8c3f686e90df7 inherit pub_attribs_class_g_a_f_sprite"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9685e7f4593ccb24363d5b5108e0f22 inherit pub_attribs_class_g_a_f_sprite"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9685e7f4593ccb24363d5b5108e0f22"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>objectIdRef</b></td></tr>
+<tr class="separator:ad9685e7f4593ccb24363d5b5108e0f22 inherit pub_attribs_class_g_a_f_sprite"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_g_a_f_sprite"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_g_a_f_sprite')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_g_a_f_sprite.html">GAFSprite</a></td></tr>
 <tr class="memitem:ad7ab54e30b90c222b8c35a0c6a3242ae inherit pro_attribs_class_g_a_f_sprite"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7ab54e30b90c222b8c35a0c6a3242ae"></a>
 CCAffineTransform&#160;</td><td class="memItemRight" valign="bottom"><b>_externalTransform</b></td></tr>
@@ -191,7 +202,7 @@ CCAffineTransform&#160;</td><td class="memItemRight" valign="bottom"><b>_childTr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 9 2014 17:36:45 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 10 2014 12:59:53 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

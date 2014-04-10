@@ -1,6 +1,6 @@
+#include "GAFPrecompiled.h"
 #include "GAFAsset.h"
 #include "GAFData.h"
-#include "CCJSONConverter.h"
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
 #include "GAFAnimationFrame.h"
@@ -9,55 +9,29 @@
 #include "GAFActionObject.h"
 #include "GAFAnimationSequence.h"
 #include "GAFAnimatedObject.h"
-#include "platform/CCFileUtils.h"
-#include "cocoa/CCInteger.h"
-#include "cocoa/CCArray.h"
-#include "cocoa/CCDictionary.h"
 
-#include "ccMacros.h"
-#include "CCDirector.h"
-
-static const char *  kAnimationFrameCountKey = "animationFrameCount";
-static const char *  kAnimationConfigFramesKey = "animationConfigFrames";
-static const char *  kAnimationObjectsKey = "animationObjects";
-static const char *  kAnimationMasksKey = "animationMasks";
-static const char *  kAnimationNamedPartsKey = "namedParts";
-static const char *  kInteractionObjectsKey = "interactionObject";
-static const char *  kStandObjectsKey = "standObjects";
-static const char *  kTextureAtlasKey = "textureAtlas";
-static const char *  kAnimationSequencesKey = "animationSequences";
-static const char *  kVersionKey = "version";
-
-static const char *  kFrameNumberKey = "frameNumber";
-static const char *  kFrameStateKey = "state";
-
-static const char *  kGAFAnimationSequenceIdKey = "id";
-static const char *  kGAFAnimationSequenceStartFrameNoKey = "startFrameNo";
-static const char *  kGAFAnimationSequenceEndFrameNoKey = "endFrameNo";
-
-static const char *  kAtlasScaleKey = "scale";
-static const char *  kAtlasInfoKey = "atlases";
+#include "GAFLoader.h"
 
 static float _currentDeviceScale = 1.0f;
-static bool  _makeExactScaleForObject = false;
-static int   _desiredCsf = 2;
+static float  _desiredCsf = 1.f;
 
-int GAFAsset::desiredCsf()
+float GAFAsset::desiredCsf()
 {
     return CC_CONTENT_SCALE_FACTOR();
 }
 
-void GAFAsset::setDesiredCsf(int csf)
+void GAFAsset::setDesiredCsf(float csf)
 {
     _desiredCsf = csf;
 }
 
 GAFAnimatedObject * GAFAsset::createObject()
 {
-    if (!_textureAtlas)
+    if (!m_currentTextureAtlas)
     {
-        return 0;
+        return NULL;
     }
+
     return GAFAnimatedObject::create(this);
 }
 
@@ -72,43 +46,16 @@ GAFAnimatedObject * GAFAsset::createObjectAndRun(bool looped)
     return res;
 }
 
-
-GAFAsset * GAFAsset::create(const std::string& jsonPath)
-{
-    GAFAsset *pRet = new GAFAsset();
-    if (pRet && pRet->initWithImageData(jsonPath.c_str()))
-    {
-        pRet->autorelease();
-        return pRet;
-    }
-    CC_SAFE_DELETE(pRet);
-    return NULL;
-}
-
-
-GAFAsset::GAFAsset()
-:
-_textureAtlas(NULL),
-_objects(NULL),
-_masks(NULL),
-_interactionObjects(NULL),
-_standObjects(NULL),
-_animationFrames(NULL),
-_animationSequences(NULL),
-_namedParts(NULL)
+GAFAsset::GAFAsset():
+m_currentTextureAtlas(NULL),
+m_textureLoadDelegate(NULL)
 {
 }
 
 GAFAsset::~GAFAsset()
 {
-    CC_SAFE_RELEASE(_textureAtlas);
-    CC_SAFE_RELEASE(_objects);
-    CC_SAFE_RELEASE(_masks);
-    CC_SAFE_RELEASE(_interactionObjects);
-    CC_SAFE_RELEASE(_standObjects);
-    CC_SAFE_RELEASE(_animationFrames);
-    CC_SAFE_RELEASE(_animationSequences);
-    CC_SAFE_RELEASE(_namedParts);
+    GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
+    GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
 }
 
 bool GAFAsset::isAssetVersionPlayable(const char * version)
@@ -116,350 +63,179 @@ bool GAFAsset::isAssetVersionPlayable(const char * version)
     return true;
 }
 
-float GAFAsset::atlasScaleFromAtlasConfig(CCDictionary * anAtlasConfigDictionary)
+GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate)
 {
-    if (!anAtlasConfigDictionary)
+    GAFAsset * ret = new GAFAsset();
+    if (ret && ret->initWithGAFFile(gafFilePath, delegate))
     {
-        return 0;
+        ret->autorelease();
+        return ret;
     }
-    CCNumber * scale = (CCNumber *)anAtlasConfigDictionary->objectForKey(kAtlasScaleKey);
-    return static_cast<float>(scale->getDoubleValue());
+    CC_SAFE_RELEASE(ret);
+    return NULL;
 }
 
-bool GAFAsset::initWithImageData(const std::string& jsonPath)
+bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate)
 {
+    GAFLoader* loader = new GAFLoader();
 
-    GAFData aConfigData;
-    std::string fp = CCFileUtils::sharedFileUtils()->fullPathForFilename(jsonPath.c_str());
+    std::string fullfilePath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filePath.c_str());
 
-    aConfigData.delete_data = true;
-    aConfigData.ptr = CCFileUtils::sharedFileUtils()->getFileData(fp.c_str(), "rb", &aConfigData.size);
-    if (!aConfigData.ptr)
-    {
-        CCLOGERROR("Can not get data from json file : %s", jsonPath.c_str());
-        return NULL;
-    }
+    bool isLoaded = loader->loadFile(fullfilePath, this);
 
-    if (!aConfigData.getBytes())
-    {
-        CCLOGWARN("can not init GAFAsset - invalid anImageData");
-        return false;
-    }
-
-    CCDictionary* configDictionary = CCJSONConverter::sharedConverter()->dictionaryFrom((const char *)aConfigData.getBytes());
-
-    CCString *versionNode = (CCString*)configDictionary->objectForKey(kVersionKey);
-
-    if (!isAssetVersionPlayable(versionNode->getCString()))
-    {
-        return false;
-    }
-    CCArray *animationConfigFrames = (CCArray *)configDictionary->objectForKey(kAnimationConfigFramesKey);
-    CCArray *interactionObjectNodes = (CCArray *)configDictionary->objectForKey(kInteractionObjectsKey);
-    CCArray *standObjectsNodes = (CCArray *)configDictionary->objectForKey(kStandObjectsKey);
-    CCArray *textureAtlasNode = (CCArray *)configDictionary->objectForKey(kTextureAtlasKey);
-    CCArray *animationSequences = (CCArray *)configDictionary->objectForKey(kAnimationSequencesKey);
-
-    CCDictionary *objectNodes = (CCDictionary *)configDictionary->objectForKey(kAnimationObjectsKey);
-    CCDictionary *masksNodes = (CCDictionary *)configDictionary->objectForKey(kAnimationMasksKey);
-    CCDictionary *namedPartsNodes = (CCDictionary *)configDictionary->objectForKey(kAnimationNamedPartsKey);
-
-
-    if (!animationConfigFrames || !textureAtlasNode || !objectNodes)
-    {
-        CCLOGERROR("Error while creating GAFAsset. Required subnodes in dictionary are missing.");
-        return false;
-    }
-
-    CC_SAFE_RELEASE(_textureAtlas);
-
-    if (!textureAtlasNode->count())
+    if (m_textureAtlases.empty())
     {
         return false;
     }
 
-    CCDictionary * atlasDictionary = (CCDictionary *)textureAtlasNode->objectAtIndex(0);
-    float atlasScale = atlasScaleFromAtlasConfig(atlasDictionary);
-    const unsigned int count = textureAtlasNode->count();
-    for (unsigned int i = 1; i < count; ++i)
+    if (isLoaded)
     {
-        CCDictionary * a = (CCDictionary *)textureAtlasNode->objectAtIndex(i);
-        float as = atlasScaleFromAtlasConfig(a);
-        if (fabs(atlasScale - _currentDeviceScale) > fabs(as - _currentDeviceScale))
+        float atlasScale = m_textureAtlases[0]->getScale();
+
+        m_currentTextureAtlas = m_textureAtlases[0];
+
+        const unsigned int count = m_textureAtlases.size();
+
+        for (unsigned int i = 1; i < count; ++i)
         {
-            atlasDictionary = a;
-            atlasScale = as;
-        }
-    }
-
-    _usedAtlasContentScaleFactor = atlasScale;
-    CCArray * atlasesInfo = (CCArray *)atlasDictionary->objectForKey(kAtlasInfoKey);
-    if (!atlasesInfo)
-    {
-        CCLOGERROR("Error while creating GAFAsset.atlasesInfo subnode is missing in atlasDictionary.");
-        return false;
-    }
-
-    _textureAtlas = GAFTextureAtlas::create(fp.c_str(), atlasDictionary);
-    if (!_textureAtlas)
-    {
-        CCLOGERROR("Failed to initialize GAFAsset. GAFTextureAtlas could not be created.");
-        return false;
-    }
-    CC_SAFE_RETAIN(_textureAtlas);
-
-    if (_objects != objectNodes)
-    {
-        CC_SAFE_RELEASE(_objects);
-        _objects = objectNodes;
-        CC_SAFE_RETAIN(_objects);
-    }
-
-    if (_masks != masksNodes)
-    {
-        CC_SAFE_RELEASE(_masks);
-        _masks = masksNodes;
-        CC_SAFE_RETAIN(_masks);
-    }
-
-    if (_namedParts != namedPartsNodes)
-    {
-        CC_SAFE_RELEASE(_namedParts);
-        _namedParts = namedPartsNodes;
-        CC_SAFE_RETAIN(_namedParts);
-    }
-
-    if (interactionObjectNodes)
-    {
-        CC_SAFE_RELEASE(_interactionObjects);
-        _interactionObjects = CCArray::create();
-        CC_SAFE_RETAIN(_interactionObjects);
-
-        for (unsigned int i = 0; i < interactionObjectNodes->count(); ++i)
-        {
-            CCDictionary * dict = (CCDictionary*)interactionObjectNodes->objectAtIndex(i);
-
-            GAFInteractionObject * interObject = GAFInteractionObject::create(dict);
-            if (interObject)
+            float as = m_textureAtlases[i]->getScale();
+            if (fabs(atlasScale - _currentDeviceScale) > fabs(as - _currentDeviceScale))
             {
-                _interactionObjects->addObject(interObject);
+                m_currentTextureAtlas = m_textureAtlases[i];
+                atlasScale = as;
             }
         }
-    }
 
-    if (standObjectsNodes)
-    {
-        CC_SAFE_RELEASE(_standObjects);
-        _standObjects = CCArray::create();
-        CC_SAFE_RETAIN(_standObjects);
+        _usedAtlasContentScaleFactor = atlasScale;
 
-        for (unsigned int i = 0; i < standObjectsNodes->count(); ++i)
+        if (m_currentTextureAtlas)
         {
-            CCDictionary * dict = (CCDictionary*)standObjectsNodes->objectAtIndex(i);
-
-            GAFActionObject * interObject = GAFActionObject::create(dict);
-            if (interObject)
-            {
-                _standObjects->addObject(interObject);
-            }
+            m_textureLoadDelegate = delegate;
+            m_currentTextureAtlas->loadImages(fullfilePath, m_textureLoadDelegate);
         }
     }
 
-    loadFramesFromConfigDictionary(configDictionary);
+    delete loader;
 
-    if (animationSequences)
-    {
-        loadAnimationSequences(animationSequences);
-    }
-
-    configDictionary->removeAllObjects();  //free memory
-    return true;
+    return isLoaded;
 }
 
-CCArray * GAFAsset::objectStatesFromConfigFrame(CCDictionary * configFrame)
+GAFTextureAtlas* GAFAsset::textureAtlas()
 {
-    if (!configFrame)
-    {
-        return NULL;
-    }
-    CCDictionary * stateNodes = (CCDictionary *)configFrame->objectForKey(kFrameStateKey);
-    if (!stateNodes)
-    {
-        return NULL;
-    }
-    CCArray *states = CCArray::createWithCapacity(stateNodes->count());
-
-    CCDictElement* pElement = NULL;
-    CCDICT_FOREACH(stateNodes, pElement)
-    {
-        CCDictionary * stateDictionary = (CCDictionary *)pElement->getObject();
-        GAFSubobjectState * state = GAFSubobjectState::createWithStateDictionary(stateDictionary, pElement->getStrKey());
-        if (state)
-        {
-            states->addObject(state);
-        }
-        else
-        {
-            CCLOGINFO("GAFSubobjectState cannot be created. Ignoring.");
-        }
-    }
-    return states;
-}
-
-void GAFAsset::loadAnimationSequences(CCArray * aSequencesNodes)
-{
-    CC_SAFE_RELEASE(_animationSequences);
-    _animationSequences = CCDictionary::create();
-    for (unsigned int i = 0; i < aSequencesNodes->count(); ++i)
-    {
-        CCDictionary * sequenceNode = (CCDictionary *)aSequencesNodes->objectAtIndex(i);
-        CCString  * sequenceId = (CCString *)sequenceNode->objectForKey(kGAFAnimationSequenceIdKey);
-        CCInteger * startFrameNo = (CCInteger *)sequenceNode->objectForKey(kGAFAnimationSequenceStartFrameNoKey);
-        CCInteger * endFrameNo = (CCInteger *)sequenceNode->objectForKey(kGAFAnimationSequenceEndFrameNoKey);
-        if (sequenceId && startFrameNo && endFrameNo)
-        {
-            GAFAnimationSequence *sequence = new GAFAnimationSequence();
-            sequence->name = sequenceId->getCString();
-            sequence->startFrameNo = startFrameNo->getValue();
-            sequence->endFrameNo = endFrameNo->getValue();
-            _animationSequences->setObject(sequence, sequenceId->getCString());
-            sequence->release();
-        }
-        else
-        {
-            CCLOGERROR("Error while creating GAFAsset. aSequencesNodes cannot be parsed.");
-        }
-    }
-    CC_SAFE_RETAIN(_animationSequences);
-}
-
-void GAFAsset::loadFramesFromConfigDictionary(CCDictionary * aConfigDictionary)
-{
-    CCAssert(_objects, "objects != NULL");
-    CCDictionary * currentStates = CCDictionary::create();
-
-    CC_SAFE_RELEASE(_animationFrames);
-    _animationFrames = CCArray::create();
-    CC_SAFE_RETAIN(_animationFrames);
-
-    CCArray *animationConfigFrames = (CCArray *)aConfigDictionary->objectForKey(kAnimationConfigFramesKey);
-
-    CCDictElement* pElement = NULL;
-    CCDICT_FOREACH(_objects, pElement)
-    {
-        const char * key = pElement->getStrKey();
-        GAFSubobjectState *state = GAFSubobjectState::createEmptyWithObjectId(key);
-        currentStates->setObject(state, key);
-    }
-    CCInteger * configFrameCountInt = (CCInteger *)aConfigDictionary->objectForKey(kAnimationFrameCountKey);
-    unsigned int configFrameCount = configFrameCountInt ? configFrameCountInt->getValue() : 0;
-    unsigned int configFrameIndex = 0;
-
-    const size_t animationConfigFramesCount = animationConfigFrames->count();
-
-    for (unsigned int index = 0; index < configFrameCount; ++index)
-    {
-        if (configFrameIndex < animationConfigFramesCount)
-        {
-            CCDictionary *configFrame = (CCDictionary *)animationConfigFrames->objectAtIndex(configFrameIndex);
-            CCInteger * configFrameNoInt = (CCInteger *)configFrame->objectForKey(kFrameNumberKey);
-            int configFrameNo = configFrameNoInt ? configFrameNoInt->getValue() : -1;
-            if (int(configFrameNo - 1) == int(index))
-            {
-                CCArray * newStates = objectStatesFromConfigFrame(configFrame);
-                const size_t newStatesCount = newStates->count();
-                for (unsigned int j = 0; j < newStatesCount; ++j)
-                {
-                    GAFSubobjectState * state = (GAFSubobjectState *)newStates->objectAtIndex(j);
-                    currentStates->setObject(state, state->objectId.c_str());
-                }
-                ++configFrameNo;
-                ++configFrameIndex;
-            }
-        }
-        GAFAnimationFrame * frame = new GAFAnimationFrame();
-        CCDictElement* s = NULL;
-        CCArray * allValues = CCArray::create();
-        CCDICT_FOREACH(currentStates, s)
-        {
-            allValues->addObject(s->getObject());
-        }
-        frame->setObjectStates(allValues);
-        _animationFrames->addObject(frame);
-        frame->release();
-    }
-}
-
-CCDictionary * GAFAsset::objects()
-{
-    return _objects;
-}
-
-CCDictionary   * GAFAsset::masks()
-{
-    return _masks;
-}
-
-CCDictionary   * GAFAsset::namedParts()
-{
-    return _namedParts;
-}
-
-CCArray        * GAFAsset::animationFrames()
-{
-    return _animationFrames;
-}
-
-
-GAFTextureAtlas * GAFAsset::textureAtlas()
-{
-    return _textureAtlas;
-}
-
-CCDictionary * GAFAsset::animationSequences()
-{
-    return _animationSequences;
+    return m_currentTextureAtlas;
 }
 
 int GAFAsset::animationFramesCount() const
 {
-    if (_animationFrames)
-    {
-        return _animationFrames->count();
-    }
-    else
-    {
-        return 0;
-    }
+    return m_animationFrames.size();
 }
 
-GAFAnimationSequence * GAFAsset::getSequence(const char * name)
+const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
 {
-    if (!_animationSequences || !name)
-    {
-        return NULL;
-    }
-    return (GAFAnimationSequence *)_animationSequences->objectForKey(name);
-}
+    AnimationSequences_t::const_iterator it = m_animationSequences.find(name);
 
-GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame)
-{
-    if (!_animationSequences)
+    if (it != m_animationSequences.end())
     {
-        return NULL;
+        return &it->second;
     }
-    CCDictElement* s = NULL;
-    CCDICT_FOREACH(_animationSequences, s)
-    {
-        GAFAnimationSequence * seq = (GAFAnimationSequence*)s->getObject();
-        if (seq->endFrameNo == frame)
-        {
-            return seq;
-        }
-    }
+
     return NULL;
 }
-CCDictionary* GAFAsset::getSequences() const
+
+const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
 {
-    return _animationSequences;
+    if (m_animationSequences.empty())
+    {
+        return NULL;
+    }
+
+    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
+    {
+        if (i->second.endFrameNo == frame)
+        {
+            return &i->second;
+        }
+    }
+
+    return NULL;
+}
+
+void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)
+{
+    m_textureAtlases.push_back(atlas);
+}
+
+void GAFAsset::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef)
+{
+    m_animationMasks[objectId] = elementAtlasIdRef;
+}
+
+void GAFAsset::pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef)
+{
+    m_animationObjects[objectId] = elementAtlasIdRef;
+}
+
+void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
+{
+    m_animationFrames.push_back(frame);
+}
+
+const AnimationObjects_t& GAFAsset::getAnimationObjects() const
+{
+    return m_animationObjects;
+}
+
+const AnimationMasks_t& GAFAsset::getAnimationMasks() const
+{
+    return m_animationMasks;
+}
+
+const AnimationFrames_t& GAFAsset::getAnimationFrames() const
+{
+    return m_animationFrames;
+}
+
+void GAFAsset::pushAnimationSequence(const std::string nameId, int start, int end)
+{
+    GAFAnimationSequence seq;
+    seq.name = nameId;
+    seq.startFrameNo = start;
+    seq.endFrameNo = end;
+
+    m_animationSequences[nameId] = seq;
+}
+
+const AnimationSequences_t& GAFAsset::getAnimationSequences() const
+{
+    return m_animationSequences;
+}
+
+void GAFAsset::pushNamedPart(unsigned int objectIdRef, const std::string& name)
+{
+    m_namedParts[name] = objectIdRef;
+}
+
+const NamedParts_t& GAFAsset::getNamedParts() const
+{
+    return m_namedParts;
+}
+
+float GAFAsset::usedAtlasContentScaleFactor() const
+{
+    return _usedAtlasContentScaleFactor;
+}
+
+void GAFAsset::setHeader(GAFHeader& h)
+{
+    m_header = h;
+}
+
+void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
+{
+    m_textureLoadDelegate = delegate;
+}
+
+const GAFHeader& GAFAsset::getHeader() const
+{
+    return m_header;
 }

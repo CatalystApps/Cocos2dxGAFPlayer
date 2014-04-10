@@ -1,34 +1,19 @@
+#include "GAFPrecompiled.h"
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
 #include "GAFAsset.h"
-
-#include "platform/CCImage.h"
-#include "textures/CCTexture2D.h"
-#include "cocoa/CCArray.h"
-#include "cocoa/CCDictionary.h"
-#include "platform/CCFileUtils.h"
 #include "cocoa/CCInteger.h"
-#include "CCJSONData.h"
-
-#include <algorithm>
 
 #if CC_ENABLE_CACHE_TEXTURE_DATA
 #include "textures/CCTextureCache.h"
 #endif
-
-static const char * kAtlasesKey = "atlases";
-static const char * kElementsKey = "elements";
-static const char * kSourcesKey = "sources";
-static const char * kSourceKey = "source";
-static const char * kCSFKey = "csf";
-static const char * kTextureAtlasKey = "textureAtlas";
 
 GAFTextureAtlas::GAFTextureAtlas()
 :
 _loaded(false),
 _images(NULL),
 _textures(NULL),
-_elements(NULL)
+m_scale(1.f)
 {
 }
 
@@ -36,127 +21,63 @@ GAFTextureAtlas::~GAFTextureAtlas()
 {
     CC_SAFE_RELEASE(_images);
     CC_SAFE_RELEASE(_textures);
-    CC_SAFE_RELEASE(_elements);
+
+    GAF_RELEASE_MAP(GAFTextureAtlas::Elements_t, m_elements);
 }
 
-GAFTextureAtlas * GAFTextureAtlas::create(const char * aTexturesDirectory, CCDictionary * aTextureAtlasConfigDictionary)
+static bool compareAtlasesById(const GAFTextureAtlas::AtlasInfo& ai1, const GAFTextureAtlas::AtlasInfo& ai2)
 {
-    GAFTextureAtlas *pRet = new GAFTextureAtlas();
-    if (pRet && pRet->init(aTexturesDirectory, aTextureAtlasConfigDictionary))
-    {
-        pRet->autorelease();
-        return pRet;
-    }
-    CC_SAFE_DELETE(pRet);
-    return NULL;
+    return ai1.id < ai2.id;
 }
 
-static bool compare_atlases(const void* p1, const void* p2)
+void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate)
 {
-    CCDictionary* a1 = (CCDictionary*)p1;
-    CCDictionary* a2 = (CCDictionary*)p2;
-    CCInteger * id1 = (CCInteger*)a1->objectForKey("id");
-    CCInteger * id2 = (CCInteger*)a2->objectForKey("id");
-    CCAssert(id1 && id2, "id parameters must be valid");
-    return id1->getValue() < id2->getValue();
-}
-
-
-bool GAFTextureAtlas::init(const char * aTexturesDirectory, CCDictionary * aTextureAtlasConfigDictionary)
-{
-    if (!aTexturesDirectory || !aTextureAtlasConfigDictionary)
-    {
-        CCLOG("parameters should not equal to nil");
-        return false;
-    }
-    CCArray * atlasesInfo = (CCArray *)aTextureAtlasConfigDictionary->objectForKey(kAtlasesKey);
-
-    std::sort(atlasesInfo->data->arr,
-        atlasesInfo->data->arr + atlasesInfo->data->num,
-        compare_atlases);
+    std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
     CC_SAFE_RELEASE(_images);
     _images = new CCArray();
 
-    if (atlasesInfo)
+    if (!m_atlasInfos.empty())
     {
-        for (unsigned int i = 0; i < atlasesInfo->count(); ++i)
+        for (unsigned int i = 0; i < m_atlasInfos.size(); ++i)
         {
-            CCDictionary * atlasInfo = (CCDictionary*)atlasesInfo->objectAtIndex(i);
-            int desiredCsf = GAFAsset::desiredCsf();
-            CCArray * sources = (CCArray*)atlasInfo->objectForKey(kSourcesKey);
+            AtlasInfo& info = m_atlasInfos[i];
+
             std::string source;
-            for (unsigned int j = 0; j < sources->count(); ++j)
+
+            for (unsigned int j = 0; j < info.m_sources.size(); ++j)
             {
-                CCDictionary * csfdict = (CCDictionary *)sources->objectAtIndex(j);
-                CCNumber * scsf = (CCNumber*)csfdict->objectForKey(kCSFKey);
-                int csf = scsf->getIntValue();
-                CCString * s = (CCString*)csfdict->objectForKey(kSourceKey);
-                if (1 == csf)
+                AtlasInfo::Source& aiSource = info.m_sources[j];
+                if (1.f == aiSource.csf)
                 {
-                    source = s->getCString();
+                    source = aiSource.source;
                 }
-                if (csf == desiredCsf)
+
+                if (aiSource.csf == GAFAsset::desiredCsf())
                 {
-                    source = s->getCString();
+                    source = aiSource.source;
                     break;
                 }
             }
-            CCImage * image = new CCImage();
-            const char * path = CCFileUtils::sharedFileUtils()->fullPathFromRelativeFile(source.c_str(), aTexturesDirectory);
-            image->initWithImageFile(path);
+
+            CCImage* image = new CCImage();
+            std::string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativeFile(source.c_str(), dir.c_str());
+
+            if (delegate)
+            {
+                delegate->onTexturePreLoad(path);
+            }
+
+            image->initWithImageFile(path.c_str());
             _images->addObject(image);
             image->release();
         }
-    }
 
-    loadElementsFromAnimationConfigDictionary(aTextureAtlasConfigDictionary);
-    return true;
-}
-
-bool GAFTextureAtlas::loadElementsFromAnimationConfigDictionary(CCDictionary * aConfigDictionary)
-{
-    CCArray   * nElements = (CCArray*)aConfigDictionary->objectForKey(kElementsKey);
-
-    if (nElements)
-    {
-        int s = nElements->count();
-
-        CC_SAFE_RELEASE(_elements);
-        _elements = CCDictionary::create();
-        CC_SAFE_RETAIN(_elements);
-
-        for (int i = 0; i < s; ++i)
+        if (_images->count() > 0)
         {
-            CCObject * nElement = nElements->objectAtIndex(i);
-            CCDictionary * dict = dynamic_cast<CCDictionary*>(nElement);
-            if (dict)
-            {
-                GAFTextureAtlasElement * element = GAFTextureAtlasElement::create(dict);
-                if (element)
-                {
-                    _elements->setObject(element, element->name);
-                }
-            }
-            else
-            {
-                CCLOGERROR("Error when parsing texture atlas element JSON. Atlas element not of CCDictionary type");
-            }
+            _loaded = true;
         }
     }
-    else
-    {
-        CCLOGERROR("Error when parsing texture atlas element JSON.");
-        return false;
-    }
-    _loaded = true;
-    return true;
-}
-
-
-CCDictionary * GAFTextureAtlas::elements()
-{
-    return _elements;
 }
 
 CCImage     * GAFTextureAtlas::image()
@@ -201,4 +122,29 @@ CCArray * GAFTextureAtlas::textures()
         _textures->retain();
     }
     return _textures;
+}
+
+void GAFTextureAtlas::setScale(float val)
+{
+    m_scale = val;
+}
+
+float GAFTextureAtlas::getScale() const
+{
+    return m_scale;
+}
+
+void GAFTextureAtlas::pushAtlasInfo(const AtlasInfo& ai)
+{
+    m_atlasInfos.push_back(ai);
+}
+
+void GAFTextureAtlas::pushElement(unsigned int idx, GAFTextureAtlasElement* el)
+{
+    m_elements[idx] = el;
+}
+
+const GAFTextureAtlas::Elements_t& GAFTextureAtlas::getElements() const
+{
+    return m_elements;
 }

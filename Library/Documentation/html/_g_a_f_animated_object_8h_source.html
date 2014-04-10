@@ -89,10 +89,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#ifndef __GAF_ANIMATED_OBJECT_H__</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __GAF_ANIMATED_OBJECT_H__</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;layers_scenes_transitions_nodes/CCLayer.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;GAFAnimation.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;GAFAnimation.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;GAFCollections.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;GAFDelegates.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animation.html">GAFAnimation</a>;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_sprite.html">GAFSprite</a>;</div>
@@ -100,105 +100,110 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_asset.html">GAFAsset</a>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>cocos2d</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">enum</span> PCAnimationFPSType</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">class </span>CCDictionary;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">class </span>CCArray;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">class </span>CCString;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    kGAFAnimationFPSType_15 = 15,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    kGAFAnimationFPSType_30 = 30,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    kGAFAnimationFPSType_60 = 60</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using namespace </span>cocos2d;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">enum</span> PCAnimationFPSType</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    kGAFAnimationFPSType_15 = 15,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    kGAFAnimationFPSType_30 = 30,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    kGAFAnimationFPSType_60 = 60</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">enum</span> GAFAnimatedObjectControlFlags</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    kGAFAnimatedObjectControl_None = 0,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// If specified, state of controlled object will be changed every frame (like it is by default) and then</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// animatedObject:didDisplayFrameWithSubobject: will be called</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    kGAFAnimatedObjectControl_ApplyState = 1 &lt;&lt; 0</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">enum</span> GAFAnimatedObjectControlFlags</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_g_a_f_animated_object.html">   33</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> : <span class="keyword">public</span> CCLayer, <span class="keyword">public</span> <a class="code" href="class_g_a_f_animation.html">GAFAnimation</a></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    kGAFAnimatedObjectControl_None = 0,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// If specified, state of controlled object will be changed every frame (like it is by default) and then</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// animatedObject:didDisplayFrameWithSubobject: will be called</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    kGAFAnimatedObjectControl_ApplyState = 1 &lt;&lt; 0</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_g_a_f_frame_played_delegate.html">   46</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_frame_played_delegate.html">GAFFramePlayedDelegate</a></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onFramePlayed(<a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * <span class="keywordtype">object</span>, <span class="keywordtype">int</span> frame);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_g_a_f_animated_object_control_delegate.html">   56</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animated_object_control_delegate.html">GAFAnimatedObjectControlDelegate</a></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onFrameDisplayed(<a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * <span class="keywordtype">object</span>, <a class="code" href="class_g_a_f_sprite.html">GAFSprite</a> * subobject);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_g_a_f_animated_object.html">   62</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> : <span class="keyword">public</span> CCLayer, <span class="keyword">public</span> <a class="code" href="class_g_a_f_animation.html">GAFAnimation</a></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    ~<a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a>();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * create(<a class="code" href="class_g_a_f_asset.html">GAFAsset</a> * anAsset);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * create(<span class="keyword">const</span> <span class="keywordtype">char</span> * jsonPath);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * createAndRun(<span class="keyword">const</span> <span class="keywordtype">char</span> * jsonPath, <span class="keywordtype">bool</span> looped = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">bool</span> init(<a class="code" href="class_g_a_f_asset.html">GAFAsset</a> * anAsset);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> processAnimations(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    CCPoint pupilCoordinatesWithXSemiaxis(<span class="keywordtype">float</span> anXSemiaxis, <span class="keywordtype">float</span> anYSemiaxis, CCPoint aCenter, CCPoint anExternalPoint);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_g_a_f_sprite.html">GAFSprite</a> * subObjectForInnerObjectId(CCString * anInnerObjectId);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> removeAllSubObjects();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> addSubObjectsUsingAnimationObjectsDictionary(CCDictionary * anAnimationObjects, CCDictionary * anAnimationMasks, CCArray * anAnimationFrames);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> setSubobjectsVisible(<span class="keywordtype">bool</span> visible);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    CCDictionary * subObjects();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    CCDictionary * masks();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> animatorDidPlayedFrame(GAFAnimator * anAnimator, <span class="keywordtype">int</span> aFrameNo);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="class_g_a_f_sprite.html">GAFSprite</a> * subobjectByName(<span class="keyword">const</span> <span class="keywordtype">char</span> * name);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// call this function only if you really know what you do</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="class_g_a_f_sprite.html">GAFSprite</a> * subobjectByRawName(<span class="keyword">const</span> <span class="keywordtype">char</span> * name);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> start();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> stop();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> processAnimation();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">bool</span> captureControlOverSubobjectNamed(<span class="keyword">const</span> <span class="keywordtype">char</span> * aName, GAFAnimatedObjectControlFlags aControlFlags);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> releaseControlOverSubobjectNamed(<span class="keyword">const</span> <span class="keywordtype">char</span> * aName);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="class_g_a_f_asset.html">GAFAsset</a> * _asset;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    SubObjects_t m_subObjects;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    SubObjects_t m_masks;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span>         m_stencilLayer;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    CaptureObjects_t m_capturedObjects;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> _animationsSelectorScheduled;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="class_g_a_f_frame_played_delegate.html">GAFFramePlayedDelegate</a> * _framePlayedDelegate;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="class_g_a_f_animated_object_control_delegate.html">GAFAnimatedObjectControlDelegate</a> * _controlDelegate;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">int</span> numberOfGlobalFramesForOneAnimationFrame();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span> _extraFramesCounter;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    PCAnimationFPSType _FPSType;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    ~<a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * create(<a class="code" href="class_g_a_f_asset.html">GAFAsset</a> * anAsset);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * createAndRun(<span class="keyword">const</span> std::string&amp; gafPath, <span class="keywordtype">bool</span> looped = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">bool</span> init(<a class="code" href="class_g_a_f_asset.html">GAFAsset</a> * anAsset);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> processAnimations(<span class="keywordtype">float</span> dt);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    CCPoint pupilCoordinatesWithXSemiaxis(<span class="keywordtype">float</span> anXSemiaxis, <span class="keywordtype">float</span> anYSemiaxis, CCPoint aCenter, CCPoint anExternalPoint);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> removeAllSubObjects();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> instantiateObject(<span class="keyword">const</span> AnimationObjects_t&amp; objs, <span class="keyword">const</span> AnimationMasks_t&amp; masks);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> setSubobjectsVisible(<span class="keywordtype">bool</span> visible);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">const</span> SubObjects_t&amp; getSubojects() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">const</span> SubObjects_t&amp; getMasks() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> animatorDidPlayedFrame(GAFAnimator * anAnimator, <span class="keywordtype">int</span> aFrameNo);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> start();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> stop();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> processAnimation();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_g_a_f_animated_object.html#a7592f5120a61ea5b7f06f6cdcb7e128a">captureControlOverSubobjectNamed</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * aName, GAFAnimatedObjectControlFlags aControlFlags);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_g_a_f_animated_object.html#a44dd2ee5c774f5de849b42af5f7d4f76">releaseControlOverSubobjectNamed</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * aName);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> setFramePlayedDelegate(<a class="code" href="class_g_a_f_frame_played_delegate.html">GAFFramePlayedDelegate</a> * delegate);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> setControlDelegate(<a class="code" href="class_g_a_f_animated_object_control_delegate.html">GAFAnimatedObjectControlDelegate</a> * delegate);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    CCRect realBoundingBoxForCurrentFrame();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="class_g_a_f_sprite.html">GAFSprite</a> * <a class="code" href="class_g_a_f_animated_object.html#a8420ccfe76a79a109d92576be9e9a13f">subObjectForInnerObjectId</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> anInnerObjectId);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_g_a_f_animated_object.html#a797500c27dcd6e7ee9aba8520d85bb1e">objectIdByObjectName</a>(<span class="keyword">const</span> std::string&amp; aName);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    CCSprite* renderCurrentFrameToTexture(<span class="keywordtype">bool</span> usePOTTextures = <span class="keyword">false</span>);</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> setFramePlayedDelegate(<a class="code" href="class_g_a_f_frame_played_delegate.html">GAFFramePlayedDelegate</a> * delegate);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> setControlDelegate(<a class="code" href="class_g_a_f_animated_object_control_delegate.html">GAFAnimatedObjectControlDelegate</a> * delegate);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    CCRect realBoundingBoxForCurrentFrame();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a>();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="class_g_a_f_sprite.html">GAFSprite</a> * subObjectForInnerObjectId(<span class="keyword">const</span> <span class="keywordtype">char</span> * anInnerObjectId);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    std::string objectIdByObjectName(<span class="keyword">const</span> <span class="keywordtype">char</span> * aName);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> realizeFrame(CCNode* out, <span class="keywordtype">int</span> frameIndex);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_g_a_f_animated_object.html#ab69940056d99608a64ace816efe741f5">setStencilLayer</a>(<span class="keywordtype">int</span> newLayer);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_g_a_f_animated_object.html#a10fe17e8e3a76c3e260217e0c28c1aa2">incStencilLayer</a>();</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="class_g_a_f_asset.html">GAFAsset</a> * _asset;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    CCDictionary   * _subObjects;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    CCDictionary   * _masks;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    CCDictionary   * _capturedObjects;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">bool</span> _animationsSelectorScheduled;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="class_g_a_f_frame_played_delegate.html">GAFFramePlayedDelegate</a> * _framePlayedDelegate;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="class_g_a_f_animated_object_control_delegate.html">GAFAnimatedObjectControlDelegate</a> * _controlDelegate;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">int</span> numberOfGlobalFramesForOneAnimationFrame();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">int</span> _extraFramesCounter;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    PCAnimationFPSType _FPSType;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}; <span class="comment">// GAFAnimatedObject</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#endif // __GAF_ANIMATED_OBJECT_H__</span></div>
-<div class="ttc" id="class_g_a_f_animated_object_html"><div class="ttname"><a href="class_g_a_f_animated_object.html">GAFAnimatedObject</a></div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.h:62</div></div>
-<div class="ttc" id="class_g_a_f_sprite_html"><div class="ttname"><a href="class_g_a_f_sprite.html">GAFSprite</a></div><div class="ttdef"><b>Definition:</b> GAFSprite.h:29</div></div>
-<div class="ttc" id="class_g_a_f_asset_html"><div class="ttname"><a href="class_g_a_f_asset.html">GAFAsset</a></div><div class="ttdef"><b>Definition:</b> GAFAsset.h:21</div></div>
-<div class="ttc" id="class_g_a_f_animated_object_control_delegate_html"><div class="ttname"><a href="class_g_a_f_animated_object_control_delegate.html">GAFAnimatedObjectControlDelegate</a></div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.h:56</div></div>
-<div class="ttc" id="class_g_a_f_frame_played_delegate_html"><div class="ttname"><a href="class_g_a_f_frame_played_delegate.html">GAFFramePlayedDelegate</a></div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.h:46</div></div>
-<div class="ttc" id="class_g_a_f_animation_html"><div class="ttname"><a href="class_g_a_f_animation.html">GAFAnimation</a></div><div class="ttdef"><b>Definition:</b> GAFAnimation.h:35</div></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_g_a_f_animated_object.html#a7db814f27b1297785604d33ee1eb249d">decStencilLayer</a>();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">int</span>  <a class="code" href="class_g_a_f_animated_object.html#a043249ce4ea751dd27a14b2519da3cf5">getStencilLayer</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> draw();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}; <span class="comment">// GAFAnimatedObject</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#endif // __GAF_ANIMATED_OBJECT_H__</span></div>
+<div class="ttc" id="class_g_a_f_animated_object_html"><div class="ttname"><a href="class_g_a_f_animated_object.html">GAFAnimatedObject</a></div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.h:33</div></div>
+<div class="ttc" id="class_g_a_f_sprite_html"><div class="ttname"><a href="class_g_a_f_sprite.html">GAFSprite</a></div><div class="ttdef"><b>Definition:</b> GAFSprite.h:23</div></div>
+<div class="ttc" id="class_g_a_f_asset_html"><div class="ttname"><a href="class_g_a_f_asset.html">GAFAsset</a></div><div class="ttdef"><b>Definition:</b> GAFAsset.h:20</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_control_delegate_html"><div class="ttname"><a href="class_g_a_f_animated_object_control_delegate.html">GAFAnimatedObjectControlDelegate</a></div><div class="ttdef"><b>Definition:</b> GAFDelegates.h:36</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_a7db814f27b1297785604d33ee1eb249d"><div class="ttname"><a href="class_g_a_f_animated_object.html#a7db814f27b1297785604d33ee1eb249d">GAFAnimatedObject::decStencilLayer</a></div><div class="ttdeci">void decStencilLayer()</div><div class="ttdoc">0 means all masked pixels will be marked as 1 and so on </div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:696</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_ab69940056d99608a64ace816efe741f5"><div class="ttname"><a href="class_g_a_f_animated_object.html#ab69940056d99608a64ace816efe741f5">GAFAnimatedObject::setStencilLayer</a></div><div class="ttdeci">void setStencilLayer(int newLayer)</div><div class="ttdoc">0 means all masked pixels will be marked as 1 and so on </div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:686</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_a797500c27dcd6e7ee9aba8520d85bb1e"><div class="ttname"><a href="class_g_a_f_animated_object.html#a797500c27dcd6e7ee9aba8520d85bb1e">GAFAnimatedObject::objectIdByObjectName</a></div><div class="ttdeci">unsigned int objectIdByObjectName(const std::string &amp;aName)</div><div class="ttdoc">Returns object id by it name, defined in NamedParts. </div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:111</div></div>
+<div class="ttc" id="class_g_a_f_frame_played_delegate_html"><div class="ttname"><a href="class_g_a_f_frame_played_delegate.html">GAFFramePlayedDelegate</a></div><div class="ttdef"><b>Definition:</b> GAFDelegates.h:26</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_a7592f5120a61ea5b7f06f6cdcb7e128a"><div class="ttname"><a href="class_g_a_f_animated_object.html#a7592f5120a61ea5b7f06f6cdcb7e128a">GAFAnimatedObject::captureControlOverSubobjectNamed</a></div><div class="ttdeci">bool captureControlOverSubobjectNamed(const char *aName, GAFAnimatedObjectControlFlags aControlFlags)</div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:225</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_a8420ccfe76a79a109d92576be9e9a13f"><div class="ttname"><a href="class_g_a_f_animated_object.html#a8420ccfe76a79a109d92576be9e9a13f">GAFAnimatedObject::subObjectForInnerObjectId</a></div><div class="ttdeci">GAFSprite * subObjectForInnerObjectId(unsigned int anInnerObjectId)</div><div class="ttdoc">Returns subobject by it id. </div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:334</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_a44dd2ee5c774f5de849b42af5f7d4f76"><div class="ttname"><a href="class_g_a_f_animated_object.html#a44dd2ee5c774f5de849b42af5f7d4f76">GAFAnimatedObject::releaseControlOverSubobjectNamed</a></div><div class="ttdeci">void releaseControlOverSubobjectNamed(const char *aName)</div><div class="ttdoc">Releases control over subobject captured earlier. </div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:244</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_a10fe17e8e3a76c3e260217e0c28c1aa2"><div class="ttname"><a href="class_g_a_f_animated_object.html#a10fe17e8e3a76c3e260217e0c28c1aa2">GAFAnimatedObject::incStencilLayer</a></div><div class="ttdeci">void incStencilLayer()</div><div class="ttdoc">0 means all masked pixels will be marked as 1 and so on </div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:691</div></div>
+<div class="ttc" id="class_g_a_f_animated_object_html_a043249ce4ea751dd27a14b2519da3cf5"><div class="ttname"><a href="class_g_a_f_animated_object.html#a043249ce4ea751dd27a14b2519da3cf5">GAFAnimatedObject::getStencilLayer</a></div><div class="ttdeci">int getStencilLayer() const </div><div class="ttdoc">0 means all masked pixels will be marked as 1 and so on </div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.cpp:701</div></div>
+<div class="ttc" id="class_g_a_f_animation_html"><div class="ttname"><a href="class_g_a_f_animation.html">GAFAnimation</a></div><div class="ttdef"><b>Definition:</b> GAFAnimation.h:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 9 2014 17:36:45 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 10 2014 12:59:53 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -1,33 +1,29 @@
+#include "GAFPrecompiled.h"
 #include "GAFAnimationFrame.h"
 #include "GAFSubobjectState.h"
 #include "GAFTextureAtlas.h"
-#include "cocoa/CCArray.h"
-#include "cocoa/CCDictionary.h"
-
 
 GAFAnimationFrame::GAFAnimationFrame()
-:
-_initialInstructions(NULL),
-_objectsStates(NULL)
 {
 
 }
 
 GAFAnimationFrame::~GAFAnimationFrame()
 {
-    CC_SAFE_RELEASE(_initialInstructions);
-    CC_SAFE_RELEASE(_objectsStates);
+    for (GAFAnimationFrame::SubobjectStates_t::iterator i = m_subObjectStates.begin(), e = m_subObjectStates.end(); i != e; ++i)
+    {
+        (*i)->release();
+    }
 }
 
-CCArray * GAFAnimationFrame::objectStates()
+const GAFAnimationFrame::SubobjectStates_t& GAFAnimationFrame::getObjectStates() const
 {
-    return _objectsStates;
+    return m_subObjectStates;
 }
 
-void GAFAnimationFrame::setObjectStates(CCArray * states)
+void GAFAnimationFrame::pushObjectState(GAFSubobjectState* state)
 {
-    CC_SAFE_RELEASE(_objectsStates);
-    _objectsStates = states;
-    CC_SAFE_RETAIN(_objectsStates);
+    m_subObjectStates.push_back(state);
+    state->addRef();
 }
 

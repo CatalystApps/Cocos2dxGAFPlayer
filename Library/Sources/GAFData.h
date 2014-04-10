@@ -3,9 +3,6 @@
 #ifndef __GAF_DATA_H__
 #define __GAF_DATA_H__
 
-#include "cocoa/CCObject.h"
-
-
 using namespace cocos2d;
 
     /**

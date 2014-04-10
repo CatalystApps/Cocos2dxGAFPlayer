@@ -89,84 +89,97 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#ifndef __GAF_ASSET_H__</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __GAF_ASSET_H__</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;cocoa/CCObject.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>cocos2d</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span>CCDictionary;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">class </span>CCArray;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">using namespace </span>cocos2d;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_g_a_f_asset.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_asset.html">GAFAsset</a> : <span class="keyword">public</span> CCObject</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_g_a_f_asset.html">GAFAsset</a> * create(<span class="keyword">const</span> std::string&amp; jsonPath);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span>  initWithImageData(<span class="keyword">const</span> std::string&amp; jsonPath);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="class_g_a_f_asset.html">GAFAsset</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    ~<a class="code" href="class_g_a_f_asset.html">GAFAsset</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">int</span> animationFramesCount() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a> * textureAtlas();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    CCDictionary   * objects();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    CCDictionary   * masks();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    CCDictionary   * namedParts();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    CCDictionary   * animationSequences();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a>   * getSequence(<span class="keyword">const</span> <span class="keywordtype">char</span> * name);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    CCDictionary* getSequences() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a>   * getSequenceByLastFrame(<span class="keywordtype">int</span> frame);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    CCArray        * animationFrames();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> isAssetVersionPlayable(<span class="keyword">const</span> <span class="keywordtype">char</span> * version);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * createObject();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> * createObjectAndRun(<span class="keywordtype">bool</span> looped = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> desiredCsf();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setDesiredCsf(<span class="keywordtype">int</span> csf);</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_g_a_f_asset.html#ada62ac8fc08cc7a3fbec78e6f88dfca9">   58</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="class_g_a_f_asset.html#ada62ac8fc08cc7a3fbec78e6f88dfca9">usedAtlasContentScaleFactor</a>()<span class="keyword">const</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> _usedAtlasContentScaleFactor;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> loadAnimationSequences(CCArray * aSequencesNodes);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> loadFramesFromConfigDictionary(CCDictionary * aConfigDictionary);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    CCArray * objectStatesFromConfigFrame(CCDictionary * configFrame);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">float</span> _usedAtlasContentScaleFactor;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">float</span> atlasScaleFromAtlasConfig(CCDictionary * anAtlasConfigDictionary);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">int</span> _majorVersion;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">int</span> _minorVersion;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a> * _textureAtlas;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// dictionary of objects [ObjectId -&gt; AtlasElementName] </span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    CCDictionary   * _objects;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// dictionary of masks [MaskId -&gt; AtlasElementName] </span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    CCDictionary   * _masks;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    CCArray        * _interactionObjects;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    CCArray        * _standObjects;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;GAFCollections.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;GAFHeader.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;GAFDelegates.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using namespace </span>cocos2d;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_loader.html">GAFLoader</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_g_a_f_asset.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_asset.html">GAFAsset</a> : <span class="keyword">public</span> CCObject</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    TextureAtlases_t        m_textureAtlases;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    AnimationMasks_t        m_animationMasks;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    AnimationObjects_t      m_animationObjects;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    AnimationFrames_t       m_animationFrames;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    AnimationSequences_t    m_animationSequences;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    NamedParts_t            m_namedParts;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="class_g_a_f_header.html">GAFHeader</a>               m_header;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a>*        m_currentTextureAtlas;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a>* m_textureLoadDelegate;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">float</span> _usedAtlasContentScaleFactor;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">int</span> _majorVersion;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">int</span> _minorVersion;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span>                        initWithGAFFile(<span class="keyword">const</span> std::string&amp; filePath, <a class="code" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a>* delegate = NULL);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span>                        pushTextureAtlas(<a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a>* atlas);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span>                        pushAnimationMask(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> objectId, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> elementAtlasIdRef);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span>                        pushAnimationObjects(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> objectId, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> elementAtlasIdRef);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span>                        pushAnimationFrame(<a class="code" href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a>* frame);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span>                        pushAnimationSequence(<span class="keyword">const</span> std::string nameId, <span class="keywordtype">int</span> start, <span class="keywordtype">int</span> end);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span>                        pushNamedPart(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> objectIdRef, <span class="keyword">const</span> std::string&amp; name);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span>                        setHeader(<a class="code" href="class_g_a_f_header.html">GAFHeader</a>&amp; h);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <a class="code" href="class_g_a_f_header.html">GAFHeader</a>&amp;            getHeader() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> AnimationObjects_t&amp;   getAnimationObjects() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">const</span> AnimationMasks_t&amp;     getAnimationMasks() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> AnimationFrames_t&amp;    getAnimationFrames() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">const</span> NamedParts_t&amp;         getNamedParts() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">const</span> AnimationSequences_t&amp; getAnimationSequences() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_g_a_f_asset.html">GAFAsset</a>*            create(<span class="keyword">const</span> std::string&amp; gafFilePath, <a class="code" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a>* delegate = NULL);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="class_g_a_f_asset.html">GAFAsset</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    ~<a class="code" href="class_g_a_f_asset.html">GAFAsset</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">int</span>                         animationFramesCount() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a> *           textureAtlas();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">const</span> <a class="code" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a>* getSequence(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">const</span> <a class="code" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a>* getSequenceByLastFrame(<span class="keywordtype">int</span> frame) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span>                 isAssetVersionPlayable(<span class="keyword">const</span> <span class="keywordtype">char</span> * version);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *         createObject();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *         createObjectAndRun(<span class="keywordtype">bool</span> looped = <span class="keyword">false</span>);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    CCArray        * _animationFrames;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    CCDictionary   * _animationSequences;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    CCDictionary   * _namedParts;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">float</span>                desiredCsf();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span>                 setDesiredCsf(<span class="keywordtype">float</span> csf);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">float</span>                       usedAtlasContentScaleFactor()<span class="keyword">const</span>;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif // __GAF_ASSET_H__</span></div>
-<div class="ttc" id="class_g_a_f_animated_object_html"><div class="ttname"><a href="class_g_a_f_animated_object.html">GAFAnimatedObject</a></div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.h:62</div></div>
-<div class="ttc" id="class_g_a_f_asset_html_ada62ac8fc08cc7a3fbec78e6f88dfca9"><div class="ttname"><a href="class_g_a_f_asset.html#ada62ac8fc08cc7a3fbec78e6f88dfca9">GAFAsset::usedAtlasContentScaleFactor</a></div><div class="ttdeci">float usedAtlasContentScaleFactor() const </div><div class="ttdoc">used content scale factor </div><div class="ttdef"><b>Definition:</b> GAFAsset.h:58</div></div>
-<div class="ttc" id="class_g_a_f_animation_sequence_html"><div class="ttname"><a href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a></div><div class="ttdef"><b>Definition:</b> GAFAnimationSequence.h:11</div></div>
-<div class="ttc" id="class_g_a_f_asset_html"><div class="ttname"><a href="class_g_a_f_asset.html">GAFAsset</a></div><div class="ttdef"><b>Definition:</b> GAFAsset.h:21</div></div>
-<div class="ttc" id="class_g_a_f_texture_atlas_html"><div class="ttname"><a href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a></div><div class="ttdef"><b>Definition:</b> GAFTextureAtlas.h:17</div></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span>                        setTextureLoadDelegate(<a class="code" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a>* delegate);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif // __GAF_ASSET_H__</span></div>
+<div class="ttc" id="class_g_a_f_animated_object_html"><div class="ttname"><a href="class_g_a_f_animated_object.html">GAFAnimatedObject</a></div><div class="ttdef"><b>Definition:</b> GAFAnimatedObject.h:33</div></div>
+<div class="ttc" id="class_g_a_f_loader_html"><div class="ttname"><a href="class_g_a_f_loader.html">GAFLoader</a></div><div class="ttdef"><b>Definition:</b> GAFLoader.h:11</div></div>
+<div class="ttc" id="class_g_a_f_animation_sequence_html"><div class="ttname"><a href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a></div><div class="ttdef"><b>Definition:</b> GAFAnimationSequence.h:6</div></div>
+<div class="ttc" id="class_g_a_f_asset_html"><div class="ttname"><a href="class_g_a_f_asset.html">GAFAsset</a></div><div class="ttdef"><b>Definition:</b> GAFAsset.h:20</div></div>
+<div class="ttc" id="class_g_a_f_texture_atlas_html"><div class="ttname"><a href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a></div><div class="ttdef"><b>Definition:</b> GAFTextureAtlas.h:18</div></div>
+<div class="ttc" id="class_g_a_f_texture_load_delegate_html"><div class="ttname"><a href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a></div><div class="ttdef"><b>Definition:</b> GAFDelegates.h:13</div></div>
+<div class="ttc" id="class_g_a_f_header_html"><div class="ttname"><a href="class_g_a_f_header.html">GAFHeader</a></div><div class="ttdef"><b>Definition:</b> GAFHeader.h:3</div></div>
+<div class="ttc" id="class_g_a_f_animation_frame_html"><div class="ttname"><a href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a></div><div class="ttdef"><b>Definition:</b> GAFAnimationFrame.h:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 9 2014 17:36:45 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 10 2014 12:59:53 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

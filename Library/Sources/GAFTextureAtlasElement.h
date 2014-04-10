@@ -3,9 +3,6 @@
 #ifndef __GAF_TEXTURE_ATLAS_ELEMENT__
 #define __GAF_TEXTURE_ATLAS_ELEMENT__
 
-#include <string>
-#include "cocoa/CCGeometry.h"
-
 namespace cocos2d
 {
     class CCDictionary;
@@ -13,7 +10,7 @@ namespace cocos2d
 
 using namespace cocos2d;
 
-class GAFTextureAtlasElement : public CCObject
+class GAFTextureAtlasElement
 {
 public:
     std::string name;
@@ -22,9 +19,10 @@ public:
     float       scale;
     unsigned int atlasIdx;
 
-    static GAFTextureAtlasElement * create(CCDictionary * aDictionary);
-    bool initWithDictionary(CCDictionary * aDictionary);
-private:
+    unsigned int elementAtlasIdx;
+
+    bool                             init();
+
     GAFTextureAtlasElement();
 }; // GAFTextureAtlasElement
 

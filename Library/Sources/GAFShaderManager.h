@@ -8,8 +8,6 @@ namespace cocos2d
     class CCGLProgram;
 }
 
-using namespace cocos2d;
-
 class GAFShaderManager
 {
 public:

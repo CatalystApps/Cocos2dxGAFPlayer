@@ -3,8 +3,6 @@
 #ifndef __GAF_INTERACTION_OBJECT__
 #define __GAF_INTERACTION_OBJECT__
 
-#include <string>
-#include "cocoa/CCGeometry.h"
 
 namespace cocos2d
 {

@@ -3,20 +3,11 @@
 #ifndef __GAF_ANIMATION__
 #define __GAF_ANIMATION__
 
-#include "cocoa/CCObject.h"
-#include <string>
-
 #define GAF_FIRST_FRAME_INDEX 0
 
+#include "GAFDelegates.h"
+
 class GAFAsset;
-class GAFAnimatable;
-
-namespace cocos2d
-{
-    class CCDictionary;
-}
-
-using namespace cocos2d;
 
 enum AnimSetSequenceHint
 {
@@ -24,13 +15,6 @@ enum AnimSetSequenceHint
     ASSH_RESTART
 };
 
-class GAFAnimatedObject;
-
-class GAFSequenceDelegate
-{
-public:
-    virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName) = 0;
-};
 
 class GAFAnimation
 {

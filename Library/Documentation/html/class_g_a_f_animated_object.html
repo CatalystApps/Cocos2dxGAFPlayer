@@ -86,7 +86,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_g_a_f_animated_object-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">GAFAnimatedObject Class Reference</div>  </div>
@@ -113,34 +112,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>processAnimations</b>
 <tr class="memitem:a7ea0e1b778854797cd945ac25524cd21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ea0e1b778854797cd945ac25524cd21"></a>
 CCPoint&#160;</td><td class="memItemRight" valign="bottom"><b>pupilCoordinatesWithXSemiaxis</b> (float anXSemiaxis, float anYSemiaxis, CCPoint aCenter, CCPoint anExternalPoint)</td></tr>
 <tr class="separator:a7ea0e1b778854797cd945ac25524cd21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66d726eb3bf4f3ab76714b790c4d4adf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66d726eb3bf4f3ab76714b790c4d4adf"></a>
-<a class="el" href="class_g_a_f_sprite.html">GAFSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>subObjectForInnerObjectId</b> (CCString *anInnerObjectId)</td></tr>
-<tr class="separator:a66d726eb3bf4f3ab76714b790c4d4adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9267836fa4589be51f842d29e35b3527"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9267836fa4589be51f842d29e35b3527"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeAllSubObjects</b> ()</td></tr>
 <tr class="separator:a9267836fa4589be51f842d29e35b3527"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e680aa8d1d2fd1c2c53751701c69f75"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e680aa8d1d2fd1c2c53751701c69f75"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addSubObjectsUsingAnimationObjectsDictionary</b> (CCDictionary *anAnimationObjects, CCDictionary *anAnimationMasks, CCArray *anAnimationFrames)</td></tr>
-<tr class="separator:a3e680aa8d1d2fd1c2c53751701c69f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a834ab320dbaa48fda7210f19868294d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a834ab320dbaa48fda7210f19868294d9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>instantiateObject</b> (const AnimationObjects_t &amp;objs, const AnimationMasks_t &amp;masks)</td></tr>
+<tr class="separator:a834ab320dbaa48fda7210f19868294d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8ad2366419bb4dccde0338671c8909d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad8ad2366419bb4dccde0338671c8909d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSubobjectsVisible</b> (bool visible)</td></tr>
 <tr class="separator:ad8ad2366419bb4dccde0338671c8909d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4bef3a180ccdc6a490b378e7dcba715"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae4bef3a180ccdc6a490b378e7dcba715"></a>
-CCDictionary *&#160;</td><td class="memItemRight" valign="bottom"><b>subObjects</b> ()</td></tr>
-<tr class="separator:ae4bef3a180ccdc6a490b378e7dcba715"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28dd7da0f082d752eae34fd29eb9f326"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28dd7da0f082d752eae34fd29eb9f326"></a>
-CCDictionary *&#160;</td><td class="memItemRight" valign="bottom"><b>masks</b> ()</td></tr>
-<tr class="separator:a28dd7da0f082d752eae34fd29eb9f326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17bb241e2235016c15f6bb09459dc1c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a17bb241e2235016c15f6bb09459dc1c3"></a>
+const SubObjects_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getSubojects</b> () const </td></tr>
+<tr class="separator:a17bb241e2235016c15f6bb09459dc1c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9652323db3e45c25378fad60760faa57"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9652323db3e45c25378fad60760faa57"></a>
+const SubObjects_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getMasks</b> () const </td></tr>
+<tr class="separator:a9652323db3e45c25378fad60760faa57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeec04e86edf329edb20a0b4ae4e0f508"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeec04e86edf329edb20a0b4ae4e0f508"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>animatorDidPlayedFrame</b> (GAFAnimator *anAnimator, int aFrameNo)</td></tr>
 <tr class="separator:aeec04e86edf329edb20a0b4ae4e0f508"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68113150095f772eb9e314f6bc20cb82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68113150095f772eb9e314f6bc20cb82"></a>
-<a class="el" href="class_g_a_f_sprite.html">GAFSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_animated_object.html#a68113150095f772eb9e314f6bc20cb82">subobjectByName</a> (const char *name)</td></tr>
-<tr class="memdesc:a68113150095f772eb9e314f6bc20cb82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns subobject which has specified name assigned to it ("namedParts" section in config) <br/></td></tr>
-<tr class="separator:a68113150095f772eb9e314f6bc20cb82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1646e7c72e8e613679afb6614844940"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af1646e7c72e8e613679afb6614844940"></a>
-<a class="el" href="class_g_a_f_sprite.html">GAFSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>subobjectByRawName</b> (const char *name)</td></tr>
-<tr class="separator:af1646e7c72e8e613679afb6614844940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44fbb54422013c83bdad260669b10a5f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44fbb54422013c83bdad260669b10a5f"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr>
 <tr class="separator:a44fbb54422013c83bdad260669b10a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,6 +154,39 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setControlDelegate</b
 <tr class="memitem:adbd59c0beae7919c3bd59cb03ce65775"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adbd59c0beae7919c3bd59cb03ce65775"></a>
 CCRect&#160;</td><td class="memItemRight" valign="bottom"><b>realBoundingBoxForCurrentFrame</b> ()</td></tr>
 <tr class="separator:adbd59c0beae7919c3bd59cb03ce65775"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8420ccfe76a79a109d92576be9e9a13f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8420ccfe76a79a109d92576be9e9a13f"></a>
+<a class="el" href="class_g_a_f_sprite.html">GAFSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_animated_object.html#a8420ccfe76a79a109d92576be9e9a13f">subObjectForInnerObjectId</a> (unsigned int anInnerObjectId)</td></tr>
+<tr class="memdesc:a8420ccfe76a79a109d92576be9e9a13f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns subobject by it id. <br/></td></tr>
+<tr class="separator:a8420ccfe76a79a109d92576be9e9a13f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a797500c27dcd6e7ee9aba8520d85bb1e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a797500c27dcd6e7ee9aba8520d85bb1e"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_animated_object.html#a797500c27dcd6e7ee9aba8520d85bb1e">objectIdByObjectName</a> (const std::string &amp;aName)</td></tr>
+<tr class="memdesc:a797500c27dcd6e7ee9aba8520d85bb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns object id by it name, defined in NamedParts. <br/></td></tr>
+<tr class="separator:a797500c27dcd6e7ee9aba8520d85bb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2da8f5f88b54d98c41037fa9b3a1feb6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2da8f5f88b54d98c41037fa9b3a1feb6"></a>
+CCSprite *&#160;</td><td class="memItemRight" valign="bottom"><b>renderCurrentFrameToTexture</b> (bool usePOTTextures=false)</td></tr>
+<tr class="separator:a2da8f5f88b54d98c41037fa9b3a1feb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a914f65716261e80f92e43ac4bc969668"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a914f65716261e80f92e43ac4bc969668"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>realizeFrame</b> (CCNode *out, int frameIndex)</td></tr>
+<tr class="separator:a914f65716261e80f92e43ac4bc969668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab69940056d99608a64ace816efe741f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab69940056d99608a64ace816efe741f5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_animated_object.html#ab69940056d99608a64ace816efe741f5">setStencilLayer</a> (int newLayer)</td></tr>
+<tr class="memdesc:ab69940056d99608a64ace816efe741f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">0 means all masked pixels will be marked as 1 and so on <br/></td></tr>
+<tr class="separator:ab69940056d99608a64ace816efe741f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10fe17e8e3a76c3e260217e0c28c1aa2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10fe17e8e3a76c3e260217e0c28c1aa2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_animated_object.html#a10fe17e8e3a76c3e260217e0c28c1aa2">incStencilLayer</a> ()</td></tr>
+<tr class="memdesc:a10fe17e8e3a76c3e260217e0c28c1aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">0 means all masked pixels will be marked as 1 and so on <br/></td></tr>
+<tr class="separator:a10fe17e8e3a76c3e260217e0c28c1aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db814f27b1297785604d33ee1eb249d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7db814f27b1297785604d33ee1eb249d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_animated_object.html#a7db814f27b1297785604d33ee1eb249d">decStencilLayer</a> ()</td></tr>
+<tr class="memdesc:a7db814f27b1297785604d33ee1eb249d"><td class="mdescLeft">&#160;</td><td class="mdescRight">0 means all masked pixels will be marked as 1 and so on <br/></td></tr>
+<tr class="separator:a7db814f27b1297785604d33ee1eb249d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a043249ce4ea751dd27a14b2519da3cf5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a043249ce4ea751dd27a14b2519da3cf5"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_animated_object.html#a043249ce4ea751dd27a14b2519da3cf5">getStencilLayer</a> () const </td></tr>
+<tr class="memdesc:a043249ce4ea751dd27a14b2519da3cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">0 means all masked pixels will be marked as 1 and so on <br/></td></tr>
+<tr class="separator:a043249ce4ea751dd27a14b2519da3cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af489a2b83590c65ce80eafaedbe35ebf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af489a2b83590c65ce80eafaedbe35ebf"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> ()</td></tr>
+<tr class="separator:af489a2b83590c65ce80eafaedbe35ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_g_a_f_animation"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_g_a_f_animation')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_g_a_f_animation.html">GAFAnimation</a></td></tr>
 <tr class="memitem:aa957087381fc9582630e00b1756ab8e6 inherit pub_methods_class_g_a_f_animation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa957087381fc9582630e00b1756ab8e6"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (<a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *anAnimationData)</td></tr>
@@ -234,21 +256,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a94e2970b09ae22aaaa3d3a4b29fa98a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94e2970b09ae22aaaa3d3a4b29fa98a6"></a>
 static <a class="el" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (<a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *anAsset)</td></tr>
 <tr class="separator:a94e2970b09ae22aaaa3d3a4b29fa98a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2f621ba561280d73dd8e9604bacf905"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2f621ba561280d73dd8e9604bacf905"></a>
-static <a class="el" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (const char *jsonPath)</td></tr>
-<tr class="separator:ad2f621ba561280d73dd8e9604bacf905"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a213e8d18f60326b91584414f4aed6c94"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a213e8d18f60326b91584414f4aed6c94"></a>
-static <a class="el" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createAndRun</b> (const char *jsonPath, bool looped=false)</td></tr>
-<tr class="separator:a213e8d18f60326b91584414f4aed6c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a1c206d92811f2ede788b44ea0b65f6e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c206d92811f2ede788b44ea0b65f6e1"></a>
-<a class="el" href="class_g_a_f_sprite.html">GAFSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>subObjectForInnerObjectId</b> (const char *anInnerObjectId)</td></tr>
-<tr class="separator:a1c206d92811f2ede788b44ea0b65f6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad486b06ed8d0d5ff00541bf903fccbb7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad486b06ed8d0d5ff00541bf903fccbb7"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>objectIdByObjectName</b> (const char *aName)</td></tr>
-<tr class="separator:ad486b06ed8d0d5ff00541bf903fccbb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17f5f70c652b846267374f565f19f05"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab17f5f70c652b846267374f565f19f05"></a>
+static <a class="el" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createAndRun</b> (const std::string &amp;gafPath, bool looped=false)</td></tr>
+<tr class="separator:ab17f5f70c652b846267374f565f19f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -304,7 +314,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_currentFrameIndex</b>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 9 2014 17:36:45 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 10 2014 12:59:53 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
