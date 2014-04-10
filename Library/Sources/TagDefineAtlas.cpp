@@ -1,0 +1,71 @@
+#include "GAFPrecompiled.h"
+#include "TagDefineAtlas.h"
+
+#include "GAFStream.h"
+#include "GAFAsset.h"
+
+#include "GAFTextureAtlas.h"
+#include "GAFTextureAtlasElement.h"
+#include "PrimitiveDeserializer.h"
+
+void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
+{
+    GAFTextureAtlas* txAtlas = new GAFTextureAtlas();
+
+    txAtlas->setScale(in->readFloat());
+
+    unsigned char atlasesCount = in->readUByte();
+
+    for (unsigned char i = 0; i < atlasesCount; ++i)
+    {
+        GAFTextureAtlas::AtlasInfo ai;
+
+        ai.id = in->readU32();
+
+        unsigned char sources = in->readUByte();
+
+        for (unsigned char j = 0; j < sources; ++j)
+        {
+            GAFTextureAtlas::AtlasInfo::Source aiSource;
+
+            in->readString(&aiSource.source);
+            aiSource.csf = in->readFloat();
+
+            ai.m_sources.push_back(aiSource);
+        }
+
+        txAtlas->pushAtlasInfo(ai);
+    }
+
+    unsigned int elementsCount = in->readU32();
+
+    for (unsigned int i = 0; i < elementsCount; ++i)
+    {
+        GAFTextureAtlasElement* element = new GAFTextureAtlasElement();
+
+        PrimitiveDeserializer::deserialize(in, &element->pivotPoint);
+        CCPoint origin;
+        PrimitiveDeserializer::deserialize(in, &origin);
+        element->scale = in->readFloat();
+
+        // TODO: Optimize this to read CCRect
+        float width = in->readFloat();
+        float height = in->readFloat();
+
+        element->atlasIdx = in->readU32();
+
+        if (element->atlasIdx > 0)
+        {
+            element->atlasIdx--;
+        }
+
+        element->elementAtlasIdx = in->readU32();
+
+        element->bounds.origin = origin;
+        element->bounds.size = CCSize(width, height);
+
+        txAtlas->pushElement(element->elementAtlasIdx, element);
+    }
+
+    ctx->pushTextureAtlas(txAtlas);
+}

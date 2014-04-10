@@ -6,14 +6,6 @@
 #ifdef WIN32
 #include <windows.h>
 
-CCPoint centerScreenPosition(GAFAsset* ast, const CCSize& screenSize)
-{
-    const GAFHeader& headInfo = ast->getHeader();
-
-    return CCPoint(-headInfo.frameSize.getMinX() + (screenSize.width - headInfo.frameSize.size.width) / 2,
-        headInfo.frameSize.getMinY() + (screenSize.height + headInfo.frameSize.size.height) / 2);
-}
-
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
 
@@ -52,6 +44,13 @@ double GetCounter()
 }
 #endif
 
+CCPoint centerScreenPosition(GAFAsset* ast, const CCSize& screenSize)
+{
+    const GAFHeader& headInfo = ast->getHeader();
+
+    return CCPoint(-headInfo.frameSize.getMinX() + (screenSize.width - headInfo.frameSize.size.width) / 2,
+        headInfo.frameSize.getMinY() + (screenSize.height + headInfo.frameSize.size.height) / 2);
+}
 
 GafFeatures::GafFeatures()
     :
