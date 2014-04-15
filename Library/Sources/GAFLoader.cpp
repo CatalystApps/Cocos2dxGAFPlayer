@@ -29,7 +29,6 @@ void GAFLoader::_registerTagLoaders()
     m_tagLoaders[Tags::TagDefineAnimationObjects] = new TagDefineAnimationObjects();
     m_tagLoaders[Tags::TagDefineAnimationFrames] = new TagDefineAnimationFrames();
     m_tagLoaders[Tags::TagDefineNamedParts] = new TagDefineNamedParts();
-    m_tagLoaders[Tags::TagDefineNamedParts] = new TagDefineNamedParts();
     m_tagLoaders[Tags::TagDefineSequences] = new TagDefineSequences();
 }
 
