@@ -2,11 +2,11 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := hellocpp_shared
+LOCAL_MODULE := gafexample_shared
 
-LOCAL_MODULE_FILENAME := libhellocpp
+LOCAL_MODULE_FILENAME := libgafexample
 
-LOCAL_SRC_FILES := hellocpp/main.cpp \
+LOCAL_SRC_FILES := gafexample/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/GafFeatures.cpp
 
