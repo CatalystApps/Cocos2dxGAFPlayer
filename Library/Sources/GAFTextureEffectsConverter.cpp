@@ -347,7 +347,7 @@ CCGLProgram * GAFTextureEffectsConverter::programForBlurShaderWithName(const cha
     return program;
 }
 
-#if CC_ENABLE_CACHE_TEXTURE_DATA
+#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
 void _GAFreloadBlurShader()
 {
     CCGLProgram *program = CCShaderCache::sharedShaderCache()->programForKey("GaussianBlur");

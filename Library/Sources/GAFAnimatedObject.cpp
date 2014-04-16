@@ -246,7 +246,7 @@ void GAFAnimatedObject::releaseControlOverSubobjectNamed(const char * aName)
     unsigned int objectId = objectIdByObjectName(aName);
     if (objectId != IDNONE)
     {
-        CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(objectId);
+        CaptureObjects_t::iterator cpoIt = m_capturedObjects.find(objectId);
 
         if (cpoIt != m_capturedObjects.end())
         {

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <float.h>
 #include <limits.h>
+#include <limits>
 #include <ctype.h>
 #include <string>
 #include <vector>

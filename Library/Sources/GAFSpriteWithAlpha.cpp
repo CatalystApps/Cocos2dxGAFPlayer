@@ -281,7 +281,7 @@ bool GAFSpriteWithAlpha::isCTXIdentity() const
     return true;
 }
 
-#if CC_ENABLE_CACHE_TEXTURE_DATA
+#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
 void _GAFreloadAlphaShader()
 {
     CCGLProgram * program = CCShaderCache::sharedShaderCache()->programForKey(kGAFSpriteWithAlphaShaderProgramCacheKey);
