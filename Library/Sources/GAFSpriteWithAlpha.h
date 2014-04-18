@@ -13,6 +13,9 @@ class GAFSpriteWithAlpha : public GAFSprite
 {
 private:
     void _setBlendingFunc();
+    CCTexture2D * m_initialTexture;
+    CCRect        m_initialTextureRect;
+
     GLfloat _colorTransform[8]; // 0-3 mults, 4-7 offsets
 
     GLfloat m_colorMatrixIdentity1[16];
@@ -21,9 +24,6 @@ private:
     GAFColorColorMatrixFilterData* m_colorMatrixFilterData;
     GAFGlowFilterData*             m_glowFilterData;
     GAFBlurFilterData*             m_blurFilterData;
-
-    CCTexture2D * _initialTexture;
-    CCRect        _initialTextureRect;
 
 public:
     GAFSpriteWithAlpha();

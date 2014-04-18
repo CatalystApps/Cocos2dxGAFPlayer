@@ -51,7 +51,7 @@ unsigned int GAFStream::readUint(unsigned short bitcount)
             {
                 retval |= (m_currentByte >> (m_unusedBits - bitcount));
                 m_currentByte &= ((1 << (m_unusedBits - bitcount)) - 1);
-                m_unusedBits -= bitcount;
+                m_unusedBits -= (unsigned char)bitcount;
 
                 bitcount = 0;
             }

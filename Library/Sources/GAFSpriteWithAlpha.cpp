@@ -23,7 +23,7 @@ static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAl
 
 GAFSpriteWithAlpha::GAFSpriteWithAlpha()
 :
-_initialTexture(NULL),
+m_initialTexture(NULL),
 m_colorMatrixFilterData(NULL),
 m_glowFilterData(NULL),
 m_blurFilterData(NULL)
@@ -40,16 +40,16 @@ m_blurFilterData(NULL)
 
 GAFSpriteWithAlpha::~GAFSpriteWithAlpha()
 {
-    CC_SAFE_RELEASE(_initialTexture);
+    CC_SAFE_RELEASE(m_initialTexture);
 }
 
 bool GAFSpriteWithAlpha::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated)
 {
     if (GAFSprite::initWithTexture(pTexture, rect, rotated))
     {
-        _initialTexture = pTexture;
-        _initialTexture->retain();
-        _initialTextureRect = rect;
+        m_initialTexture = pTexture;
+        m_initialTexture->retain();
+        m_initialTextureRect = rect;
         for (int i = 0; i < 4; ++i)
         {
             _colorTransform[i] = 1.0f;
@@ -133,8 +133,8 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
 {
     if (!m_blurFilterData && !m_glowFilterData)
     {
-        setTexture(_initialTexture);
-        setTextureRect(_initialTextureRect, false, _initialTextureRect.size);
+        setTexture(m_initialTexture);
+        setTextureRect(m_initialTextureRect, false, m_initialTextureRect.size);
         setFlipY(false);
     }
     else
@@ -145,12 +145,12 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
 
         if (m_blurFilterData)
         {
-            resultTex = converter->gaussianBlurredTextureFromTexture(_initialTexture, _initialTextureRect, m_blurFilterData->blurSize.width, 
+            resultTex = converter->gaussianBlurredTextureFromTexture(m_initialTexture, m_initialTextureRect, m_blurFilterData->blurSize.width, 
                 m_blurFilterData->blurSize.height);
         }
         else if (m_glowFilterData)
         {
-            resultTex = converter->glowTextureFromTexture(_initialTexture, _initialTextureRect, m_glowFilterData);
+            resultTex = converter->glowTextureFromTexture(m_initialTexture, m_initialTextureRect, m_glowFilterData);
         }
 
         if (resultTex)
@@ -255,12 +255,12 @@ const GLfloat * GAFSpriteWithAlpha::getColorTransform() const
 
 CCTexture2D* GAFSpriteWithAlpha::getInitialTexture() const
 {
-    return _initialTexture;
+    return m_initialTexture;
 }
 
 const CCRect& GAFSpriteWithAlpha::getInitialTextureRect() const
 {
-    return _initialTextureRect;
+    return m_initialTextureRect;
 }
 
 bool GAFSpriteWithAlpha::isCTXIdentity() const
