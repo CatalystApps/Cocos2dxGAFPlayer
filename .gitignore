@@ -46,3 +46,9 @@ Library/Sources/latex
 /Library/Release/*.log
 /Library/Release/*.lastbuildstate
 /Library/Release/*.codeanalysis
+/Examples/Example.android/.metadata
+/Examples/Example.android/assets
+/Examples/Example.android/bin
+/Examples/Example.android/gen
+/Examples/Example.android/libs
+/Examples/Example.android/obj

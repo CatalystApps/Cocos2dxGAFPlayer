@@ -36,8 +36,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCTexture2D::setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888);
     CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
 
-	pDirector->setContentScaleFactor(2.f);
-
     pDirector->setAnimationInterval(1.0 / kGlobalFPS);
 
     CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
