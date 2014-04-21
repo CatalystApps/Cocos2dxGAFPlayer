@@ -5,36 +5,48 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>18C4FB98-12BA-43A1-9B7B-BA147E38A485</string>
+	<string>2AE5375B-B766-4674-9C3D-C7E24E4DC349</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Example</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>EE517C97-BA59-4076-9F07-20CD80DFB280</key>
-		<string>https://github.com/cocos2d/cocos2d-x.git</string>
+		<key>9AD2D4E6-6299-4876-8C42-D7D4F02F3EEE</key>
+		<string>https://github.com/cocos2d-x/cocos2d-x</string>
+		<key>BF737C7F-60C2-46F2-A807-6397344FEBFB</key>
+		<string>https://github.com/CatalystApps/Cocos2dxGAFPlayer</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>external/CCbGAFComp/Examples/Example.ios/Example.xcodeproj/project.xcworkspace</string>
+	<string>external/Cocos2dxGAFPlayer/Examples/Example.ios/Example.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>EE517C97-BA59-4076-9F07-20CD80DFB280</key>
+		<key>9AD2D4E6-6299-4876-8C42-D7D4F02F3EEE</key>
 		<string>../../../../../..</string>
+		<key>BF737C7F-60C2-46F2-A807-6397344FEBFB</key>
+		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/cocos2d/cocos2d-x.git</string>
+	<string>https://github.com/CatalystApps/Cocos2dxGAFPlayer</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EE517C97-BA59-4076-9F07-20CD80DFB280</string>
+	<string>9AD2D4E6-6299-4876-8C42-D7D4F02F3EEE</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EE517C97-BA59-4076-9F07-20CD80DFB280</string>
+			<string>9AD2D4E6-6299-4876-8C42-D7D4F02F3EEE</string>
 			<key>IDESourceControlWCCName</key>
 			<string>cocos2d-x</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BF737C7F-60C2-46F2-A807-6397344FEBFB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Cocos2dxGAFPlayer</string>
 		</dict>
 	</array>
 </dict>

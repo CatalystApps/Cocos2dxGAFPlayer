@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AC1024719053E6000E7F154 /* biggreen in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023B19053E6000E7F154 /* biggreen */; };
+		1AC1024819053E6000E7F154 /* bird_bezneba in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023C19053E6000E7F154 /* bird_bezneba */; };
+		1AC1024919053E6000E7F154 /* christmas2013_julia2 in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023D19053E6000E7F154 /* christmas2013_julia2 */; };
+		1AC1024A19053E6000E7F154 /* cut_the_hope in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023E19053E6000E7F154 /* cut_the_hope */; };
+		1AC1024B19053E6000E7F154 /* fairy2 in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023F19053E6000E7F154 /* fairy2 */; };
+		1AC1024C19053E6000E7F154 /* firemen in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024019053E6000E7F154 /* firemen */; };
+		1AC1024D19053E6000E7F154 /* impiretank_05_oneplace in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024119053E6000E7F154 /* impiretank_05_oneplace */; };
+		1AC1024E19053E6000E7F154 /* myshopsgame4 in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024219053E6000E7F154 /* myshopsgame4 */; };
+		1AC1024F19053E6000E7F154 /* peacock_feb3_natasha in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024319053E6000E7F154 /* peacock_feb3_natasha */; };
+		1AC1025019053E6000E7F154 /* SampleAnimations in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024419053E6000E7F154 /* SampleAnimations */; };
+		1AC1025119053E6000E7F154 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024519053E6000E7F154 /* Shaders */; };
+		1AC1025219053E6000E7F154 /* tiger in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024619053E6000E7F154 /* tiger */; };
 		CF59E90B187DAB2D003A6524 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90A187DAB2D003A6524 /* Foundation.framework */; };
 		CF59E90D187DAB2D003A6524 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */; };
 		CF59E90F187DAB2D003A6524 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90E187DAB2D003A6524 /* UIKit.framework */; };
@@ -26,17 +38,12 @@
 		CF59E9A3187DC4A1003A6524 /* libcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E99A187DBCD8003A6524 /* libcocos2dx.a */; };
 		CF59E9C1187DC54F003A6524 /* button_off.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9A5187DC54F003A6524 /* button_off.png */; };
 		CF59E9C2187DC54F003A6524 /* button_on.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9A6187DC54F003A6524 /* button_on.png */; };
-		CF59E9D9187DC93A003A6524 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9D8187DC93A003A6524 /* Shaders */; };
 		CF59E9E2187EC938003A6524 /* button_off_minus.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9DC187EC938003A6524 /* button_off_minus.png */; };
 		CF59E9E3187EC938003A6524 /* button_off_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9DD187EC938003A6524 /* button_off_plus.png */; };
 		CF59E9E4187EC938003A6524 /* button_off.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9DE187EC938003A6524 /* button_off.png */; };
 		CF59E9E5187EC938003A6524 /* button_on_minus.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9DF187EC938003A6524 /* button_on_minus.png */; };
 		CF59E9E6187EC938003A6524 /* button_on_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9E0187EC938003A6524 /* button_on_plus.png */; };
 		CF59E9E7187EC938003A6524 /* button_on.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59E9E1187EC938003A6524 /* button_on.png */; };
-		CFF5ECC7188EA38700C75096 /* jester in Resources */ = {isa = PBXBuildFile; fileRef = CFF5ECC3188EA38600C75096 /* jester */; };
-		CFF5ECC8188EA38700C75096 /* skeleton in Resources */ = {isa = PBXBuildFile; fileRef = CFF5ECC4188EA38600C75096 /* skeleton */; };
-		CFF5ECC9188EA38700C75096 /* slime in Resources */ = {isa = PBXBuildFile; fileRef = CFF5ECC5188EA38600C75096 /* slime */; };
-		CFF5ECCA188EA38700C75096 /* ufo in Resources */ = {isa = PBXBuildFile; fileRef = CFF5ECC6188EA38700C75096 /* ufo */; };
 		CFF5ED2A188EA77700C75096 /* AppController.h in Sources */ = {isa = PBXBuildFile; fileRef = CF59E984187DBA11003A6524 /* AppController.h */; };
 		CFF5ED2B188EA77700C75096 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CF59E985187DBA11003A6524 /* AppController.mm */; };
 		CFF5ED2C188EA77700C75096 /* RootViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = CF59E987187DBA49003A6524 /* RootViewController.h */; };
@@ -100,6 +107,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AC1023B19053E6000E7F154 /* biggreen */ = {isa = PBXFileReference; lastKnownFileType = folder; path = biggreen; sourceTree = "<group>"; };
+		1AC1023C19053E6000E7F154 /* bird_bezneba */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bird_bezneba; sourceTree = "<group>"; };
+		1AC1023D19053E6000E7F154 /* christmas2013_julia2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = christmas2013_julia2; sourceTree = "<group>"; };
+		1AC1023E19053E6000E7F154 /* cut_the_hope */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cut_the_hope; sourceTree = "<group>"; };
+		1AC1023F19053E6000E7F154 /* fairy2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fairy2; sourceTree = "<group>"; };
+		1AC1024019053E6000E7F154 /* firemen */ = {isa = PBXFileReference; lastKnownFileType = folder; path = firemen; sourceTree = "<group>"; };
+		1AC1024119053E6000E7F154 /* impiretank_05_oneplace */ = {isa = PBXFileReference; lastKnownFileType = folder; path = impiretank_05_oneplace; sourceTree = "<group>"; };
+		1AC1024219053E6000E7F154 /* myshopsgame4 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = myshopsgame4; sourceTree = "<group>"; };
+		1AC1024319053E6000E7F154 /* peacock_feb3_natasha */ = {isa = PBXFileReference; lastKnownFileType = folder; path = peacock_feb3_natasha; sourceTree = "<group>"; };
+		1AC1024419053E6000E7F154 /* SampleAnimations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleAnimations; sourceTree = "<group>"; };
+		1AC1024519053E6000E7F154 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+		1AC1024619053E6000E7F154 /* tiger */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tiger; sourceTree = "<group>"; };
 		CF59E907187DAB2D003A6524 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF59E90A187DAB2D003A6524 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -135,17 +154,12 @@
 		CF59E99F187DC19E003A6524 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		CF59E9A5187DC54F003A6524 /* button_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_off.png; sourceTree = "<group>"; };
 		CF59E9A6187DC54F003A6524 /* button_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_on.png; sourceTree = "<group>"; };
-		CF59E9D8187DC93A003A6524 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
 		CF59E9DC187EC938003A6524 /* button_off_minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_off_minus.png; sourceTree = "<group>"; };
 		CF59E9DD187EC938003A6524 /* button_off_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_off_plus.png; sourceTree = "<group>"; };
 		CF59E9DE187EC938003A6524 /* button_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_off.png; sourceTree = "<group>"; };
 		CF59E9DF187EC938003A6524 /* button_on_minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_on_minus.png; sourceTree = "<group>"; };
 		CF59E9E0187EC938003A6524 /* button_on_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_on_plus.png; sourceTree = "<group>"; };
 		CF59E9E1187EC938003A6524 /* button_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_on.png; sourceTree = "<group>"; };
-		CFF5ECC3188EA38600C75096 /* jester */ = {isa = PBXFileReference; lastKnownFileType = folder; path = jester; sourceTree = "<group>"; };
-		CFF5ECC4188EA38600C75096 /* skeleton */ = {isa = PBXFileReference; lastKnownFileType = folder; path = skeleton; sourceTree = "<group>"; };
-		CFF5ECC5188EA38600C75096 /* slime */ = {isa = PBXFileReference; lastKnownFileType = folder; path = slime; sourceTree = "<group>"; };
-		CFF5ECC6188EA38700C75096 /* ufo */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ufo; sourceTree = "<group>"; };
 		CFF5ED33188EA90000C75096 /* DefinitionTagBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionTagBase.h; path = ../../../Library/Sources/DefinitionTagBase.h; sourceTree = "<group>"; };
 		CFF5ED34188EA90000C75096 /* GAFActionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFActionObject.cpp; path = ../../../Library/Sources/GAFActionObject.cpp; sourceTree = "<group>"; };
 		CFF5ED35188EA90000C75096 /* GAFActionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFActionObject.h; path = ../../../Library/Sources/GAFActionObject.h; sourceTree = "<group>"; };
@@ -421,17 +435,24 @@
 		CF59E9A4187DC54F003A6524 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CFF5ECC3188EA38600C75096 /* jester */,
-				CFF5ECC4188EA38600C75096 /* skeleton */,
-				CFF5ECC5188EA38600C75096 /* slime */,
-				CFF5ECC6188EA38700C75096 /* ufo */,
+				1AC1023B19053E6000E7F154 /* biggreen */,
+				1AC1023C19053E6000E7F154 /* bird_bezneba */,
+				1AC1023D19053E6000E7F154 /* christmas2013_julia2 */,
+				1AC1023E19053E6000E7F154 /* cut_the_hope */,
+				1AC1023F19053E6000E7F154 /* fairy2 */,
+				1AC1024019053E6000E7F154 /* firemen */,
+				1AC1024119053E6000E7F154 /* impiretank_05_oneplace */,
+				1AC1024219053E6000E7F154 /* myshopsgame4 */,
+				1AC1024319053E6000E7F154 /* peacock_feb3_natasha */,
+				1AC1024419053E6000E7F154 /* SampleAnimations */,
+				1AC1024519053E6000E7F154 /* Shaders */,
+				1AC1024619053E6000E7F154 /* tiger */,
 				CF59E9DC187EC938003A6524 /* button_off_minus.png */,
 				CF59E9DD187EC938003A6524 /* button_off_plus.png */,
 				CF59E9DE187EC938003A6524 /* button_off.png */,
 				CF59E9DF187EC938003A6524 /* button_on_minus.png */,
 				CF59E9E0187EC938003A6524 /* button_on_plus.png */,
 				CF59E9E1187EC938003A6524 /* button_on.png */,
-				CF59E9D8187DC93A003A6524 /* Shaders */,
 				CF59E9A5187DC54F003A6524 /* button_off.png */,
 				CF59E9A6187DC54F003A6524 /* button_on.png */,
 			);
@@ -531,21 +552,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AC1025219053E6000E7F154 /* tiger in Resources */,
 				CF59E9E6187EC938003A6524 /* button_on_plus.png in Resources */,
-				CFF5ECC8188EA38700C75096 /* skeleton in Resources */,
+				1AC1024919053E6000E7F154 /* christmas2013_julia2 in Resources */,
 				CF59E9C2187DC54F003A6524 /* button_on.png in Resources */,
-				CFF5ECCA188EA38700C75096 /* ufo in Resources */,
-				CF59E9D9187DC93A003A6524 /* Shaders in Resources */,
-				CFF5ECC7188EA38700C75096 /* jester in Resources */,
 				CF59E9C1187DC54F003A6524 /* button_off.png in Resources */,
 				CF59E9E7187EC938003A6524 /* button_on.png in Resources */,
 				CF59E9E4187EC938003A6524 /* button_off.png in Resources */,
 				CF59E915187DAB2D003A6524 /* InfoPlist.strings in Resources */,
+				1AC1024A19053E6000E7F154 /* cut_the_hope in Resources */,
 				CF59E91D187DAB2D003A6524 /* Images.xcassets in Resources */,
+				1AC1025119053E6000E7F154 /* Shaders in Resources */,
+				1AC1024E19053E6000E7F154 /* myshopsgame4 in Resources */,
 				CF59E9E5187EC938003A6524 /* button_on_minus.png in Resources */,
+				1AC1024B19053E6000E7F154 /* fairy2 in Resources */,
+				1AC1024719053E6000E7F154 /* biggreen in Resources */,
+				1AC1025019053E6000E7F154 /* SampleAnimations in Resources */,
+				1AC1024D19053E6000E7F154 /* impiretank_05_oneplace in Resources */,
 				CF59E9E2187EC938003A6524 /* button_off_minus.png in Resources */,
+				1AC1024C19053E6000E7F154 /* firemen in Resources */,
 				CF59E9E3187EC938003A6524 /* button_off_plus.png in Resources */,
-				CFF5ECC9188EA38700C75096 /* slime in Resources */,
+				1AC1024F19053E6000E7F154 /* peacock_feb3_natasha in Resources */,
+				1AC1024819053E6000E7F154 /* bird_bezneba in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,10 +752,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -750,7 +781,9 @@
 					../../../../cocos2dx/extensions,
 				);
 				INFOPLIST_FILE = "Example/Example-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "51CDD7F7-9B38-4B9D-9C97-F42DD41FAE1A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -759,12 +792,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = CC_TARGET_OS_IPHONE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -778,7 +814,9 @@
 					../../../../cocos2dx/extensions,
 				);
 				INFOPLIST_FILE = "Example/Example-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "51CDD7F7-9B38-4B9D-9C97-F42DD41FAE1A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
