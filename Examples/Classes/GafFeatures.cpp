@@ -207,11 +207,17 @@ bool GafFeatures::init()
     pMenu->setTouchEnabled(true);
     addChild(pMenu, 10000);
     m_anim_index = 0;
-
-    m_files.push_back("slime/slimeBin.gaf");
-    m_files.push_back("jester/jesterBin.gaf");
-    m_files.push_back("skeleton/skeletonBin.gaf");
-    m_files.push_back("ufo/ufoBin.gaf");
+	
+	m_files.push_back("biggreen/biggreen.gaf");
+	m_files.push_back("bird_bezneba/bird_bezneba.gaf");
+	m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
+	m_files.push_back("cut_the_hope/cut_the_hope.gaf");	
+	m_files.push_back("fairy2/fairy2.gaf");
+	m_files.push_back("firemen/firemen.gaf");
+	m_files.push_back("impiretank_05_oneplace/impiretank_05_oneplace.gaf");
+	m_files.push_back("myshopsgame4/myshopsgame4.gaf");
+	m_files.push_back("peacock_feb3_natasha/peacock_feb3_natasha.gaf");
+	m_files.push_back("tiger/tiger.gaf");
 
     m_loadingTimeLabel = CCLabelTTF::create("", "Marker Felt", 24);
     m_loadingTimeLabel->setColor(ccc3(0, 0, 255));
@@ -504,7 +510,8 @@ void GafFeatures::addObjectsToScene(int aCount)
 
             addChild(object);
 
-            object->setPosition(centerScreenPosition(m_asset, size));
+			float scaleFactor = CCDirector::sharedDirector()->getContentScaleFactor();
+			object->setPosition(centerScreenPosition(m_asset, size / scaleFactor));
 
             m_objects->addObject(object);
 
