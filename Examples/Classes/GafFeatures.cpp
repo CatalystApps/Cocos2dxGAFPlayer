@@ -274,12 +274,17 @@ void GafFeatures::prevSequence( CCObject* )
 {
     GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->objectAtIndex(0);
 
-    m_currentSequence--;
 
-    if (m_currentSequence < 0)
+    if (m_currentSequence == 0)
     {
+		// Switch to last sequence if current is first
         m_currentSequence = m_objectSequencesNames.size() - 1;
     }
+	else
+	{
+		// Switch to prev sequence
+		m_currentSequence--;
+	}
 
     const char* secName = m_objectSequencesNames[m_currentSequence].c_str();
     object->playSequence(secName, true);
