@@ -160,6 +160,24 @@ const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
     return NULL;
 }
 
+const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(int frame) const
+{
+    if (m_animationSequences.empty())
+    {
+        return NULL;
+    }
+
+    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
+    {
+        if (i->second.startFrameNo == frame)
+        {
+            return &i->second;
+        }
+    }
+
+    return NULL;
+}
+
 void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)
 {
     m_textureAtlases.push_back(atlas);

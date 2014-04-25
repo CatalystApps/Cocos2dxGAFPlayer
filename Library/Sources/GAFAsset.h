@@ -73,6 +73,9 @@ public:
 
     /// get GAFAnimationSequence by last frame number in sequence	
     const GAFAnimationSequence* getSequenceByLastFrame(int frame) const;
+
+    /// get GAFAnimationSequence by first frame number in sequence	
+    const GAFAnimationSequence* getSequenceByFirstFrame(int frame) const;
     /// List of GAFAnimationFrame objects	
     static bool                 isAssetVersionPlayable(const char * version);
 

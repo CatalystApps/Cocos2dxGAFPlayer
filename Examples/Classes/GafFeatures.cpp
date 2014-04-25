@@ -184,7 +184,7 @@ bool GafFeatures::init()
     items->addObject(addBtn("G"             , 0.95f, 0.95f - dp * 2.f, menu_selector(GafFeatures::gray), s, BtnEmpty).first);
     //items->addObject(addBtn("Remove"        , 0.95f, 0.95f - dp * 3.5f, menu_selector(GafFeatures::removeOne), s, BtnEmpty).first);
     //items->addObject(addBtn("Add"           , 0.95f, 0.95f - dp * 3.f, menu_selector(GafFeatures::addOne), s, BtnEmpty).first);
-    //items->addObject(addBtn("1"             , 0.75f, 0.95f - dp * 4.f, menu_selector(GafFeatures::set1), s, BtnEmpty).first);
+    items->addObject(addBtn("Reverse"      , 0.95f, 0.95f - dp * 3.5f, menu_selector(GafFeatures::toggleReverse), s, BtnEmpty).first);
     //items->addObject(addBtn("5"             , 0.85f, 0.95f - dp * 4.f, menu_selector(GafFeatures::set5), s, BtnEmpty).first);
     //items->addObject(addBtn("10"            , 0.95f, 0.95f - dp * 4.f, menu_selector(GafFeatures::set10), s, BtnEmpty).first);
     items->addObject(addBtn("Frame"        , 0.95f, 0.95f - dp * 4.0f, menu_selector(GafFeatures::prevFrame), s, BtnMinus).first);
@@ -207,17 +207,17 @@ bool GafFeatures::init()
     pMenu->setTouchEnabled(true);
     addChild(pMenu, 10000);
     m_anim_index = 0;
-	
-	m_files.push_back("biggreen/biggreen.gaf");
-	m_files.push_back("bird_bezneba/bird_bezneba.gaf");
-	m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
-	m_files.push_back("cut_the_hope/cut_the_hope.gaf");	
-	m_files.push_back("fairy2/fairy2.gaf");
-	m_files.push_back("firemen/firemen.gaf");
-	m_files.push_back("impiretank_05_oneplace/impiretank_05_oneplace.gaf");
-	m_files.push_back("myshopsgame4/myshopsgame4.gaf");
-	m_files.push_back("peacock_feb3_natasha/peacock_feb3_natasha.gaf");
-	m_files.push_back("tiger/tiger.gaf");
+
+    m_files.push_back("biggreen/biggreen.gaf");
+    m_files.push_back("bird_bezneba/bird_bezneba.gaf");
+    m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
+    m_files.push_back("cut_the_hope/cut_the_hope.gaf");	
+    m_files.push_back("fairy2/fairy2.gaf");
+    m_files.push_back("firemen/firemen.gaf");
+    m_files.push_back("impiretank_05_oneplace/impiretank_05_oneplace.gaf");
+    m_files.push_back("myshopsgame4/myshopsgame4.gaf");
+    m_files.push_back("peacock_feb3_natasha/peacock_feb3_natasha.gaf");
+    m_files.push_back("tiger/tiger.gaf");
 
     m_loadingTimeLabel = CCLabelTTF::create("", "Marker Felt", 24);
     m_loadingTimeLabel->setColor(ccc3(0, 0, 255));
@@ -277,14 +277,14 @@ void GafFeatures::prevSequence( CCObject* )
 
     if (m_currentSequence == 0)
     {
-		// Switch to last sequence if current is first
+        // Switch to last sequence if current is first
         m_currentSequence = m_objectSequencesNames.size() - 1;
     }
-	else
-	{
-		// Switch to prev sequence
-		m_currentSequence--;
-	}
+    else
+    {
+        // Switch to prev sequence
+        m_currentSequence--;
+    }
 
     const char* secName = m_objectSequencesNames[m_currentSequence].c_str();
     object->playSequence(secName, true);
@@ -398,9 +398,14 @@ void GafFeatures::set5(CCObject*)
     set(5);
 }
 
-void GafFeatures::set10(CCObject*)
+void GafFeatures::toggleReverse(CCObject*)
 {
-    set(10);
+    if (m_objects->count() == 0)
+    {
+        return;
+    }
+    GAFAnimatedObject *obj = (GAFAnimatedObject *)m_objects->lastObject();
+    obj->setReversed(!obj->isReversed());
 }
 
 void GafFeatures::set(int n)
@@ -515,8 +520,8 @@ void GafFeatures::addObjectsToScene(int aCount)
 
             addChild(object);
 
-			float scaleFactor = CCDirector::sharedDirector()->getContentScaleFactor();
-			object->setPosition(centerScreenPosition(m_asset, size / scaleFactor));
+            float scaleFactor = CCDirector::sharedDirector()->getContentScaleFactor();
+            object->setPosition(centerScreenPosition(m_asset, size / scaleFactor));
 
             m_objects->addObject(object);
 

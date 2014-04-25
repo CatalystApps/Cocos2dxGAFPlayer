@@ -60,7 +60,7 @@ public:
     void removeOne(CCObject*);
     void set1(CCObject*);
     void set5(CCObject*);
-    void set10(CCObject*);
+    void toggleReverse(CCObject*);
     void set(int n);
     void restart(CCObject*);
     void playpause(CCObject*);
@@ -80,7 +80,7 @@ public:
 
     virtual void onTexturePreLoad(std::string& path);
 
-private:	
+private:
     GAFAsset*              m_asset;
     CCArray*               m_objects;
     std::vector<std::string> m_files;

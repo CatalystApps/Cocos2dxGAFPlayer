@@ -7,10 +7,11 @@
 GAFAnimation::GAFAnimation()
 :
 _asset(NULL),
-_isRunning(false),
 _currentFrameIndex(GAF_FIRST_FRAME_INDEX),
+_sequenceDelegate(NULL),
 _totalFrameCount(0),
-_sequenceDelegate(NULL)
+_isRunning(false),
+_isReversed(false)
 {
 
 }
@@ -48,34 +49,74 @@ void GAFAnimation::clearSequence()
 
 void GAFAnimation::step()
 {
-    if (_sequenceDelegate && _asset)
+    if (! _isReversed)
     {
-        const GAFAnimationSequence * seq = _asset->getSequenceByLastFrame(_currentFrameIndex);
-        if (seq)
+        if (_sequenceDelegate && _asset)
         {
-            _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
+            const GAFAnimationSequence * seq = _asset->getSequenceByLastFrame(_currentFrameIndex);
+            if (seq)
+            {
+                _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
+            }
         }
-    }
 
-    if (_isLooped)
-    {
-        if (_currentFrameIndex >= _currentSequenceEnd)
+        if (_isLooped)
         {
-            _currentFrameIndex = _currentSequenceStart;
+            if (_currentFrameIndex >= _currentSequenceEnd)
+            {
+                _currentFrameIndex = _currentSequenceStart;
+            }
         }
+        else
+        {
+            if (_currentFrameIndex >= _currentSequenceEnd)
+            {
+                _isRunning = false;
+                return;
+            }
+        }
+
+        processAnimation();
+
+        ++_currentFrameIndex;
     }
     else
     {
-        if (_currentFrameIndex >= _currentSequenceEnd)
+        // If switched to reverse after final frame played
+        if (_currentFrameIndex == _currentSequenceEnd)
         {
-            _isRunning = false;
-            return;
+            --_currentFrameIndex;
         }
+
+        if (_sequenceDelegate && _asset)
+        {
+            const GAFAnimationSequence * seq = _asset->getSequenceByFirstFrame(_currentFrameIndex + 1);
+            if (seq)
+            {
+                _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
+            }
+        }
+
+        if (_isLooped)
+        {
+            if (_currentFrameIndex < _currentSequenceStart)
+            {
+                _currentFrameIndex = _currentSequenceEnd - 1;
+            }
+        }
+        else
+        {
+            if (_currentFrameIndex < _currentSequenceStart)
+            {
+                _isRunning = false;
+                return;
+            }
+        }
+
+        processAnimation();
+
+        --_currentFrameIndex;
     }
-
-    processAnimation();
-
-    ++_currentFrameIndex;
 }
 
 void GAFAnimation::processAnimation()
@@ -282,4 +323,12 @@ bool GAFAnimation::playSequence(const char * name, bool looped, bool _resume, An
 bool GAFAnimation::hasSequences() const
 {
     return !_asset->getAnimationSequences().empty();
+}
+bool GAFAnimation::isReversed() const
+{
+    return _isReversed;
+}
+void GAFAnimation::setReversed(bool reversed)
+{
+    _isReversed = reversed;
 }

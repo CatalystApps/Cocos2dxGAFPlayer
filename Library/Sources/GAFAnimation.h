@@ -33,6 +33,8 @@ public:
     bool isAnimationRunning() const;
     bool isLooped() const;
     void setLooped(bool looped);
+    bool isReversed() const;
+    void setReversed(bool reversed);
     int totalFrameCount() const;
     int currentFrameIndex() const;
 
@@ -73,6 +75,7 @@ private:
     int _currentSequenceEnd;
     bool _isRunning;
     bool _isLooped;
+    bool _isReversed;
 };
 
 
