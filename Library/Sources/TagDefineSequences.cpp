@@ -12,7 +12,9 @@ void TagDefineSequences::read(GAFStream* in, GAFAsset* ctx)
     {
         std::string id;
         in->readString(&id);
-        int start = in->readU16();
+        int start = in->readU16() - 1;
+
+        // It does not actually the last frame, but the frame after the last. It looks like an STL iterator behavior
         int end = in->readU16();
 
         ctx->pushAnimationSequence(id, start, end);

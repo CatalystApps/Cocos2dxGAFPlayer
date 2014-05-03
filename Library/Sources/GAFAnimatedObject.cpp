@@ -281,13 +281,15 @@ void GAFAnimatedObject::processAnimations(float dt)
     if (++_extraFramesCounter >= numberOfGlobalFramesForOneAnimationFrame())
     {
         _extraFramesCounter = 0;
-        if (!isDone() && isAnimationRunning())
+
+        if (isAnimationRunning())
         {
             step();
-        }
-        if (_framePlayedDelegate)
-        {
-            _framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
+
+            if (_framePlayedDelegate)
+            {
+                _framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
+            }
         }
     }
 }

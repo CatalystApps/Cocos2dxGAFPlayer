@@ -2,6 +2,7 @@
 
 class GAFAnimatedObject;
 class GAFSprite;
+class GAFAnimation;
 
 class GAFSequenceDelegate
 {
@@ -9,6 +10,12 @@ public:
     virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName) = 0;
 };
 
+class GAFAnimationPlaybackDelegate
+{
+public:
+    virtual void onAnimationFinishedPlayDelegate(GAFAnimation* animation) { }
+    virtual void onAnimationStartedNextLoopDelegate(GAFAnimation* animation) { }
+};
 
 class GAFTextureLoadDelegate
 {
@@ -30,7 +37,7 @@ public:
     /// @param object - selected animated object
     /// @param frame - frame number that is just played
 
-    virtual void onFramePlayed(GAFAnimatedObject * object, int frame);
+    virtual void onFramePlayed(GAFAnimatedObject * object, int frame) = 0;
 };
 
 class GAFAnimatedObjectControlDelegate

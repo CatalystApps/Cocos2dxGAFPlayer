@@ -12,8 +12,9 @@
 
 using namespace cocos2d;
 class GAFAnimatedObject;
+class GAFAnimation;
 
-class GafFeatures : public cocos2d::CCLayer, public GAFSequenceDelegate, public GAFTextureLoadDelegate
+class GafFeatures : public cocos2d::CCLayer, public GAFSequenceDelegate, public GAFTextureLoadDelegate, public GAFAnimationPlaybackDelegate
 {
 public:
     typedef std::pair<CCMenuItemImage*, CCLabelTTF*> MenuItemPair_t;
@@ -77,6 +78,8 @@ public:
     void prevSequence(CCObject*);
 
     virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName);
+
+    virtual void onAnimationFinishedPlayDelegate(GAFAnimation* animation);
 
     virtual void onTexturePreLoad(std::string& path);
 

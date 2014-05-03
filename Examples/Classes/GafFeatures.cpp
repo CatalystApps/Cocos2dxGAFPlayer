@@ -544,6 +544,7 @@ void GafFeatures::addObjectsToScene(int aCount)
             object->start();
 
             object->setSequenceDelegate(this);
+            object->setAnimationPlaybackDelegate(this);
         }
     }
 }
@@ -557,4 +558,9 @@ void GafFeatures::onFinishSequence( GAFAnimatedObject * object, const std::strin
 void GafFeatures::onTexturePreLoad(std::string& path)
 {
     CCLOG("Loading texture %s", path.c_str());
+}
+
+void GafFeatures::onAnimationFinishedPlayDelegate(GAFAnimation* animation)
+{
+
 }
