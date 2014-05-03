@@ -194,12 +194,21 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         assert(elIt != elementsMap.end());
 
         const GAFTextureAtlasElement* txElemet = NULL;
+        CCSpriteFrame * spriteFrame = NULL;
 
         if (elIt != elementsMap.end())
         {
             txElemet = elIt->second;
 
-            CCSpriteFrame * spriteFrame = CCSpriteFrame::createWithTexture(atlas->texture(), txElemet->bounds);
+            if (atlas->textures()->count() >= txElemet->atlasIdx + 1)
+            {
+                CCTexture2D * texture = (CCTexture2D *)atlas->textures()->objectAtIndex(txElemet->atlasIdx);
+                spriteFrame = CCSpriteFrame::createWithTexture(texture, txElemet->bounds);
+            }
+            else
+            {
+                CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
+            }
 
             if (spriteFrame)
             {
