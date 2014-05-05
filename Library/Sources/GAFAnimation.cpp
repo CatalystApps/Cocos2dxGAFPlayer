@@ -51,6 +51,11 @@ void GAFAnimation::step()
 {
     if (! _isReversed)
     {
+        if (_currentFrameIndex < _currentSequenceStart)
+        {
+            _currentFrameIndex = _currentSequenceStart;
+        }
+
         if (_sequenceDelegate && _asset)
         {
             const GAFAnimationSequence * seq = _asset->getSequenceByLastFrame(_currentFrameIndex);
@@ -60,16 +65,13 @@ void GAFAnimation::step()
             }
         }
 
-        if (_isLooped)
+        if (_currentFrameIndex >= _currentSequenceEnd)
         {
-            if (_currentFrameIndex >= _currentSequenceEnd)
+            if (_isLooped)
             {
                 _currentFrameIndex = _currentSequenceStart;
             }
-        }
-        else
-        {
-            if (_currentFrameIndex >= _currentSequenceEnd)
+            else
             {
                 _isRunning = false;
                 return;
@@ -83,9 +85,9 @@ void GAFAnimation::step()
     else
     {
         // If switched to reverse after final frame played
-        if (_currentFrameIndex == _currentSequenceEnd)
+        if (_currentFrameIndex >= _currentSequenceEnd)
         {
-            --_currentFrameIndex;
+            _currentFrameIndex = _currentSequenceEnd - 1;
         }
 
         if (_sequenceDelegate && _asset)
@@ -97,16 +99,13 @@ void GAFAnimation::step()
             }
         }
 
-        if (_isLooped)
+        if (_currentFrameIndex < _currentSequenceStart)
         {
-            if (_currentFrameIndex < _currentSequenceStart)
+            if (_isLooped)
             {
                 _currentFrameIndex = _currentSequenceEnd - 1;
             }
-        }
-        else
-        {
-            if (_currentFrameIndex < _currentSequenceStart)
+            else
             {
                 _isRunning = false;
                 return;
@@ -132,7 +131,14 @@ bool GAFAnimation::isDone() const
     }
     else
     {
-        return _currentFrameIndex >= _totalFrameCount;
+        if (!_isReversed)
+        {
+            return _currentFrameIndex > _totalFrameCount;
+        }
+        else
+        {
+            return _currentFrameIndex < -1;
+        }
     }
 }
 
