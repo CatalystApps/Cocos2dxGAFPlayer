@@ -47,6 +47,8 @@ private:
     GAFFramePlayedDelegate * _framePlayedDelegate;
     GAFAnimatedObjectControlDelegate * _controlDelegate;
 
+    CCSpriteBatchNode* m_batch;
+
     int numberOfGlobalFramesForOneAnimationFrame();
     int _extraFramesCounter;
     PCAnimationFPSType _FPSType;
@@ -109,6 +111,9 @@ public:
     int  getStencilLayer() const;
 
     virtual void draw();
+
+    //! Experimental feature, will work only for single textured objects without masks. Still glitches, required to be enabled manually
+    void enableBatching(bool value);
 
 }; // GAFAnimatedObject
 

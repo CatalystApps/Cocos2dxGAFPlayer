@@ -46,7 +46,8 @@ _asset(NULL),
 _extraFramesCounter(0),
 _framePlayedDelegate(NULL),
 _controlDelegate(NULL),
-m_stencilLayer(0)
+m_stencilLayer(0),
+m_batch(NULL)
 {
 }
 
@@ -616,7 +617,14 @@ void GAFAnimatedObject::realizeFrame(CCNode* out, int frameIndex)
 
 void GAFAnimatedObject::processAnimation()
 {
-    realizeFrame(this, _currentFrameIndex);
+    CCNode* baseParent = this;
+
+    if (m_batch)
+    {
+        baseParent = m_batch;
+    }
+
+    realizeFrame(baseParent, _currentFrameIndex);
 }
 
 void GAFAnimatedObject::setFramePlayedDelegate(GAFFramePlayedDelegate * delegate)
@@ -712,5 +720,25 @@ void GAFAnimatedObject::decStencilLayer()
 int GAFAnimatedObject::getStencilLayer() const
 {
     return m_stencilLayer;
+}
+
+void GAFAnimatedObject::enableBatching(bool value)
+{
+    if (value && !m_batch)
+    {
+        GAFTextureAtlas* atlas = _asset->textureAtlas();
+
+        if (atlas->textures()->count() == 1 && _asset->getAnimationMasks().empty())
+        {
+            CCTexture2D * texture = (CCTexture2D *)atlas->textures()->objectAtIndex(0);
+            m_batch = new CCSpriteBatchNode();
+            assert(m_batch->initWithTexture(texture, _asset->getAnimationObjects().size()));
+            addChild(m_batch);
+        }
+    }
+    else if (!value && m_batch)
+    {
+        m_batch->removeFromParent();
+    }
 }
 

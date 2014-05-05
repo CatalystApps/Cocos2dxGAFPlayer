@@ -542,6 +542,7 @@ void GafFeatures::addObjectsToScene(int aCount)
             object->playSequence("walk", true);
 
             object->start();
+            object->setLooped(true);
 
             object->setSequenceDelegate(this);
             object->setAnimationPlaybackDelegate(this);
