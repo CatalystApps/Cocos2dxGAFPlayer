@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['releasecontroloversubobjectnamed',['releaseControlOverSubobjectNamed',['../class_g_a_f_animated_object.html#a44dd2ee5c774f5de849b42af5f7d4f76',1,'GAFAnimatedObject']]]
+  ['usedatlascontentscalefactor',['usedAtlasContentScaleFactor',['../class_g_a_f_asset.html#ada62ac8fc08cc7a3fbec78e6f88dfca9',1,'GAFAsset']]]
 ];

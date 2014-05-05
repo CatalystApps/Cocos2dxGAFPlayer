@@ -9,9 +9,11 @@ GAFAnimation::GAFAnimation()
 _asset(NULL),
 _currentFrameIndex(GAF_FIRST_FRAME_INDEX),
 _sequenceDelegate(NULL),
+m_animationPlaybackDelegate(NULL),
 _totalFrameCount(0),
 _isRunning(false),
-_isReversed(false)
+_isReversed(false),
+_isLooped(false)
 {
 
 }
@@ -70,10 +72,21 @@ void GAFAnimation::step()
             if (_isLooped)
             {
                 _currentFrameIndex = _currentSequenceStart;
+                
+                if (m_animationPlaybackDelegate)
+                {
+                    m_animationPlaybackDelegate->onAnimationStartedNextLoopDelegate(this);
+                }
             }
             else
             {
-                _isRunning = false;
+                setAnimationRunning(false);
+
+                if (m_animationPlaybackDelegate)
+                {
+                    m_animationPlaybackDelegate->onAnimationFinishedPlayDelegate(this);
+                }
+
                 return;
             }
         }
@@ -104,10 +117,21 @@ void GAFAnimation::step()
             if (_isLooped)
             {
                 _currentFrameIndex = _currentSequenceEnd - 1;
+
+                if (m_animationPlaybackDelegate)
+                {
+                    m_animationPlaybackDelegate->onAnimationStartedNextLoopDelegate(this);
+                }
             }
             else
             {
-                _isRunning = false;
+                setAnimationRunning(false);
+
+                if (m_animationPlaybackDelegate)
+                {
+                    m_animationPlaybackDelegate->onAnimationFinishedPlayDelegate(this);
+                }
+
                 return;
             }
         }
@@ -172,7 +196,7 @@ void GAFAnimation::start()
     if (!_isRunning)
     {
         _currentFrameIndex = GAF_FIRST_FRAME_INDEX;
-        _isRunning = true;
+        setAnimationRunning(true);
     }
 }
 
@@ -180,7 +204,7 @@ void GAFAnimation::pause()
 {
     if (_isRunning)
     {
-        _isRunning = false;
+        setAnimationRunning(false);
     }
 }
 
@@ -188,7 +212,7 @@ void GAFAnimation::resume()
 {
     if (!_isRunning)
     {
-        _isRunning = true;
+        setAnimationRunning(true);
     }
 }
 
@@ -197,7 +221,7 @@ void GAFAnimation::stop()
     if (_isRunning)
     {
         _currentFrameIndex = GAF_FIRST_FRAME_INDEX;
-        _isRunning = false;
+        setAnimationRunning(false);
     }
 }
 
@@ -215,7 +239,7 @@ bool GAFAnimation::gotoAndStop(int frameNumber)
 {
     if (setFrame(frameNumber))
     {
-        _isRunning = false;
+        setAnimationRunning(false);
         return true;
     }
     return false;
@@ -235,7 +259,7 @@ bool GAFAnimation::gotoAndPlay(int frameNumber)
 {
     if (setFrame(frameNumber))
     {
-        _isRunning = true;
+        setAnimationRunning(true);
         return true;
     }
     return false;
@@ -337,4 +361,19 @@ bool GAFAnimation::isReversed() const
 void GAFAnimation::setReversed(bool reversed)
 {
     _isReversed = reversed;
+}
+
+void GAFAnimation::setAnimationRunning(bool value)
+{
+    _isRunning = value;
+}
+
+bool GAFAnimation::getIsRunning() const
+{
+    return _isRunning;
+}
+
+void GAFAnimation::setAnimationPlaybackDelegate(GAFAnimationPlaybackDelegate* delegate)
+{
+    m_animationPlaybackDelegate = delegate;
 }

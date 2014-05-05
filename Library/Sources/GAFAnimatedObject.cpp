@@ -46,7 +46,8 @@ _asset(NULL),
 _extraFramesCounter(0),
 _framePlayedDelegate(NULL),
 _controlDelegate(NULL),
-m_stencilLayer(0)
+m_stencilLayer(0),
+m_batch(NULL)
 {
 }
 
@@ -194,12 +195,21 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         assert(elIt != elementsMap.end());
 
         const GAFTextureAtlasElement* txElemet = NULL;
+        CCSpriteFrame * spriteFrame = NULL;
 
         if (elIt != elementsMap.end())
         {
             txElemet = elIt->second;
 
-            CCSpriteFrame * spriteFrame = CCSpriteFrame::createWithTexture(atlas->texture(), txElemet->bounds);
+            if (atlas->textures()->count() >= txElemet->atlasIdx + 1)
+            {
+                CCTexture2D * texture = (CCTexture2D *)atlas->textures()->objectAtIndex(txElemet->atlasIdx);
+                spriteFrame = CCSpriteFrame::createWithTexture(texture, txElemet->bounds);
+            }
+            else
+            {
+                CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
+            }
 
             if (spriteFrame)
             {
@@ -281,13 +291,15 @@ void GAFAnimatedObject::processAnimations(float dt)
     if (++_extraFramesCounter >= numberOfGlobalFramesForOneAnimationFrame())
     {
         _extraFramesCounter = 0;
-        if (!isDone() && isAnimationRunning())
+
+        if (isAnimationRunning())
         {
             step();
-        }
-        if (_framePlayedDelegate)
-        {
-            _framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
+
+            if (_framePlayedDelegate)
+            {
+                _framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
+            }
         }
     }
 }
@@ -605,7 +617,14 @@ void GAFAnimatedObject::realizeFrame(CCNode* out, int frameIndex)
 
 void GAFAnimatedObject::processAnimation()
 {
-    realizeFrame(this, _currentFrameIndex);
+    CCNode* baseParent = this;
+
+    if (m_batch)
+    {
+        baseParent = m_batch;
+    }
+
+    realizeFrame(baseParent, _currentFrameIndex);
 }
 
 void GAFAnimatedObject::setFramePlayedDelegate(GAFFramePlayedDelegate * delegate)
@@ -701,5 +720,25 @@ void GAFAnimatedObject::decStencilLayer()
 int GAFAnimatedObject::getStencilLayer() const
 {
     return m_stencilLayer;
+}
+
+void GAFAnimatedObject::enableBatching(bool value)
+{
+    if (value && !m_batch)
+    {
+        GAFTextureAtlas* atlas = _asset->textureAtlas();
+
+        if (atlas->textures()->count() == 1 && _asset->getAnimationMasks().empty())
+        {
+            CCTexture2D * texture = (CCTexture2D *)atlas->textures()->objectAtIndex(0);
+            m_batch = new CCSpriteBatchNode();
+            assert(m_batch->initWithTexture(texture, _asset->getAnimationObjects().size()));
+            addChild(m_batch);
+        }
+    }
+    else if (!value && m_batch)
+    {
+        m_batch->removeFromParent();
+    }
 }
 

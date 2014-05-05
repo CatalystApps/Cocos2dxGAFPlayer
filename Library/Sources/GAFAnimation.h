@@ -60,16 +60,26 @@ public:
 
     bool playSequence(const char * name, bool looped = false, bool resume = true, AnimSetSequenceHint hint = ASSH_RESTART);
     void clearSequence();
+
     /// @note do not forget to call setSequenceDelegate(NULL) before deleting your subscriber
     void setSequenceDelegate(GAFSequenceDelegate * delegate);
+
+    /// @note do not forget to call setAnimationPlaybackDelegate(NULL) before deleting your subscriber
+    void setAnimationPlaybackDelegate(GAFAnimationPlaybackDelegate* delegate);
+
     bool hasSequences() const;
 protected:
     GAFAnimation();
 protected:
     GAFAsset * _asset;
     int _currentFrameIndex;
+
+    void    setAnimationRunning(bool value);
+    bool    getIsRunning() const;
+
 private:
     GAFSequenceDelegate * _sequenceDelegate;
+    GAFAnimationPlaybackDelegate* m_animationPlaybackDelegate;
     int _totalFrameCount;
     int _currentSequenceStart;
     int _currentSequenceEnd;
