@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['objectidbyobjectname',['objectIdByObjectName',['../class_g_a_f_animated_object.html#a797500c27dcd6e7ee9aba8520d85bb1e',1,'GAFAnimatedObject']]],
-  ['onframeplayed',['onFramePlayed',['../class_g_a_f_frame_played_delegate.html#a64767fc4fe96151fb37837586794a7e3',1,'GAFFramePlayedDelegate']]]
+  ['incstencillayer',['incStencilLayer',['../class_g_a_f_animated_object.html#a10fe17e8e3a76c3e260217e0c28c1aa2',1,'GAFAnimatedObject']]],
+  ['initwithgaffile',['initWithGAFFile',['../class_g_a_f_asset.html#a695028ed6b3a26fd165421893f46ee7d',1,'GAFAsset']]],
+  ['isassetversionplayable',['isAssetVersionPlayable',['../class_g_a_f_asset.html#a352998927228ce3ada2810ba7d506161',1,'GAFAsset']]],
+  ['isdone',['isDone',['../class_g_a_f_animation.html#ae25ca753a22ba4cc119e26c6163b97f2',1,'GAFAnimation']]]
 ];

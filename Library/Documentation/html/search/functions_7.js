@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['releasecontroloversubobjectnamed',['releaseControlOverSubobjectNamed',['../class_g_a_f_animated_object.html#a44dd2ee5c774f5de849b42af5f7d4f76',1,'GAFAnimatedObject']]]
+  ['playsequence',['playSequence',['../class_g_a_f_animation.html#a30841ed98b6634d877fba24060a5d62b',1,'GAFAnimation']]]
 ];
