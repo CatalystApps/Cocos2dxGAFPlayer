@@ -161,7 +161,7 @@ bool GAFAnimation::isDone() const
         }
         else
         {
-            return _currentFrameIndex < -1;
+            return _currentFrameIndex < GAF_FIRST_FRAME_INDEX - 1;
         }
     }
 }
