@@ -65,7 +65,7 @@ bool AppDelegate::applicationDidFinishLaunching()
         //pDirector->setContentScaleFactor(320 / 1536);
     }
 
-    pDirector->setContentScaleFactor(2.f);
+    //pDirector->setContentScaleFactor(2.f);
 
     // create a scene. it's an autorelease object
     CCScene *pScene = GafFeatures::scene();
