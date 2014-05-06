@@ -541,6 +541,9 @@ void GafFeatures::addObjectsToScene(int aCount)
             // will work only if animation has a sequence
             object->playSequence("walk", true);
 
+            unsigned int fps = m_asset->getSceneFps();
+            CCDirector::sharedDirector()->setAnimationInterval(1.0 / fps);
+
             object->start();
             object->setLooped(true);
 

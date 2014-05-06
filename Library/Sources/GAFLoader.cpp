@@ -14,6 +14,7 @@
 #include "TagDefineAnimationFrames.h"
 #include "TagDefineNamedParts.h"
 #include "TagDefineSequences.h"
+#include "TagDefineStage.h"
 
 void GAFLoader::_readHeaderEnd(GAFHeader& header)
 {
@@ -31,6 +32,7 @@ void GAFLoader::_registerTagLoaders()
     m_tagLoaders[Tags::TagDefineNamedParts] = new TagDefineNamedParts();
     m_tagLoaders[Tags::TagDefineNamedParts] = new TagDefineNamedParts();
     m_tagLoaders[Tags::TagDefineSequences] = new TagDefineSequences();
+    m_tagLoaders[Tags::TagDefineStage] = new TagDefineStage();
 }
 
 GAFLoader::GAFLoader():

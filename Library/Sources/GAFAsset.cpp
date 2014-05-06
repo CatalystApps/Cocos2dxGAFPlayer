@@ -48,7 +48,10 @@ GAFAnimatedObject * GAFAsset::createObjectAndRun(bool looped)
 
 GAFAsset::GAFAsset():
 m_currentTextureAtlas(NULL),
-m_textureLoadDelegate(NULL)
+m_textureLoadDelegate(NULL),
+m_sceneFps(60),
+m_sceneWidth(0),
+m_sceneHeight(0)
 {
 }
 
@@ -256,4 +259,44 @@ void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
 const GAFHeader& GAFAsset::getHeader() const
 {
     return m_header;
+}
+
+const unsigned int GAFAsset::getSceneFps() const
+{
+    return m_sceneFps;
+}
+
+const unsigned int GAFAsset::getSceneWidth() const
+{
+    return m_sceneWidth;
+}
+
+const unsigned int GAFAsset::getSceneHeight() const
+{
+    return m_sceneHeight;
+}
+
+const ccColor4B& GAFAsset::getSceneColor() const
+{
+    return m_sceneColor;
+}
+
+void GAFAsset::setSceneFps(unsigned int value)
+{
+    m_sceneFps = value;
+}
+
+void GAFAsset::setSceneWidth(unsigned int value)
+{
+    m_sceneWidth = value;
+}
+
+void GAFAsset::setSceneHeight(unsigned int value)
+{
+    m_sceneHeight = value;
+}
+
+void GAFAsset::setSceneColor(const ccColor4B& value)
+{
+    m_sceneColor = value;
 }

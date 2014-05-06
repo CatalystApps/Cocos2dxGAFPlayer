@@ -96,6 +96,9 @@
     <ClCompile Include="Sources\PrimitiveDeserializer.cpp">
       <Filter>Sources\GAFLoader</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\TagDefineStage.cpp">
+      <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFActionObject.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="Sources\GAFDelegates.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\TagDefineStage.h">
+      <Filter>Sources\GAFLoader\Tags</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

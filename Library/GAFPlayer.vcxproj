@@ -41,6 +41,7 @@
     <ClCompile Include="Sources\TagDefineAtlas.cpp" />
     <ClCompile Include="Sources\TagDefineNamedParts.cpp" />
     <ClCompile Include="Sources\TagDefineSequences.cpp" />
+    <ClCompile Include="Sources\TagDefineStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GAFPrecompiled.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Sources\TagDefineNamedParts.h" />
     <ClInclude Include="Sources\TagDefines.h" />
     <ClInclude Include="Sources\TagDefineSequences.h" />
+    <ClInclude Include="Sources\TagDefineStage.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4E240210-2D26-4D4C-9329-E912FDAC94CC}</ProjectGuid>

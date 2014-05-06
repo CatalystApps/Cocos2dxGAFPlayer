@@ -31,6 +31,11 @@ private:
     GAFTextureAtlas*        m_currentTextureAtlas;
     GAFTextureLoadDelegate* m_textureLoadDelegate;
 
+    unsigned int            m_sceneFps;
+    unsigned int            m_sceneWidth;
+    unsigned int            m_sceneHeight;
+    ccColor4B               m_sceneColor;
+
 private:
     float _usedAtlasContentScaleFactor;
     int _majorVersion;
@@ -90,6 +95,15 @@ public:
     float                       usedAtlasContentScaleFactor()const;
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
+    
+    const unsigned int getSceneFps() const;
+    const unsigned int getSceneWidth() const;
+    const unsigned int getSceneHeight() const;
+    const ccColor4B& getSceneColor() const;
+    void setSceneFps(unsigned int);
+    void setSceneWidth(unsigned int);
+    void setSceneHeight(unsigned int);
+    void setSceneColor(const ccColor4B&);
 };
 
 

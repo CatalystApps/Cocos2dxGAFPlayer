@@ -11,6 +11,7 @@ struct Tags
         TagDefineAnimationFrames = 4,
         TagDefineNamedParts = 5,
         TagDefineSequences = 6,
+        TagDefineStage = 9,
     };
 
     static std::string toString(Enum e)
@@ -37,6 +38,9 @@ struct Tags
             break;
         case Tags::TagDefineSequences:
             return "TagDefineSequences";
+            break;
+        case Tags::TagDefineStage:
+            return "TagDefineStage";
             break;
         default:
             return "";
