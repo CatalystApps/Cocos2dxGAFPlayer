@@ -40,7 +40,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
 
-    //pEGLView->setDesignResolutionSize(2048, 1536, kResolutionNoBorder);
+    pEGLView->setDesignResolutionSize(1024, 768, kResolutionNoBorder);
 
     CCSize frameSize = pEGLView->getFrameSize();
 
@@ -52,7 +52,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     // if the frame's height is larger than the height of medium resource size, select large resource.
     if (frameSize.height > 768)
     {
-        //pDirector->setContentScaleFactor(1536 / 768);
+        pDirector->setContentScaleFactor(2.f);
     }
     // if the frame's height is larger than the height of small resource size, select medium resource.
     else if (frameSize.height > 320)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AADE0851919062B007F1E9D /* TagDefineStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AADE0831919062B007F1E9D /* TagDefineStage.cpp */; };
 		1AC1024719053E6000E7F154 /* biggreen in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023B19053E6000E7F154 /* biggreen */; };
 		1AC1024819053E6000E7F154 /* bird_bezneba in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023C19053E6000E7F154 /* bird_bezneba */; };
 		1AC1024919053E6000E7F154 /* christmas2013_julia2 in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1023D19053E6000E7F154 /* christmas2013_julia2 */; };
@@ -16,7 +17,6 @@
 		1AC1024D19053E6000E7F154 /* impiretank_05_oneplace in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024119053E6000E7F154 /* impiretank_05_oneplace */; };
 		1AC1024E19053E6000E7F154 /* myshopsgame4 in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024219053E6000E7F154 /* myshopsgame4 */; };
 		1AC1024F19053E6000E7F154 /* peacock_feb3_natasha in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024319053E6000E7F154 /* peacock_feb3_natasha */; };
-		1AC1025019053E6000E7F154 /* SampleAnimations in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024419053E6000E7F154 /* SampleAnimations */; };
 		1AC1025119053E6000E7F154 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024519053E6000E7F154 /* Shaders */; };
 		1AC1025219053E6000E7F154 /* tiger in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024619053E6000E7F154 /* tiger */; };
 		CF59E90B187DAB2D003A6524 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90A187DAB2D003A6524 /* Foundation.framework */; };
@@ -107,6 +107,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AADE0831919062B007F1E9D /* TagDefineStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineStage.cpp; path = ../../../Library/Sources/TagDefineStage.cpp; sourceTree = "<group>"; };
+		1AADE0841919062B007F1E9D /* TagDefineStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineStage.h; path = ../../../Library/Sources/TagDefineStage.h; sourceTree = "<group>"; };
 		1AC1023B19053E6000E7F154 /* biggreen */ = {isa = PBXFileReference; lastKnownFileType = folder; path = biggreen; sourceTree = "<group>"; };
 		1AC1023C19053E6000E7F154 /* bird_bezneba */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bird_bezneba; sourceTree = "<group>"; };
 		1AC1023D19053E6000E7F154 /* christmas2013_julia2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = christmas2013_julia2; sourceTree = "<group>"; };
@@ -116,7 +118,6 @@
 		1AC1024119053E6000E7F154 /* impiretank_05_oneplace */ = {isa = PBXFileReference; lastKnownFileType = folder; path = impiretank_05_oneplace; sourceTree = "<group>"; };
 		1AC1024219053E6000E7F154 /* myshopsgame4 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = myshopsgame4; sourceTree = "<group>"; };
 		1AC1024319053E6000E7F154 /* peacock_feb3_natasha */ = {isa = PBXFileReference; lastKnownFileType = folder; path = peacock_feb3_natasha; sourceTree = "<group>"; };
-		1AC1024419053E6000E7F154 /* SampleAnimations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleAnimations; sourceTree = "<group>"; };
 		1AC1024519053E6000E7F154 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
 		1AC1024619053E6000E7F154 /* tiger */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tiger; sourceTree = "<group>"; };
 		CF59E907187DAB2D003A6524 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -337,6 +338,8 @@
 		CF59E940187DB3C8003A6524 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				1AADE0831919062B007F1E9D /* TagDefineStage.cpp */,
+				1AADE0841919062B007F1E9D /* TagDefineStage.h */,
 				CFF5ED33188EA90000C75096 /* DefinitionTagBase.h */,
 				CFF5ED34188EA90000C75096 /* GAFActionObject.cpp */,
 				CFF5ED35188EA90000C75096 /* GAFActionObject.h */,
@@ -444,7 +447,6 @@
 				1AC1024119053E6000E7F154 /* impiretank_05_oneplace */,
 				1AC1024219053E6000E7F154 /* myshopsgame4 */,
 				1AC1024319053E6000E7F154 /* peacock_feb3_natasha */,
-				1AC1024419053E6000E7F154 /* SampleAnimations */,
 				1AC1024519053E6000E7F154 /* Shaders */,
 				1AC1024619053E6000E7F154 /* tiger */,
 				CF59E9DC187EC938003A6524 /* button_off_minus.png */,
@@ -567,7 +569,6 @@
 				CF59E9E5187EC938003A6524 /* button_on_minus.png in Resources */,
 				1AC1024B19053E6000E7F154 /* fairy2 in Resources */,
 				1AC1024719053E6000E7F154 /* biggreen in Resources */,
-				1AC1025019053E6000E7F154 /* SampleAnimations in Resources */,
 				1AC1024D19053E6000E7F154 /* impiretank_05_oneplace in Resources */,
 				CF59E9E2187EC938003A6524 /* button_off_minus.png in Resources */,
 				1AC1024C19053E6000E7F154 /* firemen in Resources */,
@@ -602,6 +603,7 @@
 			files = (
 				CFF5ED7B188EA90000C75096 /* GAFSpriteWithAlpha.cpp in Sources */,
 				CFF5ED32188EA7D800C75096 /* main.m in Sources */,
+				1AADE0851919062B007F1E9D /* TagDefineStage.cpp in Sources */,
 				CFF5ED7E188EA90000C75096 /* GAFSubobjectState.cpp in Sources */,
 				CFF5ED77188EA90000C75096 /* GAFLoader.cpp in Sources */,
 				CFF5ED87188EA90000C75096 /* TagDefineNamedParts.cpp in Sources */,
