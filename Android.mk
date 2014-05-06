@@ -33,7 +33,8 @@ Library/Sources/TagDefineAnimationMasks.cpp \
 Library/Sources/TagDefineAnimationObjects.cpp \
 Library/Sources/TagDefineAtlas.cpp \
 Library/Sources/TagDefineNamedParts.cpp \
-Library/Sources/TagDefineSequences.cpp
+Library/Sources/TagDefineSequences.cpp \
+Library/Sources/TagDefineStage.cpp
 
 LOCAL_C_INCLUDES := \
 $(LOCAL_PATH)/../../cocos2dx/include \
