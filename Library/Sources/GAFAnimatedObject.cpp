@@ -46,7 +46,7 @@ _asset(NULL),
 _extraFramesCounter(0),
 _framePlayedDelegate(NULL),
 _controlDelegate(NULL),
-m_stencilLayer(0),
+m_stencilLayer(-1),
 m_batch(NULL)
 {
 }
@@ -159,7 +159,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             GAFSpriteWithAlpha *sprite = new GAFSpriteWithAlpha();
             sprite->initWithSpriteFrame(spriteFrame);
 
-            sprite->objectIdRef = atlasElementIdRef;
+            sprite->objectIdRef = i->first;
 
             sprite->setVisible(false);
             CCPoint pt = CCPointMake(0 - (0 - (txElemet->pivotPoint.x / sprite->getContentSize().width)),
@@ -412,8 +412,8 @@ CCSprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextures)
 
     if (usePOTTextures)
     {
-        width = ccNextPOT((int)frameRect.size.width);
-        height = ccNextPOT((int)frameRect.size.height);
+        width = (int)ccNextPOT((int)frameRect.size.width);
+        height = (int)ccNextPOT((int)frameRect.size.height);
     }
     else
     {
@@ -704,17 +704,20 @@ void GAFAnimatedObject::draw()
 
 void GAFAnimatedObject::setStencilLayer(int newLayer)
 {
-    m_stencilLayer = std::max(0, std::min(newLayer, 255));
+    m_stencilLayer = std::max(-1, std::min(newLayer, 255));
+    _updateStencilLayer(m_stencilLayer);
 }
 
 void GAFAnimatedObject::incStencilLayer()
 {
-    m_stencilLayer = std::max(0, std::min(++m_stencilLayer, 255));
+    m_stencilLayer = std::max(-1, std::min(++m_stencilLayer, 255));
+    _updateStencilLayer(m_stencilLayer);
 }
 
 void GAFAnimatedObject::decStencilLayer()
 {
-    m_stencilLayer = std::max(0, std::min(--m_stencilLayer, 255));
+    m_stencilLayer = std::max(-1, std::min(--m_stencilLayer, 255));
+    _updateStencilLayer(m_stencilLayer);
 }
 
 int GAFAnimatedObject::getStencilLayer() const
@@ -739,6 +742,17 @@ void GAFAnimatedObject::enableBatching(bool value)
     else if (!value && m_batch)
     {
         m_batch->removeFromParent();
+    }
+}
+
+void GAFAnimatedObject::_updateStencilLayer(int newLayer)
+{
+    m_stencilLayer = newLayer;
+
+    for (SubObjects_t::iterator it = m_masks.begin(), e = m_masks.end(); it != e; ++it)
+    {
+        GAFStencilMaskSprite* mask = static_cast<GAFStencilMaskSprite*>(it->second);
+        mask->updateStencilLayer(newLayer);
     }
 }
 

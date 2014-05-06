@@ -16,6 +16,19 @@ using namespace cocos2d;
 
 class GAFStencilMaskSprite : public GAFSprite
 {
+private:
+    struct StencilState
+    {
+        GLboolean currentStencilEnabled;
+        GLuint currentStencilWriteMask;
+        GLenum currentStencilFunc;
+        GLint currentStencilRef;
+        GLuint currentStencilValueMask;
+        GLenum currentStencilFail;
+        GLenum currentStencilPassDepthFail;
+        GLenum currentStencilPassDepthPass;
+    } m_stencilState;
+
 public:
     GAFStencilMaskSprite(int stencilLayer);
     ~GAFStencilMaskSprite();
@@ -30,6 +43,7 @@ public:
 
     void addMaskedObject(CCNode * anObject);
     void removeMaskedObject(CCNode * anObject);
+    void updateStencilLayer(int newLayer);
 protected:
     void sortAllMaskedObjects();
 private:

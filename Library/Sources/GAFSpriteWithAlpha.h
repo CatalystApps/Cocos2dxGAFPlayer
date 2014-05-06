@@ -22,8 +22,8 @@ private:
     GAFGlowFilterData*             m_glowFilterData;
     GAFBlurFilterData*             m_blurFilterData;
 
-    CCTexture2D * _initialTexture;
-    CCRect        _initialTextureRect;
+    CCTexture2D * m_initialTexture;
+    CCRect        m_initialTextureRect;
 
 public:
     GAFSpriteWithAlpha();

@@ -53,6 +53,7 @@ private:
     int _extraFramesCounter;
     PCAnimationFPSType _FPSType;
 
+    void _updateStencilLayer(int newLayer);
 public:
     ~GAFAnimatedObject();
     static GAFAnimatedObject * create(GAFAsset * anAsset);
