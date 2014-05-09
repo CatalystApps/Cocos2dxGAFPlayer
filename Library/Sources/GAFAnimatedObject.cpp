@@ -101,6 +101,7 @@ bool GAFAnimatedObject::init(GAFAsset * anAsset)
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
 
     _FPSType = kGAFAnimationFPSType_60;
+    m_fps = anAsset->getSceneFps();
     _extraFramesCounter = 0;
     _animationsSelectorScheduled = false;
 
@@ -386,9 +387,9 @@ int GAFAnimatedObject::numberOfGlobalFramesForOneAnimationFrame()
 {
     float globalFPS = roundf(1.0f / (float)CCDirector::sharedDirector()->getAnimationInterval());
 
-    if (globalFPS > (float)_FPSType - FLT_EPSILON)
+    if (globalFPS > (float)m_fps - FLT_EPSILON)
     {
-        return (int)roundf(globalFPS / (float)_FPSType);
+        return (int)roundf(globalFPS / (float)m_fps);
     }
     else
     {

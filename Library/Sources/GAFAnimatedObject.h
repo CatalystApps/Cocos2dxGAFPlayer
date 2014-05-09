@@ -14,7 +14,7 @@ class GAFAnimator;
 class GAFAnimatedObject;
 class GAFAsset;
 
-enum PCAnimationFPSType
+enum PCAnimationFPSType // Obsolete. Will be removed
 {
     kGAFAnimationFPSType_15 = 15,
     kGAFAnimationFPSType_30 = 30,
@@ -51,7 +51,8 @@ private:
 
     int numberOfGlobalFramesForOneAnimationFrame();
     int _extraFramesCounter;
-    PCAnimationFPSType _FPSType;
+    PCAnimationFPSType _FPSType; // Obsolete. Will be removed
+    int m_fps;
 
     void _updateStencilLayer(int newLayer);
 public:
