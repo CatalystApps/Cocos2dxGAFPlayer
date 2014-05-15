@@ -44,6 +44,7 @@
     <ClInclude Include="Sources\TagDefineNamedParts.h" />
     <ClInclude Include="Sources\TagDefines.h" />
     <ClInclude Include="Sources\TagDefineSequences.h" />
+    <ClInclude Include="Sources\TagDefineStage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\GAFActionObject.cpp" />
@@ -76,6 +77,7 @@
     <ClCompile Include="Sources\TagDefineAtlas.cpp" />
     <ClCompile Include="Sources\TagDefineNamedParts.cpp" />
     <ClCompile Include="Sources\TagDefineSequences.cpp" />
+    <ClCompile Include="Sources\TagDefineStage.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7A624A6D-B95B-4B97-8476-C7018A636649}</ProjectGuid>
