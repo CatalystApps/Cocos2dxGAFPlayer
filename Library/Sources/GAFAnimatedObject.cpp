@@ -422,9 +422,11 @@ CCSprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextures)
         height = (int)frameRect.size.height;
     }
 
+    CCPoint transformedPosition = CCPointApplyAffineTransform(frameRect.origin, nodeToParentTransform());
+
     CCRenderTexture* rt = CCRenderTexture::create(width, height, kCCTexture2DPixelFormat_RGBA8888, GL_DEPTH24_STENCIL8);
 
-    setPosition(ccp(originalPos.x - frameRect.origin.x, originalPos.y - frameRect.origin.y));
+    setPosition(ccp(originalPos.x - transformedPosition.x, originalPos.y - transformedPosition.y));
 
 #if DEBUG_RTT_DRAWING
     rt->beginWithClear(0, 0, 0, 0);
@@ -440,7 +442,8 @@ CCSprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextures)
 
     CCSprite* res = CCSprite::createWithTexture(rt->getSprite()->getTexture());
     res->setAnchorPoint(ccp(0, 0));
-    res->setPosition(frameRect.origin);
+
+    res->setPosition(transformedPosition);
     return(res);
 }
 
@@ -692,7 +695,7 @@ CCRect GAFAnimatedObject::realBoundingBoxForCurrentFrame()
         }
     }
 
-    return CCRectApplyAffineTransform(result, nodeToParentTransform());
+    return result;
 }
 
 void GAFAnimatedObject::draw()
