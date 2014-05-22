@@ -17,18 +17,12 @@
     <ClCompile Include="Classes\GafFeatures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\GAFFeaturesRTT.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\AppDelegate.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Classes\GafFeatures.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GAFFeaturesRTT.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

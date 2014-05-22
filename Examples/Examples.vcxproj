@@ -24,12 +24,10 @@
   <ItemGroup>
     <ClCompile Include="Classes\AppDelegate.cpp" />
     <ClCompile Include="Classes\GafFeatures.cpp" />
-    <ClCompile Include="Classes\GAFFeaturesRTT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\AppDelegate.h" />
     <ClInclude Include="Classes\GafFeatures.h" />
-    <ClInclude Include="Classes\GAFFeaturesRTT.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EEB05DD6-9AF2-4343-B477-4C43419749EF}</ProjectGuid>
