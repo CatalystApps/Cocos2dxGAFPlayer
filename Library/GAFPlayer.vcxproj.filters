@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\GAFActionObject.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\GAFAnimatedObject.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -34,9 +31,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Sources\GAFFilterData.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\GAFInteractionObject.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Sources\GAFShaderManager.cpp">
@@ -101,9 +95,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\GAFActionObject.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\GAFAnimatedObject.h">
       <Filter>Sources</Filter>
     </ClInclude>
@@ -119,13 +110,7 @@
     <ClInclude Include="Sources\GAFAsset.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\GAFData.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\GAFFilterData.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\GAFInteractionObject.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFShaderManager.h">

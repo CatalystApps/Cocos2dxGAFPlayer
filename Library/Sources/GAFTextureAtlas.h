@@ -3,15 +3,6 @@
 #ifndef __GAF_TEXTURE_ATLAS___
 #define __GAF_TEXTURE_ATLAS___
 
-
-namespace cocos2d
-{
-    class CCImage;
-    class CCArray;
-    class CCTexture2D;
-}
-using namespace cocos2d;
-
 class GAFTextureAtlasElement;
 class GAFTextureLoadDelegate;
 
@@ -44,8 +35,8 @@ private:
     Elements_t      m_elements;
 
     bool           _loaded;
-    CCArray      *  _images;
-    CCArray      *  _textures;
+    cocos2d::__Array      *  _images;
+    cocos2d::__Array      *  _textures;
 public:
     ~GAFTextureAtlas();
 
@@ -62,11 +53,11 @@ public:
     void          setScale(float val);
     float         getScale() const;
 
-    CCImage     * image();
-    CCArray     * images();
+    cocos2d::Image     * image();
+    cocos2d::__Array     * images();
 
-    CCTexture2D * texture();
-    CCArray     * textures();
+    cocos2d::Texture2D * texture();
+    cocos2d::__Array     * textures();
 
     const Elements_t& getElements() const;
 };

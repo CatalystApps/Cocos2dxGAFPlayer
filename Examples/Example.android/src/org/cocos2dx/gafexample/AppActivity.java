@@ -28,7 +28,7 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import android.os.Bundle;
 
-public class GAFExample extends Cocos2dxActivity{
+public class AppActivity extends Cocos2dxActivity{
 
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -40,9 +40,5 @@ public class GAFExample extends Cocos2dxActivity{
     	glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
     	
     	return glSurfaceView;
-    }
-    
-    static {
-         System.loadLibrary("gafexample");
     }
 }

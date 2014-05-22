@@ -200,7 +200,7 @@ void GAFAnimation::start()
     }
 }
 
-void GAFAnimation::pause()
+void GAFAnimation::pauseAnimation()
 {
     if (_isRunning)
     {
@@ -208,7 +208,7 @@ void GAFAnimation::pause()
     }
 }
 
-void GAFAnimation::resume()
+void GAFAnimation::resumeAnimation()
 {
     if (!_isRunning)
     {
@@ -342,7 +342,7 @@ bool GAFAnimation::playSequence(const char * name, bool looped, bool _resume, An
     setLooped(looped);
     if (_resume)
     {
-        resume();
+        resumeAnimation();
     }
     else
     {

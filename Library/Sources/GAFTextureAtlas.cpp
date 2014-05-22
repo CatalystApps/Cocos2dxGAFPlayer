@@ -2,7 +2,6 @@
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
 #include "GAFAsset.h"
-#include "cocoa/CCInteger.h"
 
 #if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
 #include "textures/CCTextureCache.h"
@@ -35,7 +34,8 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
     std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
     CC_SAFE_RELEASE(_images);
-    _images = new CCArray();
+    _images = cocos2d::__Array::create();
+    _images->retain();
 
     if (!m_atlasInfos.empty())
     {
@@ -60,8 +60,8 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
                 }
             }
 
-            CCImage* image = new CCImage();
-            std::string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativeFile(source.c_str(), dir.c_str());
+            cocos2d::Image* image = new cocos2d::Image();
+            std::string path = cocos2d::FileUtils::getInstance()->fullPathFromRelativeFile(source.c_str(), dir.c_str());
 
             if (delegate)
             {
@@ -69,6 +69,22 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
             }
 
             image->initWithImageFile(path.c_str());
+#if ENABLE_GAF_MANUAL_PREMULTIPLY
+            if (!image->isPremultipliedAlpha() && image->hasAlpha())
+            {
+                //Premultiply
+                unsigned char* begin = image->getData();
+                unsigned int width = image->getWidth();
+                unsigned int height = image->getHeight();
+                int Bpp = image->getBitPerPixel() / 8;
+                unsigned char* end = begin + width * height * Bpp;
+                for (auto data = begin; data < end; data += Bpp)
+                {
+                    unsigned int* wordData = (unsigned int*)(data);
+                    *wordData = CC_RGB_PREMULTIPLY_ALPHA(data[0], data[1], data[2], data[3]);
+                }
+            }
+#endif
             _images->addObject(image);
             image->release();
         }
@@ -80,38 +96,38 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
     }
 }
 
-CCImage     * GAFTextureAtlas::image()
+cocos2d::Image * GAFTextureAtlas::image()
 {
     if (_images && _images->count() > 0)
     {
-        return (CCImage*)_images->objectAtIndex(0);
+        return (cocos2d::Image*)_images->getObjectAtIndex(0);
     }
     return NULL;
 }
 
-CCArray     * GAFTextureAtlas::images()
+cocos2d::__Array * GAFTextureAtlas::images()
 {
     return _images;
 }
 
-CCTexture2D * GAFTextureAtlas::texture()
+cocos2d::Texture2D * GAFTextureAtlas::texture()
 {
     if (_textures && _textures->count() > 0)
     {
-        return (CCTexture2D*)_textures->objectAtIndex(0);
+        return (cocos2d::Texture2D*)_textures->getObjectAtIndex(0);
     }
     return NULL;
 }
 
-CCArray * GAFTextureAtlas::textures()
+cocos2d::__Array * GAFTextureAtlas::textures()
 {
     if (!_textures)
     {
-        _textures = CCArray::createWithCapacity(_images->count());
-        for (unsigned int i = 0; i < _images->count(); ++i)
+        _textures = cocos2d::__Array::createWithCapacity(_images->count());
+        for (int i = 0; i < _images->count(); ++i)
         {
-            CCTexture2D * texture = new CCTexture2D();
-            CCImage * image = (CCImage*)_images->objectAtIndex(i);
+            cocos2d::Texture2D * texture = new cocos2d::Texture2D();
+            cocos2d::Image * image = (cocos2d::Image*)_images->getObjectAtIndex(i);
             texture->initWithImage(image);
             _textures->addObject(texture);
 #if 0

@@ -9,9 +9,10 @@ private:
     unsigned int          m_dataPosition;
     unsigned long         m_dataLen;
     GAFHeader             m_header;
+private:
+    unsigned char*       _getData(const std::string& filename, const char* openMode, unsigned long& outLen);
 protected:
     void                 _readHeaderBegin(GAFHeader&);
-
 public:
     GAFFile();
     ~GAFFile();

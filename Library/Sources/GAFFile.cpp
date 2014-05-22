@@ -5,11 +5,11 @@
 #define USE_ZLIB 1
 
 #if USE_ZLIB
-    #ifdef WIN32
-        #include <zlib/zlib.h>
-    #else
-        #include <zlib.h>
-    #endif
+    #include <zlib.h>
+#endif
+
+#ifdef ANDROID
+    #include "platform/android/CCFileUtilsAndroid.h"
 #endif
 
 void GAFFile::_readHeaderBegin(GAFHeader& out)
@@ -130,7 +130,7 @@ bool GAFFile::open(const std::string& filePath, const char* openMode)
 {
     close();
 
-    m_data = CCFileUtils::sharedFileUtils()->getFileData(filePath.c_str(), openMode, &m_dataLen);
+    m_data = _getData(filePath, openMode, m_dataLen);
 
     if (m_data)
     {
@@ -208,4 +208,47 @@ unsigned int GAFFile::getPosition() const
 void GAFFile::rewind(unsigned int newPos)
 {
     m_dataPosition = newPos;
+}
+
+unsigned char* GAFFile::_getData(const std::string& filename, const char* openMode, unsigned long& outLen)
+{
+    assert(!(filename.empty()));
+
+    unsigned char* ret = nullptr;
+    outLen = 0;
+    ssize_t size = 0;
+    const char* mode = nullptr;
+
+#ifdef ANDROID
+    ret = cocos2d::FileUtilsAndroid::getInstance()->getFileData(filename, openMode, &size);
+#else
+    do
+    {
+        // Read the file from hardware
+        std::string fullPath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filename);
+        FILE *fp = fopen(fullPath.c_str(), openMode);
+        CC_BREAK_IF(!fp);
+        fseek(fp, 0, SEEK_END);
+        size = ftell(fp);
+        fseek(fp, 0, SEEK_SET);
+        
+        ret = (unsigned char*)malloc(sizeof(unsigned char)* size);
+
+        size = fread(ret, sizeof(unsigned char), size, fp);
+        fclose(fp);
+    } while (0);
+#endif
+
+    if (nullptr == ret || 0 == size)
+    {
+        std::string msg = "Get data from file(";
+        msg.append(filename).append(") failed!");
+        CCLOG("%s", msg.c_str());
+    }
+    else
+    {
+        outLen = size;
+    }
+
+    return ret;
 }

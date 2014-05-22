@@ -5,14 +5,12 @@
 
 #include "GAFSprite.h"
 
-namespace cocos2d
-{
-    class CCArray;
-}
-
 #define  kGAFStencilMaskAlphaFilterProgramCacheKey "kGAFScrollLayerAlphaFilterProgramCacheKey"
 
-using namespace cocos2d;
+namespace cocos2d
+{
+    class __Array;
+}
 
 class GAFStencilMaskSprite : public GAFSprite
 {
@@ -32,26 +30,24 @@ private:
 public:
     GAFStencilMaskSprite(int stencilLayer);
     ~GAFStencilMaskSprite();
-    virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
-    static CCGLProgram * programShaderForMask();
-    virtual void draw();
-    virtual void visit();
+    virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
+    static cocos2d::GLProgram * programShaderForMask();
+    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
+    virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
 
     void invalidateMaskedObjectsOrder();
 
-    static void updateMaskContainerOf(CCNode * node);
+    static void updateMaskContainerOf(cocos2d::Node * node);
 
-    void addMaskedObject(CCNode * anObject);
-    void removeMaskedObject(CCNode * anObject);
+    void addMaskedObject(cocos2d::Node * anObject);
+    void removeMaskedObject(cocos2d::Node * anObject);
     void updateStencilLayer(int newLayer);
 protected:
     void sortAllMaskedObjects();
 private:
     int       m_stencilLayer;
-    CCArray * _maskedObjects;
+    cocos2d::__Array * _maskedObjects;
     bool     _isReorderMaskedObjectsDirty;
-    void     _setupStencilForMask();
-    void     _setupStencilForContent();
     void     _disableStencil();
 };
 

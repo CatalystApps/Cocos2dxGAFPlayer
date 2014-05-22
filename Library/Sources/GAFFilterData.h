@@ -29,7 +29,7 @@ public:
 class GAFBlurFilterData : public GAFFilterData
 {
 public:
-    CCSize blurSize;
+    cocos2d::Size blurSize;
     GAFBlurFilterData();
 
     virtual void apply(GAFSpriteWithAlpha*);
@@ -48,8 +48,8 @@ public:
 class GAFGlowFilterData : public GAFFilterData
 {
 public:
-    ccColor4F   color;
-    CCSize      blurSize;
+    cocos2d::Color4F   color;
+    cocos2d::Size      blurSize;
     float       strength;
     bool        innerGlow;
     bool        knockout;
@@ -61,8 +61,8 @@ public:
 class GAFDropShadowFilterData : public GAFFilterData
 {
 public:
-    ccColor4F       color;
-    CCSize          blurSize;
+    cocos2d::Color4F       color;
+    cocos2d::Size          blurSize;
     float           angle;
     float           distance;
     float           strength;

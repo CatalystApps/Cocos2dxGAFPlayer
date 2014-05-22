@@ -47,9 +47,9 @@ const int kShadowObjectTag = 0xFAD0;
 
 void GAFDropShadowFilterData::apply(GAFSpriteWithAlpha* subObject)
 {
-    CCTexture2D* texture = subObject->getInitialTexture();
-    const CCRect& texRect = subObject->getInitialTextureRect();
-    CCRenderTexture* shadowObject = GAFTextureEffectsConverter::sharedConverter()->dropShadowTextureFromTexture(texture, texRect, this);
+    cocos2d::Texture2D* texture = subObject->getInitialTexture();
+    const cocos2d::Rect& texRect = subObject->getInitialTextureRect();
+    cocos2d::RenderTexture* shadowObject = GAFTextureEffectsConverter::sharedConverter()->dropShadowTextureFromTexture(texture, texRect, this);
 
     reset(subObject);
 
@@ -57,9 +57,9 @@ void GAFDropShadowFilterData::apply(GAFSpriteWithAlpha* subObject)
 
     const float anglerad = ((float)M_PI / 180.f) * angle;
 
-    CCPoint offset = ccp(cos(anglerad) * distance, -sin(anglerad) * distance);
+    cocos2d::Vect offset = cocos2d::Vect(cos(anglerad) * distance, -sin(anglerad) * distance);
 
-    CCSize shadowTextureSize = shadowObject->getSprite()->getContentSize();
+    cocos2d::Size shadowTextureSize = shadowObject->getSprite()->getContentSize();
     if (texRect.size.height < shadowTextureSize.height)
     {
         offset.y -= shadowTextureSize.height - texRect.size.height;
@@ -71,7 +71,7 @@ void GAFDropShadowFilterData::apply(GAFSpriteWithAlpha* subObject)
 
 void GAFDropShadowFilterData::reset(GAFSpriteWithAlpha* subObject)
 {
-    CCNode* prevShadowObject = subObject->getChildByTag(kShadowObjectTag);
+    cocos2d::Node* prevShadowObject = subObject->getChildByTag(kShadowObjectTag);
 
     if (prevShadowObject)
     {

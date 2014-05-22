@@ -1,7 +1,9 @@
 #include "AppDelegate.h"
 
 #include "cocos2d.h"
+
 #include "GafFeatures.h"
+
 #include <vector>
 #include <string>
 #include "GAFShaderManager.h"
@@ -26,23 +28,29 @@ bool AppDelegate::applicationDidFinishLaunching()
     paths.push_back("Shaders");
     paths.push_back("Resources");
 
-    CCFileUtils::sharedFileUtils()->setSearchPaths(paths);
-    CCDirector *pDirector = CCDirector::sharedDirector();
-    pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
+    cocos2d::FileUtils::getInstance()->setSearchPaths(paths);
+    cocos2d::Director *pDirector = cocos2d::Director::getInstance();
+
+    cocos2d::GLView* glView = pDirector->getOpenGLView();
+
+    if (!glView)
+    {
+        glView = cocos2d::GLView::createWithRect("GAF Animation sample", cocos2d::Rect(0, 0, 1024, 768));
+
+        pDirector->setOpenGLView(glView);
+    }
 
     // turn on display FPS
     pDirector->setDisplayStats(true);
-    pDirector->setProjection(kCCDirectorProjection2D);
-    CCTexture2D::setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888);
+    pDirector->setProjection(cocos2d::Director::Projection::_2D);
+    CCTexture2D::setDefaultAlphaPixelFormat(cocos2d::Texture2D::PixelFormat::RGBA8888);
     CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
 
     pDirector->setAnimationInterval(1.0 / kGlobalFPS);
 
-    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
+    glView->setDesignResolutionSize(1024, 768, ResolutionPolicy::NO_BORDER);
 
-    pEGLView->setDesignResolutionSize(1024, 768, kResolutionShowAll);
-
-    CCSize frameSize = pEGLView->getFrameSize();
+    cocos2d::Size frameSize = glView->getFrameSize();
 
     // In this demo, we select resource according to the frame's height.
     // If the resource size is different from design resolution size, you need to set contentScaleFactor.
@@ -52,23 +60,13 @@ bool AppDelegate::applicationDidFinishLaunching()
     // if the frame's height is larger than the height of medium resource size, select large resource.
     if (frameSize.height > 768)
     {
-        pDirector->setContentScaleFactor(2.f);
-    }
-    // if the frame's height is larger than the height of small resource size, select medium resource.
-    else if (frameSize.height > 320)
-    {
-        //pDirector->setContentScaleFactor(768 / 320);
-    }
-    // if the frame's height is smaller than the height of medium resource size, select small resource.
-    else
-    {
-        //pDirector->setContentScaleFactor(320 / 1536);
+        pDirector->setContentScaleFactor(2);
     }
 
     //pDirector->setContentScaleFactor(2.f);
 
     // create a scene. it's an autorelease object
-    CCScene *pScene = GafFeatures::scene();
+    cocos2d::Scene *pScene = GafFeatures::scene();
 
     // run
     pDirector->runWithScene(pScene);
@@ -77,13 +75,13 @@ bool AppDelegate::applicationDidFinishLaunching()
 }
 void AppDelegate::applicationDidEnterBackground()
 {
-    CCDirector::sharedDirector()->stopAnimation();
+    cocos2d::Director::getInstance()->stopAnimation();
     GAFShaderManager::handleEnterBackground();
 }
 
 void AppDelegate::applicationWillEnterForeground()
 {
-    CCDirector::sharedDirector()->startAnimation();
+    cocos2d::Director::getInstance()->startAnimation();
 }
 
 #ifdef _WIN32
@@ -95,10 +93,7 @@ int WINAPI WinMain(__in HINSTANCE hInstance,
     )
 {
     AppDelegate app;
-    CCEGLView* eglView = CCEGLView::sharedOpenGLView();
-    eglView->setViewName("GAF Animation sample");
-    eglView->setFrameSize(1920, 1080);
 
-    return CCApplication::sharedApplication()->run();
+    return cocos2d::Application::getInstance()->run();
 }
 #endif

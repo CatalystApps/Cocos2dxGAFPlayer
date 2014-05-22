@@ -1,24 +1,23 @@
 #include "GAFPrecompiled.h"
 #include "GAFShaderManager.h"
-#include "GAFData.h"
 
 
-CCGLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, CCGLProgram * p)
+cocos2d::GLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, cocos2d::GLProgram * p)
 {
     if (!vertexSource || !fragmentFilename)
     {
         return NULL;
     }
-    std::string fp = CCFileUtils::sharedFileUtils()->fullPathForFilename(fragmentFilename);
-    GAFData data;
-    data.delete_data = true;
-    data.ptr = CCFileUtils::sharedFileUtils()->getFileData(fp.c_str(), "r", &data.size);
-    if (!data.ptr)
+    std::string fp = cocos2d::FileUtils::getInstance()->fullPathForFilename(fragmentFilename);
+
+    std::string fileContent = cocos2d::FileUtils::getInstance()->getStringFromFile(fp);
+
+    if (fileContent.empty())
     {
         CCLOGERROR("Cannot load fragment shader with name %s", fragmentFilename);
         return NULL;
     }
-    CCGLProgram * res;
+    cocos2d::GLProgram * res;
 
     if (p)
     {
@@ -26,19 +25,15 @@ CCGLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSo
     }
     else
     {
-        res = new CCGLProgram();
+        res = new cocos2d::GLProgram();
     }
 
     if (!res)
     {
         return NULL;
     }
-    if (data.size)
-    {
-        data.ptr[data.size - 1] = 0;
-    }
-
-    if (!res->initWithVertexShaderByteArray(vertexSource, (const char *)data.ptr))
+    
+    if (!res->initWithByteArrays(vertexSource, fileContent.c_str()))
     {
         CC_SAFE_RELEASE(res);
         return NULL;

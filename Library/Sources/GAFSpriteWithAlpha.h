@@ -13,7 +13,7 @@ class GAFSpriteWithAlpha : public GAFSprite
 {
 private:
     void _setBlendingFunc();
-    GLfloat _colorTransform[8]; // 0-3 mults, 4-7 offsets
+    GLfloat m_colorTransform[8]; // 0-3 mults, 4-7 offsets
 
     GLfloat m_colorMatrixIdentity1[16];
     GLfloat m_colorMatrixIdentity2[4];
@@ -22,16 +22,19 @@ private:
     GAFGlowFilterData*             m_glowFilterData;
     GAFBlurFilterData*             m_blurFilterData;
 
-    CCTexture2D * m_initialTexture;
-    CCRect        m_initialTextureRect;
+    cocos2d::Texture2D * m_initialTexture;
+    cocos2d::Rect        m_initialTextureRect;
+    cocos2d::RenderTexture* m_filter;
+
+    cocos2d::RenderTexture* _test();
 
 public:
     GAFSpriteWithAlpha();
     ~GAFSpriteWithAlpha();
     virtual void setUniformsForFragmentShader();
-    virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
+    virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
 
-    CCGLProgram * programForShader();
+    cocos2d::GLProgram * programForShader();
 
     void setColorTransform(const GLfloat * mults, const GLfloat * offsets);
     const GLfloat * getColorTransform() const;
@@ -42,10 +45,12 @@ public:
     void setGlowFilterData(GAFGlowFilterData* data);
     void setBlurFilterData(GAFBlurFilterData* data);
 
-    CCTexture2D*    getInitialTexture() const;
-    const CCRect&   getInitialTextureRect() const;
-    
+    cocos2d::Texture2D*    getInitialTexture() const;
+    const cocos2d::Rect&   getInitialTextureRect() const;
+
     bool            isCTXIdentity() const;
+
+    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
 protected:
     void updateTextureWithEffects();
 

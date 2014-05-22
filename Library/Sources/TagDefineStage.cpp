@@ -8,7 +8,7 @@
 
 void TagDefineStage::read(GAFStream* in, GAFAsset* ctx)
 {
-    ccColor4B color;
+    cocos2d::Color4B color;
     
     unsigned int fps = in->readU8();  // Scene FPS
     PrimitiveDeserializer::deserialize(in, &color);  // Scene color

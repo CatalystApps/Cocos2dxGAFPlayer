@@ -16,8 +16,5 @@
 #include <algorithm>
 
 #include <cocos2d.h>
-//#include <cocos-ext.h>
 
-
-
-using namespace cocos2d;
+#define ENABLE_GAF_MANUAL_PREMULTIPLY 1

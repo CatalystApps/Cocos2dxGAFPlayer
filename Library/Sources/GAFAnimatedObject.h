@@ -30,7 +30,7 @@ enum GAFAnimatedObjectControlFlags
 };
 
 
-class GAFAnimatedObject : public CCLayer, public GAFAnimation
+class GAFAnimatedObject : public cocos2d::Layer, public GAFAnimation
 {
 protected:
     GAFAnimatedObject();
@@ -47,7 +47,7 @@ private:
     GAFFramePlayedDelegate * _framePlayedDelegate;
     GAFAnimatedObjectControlDelegate * _controlDelegate;
 
-    CCSpriteBatchNode* m_batch;
+    cocos2d::SpriteBatchNode* m_batch;
 
     int numberOfGlobalFramesForOneAnimationFrame();
     int _extraFramesCounter;
@@ -62,7 +62,7 @@ public:
 
     bool init(GAFAsset * anAsset);
     void processAnimations(float dt);
-    CCPoint pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, CCPoint aCenter, CCPoint anExternalPoint);
+    cocos2d::Vect pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, cocos2d::Vect aCenter, cocos2d::Vect anExternalPoint);
     void removeAllSubObjects();
     
     void instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
@@ -89,16 +89,16 @@ public:
 
     void setFramePlayedDelegate(GAFFramePlayedDelegate * delegate);
     void setControlDelegate(GAFAnimatedObjectControlDelegate * delegate);
-    CCRect realBoundingBoxForCurrentFrame();
+    cocos2d::Rect realBoundingBoxForCurrentFrame();
 
     /// Returns subobject by it id
     GAFSprite * subObjectForInnerObjectId(unsigned int anInnerObjectId);
     /// Returns object id by it name, defined in NamedParts
     unsigned int objectIdByObjectName(const std::string& aName);
 
-    CCSprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
+    cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
 
-    void realizeFrame(CCNode* out, int frameIndex);
+    void realizeFrame(cocos2d::Node* out, int frameIndex);
 
     //! 0 means all masked pixels will be marked as 1 and so on
     void setStencilLayer(int newLayer);
@@ -111,8 +111,6 @@ public:
 
     //! 0 means all masked pixels will be marked as 1 and so on
     int  getStencilLayer() const;
-
-    virtual void draw();
 
     //! Experimental feature, will work only for single textured objects without masks. Still glitches, required to be enabled manually
     void enableBatching(bool value);

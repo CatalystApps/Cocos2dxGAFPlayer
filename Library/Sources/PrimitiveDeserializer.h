@@ -5,9 +5,9 @@ class GAFStream;
 class PrimitiveDeserializer
 {
 public:
-    static void deserialize(GAFStream* in, CCPoint* out);
-    static void deserialize(GAFStream* in, CCRect* out);
-    static void deserialize(GAFStream* in, CCAffineTransform* out);
-    static void deserialize(GAFStream* in, CCSize* out);
-    static void deserialize(GAFStream* in, ccColor4B* out);
+    static void deserialize(GAFStream* in, cocos2d::Vect* out);
+    static void deserialize(GAFStream* in, cocos2d::Rect* out);
+    static void deserialize(GAFStream* in, cocos2d::AffineTransform* out);
+    static void deserialize(GAFStream* in, cocos2d::Size* out);
+    static void deserialize(GAFStream* in, cocos2d::Color4B* out);
 };

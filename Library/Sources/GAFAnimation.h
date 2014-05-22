@@ -24,8 +24,8 @@ public:
 
     virtual void processAnimation();
     virtual void start();
-    virtual void pause();
-    virtual void resume();
+    virtual void pauseAnimation();
+    virtual void resumeAnimation();
     virtual void stop();
     virtual void step();
     /// @returns true if the animation is finished, otherwise NO	

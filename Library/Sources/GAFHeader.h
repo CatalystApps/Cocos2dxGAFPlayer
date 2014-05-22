@@ -16,6 +16,6 @@ public:
     unsigned short  version;
     unsigned int    fileLenght;
     unsigned short  framesCount;
-    CCRect          frameSize;
-    CCPoint         pivot;
+    cocos2d::Rect   frameSize;
+    cocos2d::Vect   pivot;
 };

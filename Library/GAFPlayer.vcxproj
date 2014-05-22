@@ -16,14 +16,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Sources\GAFFile.cpp" />
-    <ClCompile Include="Sources\GAFActionObject.cpp" />
     <ClCompile Include="Sources\GAFAnimatedObject.cpp" />
     <ClCompile Include="Sources\GAFAnimation.cpp" />
     <ClCompile Include="Sources\GAFAnimationFrame.cpp" />
     <ClCompile Include="Sources\GAFAnimationSequence.cpp" />
     <ClCompile Include="Sources\GAFAsset.cpp" />
     <ClCompile Include="Sources\GAFFilterData.cpp" />
-    <ClCompile Include="Sources\GAFInteractionObject.cpp" />
     <ClCompile Include="Sources\GAFLoader.cpp" />
     <ClCompile Include="Sources\GAFShaderManager.cpp" />
     <ClCompile Include="Sources\GAFSprite.cpp" />
@@ -50,15 +48,12 @@
     <ClInclude Include="Sources\GAFDelegates.h" />
     <ClInclude Include="Sources\GAFFile.h" />
     <ClInclude Include="Sources\GAFHeader.h" />
-    <ClInclude Include="Sources\GAFActionObject.h" />
     <ClInclude Include="Sources\GAFAnimatedObject.h" />
     <ClInclude Include="Sources\GAFAnimation.h" />
     <ClInclude Include="Sources\GAFAnimationFrame.h" />
     <ClInclude Include="Sources\GAFAnimationSequence.h" />
     <ClInclude Include="Sources\GAFAsset.h" />
-    <ClInclude Include="Sources\GAFData.h" />
     <ClInclude Include="Sources\GAFFilterData.h" />
-    <ClInclude Include="Sources\GAFInteractionObject.h" />
     <ClInclude Include="Sources\GAFLoader.h" />
     <ClInclude Include="Sources\GAFShaderManager.h" />
     <ClInclude Include="Sources\GAFSprite.h" />
@@ -118,11 +113,11 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\cocos2dx\include;..\..\..\cocos2dx\;..\..\..\cocos2dx\platform\win32;..\..\..\cocos2dx\platform\third_party\win32;..\..\..\cocos2dx\platform\third_party\win32\OGLES;..\..\..\cocos2dx\kazmath\include;..\..\..\extensions;Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;COCOS2D_DEBUG=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>GAFPrecompiled.h</PrecompiledHeaderFile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalIncludeDirectories>../Classes;../../../cocos/2d/;../../../cocos/platform/win32/;../../../cocos/;../../win32-specific/gles/include/OGLES/;../../glfw3/include/win32/;../../win32-specific/zlib/include/;../../../cocos/math/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

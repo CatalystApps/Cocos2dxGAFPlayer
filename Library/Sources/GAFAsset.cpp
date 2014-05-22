@@ -1,12 +1,9 @@
 #include "GAFPrecompiled.h"
 #include "GAFAsset.h"
-#include "GAFData.h"
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
 #include "GAFAnimationFrame.h"
 #include "GAFSubobjectState.h"
-#include "GAFInteractionObject.h"
-#include "GAFActionObject.h"
 #include "GAFAnimationSequence.h"
 #include "GAFAnimatedObject.h"
 
@@ -17,7 +14,7 @@ static float  _desiredCsf = 1.f;
 
 float GAFAsset::desiredCsf()
 {
-    return CC_CONTENT_SCALE_FACTOR();
+    return cocos2d::CC_CONTENT_SCALE_FACTOR();
 }
 
 void GAFAsset::setDesiredCsf(float csf)
@@ -82,7 +79,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 {
     GAFLoader* loader = new GAFLoader();
 
-    std::string fullfilePath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filePath.c_str());
+    std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath.c_str());
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
@@ -276,7 +273,7 @@ const unsigned int GAFAsset::getSceneHeight() const
     return m_sceneHeight;
 }
 
-const ccColor4B& GAFAsset::getSceneColor() const
+const cocos2d::Color4B& GAFAsset::getSceneColor() const
 {
     return m_sceneColor;
 }
@@ -296,7 +293,7 @@ void GAFAsset::setSceneHeight(unsigned int value)
     m_sceneHeight = value;
 }
 
-void GAFAsset::setSceneColor(const ccColor4B& value)
+void GAFAsset::setSceneColor(const cocos2d::Color4B& value)
 {
     m_sceneColor = value;
 }

@@ -8,8 +8,6 @@
 
 #include "GAFDelegates.h"
 
-using namespace cocos2d;
-
 class GAFTextureAtlas;
 class GAFAnimatedObject;
 class GAFAnimationSequence;
@@ -17,7 +15,7 @@ class GAFAnimationFrame;
 
 class GAFLoader;
 
-class GAFAsset : public CCObject
+class GAFAsset : public cocos2d::Ref
 {
 private:
     TextureAtlases_t        m_textureAtlases;
@@ -34,7 +32,7 @@ private:
     unsigned int            m_sceneFps;
     unsigned int            m_sceneWidth;
     unsigned int            m_sceneHeight;
-    ccColor4B               m_sceneColor;
+    cocos2d::Color4B        m_sceneColor;
 
 private:
     float _usedAtlasContentScaleFactor;
@@ -99,11 +97,11 @@ public:
     const unsigned int getSceneFps() const;
     const unsigned int getSceneWidth() const;
     const unsigned int getSceneHeight() const;
-    const ccColor4B& getSceneColor() const;
+    const cocos2d::Color4B& getSceneColor() const;
     void setSceneFps(unsigned int);
     void setSceneWidth(unsigned int);
     void setSceneHeight(unsigned int);
-    void setSceneColor(const ccColor4B&);
+    void setSceneColor(const cocos2d::Color4B&);
 };
 
 
