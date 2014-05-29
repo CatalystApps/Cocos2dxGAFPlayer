@@ -342,7 +342,9 @@ cocos2d::GLProgram * GAFTextureEffectsConverter::programForBlurShaderWithName(co
         CCShaderCache::sharedShaderCache()->addProgram(program, aShaderName);
 #else
         program = new cocos2d::GLProgram();
-        program->initWithFilenames(aVertexShaderFile, aFragmentShaderFile);
+
+        program->initWithByteArrays(GAFShaderManager::getShader(std::string(aVertexShaderFile)), GAFShaderManager::getShader(std::string(aFragmentShaderFile)));
+
         if (program)
         {
             program->bindAttribLocation("position", cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);

@@ -2,7 +2,7 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFShaderManager.h"
 
-static const char * kPCStencilMaskAlphaFilterFragmentShaderFilename = "Shaders/pcShader_PositionTexture_alphaFilter.fs";
+static const char * kPCStencilMaskAlphaFilterFragmentShaderFilename = "pcShader_PositionTexture_alphaFilter.fs";
 
 #define USE_LAYERED_STENCIL 0
 

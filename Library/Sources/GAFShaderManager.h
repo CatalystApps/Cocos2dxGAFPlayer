@@ -8,6 +8,7 @@ class GAFShaderManager
 public:
     static cocos2d::GLProgram * createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, cocos2d::GLProgram * p = 0);
     static void handleEnterBackground();
+    static const char* getShader(std::string& name);
 
 }; // GAFShaderManager
 

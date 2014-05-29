@@ -15,8 +15,8 @@ static int fragmentAlphaLocation = -1;
 static int colorMatrixLocation   = -1;
 static int colorMatrixLocation2  = -1;
 
-static const char * kAlphaFragmentShaderFilename = "Shaders/pcShader_PositionTextureAlpha_frag.fs";
-static const char * kAlphaFragmentShaderFilename_noCTX = "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.fs";
+static const char * kAlphaFragmentShaderFilename = "pcShader_PositionTextureAlpha_frag.fs";
+static const char * kAlphaFragmentShaderFilename_noCTX = "pcShader_PositionTextureAlpha_frag_noCTX.fs";
 
 static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
 static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
