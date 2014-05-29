@@ -16,7 +16,7 @@ using std::string;
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
 
-const char* GAFShaderManager::getShader(std::string& name)
+const char* GAFShaderManager::getShader(const std::string& name)
 {
     if (name == "GaussianBlurFragmentShader.fs")
     {

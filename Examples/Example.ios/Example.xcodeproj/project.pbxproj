@@ -24,7 +24,6 @@
 		1A2FBE47192C95A500631FE9 /* impiretank_05_oneplace in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3B192C95A500631FE9 /* impiretank_05_oneplace */; };
 		1A2FBE48192C95A500631FE9 /* myshopsgame4 in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3C192C95A500631FE9 /* myshopsgame4 */; };
 		1A2FBE49192C95A500631FE9 /* peacock_feb3_natasha in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3D192C95A500631FE9 /* peacock_feb3_natasha */; };
-		1A2FBE4A192C95A500631FE9 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3E192C95A500631FE9 /* Shaders */; };
 		1A2FBE4B192C95A500631FE9 /* tiger in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3F192C95A500631FE9 /* tiger */; };
 		1A2FBF70192E0A0100631FE9 /* libgafplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2FBF6D192E09DE00631FE9 /* libgafplayer.a */; };
 		CF59E90B187DAB2D003A6524 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90A187DAB2D003A6524 /* Foundation.framework */; };
@@ -169,7 +168,6 @@
 		1A2FBE3B192C95A500631FE9 /* impiretank_05_oneplace */ = {isa = PBXFileReference; lastKnownFileType = folder; name = impiretank_05_oneplace; path = ../Resources/impiretank_05_oneplace; sourceTree = "<group>"; };
 		1A2FBE3C192C95A500631FE9 /* myshopsgame4 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = myshopsgame4; path = ../Resources/myshopsgame4; sourceTree = "<group>"; };
 		1A2FBE3D192C95A500631FE9 /* peacock_feb3_natasha */ = {isa = PBXFileReference; lastKnownFileType = folder; name = peacock_feb3_natasha; path = ../Resources/peacock_feb3_natasha; sourceTree = "<group>"; };
-		1A2FBE3E192C95A500631FE9 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../Resources/Shaders; sourceTree = "<group>"; };
 		1A2FBE3F192C95A500631FE9 /* tiger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tiger; path = ../Resources/tiger; sourceTree = "<group>"; };
 		1A2FBF68192E09DE00631FE9 /* GAFPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GAFPlayer.xcodeproj; path = ../../Library/GAFPlayer.xcodeproj; sourceTree = "<group>"; };
 		CF59E907187DAB2D003A6524 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,7 +262,6 @@
 				1A2FBE3B192C95A500631FE9 /* impiretank_05_oneplace */,
 				1A2FBE3C192C95A500631FE9 /* myshopsgame4 */,
 				1A2FBE3D192C95A500631FE9 /* peacock_feb3_natasha */,
-				1A2FBE3E192C95A500631FE9 /* Shaders */,
 				1A2FBE3F192C95A500631FE9 /* tiger */,
 				1A065051192BB91D0086395A /* button_off_minus.png */,
 				1A065052192BB91D0086395A /* button_off_plus.png */,
@@ -552,7 +549,6 @@
 				1A2FBE47192C95A500631FE9 /* impiretank_05_oneplace in Resources */,
 				1A06505B192BB91D0086395A /* button_on_plus.png in Resources */,
 				1A065057192BB91D0086395A /* button_off_minus.png in Resources */,
-				1A2FBE4A192C95A500631FE9 /* Shaders in Resources */,
 				1A2FBE48192C95A500631FE9 /* myshopsgame4 in Resources */,
 				1A2FBE44192C95A500631FE9 /* cut_the_hope in Resources */,
 				1A2FBE42192C95A500631FE9 /* bird_bezneba in Resources */,
