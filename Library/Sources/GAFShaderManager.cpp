@@ -16,98 +16,23 @@ using std::string;
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
 
-const char* GAFShaderManager::getShader(const std::string& name)
+const char * const GAFShaderManager::s_fragmentShaders[] =
 {
-    if (name == "GaussianBlurFragmentShader.fs")
-    {
-        return GaussianBlurFragmentShader_fs;
-    }
-    else if (name == "GaussianBlurVertexShader.vs")
-    {
-        return GaussianBlurVertexShader_vs;
-    }
-    else if (name == "GlowFragmentShader.fs")
-    {
-        return GlowFragmentShader_fs;
-    }
-    else if (name == "GlowVertexShader.vs")
-    {
-        return GlowVertexShader_vs;
-    }
-    else if (name == "pcBlurredSprite_Shader_HorizontalBlur.fs")
-    {
-        return pcBlurredSprite_Shader_HorizontalBlur_fs;
-    }
-    else if (name == "pcBlurredSprite_Shader_VerticalBlur.fs")
-    {
-        return pcBlurredSprite_Shader_VerticalBlur_fs;
-    }
-    else if (name == "pcShader_masked_texture.fs")
-    {
-        return pcShader_masked_texture_fs;
-    }
-    else if (name == "pcShader_PositionTexture_alphaFilter.fs")
-    {
-        return pcShader_PositionTexture_alphaFilter_fs;
-    }
-    else if (name == "pcShader_PositionTextureAlpha_frag.fs")
-    {
-        return pcShader_PositionTextureAlpha_frag_fs;
-    }
-    else if (name == "pcShader_PositionTextureAlpha_frag_noCTX.fs")
-    {
-        return pcShader_PositionTextureAlpha_frag_noCTX_fs;
-    }
-    else
-    {
-        CCASSERT(false, "No shader with given name found.");
-        return nullptr;
-    }
-}
+    GaussianBlurFragmentShader_fs,
+    GlowFragmentShader_fs,
+    pcBlurredSprite_Shader_HorizontalBlur_fs,
+    pcBlurredSprite_Shader_VerticalBlur_fs,
+    pcShader_masked_texture_fs,
+    pcShader_PositionTexture_alphaFilter_fs,
+    pcShader_PositionTextureAlpha_frag_fs,
+    pcShader_PositionTextureAlpha_frag_noCTX_fs
+};
 
-cocos2d::GLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, cocos2d::GLProgram * p)
+const char* const GAFShaderManager::s_vertexShaders[] =
 {
-    if (!vertexSource || !fragmentFilename)
-    {
-        return NULL;
-    }
-
-    std::string fileContent = GAFShaderManager::getShader(string(fragmentFilename));
-
-    if (fileContent.empty())
-    {
-        CCLOGERROR("Cannot load fragment shader with name %s", fragmentFilename);
-        return NULL;
-    }
-    cocos2d::GLProgram * res;
-
-    if (p)
-    {
-        res = p;
-    }
-    else
-    {
-        res = new cocos2d::GLProgram();
-    }
-
-    if (!res)
-    {
-        return NULL;
-    }
-    
-    if (!res->initWithByteArrays(vertexSource, fileContent.c_str()))
-    {
-        CC_SAFE_RELEASE(res);
-        return NULL;
-    }
-
-    if (!p)
-    {
-        res->autorelease();
-    }
-
-    return res;
-}
+    GaussianBlurVertexShader_vs,
+    GlowVertexShader_vs,
+};
 
 void GAFShaderManager::handleEnterBackground()
 {

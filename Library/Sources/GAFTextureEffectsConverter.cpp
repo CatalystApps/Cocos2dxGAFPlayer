@@ -35,7 +35,7 @@ cocos2d::RenderTexture* GAFTextureEffectsConverter::dropShadowTextureFromTexture
     cocos2d::Size rTextureSize = cocos2d::Size(rect.size.width + 2 * (kGaussianKernelSize / 2) * blurRadiusX,
         rect.size.height + 2 * (kGaussianKernelSize / 2) * blurRadiusY);
 
-    cocos2d::GLProgram * shader = programForBlurShaderWithName("GaussianBlur", "Shaders/GlowVertexShader.vs", "Shaders/GlowFragmentShader.fs");
+    cocos2d::GLProgram * shader = programForBlurShaderWithName("GaussianBlur", GAFShaderManager::EVertexShader::Glow, GAFShaderManager::EFragmentShader::Glow);
 
     cocos2d::RenderTexture *rTexture1 = cocos2d::RenderTexture::create(
         static_cast<int>(rTextureSize.width),
@@ -125,7 +125,7 @@ cocos2d::RenderTexture * GAFTextureEffectsConverter::glowTextureFromTexture(coco
     cocos2d::RenderTexture *rTexture2 = cocos2d::RenderTexture::create(static_cast<int>(rTextureSize.width),
         static_cast<int>(rTextureSize.height));
 
-    cocos2d::GLProgram * shader = programForBlurShaderWithName("GaussianBlur", "Shaders/GlowVertexShader.vs", "Shaders/GlowFragmentShader.fs");
+    cocos2d::GLProgram * shader = programForBlurShaderWithName("GaussianBlur", GAFShaderManager::EVertexShader::Glow, GAFShaderManager::EFragmentShader::Glow);
 
     if (!shader)
     {
@@ -318,7 +318,7 @@ cocos2d::GLProgram * GAFTextureEffectsConverter::programForGlowShaderWithName(co
     return program;
 }
 
-cocos2d::GLProgram * GAFTextureEffectsConverter::programForBlurShaderWithName(const char * aShaderName, const char * aVertexShaderFile, const char * aFragmentShaderFile)
+cocos2d::GLProgram * GAFTextureEffectsConverter::programForBlurShaderWithName(const char * aShaderName, GAFShaderManager::EVertexShader::Name aVertexShader, GAFShaderManager::EFragmentShader::Name aFragmentShader)
 {
     cocos2d::GLProgram *program = cocos2d::ShaderCache::getInstance()->getGLProgram(aShaderName);
     if (!program)
@@ -343,7 +343,7 @@ cocos2d::GLProgram * GAFTextureEffectsConverter::programForBlurShaderWithName(co
 #else
         program = new cocos2d::GLProgram();
 
-        program->initWithByteArrays(GAFShaderManager::getShader(std::string(aVertexShaderFile)), GAFShaderManager::getShader(std::string(aFragmentShaderFile)));
+        program->initWithByteArrays(GAFShaderManager::getShader(aVertexShader), GAFShaderManager::getShader(aFragmentShader));
 
         if (program)
         {

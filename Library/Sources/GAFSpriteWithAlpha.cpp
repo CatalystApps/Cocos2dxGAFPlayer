@@ -91,14 +91,16 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader()
         CHECK_GL_ERROR_DEBUG();
         CCShaderCache::sharedShaderCache()->addProgram(program, kGAFSpriteWithAlphaShaderProgramCacheKey);
 #else
+        const char* fragmentShader = nullptr;
         if (isCTXidt)
         {
-            program = GAFShaderManager::createWithFragmentFilename(cocos2d::ccPositionTextureColor_vert, kAlphaFragmentShaderFilename_noCTX);
+            fragmentShader = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::AlphaNoCtx);
         }
         else
         {
-            program = GAFShaderManager::createWithFragmentFilename(cocos2d::ccPositionTextureColor_vert, kAlphaFragmentShaderFilename);
+            fragmentShader = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::Alpha);
         }
+        program = cocos2d::GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, fragmentShader);
 
         if (program)
         {

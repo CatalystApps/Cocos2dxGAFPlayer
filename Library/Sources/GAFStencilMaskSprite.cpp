@@ -2,8 +2,6 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFShaderManager.h"
 
-static const char * kPCStencilMaskAlphaFilterFragmentShaderFilename = "pcShader_PositionTexture_alphaFilter.fs";
-
 #define USE_LAYERED_STENCIL 0
 
 static bool compare_stencil_sprites(const void* p1, const void* p2)
@@ -298,7 +296,8 @@ cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
         CHECK_GL_ERROR_DEBUG();
         CCShaderCache::sharedShaderCache()->addProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
 #else
-        program = GAFShaderManager::createWithFragmentFilename(cocos2d::ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename);
+        const char* frag = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::AlphaFilter);
+        program = cocos2d::GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, frag);
         if (program)
         {
             program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);

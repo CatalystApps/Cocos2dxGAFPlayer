@@ -1,15 +1,38 @@
 #pragma once
 
-#ifndef __GAF_SHADER_MANAGER__
-#define __GAF_SHADER_MANAGER__
-
 class GAFShaderManager
 {
 public:
-    static cocos2d::GLProgram * createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, cocos2d::GLProgram * p = 0);
     static void handleEnterBackground();
-    static const char* getShader(const std::string& name);
+
+    struct EFragmentShader {
+    enum Name {
+            GaussBlur,
+            Glow,
+            HorizonatlBlur,
+            VerticalBlur,
+            Masked,
+            AlphaFilter,
+            Alpha,
+            AlphaNoCtx,
+
+            SIZE
+    };  };
+    
+
+    struct EVertexShader {
+    enum Name {
+            GaussBlur,
+            Glow,
+
+            SIZE
+    };  };
+
+    static inline const char* getShader(EFragmentShader::Name n) { return s_fragmentShaders[n]; }
+    static inline const char* getShader(EVertexShader::Name n) { return s_vertexShaders[n]; }
+
+private:
+    static const char* const s_fragmentShaders[EFragmentShader::SIZE];
+    static const char* const s_vertexShaders[EVertexShader::SIZE];
 
 }; // GAFShaderManager
-
-#endif // __GAF_SHADER_MANAGER__
