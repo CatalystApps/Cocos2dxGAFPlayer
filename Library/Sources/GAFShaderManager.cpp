@@ -8,7 +8,6 @@ using std::string;
 #include "Shaders/GaussianBlurFragmentShader.frag"
 #include "Shaders/GaussianBlurVertexShader.vert"
 #include "Shaders/GlowFragmentShader.frag"
-#include "Shaders/GlowVertexShader.vert"
 #include "Shaders/pcBlurredSprite_Shader_HorizontalBlur.frag"
 #include "Shaders/pcBlurredSprite_Shader_VerticalBlur.frag"
 #include "Shaders/pcShader_masked_texture.frag"
@@ -30,8 +29,7 @@ const char * const GAFShaderManager::s_fragmentShaders[] =
 
 const char* const GAFShaderManager::s_vertexShaders[] =
 {
-    GaussianBlurVertexShader_vs,
-    GlowVertexShader_vs,
+    GaussianBlurVertexShader_vs
 };
 
 void GAFShaderManager::handleEnterBackground()

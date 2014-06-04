@@ -15,6 +15,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sources\GAFCachedTexture.cpp" />
     <ClCompile Include="Sources\GAFFile.cpp" />
     <ClCompile Include="Sources\GAFAnimatedObject.cpp" />
     <ClCompile Include="Sources\GAFAnimation.cpp" />
@@ -22,6 +23,7 @@
     <ClCompile Include="Sources\GAFAnimationSequence.cpp" />
     <ClCompile Include="Sources\GAFAsset.cpp" />
     <ClCompile Include="Sources\GAFFilterData.cpp" />
+    <ClCompile Include="Sources\GAFFilterManager.cpp" />
     <ClCompile Include="Sources\GAFLoader.cpp" />
     <ClCompile Include="Sources\GAFShaderManager.cpp" />
     <ClCompile Include="Sources\GAFSprite.cpp" />
@@ -31,7 +33,6 @@
     <ClCompile Include="Sources\GAFSubobjectState.cpp" />
     <ClCompile Include="Sources\GAFTextureAtlas.cpp" />
     <ClCompile Include="Sources\GAFTextureAtlasElement.cpp" />
-    <ClCompile Include="Sources\GAFTextureEffectsConverter.cpp" />
     <ClCompile Include="Sources\PrimitiveDeserializer.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationFrames.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationMasks.cpp" />
@@ -44,9 +45,11 @@
   <ItemGroup>
     <ClInclude Include="GAFPrecompiled.h" />
     <ClInclude Include="Sources\DefinitionTagBase.h" />
+    <ClInclude Include="Sources\GAFCachedTexture.h" />
     <ClInclude Include="Sources\GAFCollections.h" />
     <ClInclude Include="Sources\GAFDelegates.h" />
     <ClInclude Include="Sources\GAFFile.h" />
+    <ClInclude Include="Sources\GAFFilterManager.h" />
     <ClInclude Include="Sources\GAFHeader.h" />
     <ClInclude Include="Sources\GAFAnimatedObject.h" />
     <ClInclude Include="Sources\GAFAnimation.h" />
@@ -63,7 +66,6 @@
     <ClInclude Include="Sources\GAFSubobjectState.h" />
     <ClInclude Include="Sources\GAFTextureAtlas.h" />
     <ClInclude Include="Sources\GAFTextureAtlasElement.h" />
-    <ClInclude Include="Sources\GAFTextureEffectsConverter.h" />
     <ClInclude Include="Sources\PrimitiveDeserializer.h" />
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h" />
     <ClInclude Include="Sources\ShadersPrecompiled\GaussianBlur.h" />

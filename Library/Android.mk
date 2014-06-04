@@ -24,7 +24,8 @@ Sources/GAFStream.cpp \
 Sources/GAFSubobjectState.cpp \
 Sources/GAFTextureAtlas.cpp \
 Sources/GAFTextureAtlasElement.cpp \
-Sources/GAFTextureEffectsConverter.cpp \
+Sources/GAFFilterManager.cpp \
+Sources/GAFCachedTexture.cpp \
 Sources/PrimitiveDeserializer.cpp \
 Sources/TagDefineAnimationFrames.cpp \
 Sources/TagDefineAnimationMasks.cpp \

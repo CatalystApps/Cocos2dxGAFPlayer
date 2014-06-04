@@ -1,12 +1,12 @@
 #include "GAFPrecompiled.h"
 #include "GAFSpriteWithAlpha.h"
 #include "GAFShaderManager.h"
-#include "GAFTextureEffectsConverter.h"
 
 #include "GAFSubobjectState.h"
 
 #include "GAFSpriteWithAlpha.h"
 #include "GAFFilterData.h"
+#include "GAFFilterManager.h"
 
 #define CHECK_CTX_IDENTITY 0
 
@@ -173,59 +173,22 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
     }
     else
     {
-        GAFTextureEffectsConverter * converter = GAFTextureEffectsConverter::sharedConverter();
-
-        cocos2d::RenderTexture * resultTex = NULL;
+        cocos2d::Texture2D * resultTex = NULL;
 
         if (m_blurFilterData)
         {
-#if 0
-            resultTex = converter->gaussianBlurredTextureFromTexture(m_initialTexture, m_initialTextureRect, m_blurFilterData->blurSize.width, m_blurFilterData->blurSize.height);
-
-#else
-            if (!m_filter)
-            {
-                m_filter = cocos2d::RenderTexture::create(m_initialTextureRect.size.width, m_initialTextureRect.size.height); 
-                m_filter->retain();
-            }
-
-            cocos2d::RenderTexture* rt = _test();
-            setTexture(rt->getSprite()->getTexture());
-            setFlippedY(true);
-            cocos2d::Rect texureRect = cocos2d::Rect(0, 0, m_filter->getSprite()->getContentSize().width, m_filter->getSprite()->getContentSize().height);
-            setTextureRect(texureRect, false, texureRect.size);
-#endif
-           /* m_filter->begin();
-            cocos2d::Sprite* spr = cocos2d::Sprite::createWithTexture(m_initialTexture, m_initialTextureRect);
-            spr->setPosition(cocos2d::Vect(m_initialTextureRect.size.width / 2, m_initialTextureRect.size.height / 2));
-            spr->visit();
-            m_filter->end();
-
-            setTexture(m_filter->getSprite()->getTexture());
-            setFlippedY(true);
-            cocos2d::Rect texureRect = cocos2d::Rect(0, 0, m_filter->getSprite()->getContentSize().width, m_filter->getSprite()->getContentSize().height);
-            setTextureRect(texureRect, false, texureRect.size);*/
-
-            /*resultTex = cocos2d::RenderTexture::create(m_initialTextureRect.size.width , m_initialTextureRect.size.height);
-
-            cocos2d::Sprite* spr = cocos2d::Sprite::createWithTexture(m_initialTexture, m_initialTextureRect);
-
-            spr->setPosition(cocos2d::Vect(0, 0));
-
-            resultTex->beginWithClear(0, 1, 0, 1);
-            spr->visit();
-            resultTex->end();*/
+            resultTex = GAFFilterManager::getInstance()->applyFilter(Sprite::createWithTexture(m_initialTexture, m_initialTextureRect), m_blurFilterData);
         }
         else if (m_glowFilterData)
         {
-            //resultTex = converter->glowTextureFromTexture(m_initialTexture, m_initialTextureRect, m_glowFilterData);
+            resultTex = GAFFilterManager::getInstance()->applyFilter(Sprite::createWithTexture(m_initialTexture, m_initialTextureRect), m_glowFilterData);
         }
 
         if (resultTex)
         {
-            setTexture(resultTex->getSprite()->getTexture());
+            setTexture(resultTex);
             setFlippedY(true);
-            cocos2d::Rect texureRect = cocos2d::Rect(0, 0, resultTex->getSprite()->getContentSize().width, resultTex->getSprite()->getContentSize().height);
+            cocos2d::Rect texureRect = cocos2d::Rect(0, 0, resultTex->getContentSize().width, resultTex->getContentSize().height);
             setTextureRect(texureRect, false, texureRect.size);
         }
     }

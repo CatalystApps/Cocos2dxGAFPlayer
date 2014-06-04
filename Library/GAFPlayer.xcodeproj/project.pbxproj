@@ -25,7 +25,6 @@
 		1A2FBF5A192E00C800631FE9 /* GAFSubobjectState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF2D192E00C800631FE9 /* GAFSubobjectState.cpp */; };
 		1A2FBF5B192E00C800631FE9 /* GAFTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF2F192E00C800631FE9 /* GAFTextureAtlas.cpp */; };
 		1A2FBF5C192E00C800631FE9 /* GAFTextureAtlasElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF31192E00C800631FE9 /* GAFTextureAtlasElement.cpp */; };
-		1A2FBF5D192E00C800631FE9 /* GAFTextureEffectsConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF33192E00C800631FE9 /* GAFTextureEffectsConverter.cpp */; };
 		1A2FBF5E192E00C800631FE9 /* PrimitiveDeserializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF36192E00C800631FE9 /* PrimitiveDeserializer.cpp */; };
 		1A2FBF5F192E00C800631FE9 /* TagDefineAnimationFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF3D192E00C800631FE9 /* TagDefineAnimationFrames.cpp */; };
 		1A2FBF60192E00C800631FE9 /* TagDefineAnimationMasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF3F192E00C800631FE9 /* TagDefineAnimationMasks.cpp */; };
@@ -34,6 +33,8 @@
 		1A2FBF63192E00C800631FE9 /* TagDefineNamedParts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF45192E00C800631FE9 /* TagDefineNamedParts.cpp */; };
 		1A2FBF64192E00C800631FE9 /* TagDefineSequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF48192E00C800631FE9 /* TagDefineSequences.cpp */; };
 		1A2FBF65192E00C800631FE9 /* TagDefineStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF4A192E00C800631FE9 /* TagDefineStage.cpp */; };
+		1A95AE27193F29EB00AE1F30 /* GAFCachedTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A95AE25193F29EB00AE1F30 /* GAFCachedTexture.cpp */; };
+		1AB30523193CE3BF0012C01D /* GAFFilterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB30521193CE3BF0012C01D /* GAFFilterManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,8 +93,6 @@
 		1A2FBF30192E00C800631FE9 /* GAFTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFTextureAtlas.h; sourceTree = "<group>"; };
 		1A2FBF31192E00C800631FE9 /* GAFTextureAtlasElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFTextureAtlasElement.cpp; sourceTree = "<group>"; };
 		1A2FBF32192E00C800631FE9 /* GAFTextureAtlasElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFTextureAtlasElement.h; sourceTree = "<group>"; };
-		1A2FBF33192E00C800631FE9 /* GAFTextureEffectsConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFTextureEffectsConverter.cpp; sourceTree = "<group>"; };
-		1A2FBF34192E00C800631FE9 /* GAFTextureEffectsConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFTextureEffectsConverter.h; sourceTree = "<group>"; };
 		1A2FBF36192E00C800631FE9 /* PrimitiveDeserializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrimitiveDeserializer.cpp; sourceTree = "<group>"; };
 		1A2FBF37192E00C800631FE9 /* PrimitiveDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimitiveDeserializer.h; sourceTree = "<group>"; };
 		1A2FBF39192E00C800631FE9 /* GAFPrecompiledShaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFPrecompiledShaders.h; sourceTree = "<group>"; };
@@ -115,6 +114,10 @@
 		1A2FBF49192E00C800631FE9 /* TagDefineSequences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineSequences.h; sourceTree = "<group>"; };
 		1A2FBF4A192E00C800631FE9 /* TagDefineStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineStage.cpp; sourceTree = "<group>"; };
 		1A2FBF4B192E00C800631FE9 /* TagDefineStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineStage.h; sourceTree = "<group>"; };
+		1A95AE25193F29EB00AE1F30 /* GAFCachedTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFCachedTexture.cpp; sourceTree = "<group>"; };
+		1A95AE26193F29EB00AE1F30 /* GAFCachedTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFCachedTexture.h; sourceTree = "<group>"; };
+		1AB30521193CE3BF0012C01D /* GAFFilterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFFilterManager.cpp; sourceTree = "<group>"; };
+		1AB30522193CE3BF0012C01D /* GAFFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFFilterManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +165,10 @@
 			children = (
 				1A2FBF66192E00D700631FE9 /* GAFLoader */,
 				1A2FBF38192E00C800631FE9 /* ShadersPrecompiled */,
+				1A95AE25193F29EB00AE1F30 /* GAFCachedTexture.cpp */,
+				1A95AE26193F29EB00AE1F30 /* GAFCachedTexture.h */,
+				1AB30521193CE3BF0012C01D /* GAFFilterManager.cpp */,
+				1AB30522193CE3BF0012C01D /* GAFFilterManager.h */,
 				1A2FBF0E192E00C800631FE9 /* GAFAnimatedObject.cpp */,
 				1A2FBF0F192E00C800631FE9 /* GAFAnimatedObject.h */,
 				1A2FBF10192E00C800631FE9 /* GAFAnimation.cpp */,
@@ -192,8 +199,6 @@
 				1A2FBF30192E00C800631FE9 /* GAFTextureAtlas.h */,
 				1A2FBF31192E00C800631FE9 /* GAFTextureAtlasElement.cpp */,
 				1A2FBF32192E00C800631FE9 /* GAFTextureAtlasElement.h */,
-				1A2FBF33192E00C800631FE9 /* GAFTextureEffectsConverter.cpp */,
-				1A2FBF34192E00C800631FE9 /* GAFTextureEffectsConverter.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -310,17 +315,18 @@
 				1A2FBF4E192E00C800631FE9 /* GAFAnimationFrame.cpp in Sources */,
 				1A2FBF58192E00C800631FE9 /* GAFStencilMaskSprite.cpp in Sources */,
 				1A2FBF61192E00C800631FE9 /* TagDefineAnimationObjects.cpp in Sources */,
-				1A2FBF5D192E00C800631FE9 /* GAFTextureEffectsConverter.cpp in Sources */,
 				1A2FBF5C192E00C800631FE9 /* GAFTextureAtlasElement.cpp in Sources */,
 				1A2FBF5B192E00C800631FE9 /* GAFTextureAtlas.cpp in Sources */,
 				1A2FBF50192E00C800631FE9 /* GAFAsset.cpp in Sources */,
 				1A2FBF56192E00C800631FE9 /* GAFSprite.cpp in Sources */,
+				1AB30523193CE3BF0012C01D /* GAFFilterManager.cpp in Sources */,
 				1A2FBF51192E00C800631FE9 /* GAFFile.cpp in Sources */,
 				1A2FBF60192E00C800631FE9 /* TagDefineAnimationMasks.cpp in Sources */,
 				1A2FBF65192E00C800631FE9 /* TagDefineStage.cpp in Sources */,
 				1A2FBF64192E00C800631FE9 /* TagDefineSequences.cpp in Sources */,
 				1A2FBF5E192E00C800631FE9 /* PrimitiveDeserializer.cpp in Sources */,
 				1A2FBF55192E00C800631FE9 /* GAFShaderManager.cpp in Sources */,
+				1A95AE27193F29EB00AE1F30 /* GAFCachedTexture.cpp in Sources */,
 				1A2FBF54192E00C800631FE9 /* GAFPrecompiled.cpp in Sources */,
 				1A2FBF57192E00C800631FE9 /* GAFSpriteWithAlpha.cpp in Sources */,
 				1A2FBF63192E00C800631FE9 /* TagDefineNamedParts.cpp in Sources */,

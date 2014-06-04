@@ -10,7 +10,7 @@
 #include "GAFFilterData.h"
 
 // Still is under developing
-#define ENABLE_RUNTIME_FILTERS 0
+#define ENABLE_RUNTIME_FILTERS 1
 
 // Detect whether it is Visual Studio 2010 or lower
 #if defined(_MSC_VER) && _MSC_VER < 1700 

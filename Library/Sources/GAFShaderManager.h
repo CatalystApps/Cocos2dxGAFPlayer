@@ -23,7 +23,6 @@ public:
     struct EVertexShader {
     enum Name {
             GaussBlur,
-            Glow,
 
             SIZE
     };  };

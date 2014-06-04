@@ -54,9 +54,6 @@
     <ClCompile Include="Sources\GAFTextureAtlasElement.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\GAFTextureEffectsConverter.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="GAFPrecompiled.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -92,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="Sources\TagDefineStage.cpp">
       <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFFilterManager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFCachedTexture.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +135,6 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFTextureAtlasElement.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\GAFTextureEffectsConverter.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h">
@@ -199,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="Sources\TagDefineStage.h">
       <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFFilterManager.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFCachedTexture.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
