@@ -84,7 +84,7 @@ cocos2d::AffineTransform GAFSprite::getNodeToParentAffineTransform() const
 
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 {
-    draw(renderer, transform, flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY);
+    draw(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
 }
 
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)

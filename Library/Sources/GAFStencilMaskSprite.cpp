@@ -64,6 +64,10 @@ GAFStencilMaskSprite::~GAFStencilMaskSprite()
     CC_SAFE_RELEASE(_maskedObjects);
 }
 
+void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+{
+    visit(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
+}
 
 void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
 {
