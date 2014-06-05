@@ -194,13 +194,6 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
     }
 }
 
-void GAFSpriteWithAlpha::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
-{
-    
-
-    GAFSprite::draw(renderer, transform, transformUpdated);
-}
-
 void GAFSpriteWithAlpha::setUniformsForFragmentShader()
 {
     setGLProgram(programForShader());
