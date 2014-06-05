@@ -135,7 +135,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>GAFPrecompiled.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\..\cocos2dx\include;..\..\..\cocos2dx\;..\..\..\cocos2dx\platform\win32;..\..\..\cocos2dx\platform\third_party\win32;..\..\..\cocos2dx\platform\third_party\win32\OGLES;..\..\..\cocos2dx\kazmath\include;..\..\..\extensions;Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Classes;../../../cocos/2d/;../../../cocos/platform/win32/;../../../cocos/;../../win32-specific/gles/include/OGLES/;../../glfw3/include/win32/;../../win32-specific/zlib/include/;../../../cocos/math/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
