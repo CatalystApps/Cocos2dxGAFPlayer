@@ -4,7 +4,7 @@
 #include "GAFAsset.h"
 #include "cocoa/CCInteger.h"
 
-#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
+#if CC_ENABLE_CACHE_TEXTURE_DATA
 #include "textures/CCTextureCache.h"
 #endif
 
@@ -114,7 +114,7 @@ CCArray * GAFTextureAtlas::textures()
             CCImage * image = (CCImage*)_images->objectAtIndex(i);
             texture->initWithImage(image);
             _textures->addObject(texture);
-#if 0
+#if CC_ENABLE_CACHE_TEXTURE_DATA
             VolatileTexture::addCCImage(texture, image);
 #endif
             texture->release();

@@ -281,7 +281,7 @@ bool GAFSpriteWithAlpha::isCTXIdentity() const
     return true;
 }
 
-#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
+#if CC_ENABLE_CACHE_TEXTURE_DATA
 void _GAFreloadAlphaShader()
 {
     CCGLProgram * program = CCShaderCache::sharedShaderCache()->programForKey(kGAFSpriteWithAlphaShaderProgramCacheKey);
@@ -301,8 +301,8 @@ void _GAFreloadAlphaShader()
         program->updateUniforms();
         CHECK_GL_ERROR_DEBUG();
         program->use();
-        _colorTrasformLocation = (GLuint)glGetUniformLocation(program->getProgram(), "colorTransform");
-        if (_colorTrasformLocation <= 0)
+        colorTransformLocation = (GLuint)glGetUniformLocation(program->getProgram(), "colorTransform");
+        if (colorTransformLocation <= 0)
         {
             CCAssert(false, "Can not RELOAD GAFSpriteWithAlpha");
         }
