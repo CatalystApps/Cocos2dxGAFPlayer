@@ -64,14 +64,17 @@ GAFStencilMaskSprite::~GAFStencilMaskSprite()
     CC_SAFE_RELEASE(_maskedObjects);
 }
 
-void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-{
-    GAFStencilMaskSprite::visit(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
-}
-
+#if COCOS2D_VERSION < 0x00030200
 void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+#else
+void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+#endif
 {
+#if COCOS2D_VERSION < 0x00030200
     GAFSprite::visit(renderer, transform, true);
+#else
+    GAFSprite::visit(renderer, transform, flags | cocos2d::Node::FLAGS_TRANSFORM_DIRTY);
+#endif
     sortAllMaskedObjects();
     // Draw subobjects, assuming mask and object are on the same layer
     for (int i = 0; i < _maskedObjects->count(); ++i)
@@ -112,12 +115,11 @@ void GAFStencilMaskSprite::_disableStencil()
     m_stencilLayer = std::max(--m_stencilLayer, -1);
 }
 
-void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-{
-    GAFStencilMaskSprite::draw(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
-}
-
+#if COCOS2D_VERSION < 0x00030200
 void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+#else
+void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+#endif
 {
     // Prepare stencil
 #if USE_LAYERED_STENCIL
