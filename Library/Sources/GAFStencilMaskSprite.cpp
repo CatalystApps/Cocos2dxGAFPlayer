@@ -66,7 +66,7 @@ GAFStencilMaskSprite::~GAFStencilMaskSprite()
 
 void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 {
-    visit(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
+    GAFStencilMaskSprite::visit(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
 }
 
 void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
@@ -110,6 +110,11 @@ void GAFStencilMaskSprite::_disableStencil()
 
     // we are done using this layer, decrement
     m_stencilLayer = std::max(--m_stencilLayer, -1);
+}
+
+void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+{
+    GAFStencilMaskSprite::draw(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
 }
 
 void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)

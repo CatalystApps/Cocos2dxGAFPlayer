@@ -82,9 +82,20 @@ cocos2d::AffineTransform GAFSprite::getNodeToParentAffineTransform() const
     return t;
 }
 
+void GAFSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+{
+    cocos2d::Sprite::visit(renderer, transform, flags);
+}
+
+void GAFSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+{
+    uint32_t flags = (uint32_t)transformUpdated * cocos2d::Node::FLAGS_TRANSFORM_DIRTY;
+    GAFSprite::visit(renderer, transform, flags);
+}
+
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 {
-    draw(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
+    GAFSprite::draw(renderer, transform, bool(flags & cocos2d::Node::FLAGS_TRANSFORM_DIRTY));
 }
 
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
