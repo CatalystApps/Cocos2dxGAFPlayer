@@ -239,7 +239,11 @@ void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4
     glStencilFunc(GL_ALWAYS, 1, 1);
 
     // Draw mask
+#if COCOS2D_VERSION < 0x00030200
     GAFSprite::draw(renderer, transform, transformUpdated);
+#else
+    GAFSprite::draw(renderer, transform, flags | cocos2d::Node::FLAGS_TRANSFORM_DIRTY);
+#endif
 
     // Use stencil
     glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
