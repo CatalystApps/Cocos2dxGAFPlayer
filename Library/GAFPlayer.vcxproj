@@ -36,6 +36,7 @@
     <ClCompile Include="Sources\GAFTextureEffectsConverter.cpp" />
     <ClCompile Include="Sources\PrimitiveDeserializer.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationFrames.cpp" />
+    <ClCompile Include="Sources\TagDefineAnimationFrames2.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationMasks.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationObjects.cpp" />
     <ClCompile Include="Sources\TagDefineAtlas.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="Sources\ShadersPrecompiled\kGAFScrollLayerAlphaFilterProgramCacheKey.h" />
     <ClInclude Include="Sources\ShadersPrecompiled\kGAFSpriteWithAlphaShaderProgramCache.h" />
     <ClInclude Include="Sources\TagDefineAnimationFrames.h" />
+    <ClInclude Include="Sources\TagDefineAnimationFrames2.h" />
     <ClInclude Include="Sources\TagDefineAnimationMasks.h" />
     <ClInclude Include="Sources\TagDefineAnimationObjects.h" />
     <ClInclude Include="Sources\TagDefineAtlas.h" />

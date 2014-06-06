@@ -10,17 +10,17 @@
 
 GAFTextureAtlas::GAFTextureAtlas()
 :
-_loaded(false),
-_images(NULL),
-_textures(NULL),
+m_loaded(false),
+m_images(NULL),
+m_textures(NULL),
 m_scale(1.f)
 {
 }
 
 GAFTextureAtlas::~GAFTextureAtlas()
 {
-    CC_SAFE_RELEASE(_images);
-    CC_SAFE_RELEASE(_textures);
+    CC_SAFE_RELEASE(m_images);
+    CC_SAFE_RELEASE(m_textures);
 
     GAF_RELEASE_MAP(GAFTextureAtlas::Elements_t, m_elements);
 }
@@ -34,8 +34,8 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
 {
     std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
-    CC_SAFE_RELEASE(_images);
-    _images = new CCArray();
+    CC_SAFE_RELEASE(m_images);
+    m_images = new CCArray();
 
     if (!m_atlasInfos.empty())
     {
@@ -69,59 +69,59 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
             }
 
             image->initWithImageFile(path.c_str());
-            _images->addObject(image);
+            m_images->addObject(image);
             image->release();
         }
 
-        if (_images->count() > 0)
+        if (m_images->count() > 0)
         {
-            _loaded = true;
+            m_loaded = true;
         }
     }
 }
 
 CCImage     * GAFTextureAtlas::image()
 {
-    if (_images && _images->count() > 0)
+    if (m_images && m_images->count() > 0)
     {
-        return (CCImage*)_images->objectAtIndex(0);
+        return (CCImage*)m_images->objectAtIndex(0);
     }
     return NULL;
 }
 
 CCArray     * GAFTextureAtlas::images()
 {
-    return _images;
+    return m_images;
 }
 
 CCTexture2D * GAFTextureAtlas::texture()
 {
-    if (_textures && _textures->count() > 0)
+    if (m_textures && m_textures->count() > 0)
     {
-        return (CCTexture2D*)_textures->objectAtIndex(0);
+        return (CCTexture2D*)m_textures->objectAtIndex(0);
     }
     return NULL;
 }
 
 CCArray * GAFTextureAtlas::textures()
 {
-    if (!_textures)
+    if (!m_textures)
     {
-        _textures = CCArray::createWithCapacity(_images->count());
-        for (unsigned int i = 0; i < _images->count(); ++i)
+        m_textures = CCArray::createWithCapacity(m_images->count());
+        for (unsigned int i = 0; i < m_images->count(); ++i)
         {
             CCTexture2D * texture = new CCTexture2D();
-            CCImage * image = (CCImage*)_images->objectAtIndex(i);
+            CCImage * image = (CCImage*)m_images->objectAtIndex(i);
             texture->initWithImage(image);
-            _textures->addObject(texture);
+            m_textures->addObject(texture);
 #if 0
             VolatileTexture::addCCImage(texture, image);
 #endif
             texture->release();
         }
-        _textures->retain();
+        m_textures->retain();
     }
-    return _textures;
+    return m_textures;
 }
 
 void GAFTextureAtlas::setScale(float val)
@@ -147,4 +147,9 @@ void GAFTextureAtlas::pushElement(unsigned int idx, GAFTextureAtlasElement* el)
 const GAFTextureAtlas::Elements_t& GAFTextureAtlas::getElements() const
 {
     return m_elements;
+}
+
+bool GAFTextureAtlas::loaded() const
+{
+    return m_loaded;
 }

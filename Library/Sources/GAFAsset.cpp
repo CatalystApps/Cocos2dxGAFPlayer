@@ -109,7 +109,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
             }
         }
 
-        _usedAtlasContentScaleFactor = atlasScale;
+        m_usedAtlasContentScaleFactor = atlasScale;
 
         if (m_currentTextureAtlas)
         {
@@ -243,7 +243,7 @@ const NamedParts_t& GAFAsset::getNamedParts() const
 
 float GAFAsset::usedAtlasContentScaleFactor() const
 {
-    return _usedAtlasContentScaleFactor;
+    return m_usedAtlasContentScaleFactor;
 }
 
 void GAFAsset::setHeader(GAFHeader& h)

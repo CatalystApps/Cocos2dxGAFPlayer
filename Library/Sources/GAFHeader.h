@@ -12,10 +12,27 @@ public:
     };
 
 public:
+    // Common
     Compression     compression;
     unsigned short  version;
     unsigned int    fileLenght;
+
+    // Version 3
     unsigned short  framesCount;
     CCRect          frameSize;
     CCPoint         pivot;
+
+    // Version 4
+    std::vector<float>          scaleValues;
+    std::vector<unsigned short> csfValues;
+
+    inline unsigned char getMajorVersion() const
+    {
+        return version & 0x00FF;
+    }
+
+    inline unsigned char getMinorVersion() const
+    {
+        return version >> 1;
+    }
 };

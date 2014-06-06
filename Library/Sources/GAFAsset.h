@@ -37,9 +37,9 @@ private:
     ccColor4B               m_sceneColor;
 
 private:
-    float _usedAtlasContentScaleFactor;
-    int _majorVersion;
-    int _minorVersion;
+    float                   m_usedAtlasContentScaleFactor;
+    int                     m_majorVersion;
+    int                     m_minorVersion;
 
 public:
     /// Initializes asset with bGAF data
@@ -91,19 +91,19 @@ public:
     static float                desiredCsf();
     /// sets desired content scale factor
     static void                 setDesiredCsf(float csf);
-    /// used content scale factor		
+    /// used content scale factor
     float                       usedAtlasContentScaleFactor()const;
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
     
-    const unsigned int getSceneFps() const;
-    const unsigned int getSceneWidth() const;
-    const unsigned int getSceneHeight() const;
-    const ccColor4B& getSceneColor() const;
-    void setSceneFps(unsigned int);
-    void setSceneWidth(unsigned int);
-    void setSceneHeight(unsigned int);
-    void setSceneColor(const ccColor4B&);
+    const unsigned int          getSceneFps() const;
+    const unsigned int          getSceneWidth() const;
+    const unsigned int          getSceneHeight() const;
+    const ccColor4B&            getSceneColor() const;
+    void                        setSceneFps(unsigned int);
+    void                        setSceneWidth(unsigned int);
+    void                        setSceneHeight(unsigned int);
+    void                        setSceneColor(const ccColor4B&);
 };
 
 

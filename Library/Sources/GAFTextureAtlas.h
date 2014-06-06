@@ -43,9 +43,9 @@ private:
     AtlasInfos_t    m_atlasInfos;
     Elements_t      m_elements;
 
-    bool           _loaded;
-    CCArray      *  _images;
-    CCArray      *  _textures;
+    bool            m_loaded;
+    CCArray*        m_images;
+    CCArray*        m_textures;
 public:
     ~GAFTextureAtlas();
 
@@ -54,21 +54,18 @@ public:
 
     void                    loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate);
 
-    inline bool     loaded() const
-    {
-        return _loaded;
-    }
+    bool                    loaded() const;
 
-    void          setScale(float val);
-    float         getScale() const;
+    void                    setScale(float val);
+    float                   getScale() const;
 
-    CCImage     * image();
-    CCArray     * images();
+    CCImage     *           image();
+    CCArray     *           images();
 
-    CCTexture2D * texture();
-    CCArray     * textures();
+    CCTexture2D *           texture();
+    CCArray     *           textures();
 
-    const Elements_t& getElements() const;
+    const Elements_t&       getElements() const;
 };
 
 #endif // __GAF_TEXTURE_ATLAS___

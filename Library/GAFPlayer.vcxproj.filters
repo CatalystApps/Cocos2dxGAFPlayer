@@ -99,6 +99,9 @@
     <ClCompile Include="Sources\TagDefineStage.cpp">
       <Filter>Sources\GAFLoader\Tags</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\TagDefineAnimationFrames2.cpp">
+      <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFActionObject.h">
@@ -213,6 +216,9 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\TagDefineStage.h">
+      <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\TagDefineAnimationFrames2.h">
       <Filter>Sources\GAFLoader\Tags</Filter>
     </ClInclude>
   </ItemGroup>

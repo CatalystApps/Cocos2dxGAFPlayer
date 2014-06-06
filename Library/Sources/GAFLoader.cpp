@@ -15,6 +15,7 @@
 #include "TagDefineNamedParts.h"
 #include "TagDefineSequences.h"
 #include "TagDefineStage.h"
+#include "TagDefineAnimationFrames2.h"
 
 void GAFLoader::_readHeaderEnd(GAFHeader& header)
 {
@@ -23,21 +24,49 @@ void GAFLoader::_readHeaderEnd(GAFHeader& header)
     PrimitiveDeserializer::deserialize(m_stream, &header.pivot);
 }
 
-void GAFLoader::_registerTagLoaders()
+void GAFLoader::_readHeaderEndV4(GAFHeader& header)
+{
+    size_t scaleValuesCount = m_stream->readU32();
+    while (scaleValuesCount--)
+    {
+        float val = m_stream->readFloat();
+        header.scaleValues.push_back(val);
+    }
+
+    size_t csfValuesCount = m_stream->readU32();
+    while (csfValuesCount--)
+    {
+        unsigned short val = m_stream->readU16();
+        header.csfValues.push_back(val);
+    }
+}
+
+void GAFLoader::_registerTagLoadersV3()
 {
     m_tagLoaders[Tags::TagDefineAtlas] = new TagDefineAtlas();
     m_tagLoaders[Tags::TagDefineAnimationMasks] = new TagDefineAnimationMasks();
     m_tagLoaders[Tags::TagDefineAnimationObjects] = new TagDefineAnimationObjects();
     m_tagLoaders[Tags::TagDefineAnimationFrames] = new TagDefineAnimationFrames();
+}
+
+void GAFLoader::_registerTagLoadersV4()
+{
+    m_tagLoaders[Tags::TagDefineAnimationFrames2] = new TagDefineAnimationFrames2();
+    m_tagLoaders[Tags::TagDefineAnimationObjects2] = new TagDefineAnimationObjects();
+    m_tagLoaders[Tags::TagDefineAnimationMasks2] = new TagDefineAnimationMasks();
+    m_tagLoaders[Tags::TagDefineAtlas2] = new TagDefineAtlas();
+}
+
+void GAFLoader::_registerTagLoadersCommon()
+{
+    m_tagLoaders[Tags::TagDefineStage] = new TagDefineStage();
     m_tagLoaders[Tags::TagDefineNamedParts] = new TagDefineNamedParts();
     m_tagLoaders[Tags::TagDefineSequences] = new TagDefineSequences();
-    m_tagLoaders[Tags::TagDefineStage] = new TagDefineStage();
 }
 
 GAFLoader::GAFLoader():
 m_stream(NULL)
 {
-    _registerTagLoaders();
 }
 
 GAFLoader::~GAFLoader()
@@ -61,7 +90,18 @@ bool GAFLoader::loadFile(const std::string& fname, GAFAsset* context)
 
         GAFHeader& header = m_stream->getInput()->getHeader();
 
-        _readHeaderEnd(header);
+        if (header.getMajorVersion() == 4)
+        {
+            _readHeaderEndV4(header);
+            _registerTagLoadersV4();
+        }
+        else
+        {
+            _readHeaderEnd(header);
+            _registerTagLoadersV3();
+        }
+
+        _registerTagLoadersCommon();
 
         context->setHeader(header);
 
@@ -104,4 +144,9 @@ GAFStream* GAFLoader::getStream() const
 const GAFHeader& GAFLoader::getHeader() const
 {
     return m_stream->getInput()->getHeader();
+}
+
+void GAFLoader::registerTagLoader(unsigned int idx, DefinitionTagBase* tagptr)
+{
+    m_tagLoaders[static_cast<Tags::Enum>(idx)] = tagptr;
 }

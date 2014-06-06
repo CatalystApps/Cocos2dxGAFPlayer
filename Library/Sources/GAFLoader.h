@@ -14,7 +14,11 @@ private:
     GAFStream*           m_stream;
 
     void                 _readHeaderEnd(GAFHeader&);
-    void                 _registerTagLoaders();
+    void                 _readHeaderEndV4(GAFHeader&);
+
+    void                 _registerTagLoadersV3();
+    void                 _registerTagLoadersCommon();
+    void                 _registerTagLoadersV4();
 
     typedef std::map<Tags::Enum, DefinitionTagBase*> TagLoaders_t;
 
@@ -31,4 +35,8 @@ public:
 
     const GAFHeader&     getHeader() const;
 
+    int                  getVersionMinor() const;
+    int                  getVersionMajor() const;
+
+    void                 registerTagLoader(unsigned int idx, DefinitionTagBase*);
 };
