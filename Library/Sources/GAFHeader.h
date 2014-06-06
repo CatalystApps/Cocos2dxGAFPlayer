@@ -24,7 +24,7 @@ public:
 
     // Version 4
     std::vector<float>          scaleValues;
-    std::vector<unsigned short> csfValues;
+    std::vector<float>          csfValues;
 
     inline unsigned char getMajorVersion() const
     {

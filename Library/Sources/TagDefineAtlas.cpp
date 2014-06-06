@@ -67,16 +67,16 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
         element->bounds.size = CCSize(width, height);
 
         txAtlas->pushElement(element->elementAtlasIdx, element);
-    }
 
-    if (in->getInput()->getHeader().getMajorVersion() >= 4)
-    {
-        char hasScale9Grid = in->readUByte();
-
-        if (hasScale9Grid)
+        if (in->getInput()->getHeader().getMajorVersion() >= 4)
         {
-            CCRect scale9GridRect;
-            PrimitiveDeserializer::deserialize(in, &scale9GridRect);
+            char hasScale9Grid = in->readUByte();
+
+            if (hasScale9Grid)
+            {
+                CCRect scale9GridRect;
+                PrimitiveDeserializer::deserialize(in, &scale9GridRect);
+            }
         }
     }
 

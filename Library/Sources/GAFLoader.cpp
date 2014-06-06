@@ -16,6 +16,7 @@
 #include "TagDefineSequences.h"
 #include "TagDefineStage.h"
 #include "TagDefineAnimationFrames2.h"
+#include "TagDefineTimeline.h"
 
 void GAFLoader::_readHeaderEnd(GAFHeader& header)
 {
@@ -27,17 +28,21 @@ void GAFLoader::_readHeaderEnd(GAFHeader& header)
 void GAFLoader::_readHeaderEndV4(GAFHeader& header)
 {
     size_t scaleValuesCount = m_stream->readU32();
-    while (scaleValuesCount--)
+    while (scaleValuesCount)
     {
         float val = m_stream->readFloat();
         header.scaleValues.push_back(val);
+
+        scaleValuesCount--;
     }
 
     size_t csfValuesCount = m_stream->readU32();
-    while (csfValuesCount--)
+    while (csfValuesCount)
     {
-        unsigned short val = m_stream->readU16();
+        float val = m_stream->readFloat();
         header.csfValues.push_back(val);
+
+        csfValuesCount--;
     }
 }
 
@@ -55,6 +60,7 @@ void GAFLoader::_registerTagLoadersV4()
     m_tagLoaders[Tags::TagDefineAnimationObjects2] = new TagDefineAnimationObjects();
     m_tagLoaders[Tags::TagDefineAnimationMasks2] = new TagDefineAnimationMasks();
     m_tagLoaders[Tags::TagDefineAtlas2] = new TagDefineAtlas();
+    m_tagLoaders[Tags::TagDefineTimeline] = new TagDefineTimeline(this);
 }
 
 void GAFLoader::_registerTagLoadersCommon()
@@ -74,6 +80,40 @@ GAFLoader::~GAFLoader()
     for (TagLoaders_t::iterator i = m_tagLoaders.begin(), e = m_tagLoaders.end(); i != e; ++i)
     {
         delete i->second;
+    }
+}
+
+void GAFLoader::loadTags(GAFStream* in, GAFAsset* context)
+{
+    bool tagEndRead = false;
+
+    while (!in->isEndOfStream())
+    {
+        Tags::Enum tag = in->openTag();
+
+        TagLoaders_t::iterator it = m_tagLoaders.find(tag);
+
+        if (it != m_tagLoaders.end())
+        {
+            it->second->read(in, context);
+        }
+        else
+        {
+            // TODO: show warning
+        }
+
+        in->closeTag();
+
+        if (tag == Tags::TagEnd)
+        {
+            tagEndRead = true;
+            break;
+        }
+    }
+
+    if (!tagEndRead)
+    {
+        //TODO: warning or error here
     }
 }
 
@@ -105,23 +145,7 @@ bool GAFLoader::loadFile(const std::string& fname, GAFAsset* context)
 
         context->setHeader(header);
 
-        while (!m_stream->isEndOfStream())
-        {
-            Tags::Enum tag = m_stream->openTag();
-
-            TagLoaders_t::iterator it = m_tagLoaders.find(tag);
-
-            if (it != m_tagLoaders.end())
-            {
-                it->second->read(m_stream, context);
-            }
-            else
-            {
-                // TODO: show warning
-            }
-
-            m_stream->closeTag();
-        }
+        loadTags(m_stream, context);
 
         delete m_stream;
     }

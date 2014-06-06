@@ -39,4 +39,6 @@ public:
     int                  getVersionMajor() const;
 
     void                 registerTagLoader(unsigned int idx, DefinitionTagBase*);
+
+    void                 loadTags(GAFStream* in, GAFAsset* context);
 };

@@ -69,8 +69,31 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* ctx)
 
         if (in->getPosition() < in->getTagExpectedPosition())
             frameNumber = in->readU32();
-    }
 
+        if (hasActions)
+        {
+            // STUB
+            unsigned int type = in->readU32();
+            unsigned int paramsCount = in->readU32();
+
+            while (paramsCount)
+            {
+                std::string paramValue;
+                in->readString(&paramValue);
+
+                paramsCount--;
+            }
+        }
+
+        GAFAnimationFrame* frame = new GAFAnimationFrame();
+
+        for (States_t::iterator it = currentStates.begin(), ie = currentStates.end(); it != ie; ++it)
+        {
+            frame->pushObjectState(it->second);
+        }
+
+        ctx->pushAnimationFrame(frame);
+    }
 }
 
 GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
