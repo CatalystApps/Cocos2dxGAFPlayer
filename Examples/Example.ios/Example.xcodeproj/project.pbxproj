@@ -19,6 +19,8 @@
 		1AC1024F19053E6000E7F154 /* peacock_feb3_natasha in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024319053E6000E7F154 /* peacock_feb3_natasha */; };
 		1AC1025119053E6000E7F154 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024519053E6000E7F154 /* Shaders */; };
 		1AC1025219053E6000E7F154 /* tiger in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1024619053E6000E7F154 /* tiger */; };
+		39886D541945DE7A00DF1CDD /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39886D501945DE7A00DF1CDD /* TagDefineAnimationFrames2.cpp */; };
+		39886D551945DE7A00DF1CDD /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39886D521945DE7A00DF1CDD /* TagDefineTimeline.cpp */; };
 		CF59E90B187DAB2D003A6524 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90A187DAB2D003A6524 /* Foundation.framework */; };
 		CF59E90D187DAB2D003A6524 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */; };
 		CF59E90F187DAB2D003A6524 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90E187DAB2D003A6524 /* UIKit.framework */; };
@@ -120,6 +122,11 @@
 		1AC1024319053E6000E7F154 /* peacock_feb3_natasha */ = {isa = PBXFileReference; lastKnownFileType = folder; path = peacock_feb3_natasha; sourceTree = "<group>"; };
 		1AC1024519053E6000E7F154 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
 		1AC1024619053E6000E7F154 /* tiger */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tiger; sourceTree = "<group>"; };
+		39886D4F1945DE7A00DF1CDD /* GAFDelegates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFDelegates.h; path = ../../../Library/Sources/GAFDelegates.h; sourceTree = "<group>"; };
+		39886D501945DE7A00DF1CDD /* TagDefineAnimationFrames2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineAnimationFrames2.cpp; path = ../../../Library/Sources/TagDefineAnimationFrames2.cpp; sourceTree = "<group>"; };
+		39886D511945DE7A00DF1CDD /* TagDefineAnimationFrames2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineAnimationFrames2.h; path = ../../../Library/Sources/TagDefineAnimationFrames2.h; sourceTree = "<group>"; };
+		39886D521945DE7A00DF1CDD /* TagDefineTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineTimeline.cpp; path = ../../../Library/Sources/TagDefineTimeline.cpp; sourceTree = "<group>"; };
+		39886D531945DE7A00DF1CDD /* TagDefineTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineTimeline.h; path = ../../../Library/Sources/TagDefineTimeline.h; sourceTree = "<group>"; };
 		CF59E907187DAB2D003A6524 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF59E90A187DAB2D003A6524 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -338,6 +345,11 @@
 		CF59E940187DB3C8003A6524 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				39886D4F1945DE7A00DF1CDD /* GAFDelegates.h */,
+				39886D501945DE7A00DF1CDD /* TagDefineAnimationFrames2.cpp */,
+				39886D511945DE7A00DF1CDD /* TagDefineAnimationFrames2.h */,
+				39886D521945DE7A00DF1CDD /* TagDefineTimeline.cpp */,
+				39886D531945DE7A00DF1CDD /* TagDefineTimeline.h */,
 				1AADE0831919062B007F1E9D /* TagDefineStage.cpp */,
 				1AADE0841919062B007F1E9D /* TagDefineStage.h */,
 				CFF5ED33188EA90000C75096 /* DefinitionTagBase.h */,
@@ -610,6 +622,7 @@
 				CFF5ED82188EA90000C75096 /* PrimitiveDeserializer.cpp in Sources */,
 				CFF5ED88188EA90000C75096 /* TagDefineSequences.cpp in Sources */,
 				CFF5ED2E188EA78E00C75096 /* AppDelegate.cpp in Sources */,
+				39886D551945DE7A00DF1CDD /* TagDefineTimeline.cpp in Sources */,
 				CFF5ED81188EA90000C75096 /* GAFTextureEffectsConverter.cpp in Sources */,
 				CFF5ED7F188EA90000C75096 /* GAFTextureAtlas.cpp in Sources */,
 				CFF5ED2F188EA78E00C75096 /* AppDelegate.h in Sources */,
@@ -620,6 +633,7 @@
 				CFF5ED6F188EA90000C75096 /* GAFAnimatedObject.cpp in Sources */,
 				CFF5ED7D188EA90000C75096 /* GAFStream.cpp in Sources */,
 				CFF5ED78188EA90000C75096 /* GAFPrecompiled.cpp in Sources */,
+				39886D541945DE7A00DF1CDD /* TagDefineAnimationFrames2.cpp in Sources */,
 				CFF5ED71188EA90000C75096 /* GAFAnimationFrame.cpp in Sources */,
 				CFF5ED70188EA90000C75096 /* GAFAnimation.cpp in Sources */,
 				CFF5ED84188EA90000C75096 /* TagDefineAnimationMasks.cpp in Sources */,
