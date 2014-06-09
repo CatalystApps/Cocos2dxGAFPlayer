@@ -19,6 +19,13 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* ctx)
     PrimitiveDeserializer::deserialize(in, &aabb);
     PrimitiveDeserializer::deserialize(in, &pivot);
 
+    // STUB
+    GAFHeader header = ctx->getHeader();
+    header.pivot = pivot;
+    header.frameSize = aabb;
+    ctx->setHeader(header);
+    //////////////////////////////////////////////////////////////////////////
+
     char hasLinkage = in->readUByte();
     if (hasLinkage)
     {
