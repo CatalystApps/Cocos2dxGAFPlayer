@@ -84,6 +84,7 @@ public:
     /// @param controlFlags flags specifying what played will do with subobjects controlled externally
     /// @returns YES if control was successfully taken and all future
     bool captureControlOverSubobjectNamed(const char * aName, GAFAnimatedObjectControlFlags aControlFlags);
+    bool captureControlOverSubobject(unsigned int id, GAFAnimatedObjectControlFlags aControlFlags);
     /// Releases control over subobject captured earlier	
     void releaseControlOverSubobjectNamed(const char * aName);
 

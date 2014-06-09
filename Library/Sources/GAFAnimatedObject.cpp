@@ -236,6 +236,23 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         }
     }
 }
+bool GAFAnimatedObject::captureControlOverSubobject(unsigned int id, GAFAnimatedObjectControlFlags aControlFlags)
+{
+    if (IDNONE == id)
+    {
+        return false;
+    }
+
+    CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(id);
+
+    if (cpoIt != m_capturedObjects.end())
+    {
+        return false;
+    }
+
+    m_capturedObjects[id] = aControlFlags;
+    return true;
+}
 
 bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAFAnimatedObjectControlFlags aControlFlags)
 {
@@ -693,7 +710,10 @@ cocos2d::Rect GAFAnimatedObject::realBoundingBoxForCurrentFrame()
         if (anim->isVisible())
         {
             cocos2d::Rect bb = anim->getBoundingBox();
-            result = GAFCCRectUnion(result, bb);
+            if (i == m_subObjects.begin())
+                result = bb;
+            else
+                result = GAFCCRectUnion(result, bb);
         }
     }
 
