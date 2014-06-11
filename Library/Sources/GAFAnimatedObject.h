@@ -116,6 +116,9 @@ public:
     //! Experimental feature, will work only for single textured objects without masks. Still glitches, required to be enabled manually
     void enableBatching(bool value);
 
+    int getFps() const;
+
+    void setFps(int value);
 }; // GAFAnimatedObject
 
 #endif // __GAF_ANIMATED_OBJECT_H__

@@ -6,7 +6,7 @@ LOCAL_MODULE := gafplayer_static
 
 LOCAL_MODULE_FILENAME := libgafplayer
 
-LOCAL_SRC_FILES := \
+LOCAL_SRC_FILES := GAFPrecompiled.cpp \
 Sources/GAFAnimatedObject.cpp \
 Sources/GAFAnimation.cpp \
 Sources/GAFAnimationFrame.cpp \
@@ -15,7 +15,6 @@ Sources/GAFAsset.cpp \
 Sources/GAFFile.cpp \
 Sources/GAFFilterData.cpp \
 Sources/GAFLoader.cpp \
-Sources/GAFPrecompiled.cpp \
 Sources/GAFShaderManager.cpp \
 Sources/GAFSprite.cpp \
 Sources/GAFSpriteWithAlpha.cpp \

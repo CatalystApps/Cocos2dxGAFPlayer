@@ -776,3 +776,13 @@ void GAFAnimatedObject::_updateStencilLayer(int newLayer)
     }
 }
 
+int GAFAnimatedObject::getFps() const 
+{
+    return m_fps;
+}
+
+void GAFAnimatedObject::setFps(int value)
+{
+    CCASSERT(value, "Error! Fps is set to zero.");
+    m_fps = value;
+}
