@@ -44,6 +44,8 @@ public:
     void addMaskedObject(CCNode * anObject);
     void removeMaskedObject(CCNode * anObject);
     void updateStencilLayer(int newLayer);
+
+    void listenToForeground(CCObject*);
 protected:
     void sortAllMaskedObjects();
 private:

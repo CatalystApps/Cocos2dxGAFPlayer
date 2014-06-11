@@ -36,11 +36,21 @@ m_blurFilterData(NULL)
     m_colorMatrixIdentity1[15] = 1.f;
 
     memset(m_colorMatrixIdentity2, 0, sizeof(float)* 4);
+
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this,
+        callfuncO_selector(GAFSpriteWithAlpha::listenToForeground),
+        EVENT_COME_TO_FOREGROUND,
+        NULL);
+#endif
 }
 
 GAFSpriteWithAlpha::~GAFSpriteWithAlpha()
 {
     CC_SAFE_RELEASE(m_initialTexture);
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+    CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, EVENT_COME_TO_FOREGROUND);
+#endif
 }
 
 bool GAFSpriteWithAlpha::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated)
@@ -62,6 +72,63 @@ bool GAFSpriteWithAlpha::initWithTexture(CCTexture2D *pTexture, const CCRect& re
     else
     {
         return false;
+    }
+}
+
+
+
+void GAFSpriteWithAlpha::listenToForeground(CCObject *obj)
+{
+    CCGLProgram * program = CCShaderCache::sharedShaderCache()->programForKey(kGAFSpriteWithAlphaShaderProgramCacheKey);
+
+    bool isCTXidt = false;
+
+    if (!program)
+    {
+#if CHECK_CTX_IDENTITY
+        program = CCShaderCache::sharedShaderCache()->programForKey(kGAFSpriteWithAlphaShaderProgramCacheKey);
+
+        if (!program)
+        {
+            return;
+        }
+
+        isCTXidt = true;
+#else
+        return;
+#endif
+    }
+
+    program->reset();
+
+    if (isCTXidt)
+    {
+        program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kAlphaFragmentShaderFilename_noCTX);
+    }
+    else
+    {
+        program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kAlphaFragmentShaderFilename);
+    }
+
+    if (program)
+    {
+        program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
+        program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
+        program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
+        program->link();
+        program->updateUniforms();
+        CHECK_GL_ERROR_DEBUG();
+
+        program->use();
+
+        colorTransformLocation = glGetUniformLocation(program->getProgram(), "colorTransform");
+        colorMatrixLocation = glGetUniformLocation(program->getProgram(), "colorMatrix");
+        colorMatrixLocation2 = glGetUniformLocation(program->getProgram(), "colorMatrix2");
+        fragmentAlphaLocation = glGetUniformLocation(program->getProgram(), "fragmentAlpha");
+    }
+    else
+    {
+        CCAssert(false, "Can not RELOAD GAFSpriteWithAlpha");
     }
 }
 
@@ -280,38 +347,4 @@ bool GAFSpriteWithAlpha::isCTXIdentity() const
 
     return true;
 }
-
-#if CC_ENABLE_CACHE_TEXTURE_DATA
-void _GAFreloadAlphaShader()
-{
-    CCGLProgram * program = CCShaderCache::sharedShaderCache()->programForKey(kGAFSpriteWithAlphaShaderProgramCacheKey);
-
-    if (!program)
-    {
-        return;
-    }
-    program->reset();
-    program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kAlphaFragmentShaderFilename, program);
-    if (program)
-    {
-        program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
-        program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
-        program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
-        program->link();
-        program->updateUniforms();
-        CHECK_GL_ERROR_DEBUG();
-        program->use();
-        colorTransformLocation = (GLuint)glGetUniformLocation(program->getProgram(), "colorTransform");
-        if (colorTransformLocation <= 0)
-        {
-            CCAssert(false, "Can not RELOAD GAFSpriteWithAlpha");
-        }
-        CCLOGERROR("GAFSpriteWithAlpha RELOADED");
-    }
-    else
-    {
-        CCAssert(false, "Can not RELOAD GAFSpriteWithAlpha");
-    }
-}
-#endif
 

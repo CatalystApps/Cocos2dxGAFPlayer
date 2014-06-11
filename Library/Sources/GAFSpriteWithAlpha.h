@@ -46,6 +46,9 @@ public:
     const CCRect&   getInitialTextureRect() const;
     
     bool            isCTXIdentity() const;
+
+    void listenToForeground(CCObject *obj);
+
 protected:
     void updateTextureWithEffects();
 
