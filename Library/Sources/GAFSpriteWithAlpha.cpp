@@ -86,7 +86,7 @@ void GAFSpriteWithAlpha::listenToForeground(CCObject *obj)
     if (!program)
     {
 #if CHECK_CTX_IDENTITY
-        program = CCShaderCache::sharedShaderCache()->programForKey(kGAFSpriteWithAlphaShaderProgramCacheKey);
+        program = CCShaderCache::sharedShaderCache()->programForKey(kGAFSpriteWithAlphaShaderProgramCache_noCTX);
 
         if (!program)
         {
