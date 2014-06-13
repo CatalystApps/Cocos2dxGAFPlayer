@@ -21,12 +21,6 @@ _maskedObjects(NULL),
 _isReorderMaskedObjectsDirty(false),
 m_stencilLayer(stencilLayer)
 {
-#if CC_ENABLE_CACHE_TEXTURE_DATA
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(this,
-        callfuncO_selector(GAFStencilMaskSprite::listenToForeground),
-        EVENT_COME_TO_FOREGROUND,
-        NULL);
-#endif
 }
 
 static std::map<CCNode *, GAFStencilMaskSprite *> _object2maskedContainer;
@@ -70,10 +64,6 @@ GAFStencilMaskSprite::~GAFStencilMaskSprite()
     }
 
     CC_SAFE_RELEASE(_maskedObjects);
-
-#if CC_ENABLE_CACHE_TEXTURE_DATA
-    CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, EVENT_COME_TO_FOREGROUND);
-#endif
 }
 
 
@@ -325,7 +315,7 @@ CCGLProgram * GAFStencilMaskSprite::programShaderForMask()
         CHECK_GL_ERROR_DEBUG();
         CCShaderCache::sharedShaderCache()->addProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
 #else
-        program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename);
+        program = GAFShaderManager::getInstance()->createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename);
         if (program)
         {
             program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
@@ -353,7 +343,7 @@ void GAFStencilMaskSprite::updateStencilLayer( int newLayer )
     m_stencilLayer = newLayer;
 }
 
-void GAFStencilMaskSprite::listenToForeground( CCObject* )
+void GAFStencilMaskSprite::reset()
 {
     CCGLProgram * program = CCShaderCache::sharedShaderCache()->programForKey(kGAFStencilMaskAlphaFilterProgramCacheKey);
 
@@ -363,7 +353,7 @@ void GAFStencilMaskSprite::listenToForeground( CCObject* )
     }
 
     program->reset();
-    program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename, program);
+    program = GAFShaderManager::getInstance()->createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename, program);
 
     if (program)
     {

@@ -47,7 +47,7 @@ public:
     
     bool            isCTXIdentity() const;
 
-    void listenToForeground(CCObject *obj);
+    static void     reset();
 
 protected:
     void updateTextureWithEffects();

@@ -97,6 +97,7 @@ void GAFSprite::draw(void)
     //
 
     ccGLEnableVertexAttribs(kCCVertexAttribFlag_PosColorTex);
+    CHECK_GL_ERROR_DEBUG();
     setUniformsForFragmentShader();
     CHECK_GL_ERROR_DEBUG();
 

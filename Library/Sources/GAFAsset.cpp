@@ -9,6 +9,7 @@
 #include "GAFActionObject.h"
 #include "GAFAnimationSequence.h"
 #include "GAFAnimatedObject.h"
+#include "GAFShaderManager.h"
 
 #include "GAFLoader.h"
 
