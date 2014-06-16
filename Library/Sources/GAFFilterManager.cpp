@@ -3,25 +3,12 @@
 #include "GAFFilterData.h"
 #include "GAFShaderManager.h"
 
+#include "../external/xxhash/xxhash.h"
+
 using namespace cocos2d;
 using namespace std;
 
 static const int kGaussianKernelSize = 9;
-
-unsigned int jenkins_one_at_a_time_hash(char *key, size_t len)
-{
-    unsigned int hash, i;
-    for (hash = i = 0; i < len; ++i)
-    {
-        hash += key[i];
-        hash += (hash << 10);
-        hash ^= (hash >> 6);
-    }
-    hash += (hash << 3);
-    hash ^= (hash >> 11);
-    hash += (hash << 15);
-    return hash;
-}
 
 GAFFilterManager::Cache_t GAFFilterManager::s_cache;
 GAFFilterManager* GAFFilterManager::s_instance = nullptr;
@@ -71,33 +58,35 @@ Texture2D* GAFFilterManager::applyFilter(cocos2d::Sprite* texture, GAFFilterData
 
 unsigned int GAFFilterManager::hash(Sprite* sprite, GAFFilterData* filter)
 {
-    size_t size = 0;
-    char key[1024];
+    struct Hash
+    {
+        int texture;
+        Rect rect;
+        GAFBlurFilterData blur;
+        GAFGlowFilterData glow;
+        GAFDropShadowFilterData shadow;
+    };
 
-    int name = sprite->getTexture()->getName();
-    memcpy(key + size, &name, sizeof(int)); 
-    size += sizeof(int);
+    Hash hash;
+    memset(&hash, 0, sizeof(Hash));
 
-    memcpy(key + size, &sprite->getTextureRect(), sizeof(Rect));
-    size += sizeof(Rect);
+    hash.texture = sprite->getTexture()->getName();
+    hash.rect = sprite->getTextureRect();
 
     if (filter->getType() == GAFFilterType::GFT_Blur)
     {
-        memcpy(key + size, (void*)filter, sizeof(GAFBlurFilterData));
-        size += sizeof(GAFBlurFilterData);
+        hash.blur = *static_cast<GAFBlurFilterData*>(filter);
     }
     else if (filter->getType() == GAFFilterType::GFT_Glow)
     {
-        memcpy(key + size, (void*)filter, sizeof(GAFGlowFilterData));
-        size += sizeof(GAFGlowFilterData);
+        hash.glow = *static_cast<GAFGlowFilterData*>(filter);
     }
     else if (filter->getType() == GAFFilterType::GFT_DropShadow)
     {
-        memcpy(key + size, (void*)filter, sizeof(GAFDropShadowFilterData));
-        size += sizeof(GAFDropShadowFilterData);
+        hash.shadow = *static_cast<GAFDropShadowFilterData*>(filter);
     }
     
-    return jenkins_one_at_a_time_hash(key, size);
+    return XXH32(&hash, sizeof(Hash), 0);
 }
 
 bool GAFFilterManager::hasTexture(unsigned int id)

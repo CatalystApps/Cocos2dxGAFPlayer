@@ -16,6 +16,7 @@ Sources/GAFFile.cpp \
 Sources/GAFFilterData.cpp \
 Sources/GAFLoader.cpp \
 Sources/GAFShaderManager.cpp \
+Sources/GAFQuadCommand.cpp \
 Sources/GAFSprite.cpp \
 Sources/GAFSpriteWithAlpha.cpp \
 Sources/GAFStencilMaskSprite.cpp \

@@ -18,7 +18,6 @@
 		1A2FBE41192C95A500631FE9 /* biggreen in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE35192C95A500631FE9 /* biggreen */; };
 		1A2FBE42192C95A500631FE9 /* bird_bezneba in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE36192C95A500631FE9 /* bird_bezneba */; };
 		1A2FBE43192C95A500631FE9 /* christmas2013_julia2 in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE37192C95A500631FE9 /* christmas2013_julia2 */; };
-		1A2FBE44192C95A500631FE9 /* cut_the_hope in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE38192C95A500631FE9 /* cut_the_hope */; };
 		1A2FBE45192C95A500631FE9 /* fairy2 in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE39192C95A500631FE9 /* fairy2 */; };
 		1A2FBE46192C95A500631FE9 /* firemen in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3A192C95A500631FE9 /* firemen */; };
 		1A2FBE47192C95A500631FE9 /* impiretank_05_oneplace in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3B192C95A500631FE9 /* impiretank_05_oneplace */; };
@@ -162,7 +161,6 @@
 		1A2FBE35192C95A500631FE9 /* biggreen */ = {isa = PBXFileReference; lastKnownFileType = folder; name = biggreen; path = ../Resources/biggreen; sourceTree = "<group>"; };
 		1A2FBE36192C95A500631FE9 /* bird_bezneba */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bird_bezneba; path = ../Resources/bird_bezneba; sourceTree = "<group>"; };
 		1A2FBE37192C95A500631FE9 /* christmas2013_julia2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = christmas2013_julia2; path = ../Resources/christmas2013_julia2; sourceTree = "<group>"; };
-		1A2FBE38192C95A500631FE9 /* cut_the_hope */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cut_the_hope; path = ../Resources/cut_the_hope; sourceTree = "<group>"; };
 		1A2FBE39192C95A500631FE9 /* fairy2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fairy2; path = ../Resources/fairy2; sourceTree = "<group>"; };
 		1A2FBE3A192C95A500631FE9 /* firemen */ = {isa = PBXFileReference; lastKnownFileType = folder; name = firemen; path = ../Resources/firemen; sourceTree = "<group>"; };
 		1A2FBE3B192C95A500631FE9 /* impiretank_05_oneplace */ = {isa = PBXFileReference; lastKnownFileType = folder; name = impiretank_05_oneplace; path = ../Resources/impiretank_05_oneplace; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 				1A2FBE35192C95A500631FE9 /* biggreen */,
 				1A2FBE36192C95A500631FE9 /* bird_bezneba */,
 				1A2FBE37192C95A500631FE9 /* christmas2013_julia2 */,
-				1A2FBE38192C95A500631FE9 /* cut_the_hope */,
 				1A2FBE39192C95A500631FE9 /* fairy2 */,
 				1A2FBE3A192C95A500631FE9 /* firemen */,
 				1A2FBE3B192C95A500631FE9 /* impiretank_05_oneplace */,
@@ -550,7 +547,6 @@
 				1A06505B192BB91D0086395A /* button_on_plus.png in Resources */,
 				1A065057192BB91D0086395A /* button_off_minus.png in Resources */,
 				1A2FBE48192C95A500631FE9 /* myshopsgame4 in Resources */,
-				1A2FBE44192C95A500631FE9 /* cut_the_hope in Resources */,
 				1A2FBE42192C95A500631FE9 /* bird_bezneba in Resources */,
 				1A2FBE4B192C95A500631FE9 /* tiger in Resources */,
 				1A06505C192BB91D0086395A /* button_on.png in Resources */,

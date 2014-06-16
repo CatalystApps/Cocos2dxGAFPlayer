@@ -14,23 +14,12 @@ static bool compare_stencil_sprites(const void* p1, const void* p2)
 
 GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
-_maskedObjects(NULL),
-_isReorderMaskedObjectsDirty(false),
+m_maskedObjects(NULL),
 m_stencilLayer(stencilLayer)
 {
 }
 
 static std::map<cocos2d::Node *, GAFStencilMaskSprite *> _object2maskedContainer;
-
-void GAFStencilMaskSprite::updateMaskContainerOf(cocos2d::Node * node)
-{
-    std::map<cocos2d::Node *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(node);
-    if (it != _object2maskedContainer.end())
-    {
-        it->second->invalidateMaskedObjectsOrder();
-    }
-}
-
 
 bool GAFStencilMaskSprite::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated)
 {
@@ -38,21 +27,20 @@ bool GAFStencilMaskSprite::initWithTexture(cocos2d::Texture2D *pTexture, const c
     {
         return false;
     }
-    CC_SAFE_RELEASE(_maskedObjects);
-    _maskedObjects = cocos2d::__Array::create();
-    _maskedObjects->retain();
+    CC_SAFE_RELEASE(m_maskedObjects);
+    m_maskedObjects = cocos2d::__Array::create();
+    m_maskedObjects->retain();
     setGLProgram(programShaderForMask());
-    _isReorderMaskedObjectsDirty = false;
     return true;
 }
 
 GAFStencilMaskSprite::~GAFStencilMaskSprite()
 {
-    if (_maskedObjects)
+    if (m_maskedObjects)
     {
-        for (int i = 0; i < _maskedObjects->count(); ++i)
+        for (int i = 0; i < m_maskedObjects->count(); ++i)
         {
-            cocos2d::Node * node = (cocos2d::Node*)_maskedObjects->getObjectAtIndex(i);
+            cocos2d::Node * node = (cocos2d::Node*)m_maskedObjects->getObjectAtIndex(i);
             std::map<cocos2d::Node *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(node);
             if (it != _object2maskedContainer.end())
             {
@@ -61,7 +49,7 @@ GAFStencilMaskSprite::~GAFStencilMaskSprite()
         }
     }
 
-    CC_SAFE_RELEASE(_maskedObjects);
+    CC_SAFE_RELEASE(m_maskedObjects);
 }
 
 #if COCOS2D_VERSION < 0x00030200
@@ -70,36 +58,30 @@ void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat
 void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 #endif
 {
+    m_group.init(_globalZOrder);
+    renderer->addCommand(&m_group);
+    renderer->pushGroup(m_group.getRenderQueueID());
+
 #if COCOS2D_VERSION < 0x00030200
     GAFSprite::visit(renderer, transform, true);
 #else
     GAFSprite::visit(renderer, transform, flags | cocos2d::Node::FLAGS_TRANSFORM_DIRTY);
 #endif
-    sortAllMaskedObjects();
-    // Draw subobjects, assuming mask and object are on the same layer
-    for (int i = 0; i < _maskedObjects->count(); ++i)
+
+    for (int i = 0; i < m_maskedObjects->count(); ++i)
     {
-        cocos2d::Node * object = (cocos2d::Node *)_maskedObjects->getObjectAtIndex(i);
-        object->visit();
-    }
-#if USE_LAYERED_STENCIL
-    _disableStencil();
+        cocos2d::Node * object = (cocos2d::Node *)m_maskedObjects->getObjectAtIndex(i);
+#if COCOS2D_VERSION < 0x00030200
+        object->visit(renderer, transform, transformUpdated
+            
+            );
 #else
-    glDisable(GL_STENCIL_TEST);
+        object->visit(renderer, transform, flags);
 #endif
-
-}
-
-void GAFStencilMaskSprite::sortAllMaskedObjects()
-{
-    if (_isReorderMaskedObjectsDirty)
-    {
-        std::sort(_maskedObjects->data->arr,
-            _maskedObjects->data->arr + _maskedObjects->data->num,
-            compare_stencil_sprites);
-        _isReorderMaskedObjectsDirty = false;
     }
+    renderer->popGroup();
 }
+
 void GAFStencilMaskSprite::_disableStencil()
 {
     glStencilFunc(m_stencilState.currentStencilFunc, m_stencilState.currentStencilRef, m_stencilState.currentStencilValueMask);
@@ -113,6 +95,30 @@ void GAFStencilMaskSprite::_disableStencil()
 
     // we are done using this layer, decrement
     m_stencilLayer = std::max(--m_stencilLayer, -1);
+}
+
+void GAFStencilMaskSprite::beginStencil(cocos2d::Mat4& transform)
+{
+    glEnable(GL_STENCIL_TEST);
+    glClear(GL_STENCIL_BUFFER_BIT);
+
+    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+    glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
+    glStencilFunc(GL_ALWAYS, 1, 1);
+
+    GAFSprite::customDraw(transform);
+
+    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    glStencilFunc(GL_EQUAL, 1, 1);
+}
+
+void GAFStencilMaskSprite::endStencil()
+{
+#if USE_LAYERED_STENCIL
+    _disableStencil();
+#else
+    glDisable(GL_STENCIL_TEST);
+#endif
 }
 
 #if COCOS2D_VERSION < 0x00030200
@@ -231,24 +237,16 @@ void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4
 
 
 #else
-    glEnable(GL_STENCIL_TEST);
-    glClear(GL_STENCIL_BUFFER_BIT);
 
-    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
-    glStencilFunc(GL_ALWAYS, 1, 1);
+    m_customCommand.init(-FLT_MAX);
+    m_customCommand.func = CC_CALLBACK_0(GAFStencilMaskSprite::beginStencil, this, transform);
+    m_customCommand2.init(FLT_MAX);
+    m_customCommand2.func = CC_CALLBACK_0(GAFStencilMaskSprite::endStencil, this);
 
-    // Draw mask
-#if COCOS2D_VERSION < 0x00030200
-    GAFSprite::draw(renderer, transform, transformUpdated);
-#else
-    GAFSprite::draw(renderer, transform, flags | cocos2d::Node::FLAGS_TRANSFORM_DIRTY);
-#endif
-
+    renderer->addCommand(&m_customCommand);
+    renderer->addCommand(&m_customCommand2);
     // Use stencil
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-    glStencilFunc(GL_EQUAL, 1, 1);
-
+    
 #endif
 }
 
@@ -270,26 +268,19 @@ void GAFStencilMaskSprite::addMaskedObject(cocos2d::Node * anObject)
     if (maskContainer != this)
     {
         _object2maskedContainer[anObject] = this;
-        _maskedObjects->addObject(anObject);
-        _isReorderMaskedObjectsDirty = true;
+        m_maskedObjects->addObject(anObject);
     }
 }
 
 void GAFStencilMaskSprite::removeMaskedObject(cocos2d::Node * anObject)
 {
-    if (_maskedObjects->containsObject(anObject))
+    if (m_maskedObjects->containsObject(anObject))
     {
         std::map<cocos2d::Node *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(anObject);
         CCAssert(it != _object2maskedContainer.end(), "iterator must be valid");
         _object2maskedContainer.erase(it);
-        _maskedObjects->removeObject(anObject);
-        _isReorderMaskedObjectsDirty = true;
+        m_maskedObjects->removeObject(anObject);
     }
-}
-
-void GAFStencilMaskSprite::invalidateMaskedObjectsOrder()
-{
-    _isReorderMaskedObjectsDirty = true;
 }
 
 cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()

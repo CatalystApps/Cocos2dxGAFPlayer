@@ -1,8 +1,4 @@
 #pragma once
-
-#ifndef __GAF_FILTER_DATA__
-#define __GAF_FILTER_DATA__
-
 #include "GAFCollections.h"
 
 class GAFSpriteWithAlpha;
@@ -10,7 +6,7 @@ class GAFSpriteWithAlpha;
 class GAFFilterData
 {
 protected:
-    const GAFFilterType m_type;
+    GAFFilterType m_type;
 public:
 
     virtual ~GAFFilterData() {}
@@ -23,7 +19,7 @@ public:
     GAFFilterData(GAFFilterType type) : m_type(type)
     {}
 
-    virtual void apply(GAFSpriteWithAlpha*) = 0;
+    virtual void apply(GAFSpriteWithAlpha*){};
 };
 
 class GAFBlurFilterData : public GAFFilterData
@@ -74,5 +70,3 @@ public:
 
     static void reset(GAFSpriteWithAlpha*);
 };
-
-#endif // __GAF_FILTER_DATA__

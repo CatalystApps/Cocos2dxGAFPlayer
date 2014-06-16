@@ -8,8 +8,6 @@ using std::string;
 #include "Shaders/GaussianBlurFragmentShader.frag"
 #include "Shaders/GaussianBlurVertexShader.vert"
 #include "Shaders/GlowFragmentShader.frag"
-#include "Shaders/pcBlurredSprite_Shader_HorizontalBlur.frag"
-#include "Shaders/pcBlurredSprite_Shader_VerticalBlur.frag"
 #include "Shaders/pcShader_masked_texture.frag"
 #include "Shaders/pcShader_PositionTexture_alphaFilter.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
@@ -19,8 +17,6 @@ const char * const GAFShaderManager::s_fragmentShaders[] =
 {
     GaussianBlurFragmentShader_fs,
     GlowFragmentShader_fs,
-    pcBlurredSprite_Shader_HorizontalBlur_fs,
-    pcBlurredSprite_Shader_VerticalBlur_fs,
     pcShader_masked_texture_fs,
     pcShader_PositionTexture_alphaFilter_fs,
     pcShader_PositionTextureAlpha_frag_fs,

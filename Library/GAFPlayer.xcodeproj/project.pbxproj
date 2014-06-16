@@ -35,6 +35,7 @@
 		1A95AE27193F29EB00AE1F30 /* GAFCachedTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A95AE25193F29EB00AE1F30 /* GAFCachedTexture.cpp */; };
 		1A95AE941948600500AE1F30 /* GAFPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A95AE921948600500AE1F30 /* GAFPrecompiled.cpp */; };
 		1AB30523193CE3BF0012C01D /* GAFFilterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB30521193CE3BF0012C01D /* GAFFilterManager.cpp */; };
+		1AB33DBE1949BA57006B92A0 /* GAFQuadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -118,6 +119,8 @@
 		1A95AE931948600500AE1F30 /* GAFPrecompiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFPrecompiled.h; sourceTree = SOURCE_ROOT; };
 		1AB30521193CE3BF0012C01D /* GAFFilterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFFilterManager.cpp; sourceTree = "<group>"; };
 		1AB30522193CE3BF0012C01D /* GAFFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFFilterManager.h; sourceTree = "<group>"; };
+		1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFQuadCommand.cpp; sourceTree = "<group>"; };
+		1AB33DBD1949BA57006B92A0 /* GAFQuadCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFQuadCommand.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 		1A2FBF0B192E00C800631FE9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */,
+				1AB33DBD1949BA57006B92A0 /* GAFQuadCommand.h */,
 				1A95AE921948600500AE1F30 /* GAFPrecompiled.cpp */,
 				1A95AE931948600500AE1F30 /* GAFPrecompiled.h */,
 				1A2FBF66192E00D700631FE9 /* GAFLoader */,
@@ -315,6 +320,7 @@
 				1A2FBF4E192E00C800631FE9 /* GAFAnimationFrame.cpp in Sources */,
 				1A2FBF58192E00C800631FE9 /* GAFStencilMaskSprite.cpp in Sources */,
 				1A2FBF61192E00C800631FE9 /* TagDefineAnimationObjects.cpp in Sources */,
+				1AB33DBE1949BA57006B92A0 /* GAFQuadCommand.cpp in Sources */,
 				1A2FBF5C192E00C800631FE9 /* GAFTextureAtlasElement.cpp in Sources */,
 				1A2FBF5B192E00C800631FE9 /* GAFTextureAtlas.cpp in Sources */,
 				1A2FBF50192E00C800631FE9 /* GAFAsset.cpp in Sources */,

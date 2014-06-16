@@ -25,7 +25,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 {
     // initialize director
     std::vector<std::string> paths;
-    paths.push_back("Shaders");
     paths.push_back("Resources");
 
     cocos2d::FileUtils::getInstance()->setSearchPaths(paths);
@@ -41,14 +40,15 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
 
     // turn on display FPS
-    pDirector->setDisplayStats(true);
+    pDirector->setDisplayStats(1);
+
     pDirector->setProjection(cocos2d::Director::Projection::_2D);
     CCTexture2D::setDefaultAlphaPixelFormat(cocos2d::Texture2D::PixelFormat::RGBA8888);
     CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
 
     pDirector->setAnimationInterval(1.0 / kGlobalFPS);
 
-    glView->setDesignResolutionSize(1024, 768, ResolutionPolicy::NO_BORDER);
+    glView->setDesignResolutionSize(1024, 768, ResolutionPolicy::FIXED_HEIGHT);
 
     cocos2d::Size frameSize = glView->getFrameSize();
 

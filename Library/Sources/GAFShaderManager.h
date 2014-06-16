@@ -9,8 +9,6 @@ public:
     enum Name {
             GaussBlur,
             Glow,
-            HorizonatlBlur,
-            VerticalBlur,
             Masked,
             AlphaFilter,
             Alpha,

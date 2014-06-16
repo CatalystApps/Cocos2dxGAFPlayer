@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_STENCIL_MASK_SPRITE__
-#define __GAF_STENCIL_MASK_SPRITE__
-
 #include "GAFSprite.h"
 
 #define  kGAFStencilMaskAlphaFilterProgramCacheKey "kGAFScrollLayerAlphaFilterProgramCacheKey"
@@ -17,14 +14,14 @@ class GAFStencilMaskSprite : public GAFSprite
 private:
     struct StencilState
     {
-        GLboolean currentStencilEnabled;
-        GLuint currentStencilWriteMask;
-        GLenum currentStencilFunc;
-        GLint currentStencilRef;
-        GLuint currentStencilValueMask;
-        GLenum currentStencilFail;
-        GLenum currentStencilPassDepthFail;
-        GLenum currentStencilPassDepthPass;
+        GLboolean   currentStencilEnabled;
+        GLuint      currentStencilWriteMask;
+        GLenum      currentStencilFunc;
+        GLint       currentStencilRef;
+        GLuint      currentStencilValueMask;
+        GLenum      currentStencilFail;
+        GLenum      currentStencilPassDepthFail;
+        GLenum      currentStencilPassDepthPass;
     } m_stencilState;
 
 public:
@@ -40,21 +37,20 @@ public:
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
     virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
 #endif
-
-    void invalidateMaskedObjectsOrder();
-
-    static void updateMaskContainerOf(cocos2d::Node * node);
-
+    
     void addMaskedObject(cocos2d::Node * anObject);
     void removeMaskedObject(cocos2d::Node * anObject);
     void updateStencilLayer(int newLayer);
-protected:
-    void sortAllMaskedObjects();
-private:
-    int       m_stencilLayer;
-    cocos2d::__Array * _maskedObjects;
-    bool     _isReorderMaskedObjectsDirty;
-    void     _disableStencil();
-};
 
-#endif // __GAF_STENCIL_MASK_SPRITE__
+protected:
+    void beginStencil(cocos2d::Mat4& transform);
+    void endStencil();
+
+private:
+    void                    _disableStencil();
+    int                     m_stencilLayer;
+
+    cocos2d::GroupCommand   m_group;
+    cocos2d::CustomCommand  m_customCommand2;
+    cocos2d::__Array*       m_maskedObjects;
+};

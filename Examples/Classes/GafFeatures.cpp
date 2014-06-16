@@ -180,7 +180,7 @@ bool GafFeatures::init()
     float dp = 0.13f;
 
     using namespace std::placeholders;
-
+    
     cocos2d::Vector<cocos2d::MenuItem*> items;
     items.pushBack(addBtn("Play/Pause"    , 0.95f, 0.95f,            std::bind(&GafFeatures::playpause, this, _1), s, BtnEmpty).first);
     items.pushBack(addBtn("Restart"       , 0.95f, 0.95f - dp,       std::bind(&GafFeatures::restart, this, _1), s, BtnEmpty).first);
@@ -212,13 +212,12 @@ bool GafFeatures::init()
     pMenu->setPosition(cocos2d::Point::ZERO);
 
     addChild(pMenu, 10000);
-
+    
     m_anim_index = 0;
     
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
     m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
-    m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("fairy2/fairy2.gaf");
     m_files.push_back("firemen/firemen.gaf");
     m_files.push_back("impiretank_05_oneplace/impiretank_05_oneplace.gaf");

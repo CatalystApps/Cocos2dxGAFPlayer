@@ -8,15 +8,17 @@
 #include "GAFFilterData.h"
 #include "GAFFilterManager.h"
 
+#include "../external/xxhash/xxhash.h"
+
+USING_NS_CC;
+
 #define CHECK_CTX_IDENTITY 0
 
-static int colorTransformLocation = -1;
+static int colorTransformMultLocation = -1;
+static int colorTransformOffsetLocation = -1;
 static int fragmentAlphaLocation = -1;
 static int colorMatrixLocation   = -1;
 static int colorMatrixLocation2  = -1;
-
-static const char * kAlphaFragmentShaderFilename = "pcShader_PositionTextureAlpha_frag.fs";
-static const char * kAlphaFragmentShaderFilename_noCTX = "pcShader_PositionTextureAlpha_frag_noCTX.fs";
 
 static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
 static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
@@ -26,17 +28,8 @@ GAFSpriteWithAlpha::GAFSpriteWithAlpha()
 m_initialTexture(NULL),
 m_colorMatrixFilterData(NULL),
 m_glowFilterData(NULL),
-m_blurFilterData(NULL),
-m_filter(NULL)
+m_blurFilterData(NULL)
 {
-    memset(m_colorMatrixIdentity1, 0, sizeof(float)* 16);
-
-    m_colorMatrixIdentity1[0] = 1.f;
-    m_colorMatrixIdentity1[5] = 1.f;
-    m_colorMatrixIdentity1[10] = 1.f;
-    m_colorMatrixIdentity1[15] = 1.f;
-
-    memset(m_colorMatrixIdentity2, 0, sizeof(float)* 4);
 }
 
 GAFSpriteWithAlpha::~GAFSpriteWithAlpha()
@@ -51,13 +44,10 @@ bool GAFSpriteWithAlpha::initWithTexture(cocos2d::Texture2D *pTexture, const coc
         m_initialTexture = pTexture;
         m_initialTexture->retain();
         m_initialTextureRect = rect;
-        for (int i = 0; i < 4; ++i)
-        {
-            m_colorTransform[i] = 1.0f;
-            m_colorTransform[i + 4] = 0;
-        }
+        m_colorTransformMult = cocos2d::Vec4::ONE;
+        m_colorTransformOffsets = cocos2d::Vec4::ZERO;
         _setBlendingFunc();
-        setGLProgram(programForShader());
+        setGLProgramState(GLProgramState::create(programForShader()));
         return true;
     }
     else
@@ -74,7 +64,15 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader()
     const bool isCTXidt = false;
 #endif
 
-    cocos2d::GLProgram* program = cocos2d::ShaderCache::getInstance()->getGLProgram(isCTXidt ? kGAFSpriteWithAlphaShaderProgramCache_noCTX : kGAFSpriteWithAlphaShaderProgramCacheKey);
+    cocos2d::GLProgram* program = nullptr;
+    if (isCTXidt)
+    {
+        program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCache_noCTX);
+    }
+    else
+    {
+        program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCacheKey);
+    }
 
     if (!program)
     {
@@ -110,7 +108,14 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader()
             program->link();
             program->updateUniforms();
             CHECK_GL_ERROR_DEBUG();
-            cocos2d::ShaderCache::getInstance()->addGLProgram(program, isCTXidt ? kGAFSpriteWithAlphaShaderProgramCache_noCTX : kGAFSpriteWithAlphaShaderProgramCacheKey);
+            if (isCTXidt)
+            {
+                cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFSpriteWithAlphaShaderProgramCache_noCTX);
+            }
+            else
+            {
+                cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFSpriteWithAlphaShaderProgramCacheKey);
+            }
         }
         else
         {
@@ -121,46 +126,14 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader()
 
         CHECK_GL_ERROR_DEBUG();
 #endif
+        program->use();
+        colorTransformMultLocation = glGetUniformLocation(program->getProgram(), "colorTransformMult");
+        colorTransformOffsetLocation = glGetUniformLocation(program->getProgram(), "colorTransformOffsets");
+        colorMatrixLocation = glGetUniformLocation(program->getProgram(), "colorMatrix");
+        colorMatrixLocation2 = glGetUniformLocation(program->getProgram(), "colorMatrix2");
+        fragmentAlphaLocation = glGetUniformLocation(program->getProgram(), "fragmentAlpha");
     }
-    program->use();
-
-    colorTransformLocation = glGetUniformLocation(program->getProgram(), "colorTransform");
-    colorMatrixLocation = glGetUniformLocation(program->getProgram(), "colorMatrix");
-    colorMatrixLocation2 = glGetUniformLocation(program->getProgram(), "colorMatrix2");
-    fragmentAlphaLocation = glGetUniformLocation(program->getProgram(), "fragmentAlpha");
-
     return program;
-}
-
-cocos2d::RenderTexture* GAFSpriteWithAlpha::_test()
-{
-    //m_filter = cocos2d::RenderTexture::create(m_initialTextureRect.size.width, m_initialTextureRect.size.height);
-
-    auto s = cocos2d::Director::getInstance()->getWinSize();
-    cocos2d::Vect center = cocos2d::Vect(s.width / 2, s.height / 2);
-
-    auto spr_nonpremulti = cocos2d::Sprite::createWithTexture(m_initialTexture, m_initialTextureRect);
-
-    spr_nonpremulti->setPosition(center);
-    m_filter->setPosition(center);
-
-    //m_filter->setKeepMatrix(true);
-    cocos2d::Size pixelSize = cocos2d::Director::getInstance()->getWinSizeInPixels();
-
-    m_filter->setVirtualViewport(cocos2d::Vect(s.width / 2 - 184 / 2, s.height / 2 - 203 / 2),
-        cocos2d::Rect(0, 0, s.width, s.height), cocos2d::Rect(0, 0, pixelSize.width, pixelSize.height));
-
-    m_filter->begin();
-    cocos2d::Mat4 mat;
-    spr_nonpremulti->visit(cocos2d::Director::getInstance()->getRenderer(), mat, true);
-    m_filter->end();
-
-    setTexture(m_filter->getSprite()->getTexture());
-    setFlippedY(true);
-    cocos2d::Rect texureRect = cocos2d::Rect(0, 0, m_filter->getSprite()->getContentSize().width, m_filter->getSprite()->getContentSize().height);
-    setTextureRect(texureRect, false, texureRect.size);
-
-    return m_filter;
 }
 
 void GAFSpriteWithAlpha::updateTextureWithEffects()
@@ -194,42 +167,94 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
     }
 }
 
-void GAFSpriteWithAlpha::setUniformsForFragmentShader()
+uint32_t GAFSpriteWithAlpha::setUniforms()
 {
-    setGLProgram(programForShader());
-
-    if (colorTransformLocation > -1)
+#define ENABLE_NEW_UNIFORM_SETTER 0
+    struct Hash
     {
-        glUniform4fv(colorTransformLocation, 2, m_colorTransform);
-    }
-    else if (fragmentAlphaLocation > -1)
+        int       program;
+        uint32_t  texture;
+        BlendFunc blend;
+        decltype(m_colorTransformMult)      a;
+        decltype(m_colorTransformOffsets)   b;
+        decltype(m_colorTransformMult.w)    c;
+        Mat4    d;
+        Vec4    e;
+        Mat4    f;
+        Vec4    g;
+    };
+
+    GLProgramState* state = getGLProgramState();
+
+    Hash hash;
+    memset(&hash, 0, sizeof(Hash));
+
+    hash.program = getGLProgram()->getProgram();
+    hash.texture = _texture->getName();
+    hash.blend = _blendFunc;
+    
+    bool usingColorTransform = (colorTransformMultLocation > -1) && (colorTransformOffsetLocation > -1);
+    bool usingFragmentAlpha = (!usingColorTransform) && (fragmentAlphaLocation > -1);
+    bool usingColorMatrix = (colorMatrixLocation > -1 && colorMatrixLocation2 > -1);
+    bool usingColorMatrixWithFilter = usingColorMatrix && m_colorMatrixFilterData;
+    usingColorMatrix = usingColorMatrix && !m_colorMatrixFilterData;
+
+    if (usingColorTransform)
     {
-        glUniform1f(fragmentAlphaLocation, m_colorTransform[GAFCTI_A]);
+#if ENABLE_NEW_UNIFORM_SETTER
+        state->setUniformVec4(colorTransformMultLocation, m_colorTransformMult);
+        state->setUniformVec4(colorTransformOffsetLocation, m_colorTransformOffsets);
+#else
+        state->setUniformVec4("colorTransformMult", m_colorTransformMult);
+        state->setUniformVec4("colorTransformOffsets", m_colorTransformOffsets);
+#endif
+        hash.a = m_colorTransformMult;
+        hash.b = m_colorTransformOffsets;
+    }
+    
+    if (usingFragmentAlpha)
+    {
+#if ENABLE_NEW_UNIFORM_SETTER
+        state->setUniformFloat(fragmentAlphaLocation, m_colorTransformMult.w);
+#else
+        state->setUniformFloat("fragmentAlpha", m_colorTransformMult.w);
+#endif
+        hash.c = m_colorTransformMult.w;
     }
 
-
-    if (colorMatrixLocation > -1 && colorMatrixLocation2 > -1)
+    if (usingColorMatrix)
     {
-        if (!m_colorMatrixFilterData)
-        {
-            glUniformMatrix4fv(colorMatrixLocation, 1, false, m_colorMatrixIdentity1);
-            glUniform4fv(colorMatrixLocation2, 1, m_colorMatrixIdentity2);
-        }
-        else
-        {
-            glUniformMatrix4fv(colorMatrixLocation, 1, false, m_colorMatrixFilterData->matrix);
-            glUniform4fv(colorMatrixLocation2, 1, m_colorMatrixFilterData->matrix2);
-        }
+#if ENABLE_NEW_UNIFORM_SETTER
+        state->setUniformMat4(colorMatrixLocation, m_colorMatrixIdentity1);
+        state->setUniformVec4(colorMatrixLocation2, m_colorMatrixIdentity2);
+#else
+        state->setUniformMat4("colorMatrix", m_colorMatrixIdentity1);
+        state->setUniformVec4("colorMatrix2", m_colorMatrixIdentity2);
+#endif
+        hash.d = m_colorMatrixIdentity1;
+        hash.e = m_colorMatrixIdentity2;
     }
+
+    if (usingColorMatrixWithFilter)
+    {
+#if ENABLE_NEW_UNIFORM_SETTER
+        state->setUniformMat4(colorMatrixLocation, Mat4(m_colorMatrixFilterData->matrix));
+        state->setUniformVec4(colorMatrixLocation2, Vec4(m_colorMatrixFilterData->matrix2));
+#else
+        state->setUniformMat4("colorMatrix", Mat4(m_colorMatrixFilterData->matrix));
+        state->setUniformVec4("colorMatrix2", Vec4(m_colorMatrixFilterData->matrix2));
+#endif
+        hash.f = Mat4(m_colorMatrixFilterData->matrix);
+        hash.g = Vec4(m_colorMatrixFilterData->matrix2);
+    }
+
+    return XXH32((void*)&hash, sizeof(Hash), 0);
 }
 
 void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat * offsets)
 {
-    for (int i = 0; i < 4; ++i)
-    {
-        m_colorTransform[i] = mults[i];
-        m_colorTransform[i + 4] = offsets[i];
-    }
+    m_colorTransformMult = Vec4(mults);
+    m_colorTransformOffsets = Vec4(offsets);
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
     setShaderProgram(programForShader());
@@ -238,10 +263,9 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat 
 
 void GAFSpriteWithAlpha::setColorTransform(const GLfloat * colorTransform)
 {
-    for (int i = 0; i < 8; ++i)
-    {
-        m_colorTransform[i] = colorTransform[i];
-    }
+    m_colorTransformMult = Vec4(colorTransform);
+    m_colorTransformOffsets = Vec4(&colorTransform[4]);
+
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
     setShaderProgram(programForShader());
@@ -276,11 +300,6 @@ void GAFSpriteWithAlpha::setBlurFilterData( GAFBlurFilterData* data )
     }
 }
 
-const GLfloat * GAFSpriteWithAlpha::getColorTransform() const
-{
-    return m_colorTransform;
-}
-
 cocos2d::Texture2D* GAFSpriteWithAlpha::getInitialTexture() const
 {
     return m_initialTexture;
@@ -293,22 +312,16 @@ const cocos2d::Rect& GAFSpriteWithAlpha::getInitialTextureRect() const
 
 bool GAFSpriteWithAlpha::isCTXIdentity() const
 {
-    for (int i = 0; i < 4; ++i)
+    if (m_colorTransformMult != cocos2d::Vec4::ONE)
     {
-        if (m_colorTransform[i] != 1.0f)
-        {
-            return false;
-        }
-
-        if (m_colorTransform[i + 4] != 0)
-        {
-            return false;
-        }
+        return false;
     }
-
+    if (m_colorTransformOffsets != cocos2d::Vec4::ZERO)
+    {
+        return false;
+    }
     return true;
 }
-
 
 #if 0 // CC_ENABLE_CACHE_TEXTURE_DATA
 void _GAFreloadAlphaShader()

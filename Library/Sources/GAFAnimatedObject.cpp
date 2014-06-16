@@ -580,7 +580,6 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                         if (subObject->getLocalZOrder() != state->zIndex)
                         {
                             subObject->setLocalZOrder(state->zIndex);
-                            GAFStencilMaskSprite::updateMaskContainerOf(subObject);
                         }
                         subObject->setVisible(state->isVisible());
                         subObject->setColorTransform(state->colorMults(), state->colorOffsets());
@@ -601,7 +600,6 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                         if (mask->getLocalZOrder() != state->zIndex)
                         {
                             mask->setLocalZOrder(state->zIndex);
-                            GAFStencilMaskSprite::updateMaskContainerOf(subObject);
                         }
                     }
                 }

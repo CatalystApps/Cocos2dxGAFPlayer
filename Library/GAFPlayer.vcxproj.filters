@@ -96,6 +96,9 @@
     <ClCompile Include="Sources\GAFCachedTexture.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GAFQuadCommand.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimatedObject.h">
@@ -204,6 +207,9 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFCachedTexture.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFQuadCommand.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
