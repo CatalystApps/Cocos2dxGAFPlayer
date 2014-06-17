@@ -315,7 +315,7 @@ CCGLProgram * GAFStencilMaskSprite::programShaderForMask()
         CHECK_GL_ERROR_DEBUG();
         CCShaderCache::sharedShaderCache()->addProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
 #else
-        program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename);
+        program = GAFShaderManager::getInstance()->createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename);
         if (program)
         {
             program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
@@ -343,8 +343,7 @@ void GAFStencilMaskSprite::updateStencilLayer( int newLayer )
     m_stencilLayer = newLayer;
 }
 
-#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
-void _GAFreloadStencilShader()
+void GAFStencilMaskSprite::reset()
 {
     CCGLProgram * program = CCShaderCache::sharedShaderCache()->programForKey(kGAFStencilMaskAlphaFilterProgramCacheKey);
 
@@ -352,8 +351,10 @@ void _GAFreloadStencilShader()
     {
         return;
     }
+
     program->reset();
-    program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename, program);
+    program = GAFShaderManager::getInstance()->createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename, program);
+
     if (program)
     {
         program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
@@ -369,4 +370,3 @@ void _GAFreloadStencilShader()
         CCAssert(false, "Can not RELOAD programShaderForMask");
     }
 }
-#endif

@@ -2,6 +2,10 @@
 #include "GAFShaderManager.h"
 #include "GAFData.h"
 
+#include "GAFSpriteWithAlpha.h"
+#include "GAFStencilMaskSprite.h"
+
+GAFShaderManager* GAFShaderManager::m_instance = NULL;
 
 CCGLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, CCGLProgram * p)
 {
@@ -55,4 +59,21 @@ CCGLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSo
 void GAFShaderManager::handleEnterBackground()
 {
     // Stub yet
+}
+
+void GAFShaderManager::handleEnterForeground()
+{
+
+    GAFSpriteWithAlpha::reset();
+    GAFStencilMaskSprite::reset();
+}
+
+GAFShaderManager* GAFShaderManager::getInstance()
+{
+    if (!m_instance)
+    {
+        m_instance = new GAFShaderManager();
+    }
+
+    return m_instance;
 }

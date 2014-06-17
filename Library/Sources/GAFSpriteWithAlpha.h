@@ -46,6 +46,9 @@ public:
     const CCRect&   getInitialTextureRect() const;
     
     bool            isCTXIdentity() const;
+
+    static void     reset();
+
 protected:
     void updateTextureWithEffects();
 
