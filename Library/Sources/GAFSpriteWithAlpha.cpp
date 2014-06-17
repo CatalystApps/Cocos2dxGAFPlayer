@@ -169,7 +169,9 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
 
 uint32_t GAFSpriteWithAlpha::setUniforms()
 {
+#ifndef ENABLE_NEW_UNIFORM_SETTER
 #define ENABLE_NEW_UNIFORM_SETTER 0
+#endif
     struct Hash
     {
         int       program;
