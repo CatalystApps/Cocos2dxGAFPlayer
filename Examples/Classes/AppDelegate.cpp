@@ -78,7 +78,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     CCDirector::sharedDirector()->stopAnimation();
-    GAFShaderManager::handleEnterBackground();
 }
 
 void AppDelegate::applicationWillEnterForeground()
