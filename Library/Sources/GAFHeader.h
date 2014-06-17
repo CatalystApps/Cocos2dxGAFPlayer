@@ -12,10 +12,27 @@ public:
     };
 
 public:
+    // Common
     Compression     compression;
     unsigned short  version;
     unsigned int    fileLenght;
+
+    // Version 3
     unsigned short  framesCount;
     cocos2d::Rect   frameSize;
     cocos2d::Vect   pivot;
+	
+    // Version 4
+    std::vector<float>          scaleValues;
+    std::vector<float>          csfValues;
+
+    inline unsigned char getMajorVersion() const
+    {
+        return version & 0x00FF;
+    }
+
+    inline unsigned char getMinorVersion() const
+    {
+        return version >> 1;
+    }
 };

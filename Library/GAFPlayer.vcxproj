@@ -36,12 +36,14 @@
     <ClCompile Include="Sources\GAFTextureAtlasElement.cpp" />
     <ClCompile Include="Sources\PrimitiveDeserializer.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationFrames.cpp" />
+    <ClCompile Include="Sources\TagDefineAnimationFrames2.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationMasks.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationObjects.cpp" />
     <ClCompile Include="Sources\TagDefineAtlas.cpp" />
     <ClCompile Include="Sources\TagDefineNamedParts.cpp" />
     <ClCompile Include="Sources\TagDefineSequences.cpp" />
     <ClCompile Include="Sources\TagDefineStage.cpp" />
+    <ClCompile Include="Sources\TagDefineTimeline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GAFPrecompiled.h" />
@@ -74,6 +76,7 @@
     <ClInclude Include="Sources\ShadersPrecompiled\kGAFScrollLayerAlphaFilterProgramCacheKey.h" />
     <ClInclude Include="Sources\ShadersPrecompiled\kGAFSpriteWithAlphaShaderProgramCache.h" />
     <ClInclude Include="Sources\TagDefineAnimationFrames.h" />
+    <ClInclude Include="Sources\TagDefineAnimationFrames2.h" />
     <ClInclude Include="Sources\TagDefineAnimationMasks.h" />
     <ClInclude Include="Sources\TagDefineAnimationObjects.h" />
     <ClInclude Include="Sources\TagDefineAtlas.h" />
@@ -81,6 +84,7 @@
     <ClInclude Include="Sources\TagDefines.h" />
     <ClInclude Include="Sources\TagDefineSequences.h" />
     <ClInclude Include="Sources\TagDefineStage.h" />
+    <ClInclude Include="Sources\TagDefineTimeline.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4E240210-2D26-4D4C-9329-E912FDAC94CC}</ProjectGuid>

@@ -113,8 +113,6 @@ public:
     //! 0 means all masked pixels will be marked as 1 and so on
     int  getStencilLayer() const;
 
-    //! Experimental feature, will work only for single textured objects without masks. Still glitches, required to be enabled manually
-    void enableBatching(bool value);
 
     int getFps() const;
 

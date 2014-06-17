@@ -1,6 +1,7 @@
 #include "GAFPrecompiled.h"
 #include "TagDefineAnimationObjects.h"
 
+#include "GAFFile.h"
 #include "GAFStream.h"
 #include "GAFAsset.h"
 
@@ -14,5 +15,10 @@ void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* ctx)
         unsigned int elementAtlasIdRef = in->readU32();
 
         ctx->pushAnimationObjects(objectId, elementAtlasIdRef);
+
+        if (in->getInput()->getHeader().getMajorVersion() >= 4)
+        {
+            unsigned short objType = in->readU16();
+        }
     }
 }

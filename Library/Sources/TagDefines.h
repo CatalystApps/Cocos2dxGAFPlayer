@@ -11,7 +11,13 @@ struct Tags
         TagDefineAnimationFrames = 4,
         TagDefineNamedParts = 5,
         TagDefineSequences = 6,
+        TagDefineTextFields = 7,
+        TagDefineAtlas2 = 8,
         TagDefineStage = 9,
+        TagDefineAnimationObjects2 = 10,
+        TagDefineAnimationMasks2 = 11,
+        TagDefineAnimationFrames2 = 12,
+        TagDefineTimeline = 13
     };
 
     static std::string toString(Enum e)
@@ -20,31 +26,48 @@ struct Tags
         {
         case Tags::TagEnd:
             return "TagEnd";
-            break;
+
         case Tags::TagDefineAtlas:
             return "TagDefineAtlas";
-            break;
+
         case Tags::TagDefineAnimationMasks:
             return "TagDefineAnimationMasks";
-            break;
+
         case Tags::TagDefineAnimationObjects:
             return "TagDefineAnimationObjects";
-            break;
+
         case Tags::TagDefineAnimationFrames:
             return "TagDefineAnimationFrames";
-            break;
+
         case Tags::TagDefineNamedParts:
             return "TagDefineNamedParts";
-            break;
+
         case Tags::TagDefineSequences:
             return "TagDefineSequences";
-            break;
+
         case Tags::TagDefineStage:
             return "TagDefineStage";
-            break;
+
+        case Tags::TagDefineAtlas2:
+            return "TagDefineAtlas2";
+
+        case Tags::TagDefineTimeline:
+            return "TagDefineTimeline";
+
+        case Tags::TagDefineTextFields:
+            return "TagDefineTextFields";
+
+        case Tags::TagDefineAnimationMasks2:
+            return "TagDefineAnimationMasks2";
+
+        case Tags::TagDefineAnimationObjects2:
+            return "TagDefineAnimationObjects2";
+
+        case Tags::TagDefineAnimationFrames2:
+            return "TagDefineAnimationFrames2";
+
         default:
-            return "";
-            assert(false);
+            return "This tag is not yet implemented";
         }
     }
 };

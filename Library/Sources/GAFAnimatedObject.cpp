@@ -742,26 +742,6 @@ int GAFAnimatedObject::getStencilLayer() const
     return m_stencilLayer;
 }
 
-void GAFAnimatedObject::enableBatching(bool value)
-{
-    if (value && !m_batch)
-    {
-        GAFTextureAtlas* atlas = _asset->textureAtlas();
-
-        if (atlas->textures()->count() == 1 && _asset->getAnimationMasks().empty())
-        {
-            cocos2d::Texture2D * texture = (cocos2d::Texture2D *)atlas->textures()->getObjectAtIndex(0);
-            m_batch = cocos2d::SpriteBatchNode::createWithTexture(texture, _asset->getAnimationObjects().size());
-            assert(m_batch);
-            m_batch->retain();
-            addChild(m_batch);
-        }
-    }
-    else if (!value && m_batch)
-    {
-        m_batch->removeFromParent();
-    }
-}
 
 void GAFAnimatedObject::_updateStencilLayer(int newLayer)
 {
