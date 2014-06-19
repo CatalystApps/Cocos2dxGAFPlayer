@@ -99,6 +99,9 @@ bool GAFAnimatedObject::init(GAFAsset * anAsset)
         _asset = anAsset;
         CC_SAFE_RETAIN(_asset);
     }
+    cocos2d::Rect size = _asset->getHeader().frameSize;
+
+    setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
 
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
