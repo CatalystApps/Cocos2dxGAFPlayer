@@ -33,7 +33,9 @@ Sources/TagDefineAnimationObjects.cpp \
 Sources/TagDefineAtlas.cpp \
 Sources/TagDefineNamedParts.cpp \
 Sources/TagDefineSequences.cpp \
-Sources/TagDefineStage.cpp
+Sources/TagDefineStage.cpp \
+Sources/TagDefineAnimationFrames2.cpp\
+Sources/TagDefineTimeline.cpp
 
 LOCAL_C_INCLUDES := \
 $(LOCAL_PATH)/../../../cocos \
