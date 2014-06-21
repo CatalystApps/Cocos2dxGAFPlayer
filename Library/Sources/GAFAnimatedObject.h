@@ -47,14 +47,13 @@ private:
     GAFFramePlayedDelegate * _framePlayedDelegate;
     GAFAnimatedObjectControlDelegate * _controlDelegate;
 
-    cocos2d::SpriteBatchNode* m_batch;
-
     int numberOfGlobalFramesForOneAnimationFrame();
     int _extraFramesCounter;
     PCAnimationFPSType _FPSType; // Obsolete. Will be removed
     int m_fps;
 
     void _updateStencilLayer(int newLayer);
+    void _constructObject();
 public:
     ~GAFAnimatedObject();
     static GAFAnimatedObject * create(GAFAsset * anAsset);

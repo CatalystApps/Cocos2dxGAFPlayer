@@ -20,9 +20,6 @@ static int fragmentAlphaLocation = -1;
 static int colorMatrixLocation   = -1;
 static int colorMatrixLocation2  = -1;
 
-static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
-static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
-
 GAFSpriteWithAlpha::GAFSpriteWithAlpha()
 :
 m_initialTexture(NULL),
@@ -56,7 +53,7 @@ bool GAFSpriteWithAlpha::initWithTexture(cocos2d::Texture2D *pTexture, const coc
     }
 }
 
-cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader()
+cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
 {
 #if CHECK_CTX_IDENTITY
     const bool isCTXidt = isCTXIdentity();
@@ -74,7 +71,12 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader()
         program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCacheKey);
     }
 
-    if (!program)
+    if (program && reset)
+    {
+        program->reset();
+    }
+    
+    if (!program || reset)
     {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT && !defined(_DEBUG))
 #include "ShadersPrecompiled/GAFPrecompiledShaders.h"
@@ -105,8 +107,8 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader()
             program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
             program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
             program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-            program->link();
-            program->updateUniforms();
+            //program->link();
+            //program->updateUniforms();
             CHECK_GL_ERROR_DEBUG();
             if (isCTXidt)
             {

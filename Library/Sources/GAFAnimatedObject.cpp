@@ -49,9 +49,36 @@ _asset(NULL),
 _extraFramesCounter(0),
 _framePlayedDelegate(NULL),
 _controlDelegate(NULL),
-m_stencilLayer(-1),
-m_batch(NULL)
+m_stencilLayer(-1)
 {
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+    
+    static bool invalidateGLPrograms = false;
+    
+    auto listenerFG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_FOREGROUND, [this](cocos2d::EventCustom* event)
+    {
+        if (invalidateGLPrograms)
+        {
+            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCache_noCTX);
+            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCacheKey);
+            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFStencilMaskAlphaFilterProgramCacheKey);
+        
+            invalidateGLPrograms = false;
+        }
+        
+        this->removeAllChildrenWithCleanup(true);
+        this->_constructObject();
+    });
+    
+    auto listenerBG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_BACKGROUND, [this](cocos2d::EventCustom* event)
+    {
+        invalidateGLPrograms = true;
+    });
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerFG, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerBG, this);
+
+#endif
 }
 
 GAFAnimatedObject::~GAFAnimatedObject()
@@ -99,21 +126,28 @@ bool GAFAnimatedObject::init(GAFAsset * anAsset)
         _asset = anAsset;
         CC_SAFE_RETAIN(_asset);
     }
-    cocos2d::Rect size = _asset->getHeader().frameSize;
-
-    setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
-
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
-
-    _FPSType = kGAFAnimationFPSType_60;
-    m_fps = anAsset->getSceneFps();
-    _extraFramesCounter = 0;
-    _animationsSelectorScheduled = false;
-
-    instantiateObject(_asset->getAnimationObjects(), _asset->getAnimationMasks());
+    
+    _constructObject();
 
     return true;
+}
+
+void GAFAnimatedObject::_constructObject()
+{
+    cocos2d::Rect size = _asset->getHeader().frameSize;
+    
+    setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
+    
+    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
+    
+    _FPSType = kGAFAnimationFPSType_60;
+    m_fps = _asset->getSceneFps();
+    _extraFramesCounter = 0;
+    _animationsSelectorScheduled = false;
+    
+    instantiateObject(_asset->getAnimationObjects(), _asset->getAnimationMasks());
+
 }
 
 unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
@@ -641,14 +675,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
 
 void GAFAnimatedObject::processAnimation()
 {
-    cocos2d::Node* baseParent = this;
-
-    if (m_batch)
-    {
-        baseParent = m_batch;
-    }
-
-    realizeFrame(baseParent, _currentFrameIndex);
+    realizeFrame(this, _currentFrameIndex);
 }
 
 void GAFAnimatedObject::setFramePlayedDelegate(GAFFramePlayedDelegate * delegate)

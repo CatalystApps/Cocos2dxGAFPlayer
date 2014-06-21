@@ -291,7 +291,7 @@ cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
     {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT && !defined(_DEBUG))
 #include "ShadersPrecompiled/GAFPrecompiledShaders.h"
-        program = new cocos2d::GLProgram();();
+        program = new cocos2d::GLProgram();
         program->autorelease();
         program->initWithPrecompiledProgramByteArray((const GLchar*)kGAFScrollLayerAlphaFilterProgramCacheKey,
             sizeof(kGAFScrollLayerAlphaFilterProgramCacheKey));

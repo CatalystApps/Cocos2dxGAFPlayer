@@ -2,7 +2,7 @@
 
 #include "GAFSprite.h"
 
-#define  kGAFStencilMaskAlphaFilterProgramCacheKey "kGAFScrollLayerAlphaFilterProgramCacheKey"
+static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
 
 namespace cocos2d
 {

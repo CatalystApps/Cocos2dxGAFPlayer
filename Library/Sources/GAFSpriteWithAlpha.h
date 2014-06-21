@@ -5,6 +5,9 @@
 
 #include "GAFSprite.h"
 
+static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
+static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
+
 class GAFColorColorMatrixFilterData;
 class GAFGlowFilterData;
 class GAFBlurFilterData;
@@ -24,13 +27,13 @@ private:
     GAFBlurFilterData*              m_blurFilterData;
     cocos2d::Texture2D *            m_initialTexture;
     cocos2d::Rect                   m_initialTextureRect;
-
+    
 public:
     GAFSpriteWithAlpha();
     ~GAFSpriteWithAlpha();
     virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
 
-    cocos2d::GLProgram * programForShader();
+    cocos2d::GLProgram * programForShader(bool reset = false);
 
     void setColorTransform(const GLfloat * mults, const GLfloat * offsets);
     void setColorTransform(const GLfloat * colorTransform);

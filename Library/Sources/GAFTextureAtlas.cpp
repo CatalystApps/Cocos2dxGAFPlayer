@@ -3,8 +3,8 @@
 #include "GAFTextureAtlasElement.h"
 #include "GAFAsset.h"
 
-#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
-#include "textures/CCTextureCache.h"
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+#include "renderer/CCTextureCache.h"
 #endif
 
 GAFTextureAtlas::GAFTextureAtlas()
@@ -130,8 +130,8 @@ cocos2d::__Array * GAFTextureAtlas::textures()
             cocos2d::Image * image = (cocos2d::Image*)_images->getObjectAtIndex(i);
             texture->initWithImage(image);
             _textures->addObject(texture);
-#if 0
-            VolatileTexture::addCCImage(texture, image);
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+            cocos2d::VolatileTextureMgr::addImage(texture, image);
 #endif
             texture->release();
         }
