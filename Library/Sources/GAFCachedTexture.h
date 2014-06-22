@@ -17,9 +17,9 @@ public:
     size_t memoryUsed() const { return m_memoryUsed; }
 private:
     cocos2d::
-    Texture2D*      m_texture = nullptr;
-    time_t          m_lastUsed = 0;
-    time_t          m_created = 0;
-    unsigned int    m_timesUsed = 1;
-    size_t          m_memoryUsed = 0;
+    Texture2D*      m_texture;
+    time_t          m_lastUsed;
+    time_t          m_created;
+    unsigned int    m_timesUsed;
+    size_t          m_memoryUsed;
 };

@@ -4,7 +4,9 @@
 using namespace cocos2d;
 using namespace std;
 
-#ifdef WIN32
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 using cocos2d::gettimeofday;
 #endif
 
@@ -19,6 +21,10 @@ cocos2d::Texture2D* GAFCachedTexture::operator *()
 
 GAFCachedTexture::GAFCachedTexture(Texture2D* tex)
 : m_texture(tex)
+, m_lastUsed(0)
+, m_created(0)
+, m_timesUsed(1)
+, m_memoryUsed(0)
 {
     m_memoryUsed = tex->getBitsPerPixelForFormat() / 8 *
         static_cast<size_t>(tex->getContentSizeInPixels().width * tex->getContentSizeInPixels().height);
