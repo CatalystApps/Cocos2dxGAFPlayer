@@ -13,7 +13,7 @@
 #define ENABLE_RUNTIME_FILTERS 1
 
 // Detect whether it is Visual Studio 2010 or lower
-#if defined(_MSC_VER) && _MSC_VER < 1700 
+#if (defined(_MSC_VER) && _MSC_VER < 1700) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 // If so, implement roundf manually
 static inline float roundf(float x)
     {

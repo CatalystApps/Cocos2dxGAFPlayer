@@ -64,11 +64,11 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
     cocos2d::GLProgram* program = nullptr;
     if (isCTXidt)
     {
-        program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCache_noCTX);
+        program = cocos2d::GLProgramCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCache_noCTX);
     }
     else
     {
-        program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCacheKey);
+        program = cocos2d::GLProgramCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCacheKey);
     }
 
     if (program && reset)
@@ -80,16 +80,14 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
     {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT && !defined(_DEBUG))
 #include "ShadersPrecompiled/GAFPrecompiledShaders.h"
-        program = new cocos2d::GLProgram();
-        program->autorelease();
-        program->initWithPrecompiledProgramByteArray((const GLchar*)kGAFSpriteWithAlphaShaderProgramCache,
-            sizeof(kGAFSpriteWithAlphaShaderProgramCache));
-        program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
-        program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
-        program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
+        //program = cocos2d::GLProgram::addP;
+        program = cocos2d::GLProgram::createWithPrecompiledProgramByteArray(kGAFScrollLayerAlphaFilterProgramCacheKey, kGAFScrollLayerAlphaFilterProgramCacheKey);
+        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
+        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
+        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
         program->updateUniforms();
         CHECK_GL_ERROR_DEBUG();
-        CCShaderCache::sharedShaderCache()->addProgram(program, kGAFSpriteWithAlphaShaderProgramCacheKey);
+        cocos2d::GLProgramCache::getInstance()-> addGLProgram(program, kGAFSpriteWithAlphaShaderProgramCacheKey);
 #else
         const char* fragmentShader = nullptr;
         if (isCTXidt)
