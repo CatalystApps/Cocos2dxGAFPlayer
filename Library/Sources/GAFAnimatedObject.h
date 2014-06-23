@@ -39,6 +39,10 @@ private:
 
     SubObjects_t m_subObjects;
     SubObjects_t m_masks;
+    
+    typedef std::list<GAFSprite*> SubObjectsList_t;
+    
+    SubObjectsList_t m_visibleObjects;
 
     int         m_stencilLayer;
 

@@ -4,6 +4,7 @@
 
 #define USE_LAYERED_STENCIL 0
 
+#if 0 // for manual comparsion
 static bool compare_stencil_sprites(const void* p1, const void* p2)
 {
     GAFSprite* sp1 = (GAFSprite*)p1;
@@ -11,6 +12,7 @@ static bool compare_stencil_sprites(const void* p1, const void* p2)
 
     return sp1->getLocalZOrder() < sp2->getLocalZOrder();
 }
+#endif
 
 GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
@@ -102,7 +104,7 @@ void GAFStencilMaskSprite::beginStencil(cocos2d::Mat4& transform)
     glEnable(GL_STENCIL_TEST);
     glClear(GL_STENCIL_BUFFER_BIT);
 
-    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_TRUE);
     glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
     glStencilFunc(GL_ALWAYS, 1, 1);
 

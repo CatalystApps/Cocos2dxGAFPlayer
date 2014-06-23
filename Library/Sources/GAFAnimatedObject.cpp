@@ -9,7 +9,7 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFFilterData.h"
 
-// Still is under developing
+// Still is under development
 #define ENABLE_RUNTIME_FILTERS 1
 
 // Detect whether it is Visual Studio 2010 or lower
@@ -505,7 +505,13 @@ cocos2d::Sprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextu
 void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
 {
     GAFAnimationFrame *currentFrame = _asset->getAnimationFrames()[frameIndex];
-    setSubobjectsVisible(false);
+
+    for (SubObjectsList_t::iterator i = m_visibleObjects.begin(), e = m_visibleObjects.end(); i != e; ++i)
+    {
+        (*i)->setVisible(false);
+    }
+    
+    m_visibleObjects.clear();
     
     const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
     {
@@ -614,11 +620,14 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                         stateTransform.ty *= csf;
                         cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
                         subObject->setExternaTransform(t);
-                        if (subObject->getLocalZOrder() != state->zIndex)
+
+                        if (subObject->getGlobalZOrder() != (float)state->zIndex)
                         {
-                            subObject->setLocalZOrder(state->zIndex);
+                            subObject->setGlobalZOrder(state->zIndex);
                         }
                         subObject->setVisible(state->isVisible());
+                        m_visibleObjects.push_back(subObject);
+                        
                         subObject->setColorTransform(state->colorMults(), state->colorOffsets());
                     }
                 }
@@ -634,9 +643,9 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                     {
                         mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
 
-                        if (mask->getLocalZOrder() != state->zIndex)
+                        if (mask->getGlobalZOrder() != state->zIndex)
                         {
-                            mask->setLocalZOrder(state->zIndex);
+                            mask->setGlobalZOrder(state->zIndex);
                         }
                     }
                 }

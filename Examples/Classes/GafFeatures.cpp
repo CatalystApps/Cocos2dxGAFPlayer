@@ -214,7 +214,8 @@ bool GafFeatures::init()
     addChild(pMenu, 10000);
     
     m_anim_index = 0;
-    
+
+    m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
     m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
