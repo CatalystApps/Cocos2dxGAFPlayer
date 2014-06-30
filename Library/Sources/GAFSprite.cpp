@@ -171,7 +171,6 @@ uint32_t GAFSprite::setUniforms()
 
 void GAFSprite::customDraw(cocos2d::Mat4& transform)
 {
-    CC_PROFILER_START_CATEGORY(kCCProfilerCategorySprite, "GAFSprite - customDraw");
     CCAssert(!_batchNode, "If cocos2d::Sprite is being rendered by CCSpriteBatchNode, cocos2d::Sprite#draw SHOULD NOT be called");
 
     getGLProgramState()->apply(transform);
@@ -228,5 +227,4 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
 
     cocos2d::CC_INCREMENT_GL_DRAWS(1);
 
-    CC_PROFILER_STOP_CATEGORY(kCCProfilerCategorySprite, "GAFSprite - customDraw");
 }

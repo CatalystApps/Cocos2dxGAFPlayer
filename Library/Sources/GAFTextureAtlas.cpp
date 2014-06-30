@@ -34,8 +34,8 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
     std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
     CC_SAFE_RELEASE(_images);
-    _images = cocos2d::__Array::create();
-    _images->retain();
+    _images = new cocos2d::__Array();
+    _images->initWithCapacity(m_atlasInfos.size());
 
     if (!m_atlasInfos.empty())
     {
