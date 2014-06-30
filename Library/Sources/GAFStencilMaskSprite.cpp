@@ -4,7 +4,7 @@
 
 #define USE_LAYERED_STENCIL 0
 
-#if 0 // for manual comparsion
+#if 1 // for manual comparsion
 static bool compare_stencil_sprites(const void* p1, const void* p2)
 {
     GAFSprite* sp1 = (GAFSprite*)p1;
@@ -17,7 +17,8 @@ static bool compare_stencil_sprites(const void* p1, const void* p2)
 GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
 m_maskedObjects(NULL),
-m_stencilLayer(stencilLayer)
+m_stencilLayer(stencilLayer),
+m_isReorderMaskedObjectsDirty(true)
 {
 }
 
@@ -60,7 +61,9 @@ void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat
 void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 #endif
 {
-    m_group.init(_globalZOrder);
+    _sortAllMaskedObjects();
+
+    m_group.init(getGlobalZOrder());
     renderer->addCommand(&m_group);
     renderer->pushGroup(m_group.getRenderQueueID());
 
@@ -82,6 +85,16 @@ void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat
 #endif
     }
     renderer->popGroup();
+}
+
+void GAFStencilMaskSprite::_sortAllMaskedObjects()
+{
+    if (m_isReorderMaskedObjectsDirty)
+    {
+        std::sort(m_maskedObjects->begin(), m_maskedObjects->end(), &compare_stencil_sprites);
+
+        m_isReorderMaskedObjectsDirty = false;
+    }
 }
 
 void GAFStencilMaskSprite::_disableStencil()
@@ -271,6 +284,7 @@ void GAFStencilMaskSprite::addMaskedObject(cocos2d::Node * anObject)
     {
         _object2maskedContainer[anObject] = this;
         m_maskedObjects->addObject(anObject);
+        m_isReorderMaskedObjectsDirty = true;
     }
 }
 
@@ -282,6 +296,7 @@ void GAFStencilMaskSprite::removeMaskedObject(cocos2d::Node * anObject)
         CCAssert(it != _object2maskedContainer.end(), "iterator must be valid");
         _object2maskedContainer.erase(it);
         m_maskedObjects->removeObject(anObject);
+        m_isReorderMaskedObjectsDirty = true;
     }
 }
 

@@ -620,10 +620,9 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                         stateTransform.ty *= csf;
                         cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
                         subObject->setExternaTransform(t);
-
-                        if (subObject->getGlobalZOrder() != (float)state->zIndex)
+                        if (subObject->getLocalZOrder() != state->zIndex)
                         {
-                            subObject->setGlobalZOrder(state->zIndex);
+                            subObject->setLocalZOrder(state->zIndex);
                         }
                         subObject->setVisible(state->isVisible());
                         m_visibleObjects.push_back(subObject);
@@ -643,9 +642,9 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                     {
                         mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
 
-                        if (mask->getGlobalZOrder() != state->zIndex)
+                        if (mask->getLocalZOrder() != state->zIndex)
                         {
-                            mask->setGlobalZOrder(state->zIndex);
+                            mask->setLocalZOrder(state->zIndex);
                         }
                     }
                 }

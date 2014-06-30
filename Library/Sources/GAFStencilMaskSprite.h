@@ -47,8 +47,10 @@ protected:
     void endStencil();
 
 private:
+    void                    _sortAllMaskedObjects();
     void                    _disableStencil();
     int                     m_stencilLayer;
+    bool                    m_isReorderMaskedObjectsDirty;
 
     cocos2d::GroupCommand   m_group;
     cocos2d::CustomCommand  m_customCommand2;
