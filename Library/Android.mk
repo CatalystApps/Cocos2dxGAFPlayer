@@ -38,11 +38,11 @@ Sources/TagDefineAnimationFrames2.cpp\
 Sources/TagDefineTimeline.cpp
 
 LOCAL_C_INCLUDES := \
-$(LOCAL_PATH)/../../../cocos \
-$(LOCAL_PATH)/../../../cocos/2d \
-$(LOCAL_PATH)/../../../cocos/platform/android \
-$(LOCAL_PATH)/../../../cocos/math \
-$(LOCAL_PATH)/../../../extensions \
+$(LOCAL_PATH)/../../cocos2d-x/cocos \
+$(LOCAL_PATH)/../../cocos2d-x/cocos/2d \
+$(LOCAL_PATH)/../../cocos2d-x/cocos/platform/android \
+$(LOCAL_PATH)/../../cocos2d-x/cocos/math \
+$(LOCAL_PATH)/../../cocos2d-x/extensions \
 $(LOCAL_PATH)/Sources
 
 include $(BUILD_STATIC_LIBRARY)

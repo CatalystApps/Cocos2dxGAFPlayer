@@ -410,6 +410,11 @@
 					"$(SRCROOT)/../../../cocos/platform/ios",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2d-x\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/platform/ios\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
@@ -458,6 +463,11 @@
 					"$(SRCROOT)/../../../cocos/platform/ios",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2d-x\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/platform/ios\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";

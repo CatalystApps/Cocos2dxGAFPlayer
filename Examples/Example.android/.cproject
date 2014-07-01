@@ -41,19 +41,18 @@
 									<listOptionValue builtIn="false" value="${NDK_ROOT}/sources/cxx-stl/gnu-libstdc++/4.8/include"/>
 									<listOptionValue builtIn="false" value="${ProjDirPath}/../../Library"/>
 									<listOptionValue builtIn="false" value="${ProjDirPath}/../../Library/Sources"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../.."/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/2d"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/physics"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/base"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/math/kazmath"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/ui"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/network"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/audio/include"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../cocos/editor-support"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../extensions"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../external"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../../external/chipmunk/include/chipmunk"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/2d"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/physics"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/base"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/math/kazmath"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/ui"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/network"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/audio/include"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/cocos/editor-support"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/extensions"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/external"/>
+									<listOptionValue builtIn="false" value="${ProjDirPath}/../../../cocos2d-x/external/chipmunk/include/chipmunk"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.1728671637" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="CC_TARGET_PLATFORM=CC_PLATFORM_ANDROID"/>
