@@ -136,6 +136,9 @@ cocos2d::__Array * GAFTextureAtlas::textures()
             texture->release();
         }
         _textures->retain();
+
+        CC_SAFE_RELEASE(_images);
+        _images = nullptr;
     }
     return _textures;
 }
