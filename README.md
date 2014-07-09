@@ -11,8 +11,8 @@ Benefits
 GAF Converter analyzes the bytecode of each SWF file and creates a GAF file which provides the following benefits:
 ### Smaller size.
 **The traditional animation conversion process generates an image for each frame of the animation thus greatly increasing overall file size. However the GAF animation file stores only unique parts of the animation in a texture atlas and a highly compressed binary config file describing object positions and transformations.**
-###Art requirements
+###Art requirements.
 **GAF supports 99% of what can be created in Flash so your artists and animators don’t need any special planning or preparations of their SWF files before converting.**
-###High performance 
+###High performance. 
 **The GAF conversion process involves numerous optimizations to increase playback performance across all platforms and frameworks. Performance of GAF runtimes is much better than that of the Flash player.**
 
