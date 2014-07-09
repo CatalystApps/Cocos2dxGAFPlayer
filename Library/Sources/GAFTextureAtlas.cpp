@@ -29,7 +29,7 @@ static bool compareAtlasesById(const GAFTextureAtlas::AtlasInfo& ai1, const GAFT
     return ai1.id < ai2.id;
 }
 
-void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate)
+void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate, cocos2d::ZipFile* bundle)
 {
     std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
@@ -68,7 +68,20 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
                 delegate->onTexturePreLoad(path);
             }
 
-            image->initWithImageFile(path.c_str());
+            if (!bundle)
+            {
+                image->initWithImageFile(path.c_str());
+            }
+            else
+            {
+                ssize_t sz = 0;
+                unsigned char* imgData = bundle->getFileData(path, &sz);
+                if (!imgData || !sz)
+                    return;
+
+                image->initWithImageData(imgData, sz);
+            }
+
 #if ENABLE_GAF_MANUAL_PREMULTIPLY
             if (!image->isPremultipliedAlpha() && image->hasAlpha())
             {

@@ -126,6 +126,19 @@ void GAFFile::close()
     m_dataPosition = 0;
 }
 
+bool GAFFile::open(const unsigned char* data, size_t len)
+{
+    close();
+
+    m_data = const_cast<unsigned char*>(data);
+    m_dataLen = len;
+
+    if (m_data)
+    {
+        return _processOpen();
+    }
+}
+
 bool GAFFile::open(const std::string& filePath, const char* openMode)
 {
     close();
@@ -134,52 +147,7 @@ bool GAFFile::open(const std::string& filePath, const char* openMode)
 
     if (m_data)
     {
-        _readHeaderBegin(m_header);
-
-        // 10 - is size of sizeof(Footprint) + sizeof(FileLen) + sizeof(Version)
-        static const uint32_t UncompressedDataSize = 10;
-
-        assert(m_dataPosition == UncompressedDataSize); // Paranoid mode
-
-        if (m_header.compression == GAFHeader::CompressedNone)
-        {
-            // Loader will complete reading
-        }
-        else if (m_header.compression == GAFHeader::CompressedZip)
-        {
-#if USE_ZLIB
-            unsigned long uncompressedSize = m_header.fileLenght;
-            char* uncompressedBuffer = new char[uncompressedSize];
-
-            int retStatus = uncompress((Bytef*)uncompressedBuffer, &uncompressedSize, (Bytef*)(m_data + m_dataPosition), m_dataLen - m_dataPosition); // Decompress rest
-
-            if (retStatus != Z_OK)
-            {
-                return false;
-            }
-
-            assert("Paranoid mode" && uncompressedSize == m_header.fileLenght);
-
-            delete[] m_data;
-
-            m_data = new unsigned char[uncompressedSize];
-
-            memcpy(m_data, uncompressedBuffer, uncompressedSize);
-            m_dataLen = uncompressedSize;
-            m_dataPosition = 0;
-
-            delete[] uncompressedBuffer;
-#else
-            assert("ZLIB is disabled" && false);
-#endif
-        }
-        else
-        {
-            // This is not a GAF file or a header is corrupted
-            return false;
-        }
-
-        return true;
+        return _processOpen();
     }
 
     return false;
@@ -251,4 +219,54 @@ unsigned char* GAFFile::_getData(const std::string& filename, const char* openMo
     }
 
     return ret;
+}
+
+bool GAFFile::_processOpen()
+{
+    _readHeaderBegin(m_header);
+
+    // 10 - is size of sizeof(Footprint) + sizeof(FileLen) + sizeof(Version)
+    static const uint32_t UncompressedDataSize = 10;
+
+    assert(m_dataPosition == UncompressedDataSize); // Paranoid mode
+
+    if (m_header.compression == GAFHeader::CompressedNone)
+    {
+        // Loader will complete reading
+    }
+    else if (m_header.compression == GAFHeader::CompressedZip)
+    {
+#if USE_ZLIB
+        unsigned long uncompressedSize = m_header.fileLenght;
+        char* uncompressedBuffer = new char[uncompressedSize];
+
+        int retStatus = uncompress((Bytef*)uncompressedBuffer, &uncompressedSize, (Bytef*)(m_data + m_dataPosition), m_dataLen - m_dataPosition); // Decompress rest
+
+        if (retStatus != Z_OK)
+        {
+            return false;
+        }
+
+        assert("Paranoid mode" && uncompressedSize == m_header.fileLenght);
+
+        delete[] m_data;
+
+        m_data = new unsigned char[uncompressedSize];
+
+        memcpy(m_data, uncompressedBuffer, uncompressedSize);
+        m_dataLen = uncompressedSize;
+        m_dataPosition = 0;
+
+        delete[] uncompressedBuffer;
+#else
+        assert("ZLIB is disabled" && false);
+#endif
+    }
+    else
+    {
+        // This is not a GAF file or a header is corrupted
+        return false;
+    }
+
+    return true;
 }

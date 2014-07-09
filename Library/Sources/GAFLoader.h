@@ -7,6 +7,7 @@ class GAFAsset;
 class GAFStream;
 class DefinitionTagBase;
 class GAFHeader;
+class GAFFile;
 
 class GAFLoader
 {
@@ -20,6 +21,8 @@ private:
     void                 _registerTagLoadersCommon();
     void                 _registerTagLoadersV4();
 
+    void                 _processLoad(GAFFile* file, GAFAsset*);
+
     typedef std::map<Tags::Enum, DefinitionTagBase*> TagLoaders_t;
 
     TagLoaders_t         m_tagLoaders;
@@ -29,6 +32,7 @@ public:
     ~GAFLoader();
 
     bool                 loadFile(const std::string& fname, GAFAsset* context);
+    bool                 loadData(const unsigned char* data, size_t len, GAFAsset* context);
     bool                 isFileLoaded() const;
 
     GAFStream*           getStream() const;

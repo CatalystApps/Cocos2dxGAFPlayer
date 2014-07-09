@@ -11,6 +11,7 @@ private:
     GAFHeader             m_header;
 private:
     unsigned char*       _getData(const std::string& filename, const char* openMode, unsigned long& outLen);
+    bool                 _processOpen();
 protected:
     void                 _readHeaderBegin(GAFHeader&);
 public:
@@ -33,6 +34,8 @@ public:
 
     // TODO: Provide error codes
     bool                 open(const std::string& filename, const char* openMode);
+    bool                 open(const unsigned char* data, size_t len);
+
     bool                 isOpened() const;
 
     const GAFHeader&     getHeader() const;
