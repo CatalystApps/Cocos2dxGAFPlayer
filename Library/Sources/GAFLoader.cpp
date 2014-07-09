@@ -117,6 +117,50 @@ void GAFLoader::loadTags(GAFStream* in, GAFAsset* context)
     }
 }
 
+bool GAFLoader::loadData(const unsigned char* data, size_t len, GAFAsset* context)
+{
+    GAFFile* file = new GAFFile();
+
+    bool retval = false;
+
+    if (file->open(data, len))
+    {
+        retval = true;
+
+        _processLoad(file, context);
+    }
+
+    delete file;
+
+    return retval;
+}
+
+void GAFLoader::_processLoad(GAFFile* file, GAFAsset* context)
+{
+    m_stream = new GAFStream(file);
+
+    GAFHeader& header = m_stream->getInput()->getHeader();
+
+    if (header.getMajorVersion() == 4)
+    {
+        _readHeaderEndV4(header);
+        _registerTagLoadersV4();
+    }
+    else
+    {
+        _readHeaderEnd(header);
+        _registerTagLoadersV3();
+    }
+
+    _registerTagLoadersCommon();
+
+    context->setHeader(header);
+
+    loadTags(m_stream, context);
+
+    delete m_stream;
+}
+
 bool GAFLoader::loadFile(const std::string& fname, GAFAsset* context)
 {
     GAFFile* file = new GAFFile();
@@ -126,28 +170,8 @@ bool GAFLoader::loadFile(const std::string& fname, GAFAsset* context)
     if (file->open(fname, "rb"))
     {
         retval = true;
-        m_stream = new GAFStream(file);
 
-        GAFHeader& header = m_stream->getInput()->getHeader();
-
-        if (header.getMajorVersion() == 4)
-        {
-            _readHeaderEndV4(header);
-            _registerTagLoadersV4();
-        }
-        else
-        {
-            _readHeaderEnd(header);
-            _registerTagLoadersV3();
-        }
-
-        _registerTagLoadersCommon();
-
-        context->setHeader(header);
-
-        loadTags(m_stream, context);
-
-        delete m_stream;
+        _processLoad(file, context);
     }
 
     delete file;

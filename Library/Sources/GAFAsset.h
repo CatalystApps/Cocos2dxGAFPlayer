@@ -39,10 +39,14 @@ private:
     int _majorVersion;
     int _minorVersion;
 
+    void                        _chooseTextureAtlas();
 public:
     /// Initializes asset with bGAF data
 
     bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate = NULL);
+
+
+    bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
     void                        pushTextureAtlas(GAFTextureAtlas* atlas);
     void                        pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef);
@@ -62,6 +66,7 @@ public:
     /// get all of the sequences
     const AnimationSequences_t& getAnimationSequences() const;
 
+    static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
     static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate = NULL);
 
     GAFAsset();
