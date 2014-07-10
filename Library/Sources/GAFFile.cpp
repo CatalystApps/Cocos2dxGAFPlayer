@@ -137,6 +137,8 @@ bool GAFFile::open(const unsigned char* data, size_t len)
     {
         return _processOpen();
     }
+
+    return false;
 }
 
 bool GAFFile::open(const std::string& filePath, const char* openMode)
