@@ -49,7 +49,8 @@ _asset(NULL),
 _extraFramesCounter(0),
 _framePlayedDelegate(NULL),
 _controlDelegate(NULL),
-m_stencilLayer(-1)
+m_stencilLayer(-1),
+m_timeDelta(0)
 {
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     
@@ -347,18 +348,19 @@ void GAFAnimatedObject::setSubobjectsVisible(bool visible)
 
 void GAFAnimatedObject::processAnimations(float dt)
 {
-    if (++_extraFramesCounter >= numberOfGlobalFramesForOneAnimationFrame())
+    if (!isAnimationRunning())
+        return;
+
+    m_timeDelta += dt;
+    double frameTime = 1.0 / m_fps;
+    while (m_timeDelta >= frameTime)
     {
-        _extraFramesCounter = 0;
+        m_timeDelta -= frameTime;
+        step();
 
-        if (isAnimationRunning())
+        if (_framePlayedDelegate)
         {
-            step();
-
-            if (_framePlayedDelegate)
-            {
-                _framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
-            }
+            _framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
         }
     }
 }

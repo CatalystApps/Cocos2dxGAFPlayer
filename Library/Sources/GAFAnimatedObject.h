@@ -53,6 +53,9 @@ private:
 
     int numberOfGlobalFramesForOneAnimationFrame();
     int _extraFramesCounter;
+
+    double m_timeDelta;
+
     PCAnimationFPSType _FPSType; // Obsolete. Will be removed
     int m_fps;
 
