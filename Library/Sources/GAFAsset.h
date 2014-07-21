@@ -72,18 +72,18 @@ public:
     GAFAsset();
     ~GAFAsset();
     /// total number of frames in animation
-    int                         animationFramesCount() const;
+    size_t                      getAnimationFramesCount() const;
 
-    GAFTextureAtlas *           textureAtlas();
+    GAFTextureAtlas *           getTextureAtlas();
 
     /// get GAFAnimationSequence by name specified in editor
     const GAFAnimationSequence* getSequence(const std::string& name) const;
 
     /// get GAFAnimationSequence by last frame number in sequence	
-    const GAFAnimationSequence* getSequenceByLastFrame(int frame) const;
+    const GAFAnimationSequence* getSequenceByLastFrame(size_t frame) const;
 
     /// get GAFAnimationSequence by first frame number in sequence	
-    const GAFAnimationSequence* getSequenceByFirstFrame(int frame) const;
+    const GAFAnimationSequence* getSequenceByFirstFrame(size_t frame) const;
     /// List of GAFAnimationFrame objects	
     static bool                 isAssetVersionPlayable(const char * version);
 

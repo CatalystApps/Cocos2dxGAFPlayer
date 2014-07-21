@@ -16,8 +16,8 @@ static bool compare_stencil_sprites(const void* p1, const void* p2)
 
 GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
-m_maskedObjects(NULL),
 m_stencilLayer(stencilLayer),
+m_maskedObjects(NULL),
 m_isReorderMaskedObjectsDirty(true)
 {
 }

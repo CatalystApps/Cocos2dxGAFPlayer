@@ -9,17 +9,18 @@
 
 GAFTextureAtlas::GAFTextureAtlas()
 :
-_loaded(false),
-_images(NULL),
-_textures(NULL),
-m_scale(1.f)
+m_scale(1.f),
+m_loaded(false),
+m_images(NULL),
+m_textures(NULL),
+m_memoryConsumption(0)
 {
 }
 
 GAFTextureAtlas::~GAFTextureAtlas()
 {
-    CC_SAFE_RELEASE(_images);
-    CC_SAFE_RELEASE(_textures);
+    CC_SAFE_RELEASE(m_images);
+    CC_SAFE_RELEASE(m_textures);
 
     GAF_RELEASE_MAP(GAFTextureAtlas::Elements_t, m_elements);
 }
@@ -33,9 +34,9 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
 {
     std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
-    CC_SAFE_RELEASE(_images);
-    _images = new cocos2d::__Array();
-    _images->initWithCapacity(m_atlasInfos.size());
+    CC_SAFE_RELEASE(m_images);
+    m_images = new cocos2d::__Array();
+    m_images->initWithCapacity(m_atlasInfos.size());
 
     if (!m_atlasInfos.empty())
     {
@@ -81,6 +82,8 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
 
                 image->initWithImageData(imgData, sz);
             }
+            
+            m_memoryConsumption += image->getDataLen();
 
 #if ENABLE_GAF_MANUAL_PREMULTIPLY
             if (!image->isPremultipliedAlpha() && image->hasAlpha())
@@ -98,62 +101,62 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
                 }
             }
 #endif
-            _images->addObject(image);
+            m_images->addObject(image);
             image->release();
         }
 
-        if (_images->count() > 0)
+        if (m_images->count() > 0)
         {
-            _loaded = true;
+            m_loaded = true;
         }
     }
 }
 
 cocos2d::Image * GAFTextureAtlas::image()
 {
-    if (_images && _images->count() > 0)
+    if (m_images && m_images->count() > 0)
     {
-        return (cocos2d::Image*)_images->getObjectAtIndex(0);
+        return (cocos2d::Image*)m_images->getObjectAtIndex(0);
     }
     return NULL;
 }
 
 cocos2d::__Array * GAFTextureAtlas::images()
 {
-    return _images;
+    return m_images;
 }
 
 cocos2d::Texture2D * GAFTextureAtlas::texture()
 {
-    if (_textures && _textures->count() > 0)
+    if (m_textures && m_textures->count() > 0)
     {
-        return (cocos2d::Texture2D*)_textures->getObjectAtIndex(0);
+        return (cocos2d::Texture2D*)m_textures->getObjectAtIndex(0);
     }
     return NULL;
 }
 
 cocos2d::__Array * GAFTextureAtlas::textures()
 {
-    if (!_textures)
+    if (!m_textures)
     {
-        _textures = cocos2d::__Array::createWithCapacity(_images->count());
-        for (int i = 0; i < _images->count(); ++i)
+        m_textures = cocos2d::__Array::createWithCapacity(m_images->count());
+        for (int i = 0; i < m_images->count(); ++i)
         {
             cocos2d::Texture2D * texture = new cocos2d::Texture2D();
-            cocos2d::Image * image = (cocos2d::Image*)_images->getObjectAtIndex(i);
+            cocos2d::Image * image = (cocos2d::Image*)m_images->getObjectAtIndex(i);
             texture->initWithImage(image);
-            _textures->addObject(texture);
+            m_textures->addObject(texture);
 #if CC_ENABLE_CACHE_TEXTURE_DATA
             cocos2d::VolatileTextureMgr::addImage(texture, image);
 #endif
             texture->release();
         }
-        _textures->retain();
+        m_textures->retain();
 
-        CC_SAFE_RELEASE(_images);
-        _images = nullptr;
+        CC_SAFE_RELEASE(m_images);
+        m_images = nullptr;
     }
-    return _textures;
+    return m_textures;
 }
 
 void GAFTextureAtlas::setScale(float val)
@@ -179,4 +182,9 @@ void GAFTextureAtlas::pushElement(unsigned int idx, GAFTextureAtlasElement* el)
 const GAFTextureAtlas::Elements_t& GAFTextureAtlas::getElements() const
 {
     return m_elements;
+}
+
+uint32_t GAFTextureAtlas::getMemoryConsumptionStat() const
+{
+    return m_memoryConsumption;
 }

@@ -225,6 +225,7 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
 
     CHECK_GL_ERROR_DEBUG();
 
-    cocos2d::CC_INCREMENT_GL_DRAWS(1);
-
+    using namespace cocos2d;
+    //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
+    //CC_INCREMENT_GL_DRAWS(1);
 }
