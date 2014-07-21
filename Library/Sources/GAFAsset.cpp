@@ -179,7 +179,7 @@ const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
 
     for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
     {
-        if (i->second.endFrameNo == frame)
+        if (i->second.endFrameNo == frame + 1)
         {
             return &i->second;
         }
