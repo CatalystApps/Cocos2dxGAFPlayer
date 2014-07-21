@@ -45,12 +45,11 @@ static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(
 
 GAFAnimatedObject::GAFAnimatedObject()
 :
-_asset(NULL),
-_extraFramesCounter(0),
-_framePlayedDelegate(NULL),
-_controlDelegate(NULL),
+m_asset(NULL),
 m_stencilLayer(-1),
-m_timeDelta(0)
+m_framePlayedDelegate(NULL),
+m_controlDelegate(NULL),
+m_extraFramesCounter(0)
 {
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     
@@ -84,7 +83,7 @@ m_timeDelta(0)
 
 GAFAnimatedObject::~GAFAnimatedObject()
 {
-    CC_SAFE_RELEASE(_asset);
+    CC_SAFE_RELEASE(m_asset);
 
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
 
@@ -121,11 +120,11 @@ bool GAFAnimatedObject::init(GAFAsset * anAsset)
         return false;
     }
 
-    if (_asset != anAsset)
+    if (m_asset != anAsset)
     {
-        CC_SAFE_RELEASE(_asset);
-        _asset = anAsset;
-        CC_SAFE_RETAIN(_asset);
+        CC_SAFE_RELEASE(m_asset);
+        m_asset = anAsset;
+        CC_SAFE_RETAIN(m_asset);
     }
     
     _constructObject();
@@ -135,7 +134,7 @@ bool GAFAnimatedObject::init(GAFAsset * anAsset)
 
 void GAFAnimatedObject::_constructObject()
 {
-    cocos2d::Rect size = _asset->getHeader().frameSize;
+    cocos2d::Rect size = m_asset->getHeader().frameSize;
     
     setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
     
@@ -143,17 +142,17 @@ void GAFAnimatedObject::_constructObject()
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
     
     _FPSType = kGAFAnimationFPSType_60;
-    m_fps = _asset->getSceneFps();
-    _extraFramesCounter = 0;
+    m_fps = m_asset->getSceneFps();
+    m_extraFramesCounter = 0;
     _animationsSelectorScheduled = false;
     
-    instantiateObject(_asset->getAnimationObjects(), _asset->getAnimationMasks());
+    instantiateObject(m_asset->getAnimationObjects(), m_asset->getAnimationMasks());
 
 }
 
 unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
 {
-    const NamedParts_t& np = _asset->getNamedParts();
+    const NamedParts_t& np = m_asset->getNamedParts();
 
     NamedParts_t::const_iterator it = np.find(aName);
 
@@ -169,7 +168,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
 {
     for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
-        GAFTextureAtlas* atlas = _asset->textureAtlas();
+        GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
         cocos2d::SpriteFrame * spriteFrame = NULL;
 
@@ -227,7 +226,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
 
     for (AnimationMasks_t::const_iterator i = masks.begin(), e = masks.end(); i != e; ++i)
     {
-        GAFTextureAtlas* atlas = _asset->textureAtlas();
+        GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
 
         unsigned int atlasElementIdRef = i->second;
@@ -358,9 +357,9 @@ void GAFAnimatedObject::processAnimations(float dt)
         m_timeDelta -= frameTime;
         step();
 
-        if (_framePlayedDelegate)
+        if (m_framePlayedDelegate)
         {
-            _framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
+            m_framePlayedDelegate->onFramePlayed(this, currentFrameIndex());
         }
     }
 }
@@ -506,7 +505,7 @@ cocos2d::Sprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextu
 
 void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
 {
-    GAFAnimationFrame *currentFrame = _asset->getAnimationFrames()[frameIndex];
+    GAFAnimationFrame *currentFrame = m_asset->getAnimationFrames()[frameIndex];
 
     for (SubObjectsList_t::iterator i = m_visibleObjects.begin(), e = m_visibleObjects.end(); i != e; ++i)
     {
@@ -617,7 +616,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                         (subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
                     {
                         cocos2d::AffineTransform stateTransform = state->affineTransform;
-                        float csf = _asset->usedAtlasContentScaleFactor();
+                        float csf = m_asset->usedAtlasContentScaleFactor();
                         stateTransform.tx *= csf;
                         stateTransform.ty *= csf;
                         cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
@@ -654,7 +653,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
         }
     }
 
-    if (_controlDelegate)
+    if (m_controlDelegate)
     {
         size_t statesCount = states.size();
         for (size_t i = 0; i < statesCount; ++i)
@@ -670,9 +669,9 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
                 CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
 
                 bool subobjectCaptured = cpoIt != m_capturedObjects.end();
-                if (subobjectCaptured && _controlDelegate)
+                if (subobjectCaptured && m_controlDelegate)
                 {
-                    _controlDelegate->onFrameDisplayed(this, subObject);
+                    m_controlDelegate->onFrameDisplayed(this, subObject);
                 }
             }
             else
@@ -690,12 +689,12 @@ void GAFAnimatedObject::processAnimation()
 
 void GAFAnimatedObject::setFramePlayedDelegate(GAFFramePlayedDelegate * delegate)
 {
-    _framePlayedDelegate = delegate;
+    m_framePlayedDelegate = delegate;
 }
 
 void GAFAnimatedObject::setControlDelegate(GAFAnimatedObjectControlDelegate * delegate)
 {
-    _controlDelegate = delegate;
+    m_controlDelegate = delegate;
 }
 
 static cocos2d::Rect GAFCCRectUnion(const cocos2d::Rect& src1, const cocos2d::Rect& src2)

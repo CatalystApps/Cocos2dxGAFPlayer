@@ -34,9 +34,11 @@ private:
     AtlasInfos_t    m_atlasInfos;
     Elements_t      m_elements;
 
-    bool           _loaded;
-    cocos2d::__Array      *  _images;
-    cocos2d::__Array      *  _textures;
+    bool           m_loaded;
+    cocos2d::__Array      *  m_images;
+    cocos2d::__Array      *  m_textures;
+    
+    uint32_t        m_memoryConsumption;
 public:
     ~GAFTextureAtlas();
 
@@ -47,7 +49,7 @@ public:
 
     inline bool     loaded() const
     {
-        return _loaded;
+        return m_loaded;
     }
 
     void          setScale(float val);
@@ -60,6 +62,12 @@ public:
     cocos2d::__Array     * textures();
 
     const Elements_t& getElements() const;
+    
+    //! All CCImages will be freed at the first call of textures()
+    //! So there is only VRAM occupation
+    //! In case you don't want to release CCImages at textures(), remove releasing ones and
+    //! after calling getMemoryConsumptionStat you will need x2 a given number: RAM + VRAM
+    uint32_t     getMemoryConsumptionStat() const;
 };
 
 #endif // __GAF_TEXTURE_ATLAS___

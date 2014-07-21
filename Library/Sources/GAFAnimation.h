@@ -71,8 +71,8 @@ public:
 protected:
     GAFAnimation();
 protected:
-    GAFAsset * _asset;
-    int _currentFrameIndex;
+    GAFAsset * m_asset;
+    size_t _currentFrameIndex;
 
     void    setAnimationRunning(bool value);
     bool    getIsRunning() const;
@@ -80,12 +80,12 @@ protected:
 private:
     GAFSequenceDelegate * _sequenceDelegate;
     GAFAnimationPlaybackDelegate* m_animationPlaybackDelegate;
-    int _totalFrameCount;
-    int _currentSequenceStart;
-    int _currentSequenceEnd;
-    bool _isRunning;
-    bool _isLooped;
-    bool _isReversed;
+    size_t m_totalFrameCount;
+    size_t m_currentSequenceStart;
+    size_t m_currentSequenceEnd;
+    bool m_isRunning;
+    bool m_isLooped;
+    bool m_isReversed;
 };
 
 

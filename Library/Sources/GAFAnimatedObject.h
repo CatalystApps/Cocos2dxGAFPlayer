@@ -35,7 +35,7 @@ class GAFAnimatedObject : public cocos2d::Layer, public GAFAnimation
 protected:
     GAFAnimatedObject();
 private:
-    GAFAsset * _asset;
+    GAFAsset * m_asset;
 
     SubObjects_t m_subObjects;
     SubObjects_t m_masks;
@@ -48,11 +48,11 @@ private:
 
     CaptureObjects_t m_capturedObjects;
     bool _animationsSelectorScheduled;
-    GAFFramePlayedDelegate * _framePlayedDelegate;
-    GAFAnimatedObjectControlDelegate * _controlDelegate;
+    GAFFramePlayedDelegate * m_framePlayedDelegate;
+    GAFAnimatedObjectControlDelegate * m_controlDelegate;
 
     int numberOfGlobalFramesForOneAnimationFrame();
-    int _extraFramesCounter;
+    int m_extraFramesCounter;
 
     double m_timeDelta;
 

@@ -148,12 +148,12 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     return isLoaded;
 }
 
-GAFTextureAtlas* GAFAsset::textureAtlas()
+GAFTextureAtlas* GAFAsset::getTextureAtlas()
 {
     return m_currentTextureAtlas;
 }
 
-int GAFAsset::animationFramesCount() const
+size_t GAFAsset::getAnimationFramesCount() const
 {
     return m_animationFrames.size();
 }
@@ -170,7 +170,7 @@ const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
     return NULL;
 }
 
-const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
+const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
@@ -188,7 +188,7 @@ const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
     return NULL;
 }
 
-const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(int frame) const
+const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
