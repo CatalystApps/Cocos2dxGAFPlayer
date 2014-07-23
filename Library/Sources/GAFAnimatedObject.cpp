@@ -49,7 +49,8 @@ m_asset(NULL),
 m_stencilLayer(-1),
 m_framePlayedDelegate(NULL),
 m_controlDelegate(NULL),
-m_extraFramesCounter(0)
+m_extraFramesCounter(0),
+m_timeDelta(0.f)
 {
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     

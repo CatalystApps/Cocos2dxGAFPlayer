@@ -26,6 +26,10 @@
 		1A2FBE4B192C95A500631FE9 /* tiger in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FBE3F192C95A500631FE9 /* tiger */; };
 		1A2FBF70192E0A0100631FE9 /* libgafplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2FBF6D192E09DE00631FE9 /* libgafplayer.a */; };
 		2937C7B719584560004A68B7 /* cut_the_hope in Resources */ = {isa = PBXBuildFile; fileRef = 2937C7B619584560004A68B7 /* cut_the_hope */; };
+		29E7526C197E7E9900A33829 /* pewPew in Resources */ = {isa = PBXBuildFile; fileRef = 29E7526B197E7E9900A33829 /* pewPew */; };
+		29E75279197E7E9F00A33829 /* pew-pew-lei.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29E75278197E7E9F00A33829 /* pew-pew-lei.wav */; };
+		29E7527A197E7EAB00A33829 /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A065019192BA5130086395A /* libCocosDenshion iOS.a */; };
+		29E7527C197EA4CA00A33829 /* buttons in Resources */ = {isa = PBXBuildFile; fileRef = 29E7527B197EA4CA00A33829 /* buttons */; };
 		CF59E90B187DAB2D003A6524 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90A187DAB2D003A6524 /* Foundation.framework */; };
 		CF59E90D187DAB2D003A6524 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */; };
 		CF59E90F187DAB2D003A6524 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF59E90E187DAB2D003A6524 /* UIKit.framework */; };
@@ -170,6 +174,9 @@
 		1A2FBE3F192C95A500631FE9 /* tiger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tiger; path = ../Resources/tiger; sourceTree = "<group>"; };
 		1A2FBF68192E09DE00631FE9 /* GAFPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GAFPlayer.xcodeproj; path = ../../Library/GAFPlayer.xcodeproj; sourceTree = "<group>"; };
 		2937C7B619584560004A68B7 /* cut_the_hope */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cut_the_hope; path = ../Resources/cut_the_hope; sourceTree = "<group>"; };
+		29E7526B197E7E9900A33829 /* pewPew */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pewPew; path = ../Resources/pewPew; sourceTree = "<group>"; };
+		29E75278197E7E9F00A33829 /* pew-pew-lei.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "pew-pew-lei.wav"; path = "../Resources/pew-pew-lei.wav"; sourceTree = "<group>"; };
+		29E7527B197EA4CA00A33829 /* buttons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = buttons; path = ../Resources/buttons; sourceTree = "<group>"; };
 		CF59E907187DAB2D003A6524 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF59E90A187DAB2D003A6524 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CF59E90C187DAB2D003A6524 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -205,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29E7527A197E7EAB00A33829 /* libCocosDenshion iOS.a in Frameworks */,
 				1A2FBF70192E0A0100631FE9 /* libgafplayer.a in Frameworks */,
 				1A065022192BAB8E0086395A /* libcocos2dx iOS.a in Frameworks */,
 				CF59E9A0187DC19E003A6524 /* libz.dylib in Frameworks */,
@@ -253,6 +261,8 @@
 		1A06502E192BB7970086395A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				29E7527B197EA4CA00A33829 /* buttons */,
+				29E7526B197E7E9900A33829 /* pewPew */,
 				2937C7B619584560004A68B7 /* cut_the_hope */,
 				1A2FBE35192C95A500631FE9 /* biggreen */,
 				1A2FBE36192C95A500631FE9 /* bird_bezneba */,
@@ -267,6 +277,7 @@
 				1A065052192BB91D0086395A /* button_off_plus.png */,
 				1A065053192BB91D0086395A /* button_off.png */,
 				1A065054192BB91D0086395A /* button_on_minus.png */,
+				29E75278197E7E9F00A33829 /* pew-pew-lei.wav */,
 				1A065055192BB91D0086395A /* button_on_plus.png */,
 				1A065056192BB91D0086395A /* button_on.png */,
 			);
@@ -424,9 +435,6 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = CatalystApps;
 				TargetAttributes = {
-					CF59E906187DAB2D003A6524 = {
-						DevelopmentTeam = 9BB8ZPHCM9;
-					};
 					CF59E921187DAB2D003A6524 = {
 						TestTargetID = CF59E906187DAB2D003A6524;
 					};
@@ -548,16 +556,19 @@
 				CF59E915187DAB2D003A6524 /* InfoPlist.strings in Resources */,
 				1A06505A192BB91D0086395A /* button_on_minus.png in Resources */,
 				CF59E91D187DAB2D003A6524 /* Images.xcassets in Resources */,
+				29E7527C197EA4CA00A33829 /* buttons in Resources */,
 				1A065058192BB91D0086395A /* button_off_plus.png in Resources */,
 				1A2FBE47192C95A500631FE9 /* impiretank_05_oneplace in Resources */,
 				1A06505B192BB91D0086395A /* button_on_plus.png in Resources */,
 				1A065057192BB91D0086395A /* button_off_minus.png in Resources */,
+				29E75279197E7E9F00A33829 /* pew-pew-lei.wav in Resources */,
 				2937C7B719584560004A68B7 /* cut_the_hope in Resources */,
 				1A2FBE48192C95A500631FE9 /* myshopsgame4 in Resources */,
 				1A2FBE42192C95A500631FE9 /* bird_bezneba in Resources */,
 				1A2FBE4B192C95A500631FE9 /* tiger in Resources */,
 				1A06505C192BB91D0086395A /* button_on.png in Resources */,
 				1A2FBE49192C95A500631FE9 /* peacock_feb3_natasha in Resources */,
+				29E7526C197E7E9900A33829 /* pewPew in Resources */,
 				1A065059192BB91D0086395A /* button_off.png in Resources */,
 				1A2FBE45192C95A500631FE9 /* fairy2 in Resources */,
 				1A2FBE46192C95A500631FE9 /* firemen in Resources */,
@@ -749,7 +760,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D64C242F-FF96-4ABF-8A62-C7742D064F95";
+				PROVISIONING_PROFILE = "CF176649-1C3D-4BD8-827C-D8E6C44ECC52";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -786,7 +797,7 @@
 				INFOPLIST_FILE = "Example/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D64C242F-FF96-4ABF-8A62-C7742D064F95";
+				PROVISIONING_PROFILE = "CF176649-1C3D-4BD8-827C-D8E6C44ECC52";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
