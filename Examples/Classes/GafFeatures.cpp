@@ -267,6 +267,7 @@ bool GafFeatures::init()
     setupMenuItems();
     gray(NULL);
     
+    m_files.push_back("fireman_2014_sound/fireman_2014_sound.gaf");
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
