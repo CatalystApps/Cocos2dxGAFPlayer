@@ -238,9 +238,11 @@ void GafFeatures::setupMenuItems()
     addChild(pMenu, 10000);
     
     cocos2d::Sprite* gafLogo = cocos2d::Sprite::create("buttons/gaf_logo@2x.png");
+    gafLogo->setAnchorPoint(cocos2d::Point(1.f, 1.f));
+    gafLogo->setScale(0.5f * cocos2d::Director::getInstance()->getContentScaleFactor());
     gafLogo->setPosition(cocos2d::Vec2(wsize.width * 0.93f, wsize.height * 0.93f));
     
-    //addChild(gafLogo, 10000);
+    addChild(gafLogo, 10000);
     
     m_vramStat = cocos2d::Label::createWithSystemFont("VRAM: XXX", "System", 14);
     m_vramStat->setAnchorPoint(cocos2d::Point(0.f, 0.f));
@@ -267,11 +269,11 @@ bool GafFeatures::init()
     setupMenuItems();
     gray(NULL);
     
-    m_files.push_back("fireman_2014_sound/fireman_2014_sound.gaf");
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
     m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
+    m_files.push_back("fireman_2014_sound/fireman_2014_sound.gaf");
     m_files.push_back("fairy2/fairy2.gaf");
     m_files.push_back("firemen/firemen.gaf");
     m_files.push_back("impiretank_05_oneplace/impiretank_05_oneplace.gaf");
