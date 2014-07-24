@@ -556,7 +556,9 @@ void GafFeatures::addObjectsToScene()
                 if (pos != std::string::npos)
                 {
                     std::string effectName = seqName.substr(pos + 8) + ".wav";
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
                     CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(effectName.c_str());
+#endif
                     m_musicEffects[i->second.startFrameNo] = std::move(effectName);
                 }
                 else
@@ -590,7 +592,9 @@ void GafFeatures::onFramePlayed(GAFAnimatedObject *object, int frame)
     
     if (it != m_musicEffects.end())
     {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(it->second.c_str());
+#endif
     }
 }
 
