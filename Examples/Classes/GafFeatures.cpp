@@ -536,14 +536,14 @@ void GafFeatures::addObjectsToScene()
         m_objects->addObject(object);
         
         m_objectSequencesNames.clear();
-        
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
         CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
         
         for(auto& effect : m_musicEffects)
         {
             CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect(effect.second.c_str());
         }
-        
+#endif
         m_musicEffects.clear();
         
         const AnimationSequences_t& secDictionary = m_asset->getAnimationSequences();
