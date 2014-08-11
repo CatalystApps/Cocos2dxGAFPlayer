@@ -20,7 +20,7 @@ void main()
 {
     vec4 texColor = texture2D(CC_Texture0, v_texCoord);
     
-	const float kMinimalAlphaAllowed = 0.01;
+	const float kMinimalAlphaAllowed = 1.0e-8;
 	texColor.a = max(texColor.a, kMinimalAlphaAllowed);   // to avoid division by 0
 
     texColor = vec4(texColor.rgb / texColor.a, texColor.a);
