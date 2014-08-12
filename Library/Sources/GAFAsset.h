@@ -39,10 +39,14 @@ private:
     int _majorVersion;
     int _minorVersion;
 
+    void                        _chooseTextureAtlas();
 public:
     /// Initializes asset with bGAF data
 
     bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate = NULL);
+
+
+    bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
     void                        pushTextureAtlas(GAFTextureAtlas* atlas);
     void                        pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef);
@@ -62,23 +66,24 @@ public:
     /// get all of the sequences
     const AnimationSequences_t& getAnimationSequences() const;
 
+    static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
     static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate = NULL);
 
     GAFAsset();
     ~GAFAsset();
     /// total number of frames in animation
-    int                         animationFramesCount() const;
+    size_t                      getAnimationFramesCount() const;
 
-    GAFTextureAtlas *           textureAtlas();
+    GAFTextureAtlas *           getTextureAtlas();
 
     /// get GAFAnimationSequence by name specified in editor
     const GAFAnimationSequence* getSequence(const std::string& name) const;
 
     /// get GAFAnimationSequence by last frame number in sequence	
-    const GAFAnimationSequence* getSequenceByLastFrame(int frame) const;
+    const GAFAnimationSequence* getSequenceByLastFrame(size_t frame) const;
 
     /// get GAFAnimationSequence by first frame number in sequence	
-    const GAFAnimationSequence* getSequenceByFirstFrame(int frame) const;
+    const GAFAnimationSequence* getSequenceByFirstFrame(size_t frame) const;
     /// List of GAFAnimationFrame objects	
     static bool                 isAssetVersionPlayable(const char * version);
 

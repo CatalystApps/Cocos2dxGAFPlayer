@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "GAFAnimation.h"
 
@@ -12,20 +13,18 @@
 
 class GAFAnimatedObject;
 
-class GafFeatures : public cocos2d::Layer, public GAFSequenceDelegate, public GAFTextureLoadDelegate
+class GafFeatures : public cocos2d::Layer, public GAFSequenceDelegate, public GAFTextureLoadDelegate, public GAFFramePlayedDelegate
 {
-public:
-    typedef std::pair<cocos2d::MenuItemImage*, cocos2d::Label*> MenuItemPair_t;
 private:
 
-    enum BtnType
-    {
-        BtnEmpty,
-        BtnPlus,
-        BtnMinus
-    };
-
-    MenuItemPair_t m_nextSeq, m_prevSeq;
+    typedef std::vector<std::string> StringVector_t;
+    typedef std::unordered_map<int, std::string> MusicEffects_t;
+    
+    GAFAsset*                m_asset;
+    cocos2d::__Array*        m_objects;
+    StringVector_t           m_files;
+    int                      m_anim_index;
+    MusicEffects_t           m_musicEffects;
     void enableSequenceControllers(bool value);
 
     typedef std::vector<std::string> ObjectSequencesNames_t;
@@ -34,6 +33,16 @@ private:
 
     cocos2d::Label* m_loadingTimeLabel;
     cocos2d::EventListenerTouchAllAtOnce* m_touchlistener;
+    
+    cocos2d::MenuItemImage* m_playButton;
+    cocos2d::MenuItemImage* m_pauseButton;
+    cocos2d::MenuItemImage* m_nextSequence;
+    cocos2d::MenuItemImage* m_prevSequence;
+    cocos2d::Label*         m_sequenceName;
+    cocos2d::Label*         m_vramStat;
+    
+    void setupMenuItems();
+    cocos2d::MenuItemImage* addButton(const std::string& buttonName, const std::string& buttonPressedName, const cocos2d::Point& pos, const cocos2d::ccMenuCallback& clb);
 public:
     GafFeatures();
     ~GafFeatures();
@@ -49,29 +58,21 @@ public:
 
     virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 
-    MenuItemPair_t addBtn(const char * text, float px, float py, const cocos2d::ccMenuCallback& clb, float k, BtnType btnType);
-
     void black(cocos2d::Ref*);
     void white(cocos2d::Ref*);
     void gray(cocos2d::Ref*);
-    void addOne(cocos2d::Ref*);
     void prevFrame(cocos2d::Ref*);
     void nextFrame(cocos2d::Ref*);
-    void removeOne(cocos2d::Ref*);
     void toggleReverse(cocos2d::Ref*);
-    void set1(cocos2d::Ref*);
-    void set5(cocos2d::Ref*);
-    void set10(cocos2d::Ref*);
-    void set(int n);
     void restart(cocos2d::Ref*);
     void playpause(cocos2d::Ref*);
     void cleanup(cocos2d::Ref*);
     void next_anim(cocos2d::Ref*);
     void prev_anim(cocos2d::Ref*);
-    int maxFrameNumber();
+    int  maxFrameNumber();
     void setFrameNumber(int aFrameNumber);
-    int frameNumber();
-    void addObjectsToScene(int aCount);
+    int  frameNumber();
+    void addObjectsToScene();
     void removeFromScene(int aCount);
 
     void nextSequence(cocos2d::Ref*);
@@ -80,13 +81,8 @@ public:
     virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName);
 
     virtual void onTexturePreLoad(std::string& path);
-
-private:	
-    GAFAsset*                m_asset;
-    cocos2d::__Array*        m_objects;
-    std::vector<std::string> m_files;
-    int                      m_anim_index;
-
+    
+    virtual void onFramePlayed(GAFAnimatedObject * object, int frame) override;
 };
 
 #endif // __GafFeatures_SCENE_H__

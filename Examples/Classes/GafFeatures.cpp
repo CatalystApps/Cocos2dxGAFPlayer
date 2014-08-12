@@ -1,7 +1,9 @@
 #include "GafFeatures.h"
 
-#include "GAFAsset.h"
-#include "GAFAnimatedObject.h"
+#include <GAFAsset.h>
+#include <GAFTextureAtlas.h>
+#include <GAFAnimatedObject.h>
+#include <audio/include/SimpleAudioEngine.h>
 
 #include <iostream>
 
@@ -71,6 +73,12 @@ GafFeatures::~GafFeatures()
 {
     CC_SAFE_RELEASE(m_asset);
     CC_SAFE_RELEASE(m_objects);
+    CC_SAFE_RELEASE(m_playButton);
+    CC_SAFE_RELEASE(m_pauseButton);
+    CC_SAFE_RELEASE(m_nextSequence);
+    CC_SAFE_RELEASE(m_prevSequence);
+    CC_SAFE_RELEASE(m_sequenceName);
+    CC_SAFE_RELEASE(m_vramStat);
 
     _eventDispatcher->removeEventListener(m_touchlistener);
 }
@@ -83,55 +91,6 @@ cocos2d::Scene* GafFeatures::scene()
     return scene;
 }
 
-GafFeatures::MenuItemPair_t GafFeatures::addBtn(const char * text, float px, float py, const cocos2d::ccMenuCallback& clb, float k, BtnType btnType)
-{
-    cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
-
-    cocos2d::MenuItemImage *res = NULL;
-
-    if (btnType == BtnEmpty)
-    {
-        res = cocos2d::MenuItemImage::create(
-            "button_on.png",
-            "button_off.png",
-            "",
-            clb);
-    }
-    else if (btnType == BtnPlus)
-    {
-        res = cocos2d::MenuItemImage::create(
-            "button_on_plus.png",
-            "button_off_plus.png",
-            "",
-            clb);
-    }
-    else if (btnType == BtnMinus)
-    {
-        res = cocos2d::MenuItemImage::create(
-            "button_on_minus.png",
-            "button_off_minus.png",
-            "",
-            clb);
-    }
-
-    res->setPosition( cocos2d::Point(size.width * px, size.height * py) );
-    res->setScale(k);
-
-    cocos2d::Label* pLabel = cocos2d::Label::create(text, "Marker Felt", 24);
-    pLabel->setColor(cocos2d::Color3B(0, 0, 255));
-
-    pLabel->setAnchorPoint(cocos2d::Point(1, 0.5));
-    //pLabel->setScale(k);
-
-    cocos2d::Point labelPos = cocos2d::Point(res->getPositionX() - res->getContentSize().width * k * 0.5f, res->getPositionY());
-
-    pLabel->setPosition( cocos2d::Point(res->getPositionX() - res->getContentSize().width * k * 0.5f, res->getPositionY()) );
-    addChild(pLabel, 100000);
-
-    MenuItemPair_t p = std::make_pair(res, pLabel);
-
-    return p;
-}
 
 void GafFeatures::black(cocos2d::Ref*)
 {
@@ -174,51 +133,147 @@ void GafFeatures::nextFrame(cocos2d::Ref*)
     }
 }
 
-bool GafFeatures::init()
-{    float s = cocos2d::Director::getInstance()->getContentScaleFactor();
-
-    float dp = 0.13f;
-
+void GafFeatures::setupMenuItems()
+{
+    cocos2d::Size wsize = cocos2d::Director::getInstance()->getWinSize();
+    cocos2d::Vector<cocos2d::MenuItem*> items;
+    
     using namespace std::placeholders;
     
-    cocos2d::Vector<cocos2d::MenuItem*> items;
-    items.pushBack(addBtn("Play/Pause"    , 0.95f, 0.95f,            std::bind(&GafFeatures::playpause, this, _1), s, BtnEmpty).first);
-    items.pushBack(addBtn("Restart"       , 0.95f, 0.95f - dp,       std::bind(&GafFeatures::restart, this, _1), s, BtnEmpty).first);
-    items.pushBack(addBtn("B"             , 0.75f, 0.95f - dp * 2.f, std::bind(&GafFeatures::black, this, _1), s, BtnEmpty).first);
-    items.pushBack(addBtn("W"             , 0.85f, 0.95f - dp * 2.f, std::bind(&GafFeatures::white, this, _1), s, BtnEmpty).first);
-    items.pushBack(addBtn("G"             , 0.95f, 0.95f - dp * 2.f, std::bind(&GafFeatures::gray, this, _1), s, BtnEmpty).first);
-    //items.pushBack(addBtn("Remove"        , 0.95f, 0.95f - dp * 3.5f, std::bind(&GafFeatures::removeOne, this, _1), s, BtnEmpty).first);
-    //items.pushBack(addBtn("Add"           , 0.95f, 0.95f - dp * 3.f, std::bind(&GafFeatures::addOne, this, _1), s, BtnEmpty).first);
-    items.pushBack(addBtn("Reverse"       , 0.95f, 0.95f - dp * 3.5f, std::bind(&GafFeatures::toggleReverse, this, _1), s, BtnEmpty).first);
-    //items.pushBack(addBtn("1"             , 0.75f, 0.95f - dp * 4.f, std::bind(&GafFeatures::set1, this, _1), s, BtnEmpty).first);
-    //items.pushBack(addBtn("5"             , 0.85f, 0.95f - dp * 4.f, std::bind(&GafFeatures::set5, this, _1), s, BtnEmpty).first);
-    //items.pushBack(addBtn("10"            , 0.95f, 0.95f - dp * 4.f, std::bind(&GafFeatures::set10, this, _1), s, BtnEmpty).first);
-    items.pushBack(addBtn("Frame"        , 0.95f, 0.95f - dp * 4.0f, std::bind(&GafFeatures::prevFrame, this, _1), s, BtnMinus).first);
-    items.pushBack(addBtn("Frame"        , 0.95f, 0.95f - dp * 4.5f, std::bind(&GafFeatures::nextFrame, this, _1), s, BtnPlus).first);
-    //items.pushBack(addBtn("Full cleanup"  , 0.95f, 0.95f - dp * 5.0f, std::bind(&GafFeatures::cleanup, this, _1), s, BtnEmpty).first);
-    items.pushBack(addBtn("Anim"         , 0.95f, 0.95f - dp * 5.5f, std::bind(&GafFeatures::prev_anim, this, _1), s, BtnMinus).first);
-    items.pushBack(addBtn("Anim"         , 0.95f, 0.95f - dp * 6.0f, std::bind(&GafFeatures::next_anim, this, _1), s, BtnPlus).first);
+    const float Y = 0.1f;
+    
+    items.pushBack(addButton("buttons/previous_animation_button@2x.png", "buttons/previous_animation_button_pressed@2x.png", cocos2d::Point(0.0f, Y),
+                             [this](cocos2d::Ref* obj)
+                             {
+                                 GafFeatures::prev_anim(obj);
+                                 m_playButton->setVisible(false);
+                                 m_pauseButton->setVisible(true);
+                             }));
+    
+                   
+    items.pushBack(addButton("buttons/previous_frame_button@2x.png", "buttons/previous_frame_button_pressed@2x.png", cocos2d::Point(0.1f, Y), std::bind(&GafFeatures::prevFrame, this, _1)));
+    
+    m_playButton = addButton("buttons/play_button@2x.png", "buttons/play_button_pressed@2x.png", cocos2d::Point(0.22f, Y),
+                             [this](cocos2d::Ref* obj)
+                             {
+                                 m_playButton->setVisible(true);
+                                 m_pauseButton->setVisible(false);
+                                 this->playpause(obj);
+                             });
+    
+    m_pauseButton = addButton("buttons/pause_button@2x.png", "buttons/pause_button_pressed@2x.png", cocos2d::Point(0.22f, Y),
+                              [this](cocos2d::Ref* obj)
+                              {
+                                  m_pauseButton->setVisible(false);
+                                  m_playButton->setVisible(true);
+                                  this->playpause(obj);
+                              });
+    
+    items.pushBack(addButton("buttons/next_frame_button@2x.png", "buttons/next_frame_button_pressed@2x.png", cocos2d::Point(0.34f, Y), std::bind(&GafFeatures::nextFrame, this, _1)));
+    
+    items.pushBack(addButton("buttons/next_animation_button@2x.png", "buttons/next_animation_button_pressed@2x.png", cocos2d::Point(0.44f, Y),
+                             [this](cocos2d::Ref* obj)
+                             {
+                                 m_pauseButton->setVisible(true);
+                                 m_playButton->setVisible(false);
 
-    m_nextSeq = addBtn("Next sequence", 0.95f, 0.95f - dp * 2.5f, std::bind(&GafFeatures::nextSequence, this, _1), s, BtnPlus);
-    m_prevSeq = addBtn("Prev sequence", 0.95f, 0.95f - dp * 3.f, std::bind(&GafFeatures::prevSequence, this, _1), s, BtnMinus);
-
-    items.pushBack(m_nextSeq.first);
-    items.pushBack(m_prevSeq.first);
-
-    m_nextSeq.second->setColor(cocos2d::Color3B(255, 0, 0));
-    m_prevSeq.second->setColor(cocos2d::Color3B(255, 0, 0));
+                                 GafFeatures::next_anim(obj);
+                             }));
+    
+    items.pushBack(addButton("buttons/restart_button@2x.png", "buttons/restart_button_pressed@2x.png", cocos2d::Point(0.57f, Y), std::bind(&GafFeatures::restart, this, _1)));
+    
+    items.pushBack(addButton("buttons/white_bg_button@2x.png", "buttons/white_bg_button_pressed@2x.png", cocos2d::Point(0.67f, Y),
+                             [this](cocos2d::Ref* ob)
+                             {
+                                 static int mode = 0;
+                                 mode ++;
+                                 
+                                 if (mode == 3) mode = 0;
+                                 switch (mode)
+                                 {
+                                     case 0:
+                                         this->gray(ob);
+                                         break;
+                                     case 1:
+                                         this->white(ob);
+                                         break;
+                                     case 2:
+                                         this->black(ob);
+                                         break;
+                                     default:
+                                         break;
+                                 }
+                             }
+                             ));
+    
+    m_nextSequence = addButton("buttons/right_arrow@2x.png", "buttons/right_arrow_pressed@2x.png", cocos2d::Point(0.40f, 0.95f), std::bind(&GafFeatures::nextSequence, this, _1));
+    
+    m_prevSequence = addButton("buttons/left_arrow@2x.png", "buttons/left_arrow_pressed@2x.png", cocos2d::Point(0.05f, 0.95f), std::bind(&GafFeatures::prevSequence, this, _1));
+    
+    
+    
+    m_playButton->retain();
+    m_pauseButton->retain();
+    
+    m_playButton->setVisible(false);
+    items.pushBack(m_pauseButton);
+    items.pushBack(m_playButton);
+    items.pushBack(m_nextSequence);
+    items.pushBack(m_prevSequence);
+    
+    m_sequenceName = cocos2d::Label::createWithSystemFont("---", "System", 24);
+    m_sequenceName->retain();
     
     cocos2d::Menu* pMenu = cocos2d::Menu::createWithArray(items);
-    pMenu->setPosition(cocos2d::Point::ZERO);
 
+    pMenu->setPosition(cocos2d::Point(wsize.width / 2.f - m_pauseButton->getPositionX(), 0));
+
+    cocos2d::MenuItemLabel* labelMenuItem = cocos2d::MenuItemLabel::create(m_sequenceName);
+    labelMenuItem->setAnchorPoint(cocos2d::Vec2(0.f, 0.5f));
+    cocos2d::Point labelPos = cocos2d::Point( m_prevSequence->getPositionX() + m_prevSequence->getContentSize().width / 2.f, m_prevSequence->getPositionY());
+    labelMenuItem->setPosition(labelPos);
+    
+    pMenu->addChild(labelMenuItem);
+    
     addChild(pMenu, 10000);
     
-    m_anim_index = 0;
+    cocos2d::Sprite* gafLogo = cocos2d::Sprite::create("buttons/gaf_logo@2x.png");
+    gafLogo->setAnchorPoint(cocos2d::Point(1.f, 1.f));
+    gafLogo->setScale(0.5f * cocos2d::Director::getInstance()->getContentScaleFactor());
+    gafLogo->setPosition(cocos2d::Vec2(wsize.width * 0.93f, wsize.height * 0.93f));
+    
+    addChild(gafLogo, 10000);
+    
+    m_vramStat = cocos2d::Label::createWithSystemFont("VRAM: XXX", "System", 14);
+    m_vramStat->setAnchorPoint(cocos2d::Point(0.f, 0.f));
+    m_vramStat->setPosition(cocos2d::Vec2(10, wsize.height * 0.1f));
+    m_vramStat->retain();
+    
+    addChild(m_vramStat);
+}
 
+cocos2d::MenuItemImage* GafFeatures::addButton(const std::string &buttonName, const std::string &buttonPressedName, const cocos2d::Point &pos, const cocos2d::ccMenuCallback& clb)
+{
+    cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
+    
+    cocos2d::MenuItemImage* item = cocos2d::MenuItemImage::create(buttonName, buttonPressedName, "", clb);
+    
+    item->setPosition(cocos2d::Point(size.width * pos.x, size.height * pos.y));
+    item->setScale(cocos2d::Director::getInstance()->getContentScaleFactor());
+    
+    return item;
+}
+
+bool GafFeatures::init()
+{
+    setupMenuItems();
+    gray(NULL);
+    
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
     m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
+    m_files.push_back("fireman_2014_sound/fireman_2014_sound.gaf");
     m_files.push_back("fairy2/fairy2.gaf");
     m_files.push_back("firemen/firemen.gaf");
     m_files.push_back("impiretank_05_oneplace/impiretank_05_oneplace.gaf");
@@ -226,25 +281,28 @@ bool GafFeatures::init()
     m_files.push_back("peacock_feb3_natasha/peacock_feb3_natasha.gaf");
     m_files.push_back("tiger/tiger.gaf");
     
-
-    addObjectsToScene(1);
-    gray(NULL);
-
+    m_anim_index = 0;
+    
+    addObjectsToScene();
+    
     return true;
 }
 
 void GafFeatures::enableSequenceControllers( bool value )
 {
-    m_nextSeq.first->setVisible(value);
-    m_prevSeq.first->setVisible(value);
-
-    m_nextSeq.second->setVisible(value);
-    m_prevSeq.second->setVisible(value);
+    m_prevSequence->setVisible(value);
+    m_nextSequence->setVisible(value);
+    m_sequenceName->setVisible(value);
+    
+    if (value)
+    {
+        m_sequenceName->setString(m_objectSequencesNames[m_currentSequence]);
+    }
 }
 
 void GafFeatures::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event)
 {
-    if (!m_objects || !m_objects->count())
+    /*if (!m_objects || !m_objects->count())
     {
         return;
     }
@@ -252,7 +310,7 @@ void GafFeatures::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
     GAFAnimatedObject * node = (GAFAnimatedObject*)m_objects->getObjectAtIndex(0);
     cocos2d::Touch * pTouch = touches[0];
     cocos2d::Point pt = pTouch->getLocation();
-    node->setPosition(pt.x, pt.y);
+    node->setPosition(pt.x, pt.y);*/
 }
 
 void GafFeatures::nextSequence( cocos2d::Ref* )
@@ -268,6 +326,8 @@ void GafFeatures::nextSequence( cocos2d::Ref* )
 
     const char* secName = m_objectSequencesNames[m_currentSequence].c_str();
     object->playSequence(secName, true);
+    
+    m_sequenceName->setString(secName);
 }
 
 void GafFeatures::prevSequence( cocos2d::Ref* )
@@ -283,6 +343,8 @@ void GafFeatures::prevSequence( cocos2d::Ref* )
 
     const char* secName = m_objectSequencesNames[m_currentSequence].c_str();
     object->playSequence(secName, true);
+    
+    m_sequenceName->setString(secName);
 }
 
 void GafFeatures::next_anim(cocos2d::Ref*)
@@ -299,7 +361,7 @@ void GafFeatures::next_anim(cocos2d::Ref*)
     {
         m_anim_index = 0;
     }
-    addObjectsToScene(1);
+    addObjectsToScene();
 }
 
 void GafFeatures::prev_anim(cocos2d::Ref*)
@@ -316,7 +378,7 @@ void GafFeatures::prev_anim(cocos2d::Ref*)
         m_anim_index = m_files.size() - 1;
     }
 
-    addObjectsToScene(1);
+    addObjectsToScene();
 }
 
 void GafFeatures::restart(cocos2d::Ref*)
@@ -383,51 +445,6 @@ int GafFeatures::frameNumber()
     return object->currentFrameIndex();
 }
 
-void GafFeatures::set1(cocos2d::Ref*)
-{
-    set(1);
-}
-
-void GafFeatures::set5(cocos2d::Ref*)
-{
-    set(5);
-}
-
-void GafFeatures::set10(cocos2d::Ref*)
-{
-    set(10);
-}
-
-void GafFeatures::set(int n)
-{
-    if (!m_objects)
-    {
-        m_objects = cocos2d::__Array::create();
-        m_objects->retain();
-    }
-
-    int c = m_objects->count();
-
-    if (c == n)
-    {
-        return;
-    }
-
-    if (n > c)
-    {
-        addObjectsToScene(n - c);
-    }
-    else
-    {
-        removeFromScene(c - n);
-    }
-}
-
-void GafFeatures::addOne(cocos2d::Ref*)
-{
-    addObjectsToScene(1);
-}
-
 void GafFeatures::toggleReverse(cocos2d::Ref*)
 {
     if (m_objects->count() == 0)
@@ -436,11 +453,6 @@ void GafFeatures::toggleReverse(cocos2d::Ref*)
     }
     GAFAnimatedObject *obj = (GAFAnimatedObject *)m_objects->getLastObject();
     obj->setReversed(!obj->isReversed());
-}
-
-void GafFeatures::removeOne(cocos2d::Ref*)
-{
-    removeFromScene(1);
 }
 
 void GafFeatures::cleanup(cocos2d::Ref*)
@@ -476,13 +488,8 @@ void GafFeatures::removeFromScene(int aCount)
     }
 }
 
-void GafFeatures::addObjectsToScene(int aCount)
+void GafFeatures::addObjectsToScene()
 {
-    if (!aCount)
-    {
-        return;
-    }
-
     if (!m_asset)
     {
         StartCounter();
@@ -496,7 +503,15 @@ void GafFeatures::addObjectsToScene(int aCount)
         ss << loadingTime;
 
         //m_loadingTimeLabel->setString(ss.str().c_str());
-
+        
+        ss.str("");
+        
+        ss << "VRAM: ";
+        ss << m_asset->getTextureAtlas()->getMemoryConsumptionStat();
+        ss << " bytes";
+        
+        m_vramStat->setString(ss.str());
+        
         CC_SAFE_RETAIN(m_asset);
     }
 
@@ -510,47 +525,77 @@ void GafFeatures::addObjectsToScene(int aCount)
 
     if (m_asset)
     {
-        int initialCount = m_objects->count();
-
-        for (int i = initialCount; i < initialCount + aCount; ++i)
+        GAFAnimatedObject *object = m_asset->createObject();
+        
+        object->setLocalZOrder(0);
+        addChild(object);
+        
+        float scaleFactor = cocos2d::Director::getInstance()->getContentScaleFactor();
+        object->setPosition(centerScreenPosition(m_asset, size / scaleFactor));
+        
+        m_objects->addObject(object);
+        
+        m_objectSequencesNames.clear();
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+        CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
+        
+        for(auto& effect : m_musicEffects)
         {
-            GAFAnimatedObject *object = m_asset->createObject();
- 
-            object->setLocalZOrder(100 * i);
-
-            addChild(object);
-            
-            float scaleFactor = cocos2d::Director::getInstance()->getContentScaleFactor();
-            object->setPosition(centerScreenPosition(m_asset, size / scaleFactor));
-            
-            m_objects->addObject(object);
-            
-            enableSequenceControllers(object->hasSequences());
-
-            m_objectSequencesNames.clear();
-
-            const AnimationSequences_t& secDictionary = m_asset->getAnimationSequences();
-            if (!secDictionary.empty())
+            CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect(effect.second.c_str());
+        }
+#endif
+        m_musicEffects.clear();
+        
+        const AnimationSequences_t& secDictionary = m_asset->getAnimationSequences();
+        if (!secDictionary.empty())
+        {
+            for (AnimationSequences_t::const_iterator i = secDictionary.begin(), e = secDictionary.end(); i != e; ++i)
             {
-                for (AnimationSequences_t::const_iterator i = secDictionary.begin(), e = secDictionary.end(); i != e; ++i)
+                const std::string& seqName = i->first;
+                std::string::size_type pos = seqName.find_first_of("__audio:");
+                if (pos != std::string::npos)
+                {
+                    std::string effectName = seqName.substr(pos + 8) + ".wav";
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+                    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(effectName.c_str());
+#endif
+                    m_musicEffects[i->second.startFrameNo] = std::move(effectName);
+                }
+                else
                 {
                     m_objectSequencesNames.push_back(i->first);
                 }
             }
-
-            // will work only if animation has a sequence
-            object->playSequence("walk", true);
-            object->setLooped(true);
-            object->start();
-
-            object->setSequenceDelegate(this);
         }
+        
+        enableSequenceControllers(!m_objectSequencesNames.empty());
+        
+        // will work only if animation has a sequence
+        object->playSequence("walk", true);
+        object->setLooped(true);
+        object->start();
+        
+        object->setSequenceDelegate(this);
+        object->setFramePlayedDelegate(this);
+        
     }
 }
 
 void GafFeatures::onFinishSequence( GAFAnimatedObject * object, const std::string& sequenceName )
 {
     //! This function will be triggered once a sequence completed
+}
+
+void GafFeatures::onFramePlayed(GAFAnimatedObject *object, int frame)
+{
+    MusicEffects_t::const_iterator it = m_musicEffects.find(frame);
+    
+    if (it != m_musicEffects.end())
+    {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(it->second.c_str());
+#endif
+    }
 }
 
 //! path parameter could be changed

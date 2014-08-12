@@ -75,11 +75,55 @@ GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegat
     return NULL;
 }
 
+
+GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate /*= NULL*/)
+{
+    GAFAsset * ret = new GAFAsset();
+    if (ret && ret->initWithGAFBundle(zipfilePath, entryFile, delegate))
+    {
+        ret->autorelease();
+        return ret;
+    }
+    CC_SAFE_RELEASE(ret);
+    return NULL;
+}
+
+bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate /*= NULL*/)
+{
+    GAFLoader* loader = new GAFLoader();
+
+    std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(zipFilePath);
+
+    cocos2d::ZipFile bundle(fullfilePath);
+    ssize_t sz = 0;
+    unsigned char* gafData = bundle.getFileData(entryFile, &sz);
+
+    if (!gafData || !sz)
+        return false;
+
+    bool isLoaded = loader->loadData(gafData, sz, this);
+
+    if (isLoaded)
+    {
+        _chooseTextureAtlas();
+
+        if (m_currentTextureAtlas)
+        {
+            m_textureLoadDelegate = delegate;
+            m_currentTextureAtlas->loadImages(entryFile, m_textureLoadDelegate, &bundle);
+        }
+    }
+
+    delete loader;
+
+    return isLoaded;
+}
+
 bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate)
 {
     GAFLoader* loader = new GAFLoader();
 
-    std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath.c_str());
+    std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
@@ -90,23 +134,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
     if (isLoaded)
     {
-        float atlasScale = m_textureAtlases[0]->getScale();
-
-        m_currentTextureAtlas = m_textureAtlases[0];
-
-        const unsigned int count = m_textureAtlases.size();
-
-        for (unsigned int i = 1; i < count; ++i)
-        {
-            float as = m_textureAtlases[i]->getScale();
-            if (fabs(atlasScale - _currentDeviceScale) > fabs(as - _currentDeviceScale))
-            {
-                m_currentTextureAtlas = m_textureAtlases[i];
-                atlasScale = as;
-            }
-        }
-
-        _usedAtlasContentScaleFactor = atlasScale;
+        _chooseTextureAtlas();
 
         if (m_currentTextureAtlas)
         {
@@ -120,12 +148,12 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     return isLoaded;
 }
 
-GAFTextureAtlas* GAFAsset::textureAtlas()
+GAFTextureAtlas* GAFAsset::getTextureAtlas()
 {
     return m_currentTextureAtlas;
 }
 
-int GAFAsset::animationFramesCount() const
+size_t GAFAsset::getAnimationFramesCount() const
 {
     return m_animationFrames.size();
 }
@@ -142,7 +170,7 @@ const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
     return NULL;
 }
 
-const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
+const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
@@ -151,7 +179,7 @@ const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
 
     for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
     {
-        if (i->second.endFrameNo == frame)
+        if (i->second.endFrameNo == frame + 1)
         {
             return &i->second;
         }
@@ -160,7 +188,7 @@ const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(int frame) const
     return NULL;
 }
 
-const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(int frame) const
+const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
@@ -296,4 +324,25 @@ void GAFAsset::setSceneHeight(unsigned int value)
 void GAFAsset::setSceneColor(const cocos2d::Color4B& value)
 {
     m_sceneColor = value;
+}
+
+void GAFAsset::_chooseTextureAtlas()
+{
+    float atlasScale = m_textureAtlases[0]->getScale();
+
+    m_currentTextureAtlas = m_textureAtlases[0];
+
+    const unsigned int count = m_textureAtlases.size();
+
+    for (unsigned int i = 1; i < count; ++i)
+    {
+        float as = m_textureAtlases[i]->getScale();
+        if (fabs(atlasScale - _currentDeviceScale) > fabs(as - _currentDeviceScale))
+        {
+            m_currentTextureAtlas = m_textureAtlases[i];
+            atlasScale = as;
+        }
+    }
+
+    _usedAtlasContentScaleFactor = atlasScale;
 }
