@@ -7,7 +7,7 @@
 const char* pcShader_PositionTextureAlpha_frag_fs = STRINGIFY(
 
 \n#ifdef GL_ES\n
-precision lowp float;
+precision mediump float;
 \n#endif\n
 
 varying vec2 v_texCoord;
