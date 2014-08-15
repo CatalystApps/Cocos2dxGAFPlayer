@@ -42,7 +42,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     // turn on display FPS
     pDirector->setDisplayStats(1);
 
-    pDirector->setProjection(cocos2d::Director::Projection::_2D);
     CCTexture2D::setDefaultAlphaPixelFormat(cocos2d::Texture2D::PixelFormat::RGBA8888);
     CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
 
