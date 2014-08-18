@@ -12,13 +12,18 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+TagDefineAnimationFrames::~TagDefineAnimationFrames()
+{
+    for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
+    {
+        it->second->release();
+    }
+}
+
 void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
 {
     in->readU32(); // read count. Unused here
     
-    typedef std::map<unsigned int, GAFSubobjectState*> States_t;
-    States_t currentStates;
-
     assert(!ctx->getAnimationObjects().empty());
 
     for (AnimationObjects_t::const_iterator i = ctx->getAnimationObjects().begin(), e = ctx->getAnimationObjects().end(); i != e; ++i)
@@ -27,7 +32,7 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
         GAFSubobjectState *state = new GAFSubobjectState();
         state->initEmpty(objectId);
 
-        currentStates[objectId] = state;
+        m_currentStates[objectId] = state;
     }
 
     const unsigned short totalFrameCount = in->getInput()->getHeader().framesCount;
@@ -54,14 +59,14 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
             {
                 GAFSubobjectState* st = *it;
 
-                GAFSubobjectState* ps = currentStates[st->objectIdRef];
+                GAFSubobjectState* ps = m_currentStates[st->objectIdRef];
 
                 if (ps)
                 {
                     ps->release();
                 }
 
-                currentStates[st->objectIdRef] = st;
+                m_currentStates[st->objectIdRef] = st;
             }
 
             if (in->getPosition() < in->getTagExpectedPosition())
@@ -70,7 +75,7 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
 
         GAFAnimationFrame* frame = new GAFAnimationFrame();
 
-        for (States_t::iterator it = currentStates.begin(), ie = currentStates.end(); it != ie; ++it)
+        for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
         {
             frame->pushObjectState(it->second);
         }
@@ -128,7 +133,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
 
             if (type == GFT_Blur)
             {
-                CCSize p;
+                cocos2d::Size p;
                 PrimitiveDeserializer::deserialize(in, &p);
                 GAFBlurFilterData* blurFilter = new GAFBlurFilterData();
                 blurFilter->blurSize = p;
@@ -152,7 +157,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
             else if (type == GFT_Glow)
             {
                 GAFGlowFilterData* filter = new GAFGlowFilterData();
-                ccColor4B clr;
+                cocos2d::Color4B clr;
                 PrimitiveDeserializer::deserialize(in, &clr);
 
                 _translateColor(filter->color, clr);
@@ -169,7 +174,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
             {
                 GAFDropShadowFilterData* filter = new GAFDropShadowFilterData();
 
-                ccColor4B clr;
+                cocos2d::Color4B clr;
                 PrimitiveDeserializer::deserialize(in, &clr);
 
                 _translateColor(filter->color, clr);
@@ -194,7 +199,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
     return state;
 }
 
-void TagDefineAnimationFrames::_translateColor(ccColor4F& out, const ccColor4B& in)
+void TagDefineAnimationFrames::_translateColor(cocos2d::Color4F& out, const cocos2d::Color4B& in)
 {
     out.b = in.r / 255.f;
     out.g = in.g / 255.f;

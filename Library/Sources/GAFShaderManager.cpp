@@ -1,56 +1,32 @@
 #include "GAFPrecompiled.h"
 #include "GAFShaderManager.h"
-#include "GAFData.h"
 
+using std::string;
 
-CCGLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, CCGLProgram * p)
+#define STRINGIFY(A)  #A
+
+#include "Shaders/GaussianBlurFragmentShader.frag"
+#include "Shaders/GaussianBlurVertexShader.vert"
+#include "Shaders/GlowFragmentShader.frag"
+#include "Shaders/pcShader_masked_texture.frag"
+#include "Shaders/pcShader_PositionTexture_alphaFilter.frag"
+#include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
+#include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
+
+const char * const GAFShaderManager::s_fragmentShaders[] =
 {
-    if (!vertexSource || !fragmentFilename)
-    {
-        return NULL;
-    }
-    std::string fp = CCFileUtils::sharedFileUtils()->fullPathForFilename(fragmentFilename);
-    GAFData data;
-    data.delete_data = true;
-    data.ptr = CCFileUtils::sharedFileUtils()->getFileData(fp.c_str(), "r", &data.size);
-    if (!data.ptr)
-    {
-        CCLOGERROR("Cannot load fragment shader with name %s", fragmentFilename);
-        return NULL;
-    }
-    CCGLProgram * res;
+    GaussianBlurFragmentShader_fs,
+    GlowFragmentShader_fs,
+    pcShader_masked_texture_fs,
+    pcShader_PositionTexture_alphaFilter_fs,
+    pcShader_PositionTextureAlpha_frag_fs,
+    pcShader_PositionTextureAlpha_frag_noCTX_fs
+};
 
-    if (p)
-    {
-        res = p;
-    }
-    else
-    {
-        res = new CCGLProgram();
-    }
-
-    if (!res)
-    {
-        return NULL;
-    }
-    if (data.size)
-    {
-        data.ptr[data.size - 1] = 0;
-    }
-
-    if (!res->initWithVertexShaderByteArray(vertexSource, (const char *)data.ptr))
-    {
-        CC_SAFE_RELEASE(res);
-        return NULL;
-    }
-
-    if (!p)
-    {
-        res->autorelease();
-    }
-
-    return res;
-}
+const char* const GAFShaderManager::s_vertexShaders[] =
+{
+    GaussianBlurVertexShader_vs
+};
 
 void GAFShaderManager::handleEnterBackground()
 {

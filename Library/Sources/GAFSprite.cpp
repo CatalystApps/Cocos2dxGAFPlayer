@@ -1,164 +1,42 @@
 #include "GAFPrecompiled.h"
 #include "GAFSprite.h"
 
+#include "TransformUtils.h"
+#include "../external/xxhash/xxhash.h"
+
+USING_NS_CC;
+
 #if CC_SPRITEBATCHNODE_RENDER_SUBPIXEL
 #define RENDER_IN_SUBPIXEL
 #else
 #define RENDER_IN_SUBPIXEL(__A__) ( (int)(__A__))
 #endif
-#include "GAFSpriteWithAlpha.h"
 
 GAFSprite::GAFSprite()
 :
-_useSeparateBlendFunc(false),
-_isLocator(false),
-_blendEquation(-1),
-_externalTransform(CCAffineTransformIdentity),
-_childTransform(CCAffineTransformIdentity),
-_atlasScale(1.0f)
+m_useSeparateBlendFunc(false),
+m_isLocator(false),
+m_blendEquation(-1),
+m_atlasScale(1.0f)
 {
 
 }
 
-void GAFSprite::setExternaTransform(const CCAffineTransform& transform)
+bool GAFSprite::initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)
 {
-    if (!CCAffineTransformEqualToTransform(_externalTransform, transform))
-    {
-        _externalTransform = transform;
-        m_bTransformDirty = true;
-        m_bInverseDirty = true;
-    }
+    CCASSERT(spriteFrame != nullptr, "");
+
+    bool bRet = cocos2d::Sprite::initWithTexture(spriteFrame->getTexture(), spriteFrame->getRect());
+    setSpriteFrame(spriteFrame);
+
+    return bRet;
 }
 
-void GAFSprite::setAtlasScale(float scale)
+bool GAFSprite::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated)
 {
-    if (_atlasScale != scale)
+    if (cocos2d::Sprite::initWithTexture(pTexture, rect, rotated))
     {
-        _atlasScale = scale;
-        m_bTransformDirty = true;
-        m_bInverseDirty = true;
-    }
-}
-
-CCAffineTransform GAFSprite::nodeToParentTransform(void)
-{
-    if (m_bTransformDirty)
-    {
-        CCAffineTransform t = _externalTransform;
-        if (_atlasScale != 1.0f)
-        {
-            t = CCAffineTransformScale(t, _atlasScale, _atlasScale);
-        }
-        m_sTransform = CCAffineTransformTranslate(t, -m_obAnchorPointInPoints.x, -m_obAnchorPointInPoints.y);
-        m_bTransformDirty = false;
-    }
-    return m_sTransform;
-}
-
-void GAFSprite::draw(void)
-{
-    if (_isLocator)
-    {
-        return;
-    }
-
-    CC_PROFILER_START_CATEGORY(kCCProfilerCategorySprite, "GAFSprite - draw");
-
-    CCAssert(!m_pobBatchNode, "If CCSprite is being rendered by CCSpriteBatchNode, CCSprite#draw SHOULD NOT be called");
-
-    CC_NODE_DRAW_SETUP();
-
-    if (_useSeparateBlendFunc)
-    {
-        glBlendFuncSeparate(_blendFuncSeparate.src, _blendFuncSeparate.dst,
-            _blendFuncSeparate.srcAlpha, _blendFuncSeparate.dstAlpha);
-    }
-    else
-    {
-        ccGLBlendFunc(m_sBlendFunc.src, m_sBlendFunc.dst);
-    }
-
-    if (_blendEquation != -1)
-    {
-        glBlendEquation(_blendEquation);
-    }
-
-    if (m_pobTexture != NULL)
-    {
-        ccGLBindTexture2D(m_pobTexture->getName());
-    }
-    else
-    {
-        ccGLBindTexture2D(0);
-    }
-
-    //
-    // Attributes
-    //
-
-    ccGLEnableVertexAttribs(kCCVertexAttribFlag_PosColorTex);
-    setUniformsForFragmentShader();
-    CHECK_GL_ERROR_DEBUG();
-
-#define kQuadSize sizeof(m_sQuad.bl)
-    long offset = (long)&m_sQuad;
-
-    // vertex
-    int diff = offsetof(ccV3F_C4B_T2F, vertices);
-    glVertexAttribPointer(kCCVertexAttrib_Position, 3, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
-
-    // texCoods
-    diff = offsetof(ccV3F_C4B_T2F, texCoords);
-    glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
-
-    // color
-    diff = offsetof(ccV3F_C4B_T2F, colors);
-    glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, kQuadSize, (void*)(offset + diff));
-
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    CHECK_GL_ERROR_DEBUG();
-
-#if CC_SPRITE_DEBUG_DRAW == 1
-    // draw bounding box
-    CCPoint vertices[4] = {
-        ccp(m_sQuad.tl.vertices.x, m_sQuad.tl.vertices.y),
-        ccp(m_sQuad.bl.vertices.x, m_sQuad.bl.vertices.y),
-        ccp(m_sQuad.br.vertices.x, m_sQuad.br.vertices.y),
-        ccp(m_sQuad.tr.vertices.x, m_sQuad.tr.vertices.y),
-    };
-    ccDrawPoly(vertices, 4, true);
-#elif CC_SPRITE_DEBUG_DRAW == 2
-    // draw texture box
-    CCSize s = this->getTextureRect().size;
-    CCPoint offsetPix = this->getOffsetPosition();
-    CCPoint vertices[4] = {
-        ccp(offsetPix.x, offsetPix.y), ccp(offsetPix.x + s.width, offsetPix.y),
-        ccp(offsetPix.x + s.width, offsetPix.y + s.height), ccp(offsetPix.x, offsetPix.y + s.height)
-    };
-    ccDrawPoly(vertices, 4, true);
-#endif // CC_SPRITE_DEBUG_DRAW
-
-    CC_INCREMENT_GL_DRAWS(1);
-
-    CC_PROFILER_STOP_CATEGORY(kCCProfilerCategorySprite, "GAFSprite - draw");
-}
-
-void GAFSprite::invalidateTransformCache()
-{
-    m_bTransformDirty = true;
-}
-
-void GAFSprite::setUniformsForFragmentShader()
-{
-
-}
-
-bool GAFSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated)
-{
-    if (CCSprite::initWithTexture(pTexture, rect, rotated))
-    {
-        setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor));
+        setGLProgram(cocos2d::ShaderCache::getInstance()->getGLProgram(cocos2d::GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
         return true;
     }
     else
@@ -167,18 +45,187 @@ bool GAFSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool 
     }
 }
 
-void GAFSprite::setTexture(CCTexture2D *texture)
+void GAFSprite::setTexture(cocos2d::Texture2D *texture)
 {
     // If batchnode, then texture id should be the same
-    CCAssert(!m_pobBatchNode || texture->getName() == m_pobBatchNode->getTexture()->getName(), "CCSprite: Batched sprites should use the same texture as the batchnode");
+    CCAssert(!_batchNode || texture->getName() == _batchNode->getTexture()->getName(), "cocos2d::Sprite: Batched sprites should use the same texture as the batchnode");
     // accept texture==nil as argument
-    CCAssert(!texture || dynamic_cast<CCTexture2D*>(texture), "setTexture expects a CCTexture2D. Invalid argument");
+    CCAssert(!texture || dynamic_cast<cocos2d::Texture2D*>(texture), "setTexture expects a cocos2d::Texture2D. Invalid argument");
 
-    if (!m_pobBatchNode && m_pobTexture != texture)
+    if (!_batchNode && _texture != texture)
     {
         CC_SAFE_RETAIN(texture);
-        CC_SAFE_RELEASE(m_pobTexture);
-        m_pobTexture = texture;
+        CC_SAFE_RELEASE(_texture);
+        _texture = texture;
         updateBlendFunc();
     }
+}
+
+void GAFSprite::setExternaTransform(const cocos2d::AffineTransform& transform)
+{
+    if (!cocos2d::AffineTransformEqualToTransform(getExternalTransform(), transform))
+    {
+        m_externalTransform = transform;
+        _transformDirty = true;
+        _inverseDirty = true;
+    }
+}
+
+cocos2d::AffineTransform GAFSprite::getExternalTransform() const
+{
+    return m_externalTransform;
+}
+
+const cocos2d::Mat4& GAFSprite::getNodeToParentTransform() const
+{
+    if (_transformDirty)
+    {
+        cocos2d::AffineTransform transform = getExternalTransform();
+        if (m_atlasScale != 1.f)
+        {
+            transform = cocos2d::AffineTransformScale(transform, m_atlasScale, m_atlasScale);
+        }
+
+        cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
+        _transformDirty = false;
+    }
+
+    return _transform;
+}
+
+cocos2d::AffineTransform GAFSprite::getNodeToParentAffineTransform() const
+{
+    cocos2d::AffineTransform transform;
+    if (_transformDirty)
+    {
+        transform = getExternalTransform();
+        if (m_atlasScale != 1.0f)
+        {
+            transform = cocos2d::AffineTransformScale(transform, m_atlasScale, m_atlasScale);
+        }
+
+        cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
+        _transformDirty = false;
+    }
+    cocos2d::GLToCGAffine(_transform.m, &transform);
+
+    return transform;
+}
+
+#if COCOS2D_VERSION < 0x00030200
+void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+#else
+void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+#endif
+{
+    if (m_isLocator)
+    {
+        return;
+    }
+
+    uint32_t id = setUniforms();
+
+    if (m_useSeparateBlendFunc || (m_blendEquation != -1))
+    {
+        m_customCommand.init(_globalZOrder);
+        m_customCommand.func = CC_CALLBACK_0(GAFSprite::customDraw, this, transform);
+        renderer->addCommand(&m_customCommand);
+    }
+    else
+    {
+        m_quad = _quad;
+
+        transform.transformPoint(&m_quad.tl.vertices);
+        transform.transformPoint(&m_quad.tr.vertices);
+        transform.transformPoint(&m_quad.bl.vertices);
+        transform.transformPoint(&m_quad.br.vertices);
+
+        m_quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &m_quad, 1, Mat4::IDENTITY, id);
+        renderer->addCommand(&m_quadCommand);
+    }
+}
+
+void GAFSprite::setAtlasScale(float scale)
+{
+    if (m_atlasScale != scale)
+    {
+        m_atlasScale = scale;
+        _transformDirty = true;
+        _inverseDirty = true;
+    }
+}
+
+uint32_t GAFSprite::setUniforms()
+{
+    uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
+
+    if (_glProgramState->getUniformCount() == 0)
+    {
+        int glProgram = (int)getGLProgram()->getProgram();
+        int intArray[4] = { glProgram, (int)getTexture()->getName(), (int)getBlendFunc().src, (int)getBlendFunc().dst };
+
+        uint32_t materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
+    }
+    return materialID;
+}
+
+void GAFSprite::customDraw(cocos2d::Mat4& transform)
+{
+    CCAssert(!_batchNode, "If cocos2d::Sprite is being rendered by CCSpriteBatchNode, cocos2d::Sprite#draw SHOULD NOT be called");
+
+    getGLProgramState()->apply(transform);
+
+    if (m_useSeparateBlendFunc)
+    {
+        glBlendFuncSeparate(m_blendFuncSeparate.src, m_blendFuncSeparate.dst,
+            m_blendFuncSeparate.srcAlpha, m_blendFuncSeparate.dstAlpha);
+    }
+    else
+    {
+        cocos2d::GL::blendFunc(_blendFunc.src, _blendFunc.dst);
+    }
+
+    if (m_blendEquation != -1)
+    {
+        glBlendEquation(m_blendEquation);
+    }
+
+    if (_texture != NULL)
+    {
+        cocos2d::GL::bindTexture2D(_texture->getName());
+    }
+    else
+    {
+        cocos2d::GL::bindTexture2D(0);
+    }
+
+    //
+    // Attributes
+    //
+
+    cocos2d::GL::enableVertexAttribs(cocos2d::GL::VERTEX_ATTRIB_FLAG_POS_COLOR_TEX);
+    CHECK_GL_ERROR_DEBUG();
+
+#define kQuadSize sizeof(_quad.bl)
+    long offset = (long)&_quad;
+
+    // vertex
+    int diff = offsetof(cocos2d::V3F_C4B_T2F, vertices);
+    glVertexAttribPointer(cocos2d::GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
+
+    // texCoods
+    diff = offsetof(cocos2d::V3F_C4B_T2F, texCoords);
+    glVertexAttribPointer(cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS, 2, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
+
+    // color
+    diff = offsetof(cocos2d::V3F_C4B_T2F, colors);
+    glVertexAttribPointer(cocos2d::GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_UNSIGNED_BYTE, GL_TRUE, kQuadSize, (void*)(offset + diff));
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    CHECK_GL_ERROR_DEBUG();
+
+    using namespace cocos2d;
+    //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
+    //CC_INCREMENT_GL_DRAWS(1);
 }

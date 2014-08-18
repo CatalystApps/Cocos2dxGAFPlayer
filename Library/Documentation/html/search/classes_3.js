@@ -5,7 +5,6 @@ var searchData=
   ['gafanimatedobjectcontroldelegate',['GAFAnimatedObjectControlDelegate',['../class_g_a_f_animated_object_control_delegate.html',1,'']]],
   ['gafanimation',['GAFAnimation',['../class_g_a_f_animation.html',1,'']]],
   ['gafanimationframe',['GAFAnimationFrame',['../class_g_a_f_animation_frame.html',1,'']]],
-  ['gafanimationplaybackdelegate',['GAFAnimationPlaybackDelegate',['../class_g_a_f_animation_playback_delegate.html',1,'']]],
   ['gafanimationsequence',['GAFAnimationSequence',['../class_g_a_f_animation_sequence.html',1,'']]],
   ['gafasset',['GAFAsset',['../class_g_a_f_asset.html',1,'']]],
   ['gafblurfilterdata',['GAFBlurFilterData',['../class_g_a_f_blur_filter_data.html',1,'']]],

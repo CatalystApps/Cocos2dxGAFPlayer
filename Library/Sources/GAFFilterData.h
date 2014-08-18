@@ -1,8 +1,4 @@
 #pragma once
-
-#ifndef __GAF_FILTER_DATA__
-#define __GAF_FILTER_DATA__
-
 #include "GAFCollections.h"
 
 class GAFSpriteWithAlpha;
@@ -10,7 +6,7 @@ class GAFSpriteWithAlpha;
 class GAFFilterData
 {
 protected:
-    const GAFFilterType m_type;
+    GAFFilterType m_type;
 public:
 
     virtual ~GAFFilterData() {}
@@ -23,13 +19,13 @@ public:
     GAFFilterData(GAFFilterType type) : m_type(type)
     {}
 
-    virtual void apply(GAFSpriteWithAlpha*) = 0;
+    virtual void apply(GAFSpriteWithAlpha*){};
 };
 
 class GAFBlurFilterData : public GAFFilterData
 {
 public:
-    CCSize blurSize;
+    cocos2d::Size blurSize;
     GAFBlurFilterData();
 
     virtual void apply(GAFSpriteWithAlpha*);
@@ -48,8 +44,8 @@ public:
 class GAFGlowFilterData : public GAFFilterData
 {
 public:
-    ccColor4F   color;
-    CCSize      blurSize;
+    cocos2d::Color4F   color;
+    cocos2d::Size      blurSize;
     float       strength;
     bool        innerGlow;
     bool        knockout;
@@ -61,8 +57,8 @@ public:
 class GAFDropShadowFilterData : public GAFFilterData
 {
 public:
-    ccColor4F       color;
-    CCSize          blurSize;
+    cocos2d::Color4F       color;
+    cocos2d::Size          blurSize;
     float           angle;
     float           distance;
     float           strength;
@@ -74,5 +70,3 @@ public:
 
     static void reset(GAFSpriteWithAlpha*);
 };
-
-#endif // __GAF_FILTER_DATA__

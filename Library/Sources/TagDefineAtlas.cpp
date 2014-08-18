@@ -46,7 +46,7 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
         GAFTextureAtlasElement* element = new GAFTextureAtlasElement();
 
         PrimitiveDeserializer::deserialize(in, &element->pivotPoint);
-        CCPoint origin;
+        cocos2d::Vect origin;
         PrimitiveDeserializer::deserialize(in, &origin);
         element->scale = in->readFloat();
 
@@ -64,7 +64,7 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
         element->elementAtlasIdx = in->readU32();
 
         element->bounds.origin = origin;
-        element->bounds.size = CCSize(width, height);
+        element->bounds.size = cocos2d::Size(width, height);
 
         txAtlas->pushElement(element->elementAtlasIdx, element);
 
@@ -74,7 +74,7 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
 
             if (hasScale9Grid)
             {
-                CCRect scale9GridRect;
+                cocos2d::Rect scale9GridRect;
                 PrimitiveDeserializer::deserialize(in, &scale9GridRect);
             }
         }

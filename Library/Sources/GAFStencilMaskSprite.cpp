@@ -2,60 +2,49 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFShaderManager.h"
 
-static const char * kPCStencilMaskAlphaFilterFragmentShaderFilename = "Shaders/pcShader_PositionTexture_alphaFilter.fs";
+#define USE_LAYERED_STENCIL 0
 
-#define USE_LAYERED_STENCIL 1
-
-
+#if 1 // for manual comparsion
 static bool compare_stencil_sprites(const void* p1, const void* p2)
 {
     GAFSprite* sp1 = (GAFSprite*)p1;
     GAFSprite* sp2 = (GAFSprite*)p2;
 
-    return sp1->getZOrder() < sp2->getZOrder();
+    return sp1->getLocalZOrder() < sp2->getLocalZOrder();
 }
+#endif
 
 GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
-_maskedObjects(NULL),
-_isReorderMaskedObjectsDirty(false),
-m_stencilLayer(stencilLayer)
+m_stencilLayer(stencilLayer),
+m_maskedObjects(NULL),
+m_isReorderMaskedObjectsDirty(true)
 {
 }
 
-static std::map<CCNode *, GAFStencilMaskSprite *> _object2maskedContainer;
+static std::map<cocos2d::Node *, GAFStencilMaskSprite *> _object2maskedContainer;
 
-void GAFStencilMaskSprite::updateMaskContainerOf(CCNode * node)
+bool GAFStencilMaskSprite::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated)
 {
-    std::map<CCNode *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(node);
-    if (it != _object2maskedContainer.end())
-    {
-        it->second->invalidateMaskedObjectsOrder();
-    }
-}
-
-
-bool GAFStencilMaskSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated)
-{
-    if (!GAFSprite::initWithTexture(pTexture, CCRectMake(0, 0, rect.size.width, rect.size.height), rotated))
+    if (!GAFSprite::initWithTexture(pTexture, cocos2d::Rect(0, 0, rect.size.width, rect.size.height), rotated))
     {
         return false;
     }
-    CC_SAFE_RELEASE(_maskedObjects);
-    _maskedObjects = new CCArray();
-    setShaderProgram(programShaderForMask());
-    _isReorderMaskedObjectsDirty = false;
+    CC_SAFE_RELEASE(m_maskedObjects);
+    m_maskedObjects = cocos2d::__Array::create();
+    m_maskedObjects->retain();
+    setGLProgram(programShaderForMask());
     return true;
 }
 
 GAFStencilMaskSprite::~GAFStencilMaskSprite()
 {
-    if (_maskedObjects)
+    if (m_maskedObjects)
     {
-        for (unsigned int i = 0; i < _maskedObjects->count(); ++i)
+        for (int i = 0; i < m_maskedObjects->count(); ++i)
         {
-            CCNode * node = (CCNode*)_maskedObjects->objectAtIndex(i);
-            std::map<CCNode *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(node);
+            cocos2d::Node * node = (cocos2d::Node*)m_maskedObjects->getObjectAtIndex(i);
+            std::map<cocos2d::Node *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(node);
             if (it != _object2maskedContainer.end())
             {
                 _object2maskedContainer.erase(it);
@@ -63,64 +52,49 @@ GAFStencilMaskSprite::~GAFStencilMaskSprite()
         }
     }
 
-    CC_SAFE_RELEASE(_maskedObjects);
+    CC_SAFE_RELEASE(m_maskedObjects);
 }
 
-
-void GAFStencilMaskSprite::visit()
-{
-    GAFSprite::visit();
-    sortAllMaskedObjects();
-    // Draw subobjects, assuming mask and object are on the same layer
-    for (unsigned int i = 0; i < _maskedObjects->count(); ++i)
-    {
-        CCNode * object = (CCNode *)_maskedObjects->objectAtIndex(i);
-        object->visit();
-    }
-#if USE_LAYERED_STENCIL
-    _disableStencil();
+#if COCOS2D_VERSION < 0x00030200
+void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
 #else
-    glDisable(GL_STENCIL_TEST);
+void GAFStencilMaskSprite::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 #endif
-    
-}
-
-void GAFStencilMaskSprite::sortAllMaskedObjects()
 {
-    if (_isReorderMaskedObjectsDirty)
+    _sortAllMaskedObjects();
+
+    m_group.init(getGlobalZOrder());
+    renderer->addCommand(&m_group);
+    renderer->pushGroup(m_group.getRenderQueueID());
+
+#if COCOS2D_VERSION < 0x00030200
+    GAFSprite::visit(renderer, transform, true);
+#else
+    GAFSprite::visit(renderer, transform, flags | cocos2d::Node::FLAGS_TRANSFORM_DIRTY);
+#endif
+
+    for (int i = 0; i < m_maskedObjects->count(); ++i)
     {
-        std::sort(_maskedObjects->data->arr,
-            _maskedObjects->data->arr + _maskedObjects->data->num,
-            compare_stencil_sprites);
-        _isReorderMaskedObjectsDirty = false;
+        cocos2d::Node * object = (cocos2d::Node *)m_maskedObjects->getObjectAtIndex(i);
+#if COCOS2D_VERSION < 0x00030200
+        object->visit(renderer, transform, transformUpdated
+            
+            );
+#else
+        object->visit(renderer, transform, flags);
+#endif
     }
+    renderer->popGroup();
 }
 
-void GAFStencilMaskSprite::_setupStencilForMask()
+void GAFStencilMaskSprite::_sortAllMaskedObjects()
 {
-    if (m_stencilLayer == 0)
+    if (m_isReorderMaskedObjectsDirty)
     {
-        glEnable(GL_STENCIL_TEST);
-        glClear(GL_STENCIL_BUFFER_BIT);
+        std::sort(m_maskedObjects->begin(), m_maskedObjects->end(), &compare_stencil_sprites);
+
+        m_isReorderMaskedObjectsDirty = false;
     }
-
-    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    glStencilFunc(GL_ALWAYS, 1, 0xFF);
-    glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-    //glStencilMask(0xFF);
-
-    // Draw mask
-    GAFSprite::draw();
-
-    //glStencilMask(0x00);
-}
-
-void GAFStencilMaskSprite::_setupStencilForContent()
-{
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-    
-    glStencilFunc(GL_LEQUAL, ++m_stencilLayer, 0xFF);
-    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 }
 
 void GAFStencilMaskSprite::_disableStencil()
@@ -138,7 +112,35 @@ void GAFStencilMaskSprite::_disableStencil()
     m_stencilLayer = std::max(--m_stencilLayer, -1);
 }
 
-void GAFStencilMaskSprite::draw()
+void GAFStencilMaskSprite::beginStencil(cocos2d::Mat4& transform)
+{
+    glEnable(GL_STENCIL_TEST);
+    glClear(GL_STENCIL_BUFFER_BIT);
+
+    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_TRUE);
+    glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
+    glStencilFunc(GL_ALWAYS, 1, 1);
+
+    GAFSprite::customDraw(transform);
+
+    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    glStencilFunc(GL_EQUAL, 1, 1);
+}
+
+void GAFStencilMaskSprite::endStencil()
+{
+#if USE_LAYERED_STENCIL
+    _disableStencil();
+#else
+    glDisable(GL_STENCIL_TEST);
+#endif
+}
+
+#if COCOS2D_VERSION < 0x00030200
+void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+#else
+void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+#endif
 {
     // Prepare stencil
 #if USE_LAYERED_STENCIL
@@ -219,7 +221,7 @@ void GAFStencilMaskSprite::draw()
     // draw a fullscreen solid rectangle to clear the stencil buffer
     //ccDrawSolidRect(CCPointZero, ccpFromSize([[CCDirector sharedDirector] winSize]), ccc4f(1, 1, 1, 1));
 
-    ccDrawSolidRect(CCPointZero, ccpFromSize(CCDirector::sharedDirector()->getWinSize()), ccc4f(1, 1, 1, 1));
+    cocos2d::DrawPrimitives::drawSolidRect(cocos2d::Vect::ZERO, cocos2d::Vect(cocos2d::Director::getInstance()->getWinSize()), cocos2d::Color4F(1, 1, 1, 1));
 
 
     ///////////////////////////////////
@@ -236,7 +238,7 @@ void GAFStencilMaskSprite::draw()
 
     // Draw mask
 
-    GAFSprite::draw();
+    GAFSprite::draw(renderer, transform, transformUpdated);
 
     // setup the stencil test func like this:
     // for each pixel of this node and its childs
@@ -250,15 +252,22 @@ void GAFStencilMaskSprite::draw()
 
 
 #else
-    glEnable(GL_STENCIL_TEST);
 
-    glClear(GL_STENCIL_BUFFER_BIT);
+    m_customCommand.init(-FLT_MAX);
+    m_customCommand.func = CC_CALLBACK_0(GAFStencilMaskSprite::beginStencil, this, transform);
+    m_customCommand2.init(FLT_MAX);
+    m_customCommand2.func = CC_CALLBACK_0(GAFStencilMaskSprite::endStencil, this);
+
+    renderer->addCommand(&m_customCommand);
+    renderer->addCommand(&m_customCommand2);
+    // Use stencil
+    
 #endif
 }
 
-void GAFStencilMaskSprite::addMaskedObject(CCNode * anObject)
+void GAFStencilMaskSprite::addMaskedObject(cocos2d::Node * anObject)
 {
-    std::map<CCNode *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(anObject);
+    std::map<cocos2d::Node *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(anObject);
 
     GAFStencilMaskSprite * maskContainer = it != _object2maskedContainer.end() ? it->second : NULL;
 
@@ -274,57 +283,51 @@ void GAFStencilMaskSprite::addMaskedObject(CCNode * anObject)
     if (maskContainer != this)
     {
         _object2maskedContainer[anObject] = this;
-        _maskedObjects->addObject(anObject);
-        _isReorderMaskedObjectsDirty = true;
+        m_maskedObjects->addObject(anObject);
+        m_isReorderMaskedObjectsDirty = true;
     }
 }
 
-void GAFStencilMaskSprite::removeMaskedObject(CCNode * anObject)
+void GAFStencilMaskSprite::removeMaskedObject(cocos2d::Node * anObject)
 {
-    if (_maskedObjects->containsObject(anObject))
+    if (m_maskedObjects->containsObject(anObject))
     {
-        std::map<CCNode *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(anObject);
+        std::map<cocos2d::Node *, GAFStencilMaskSprite *>::iterator it = _object2maskedContainer.find(anObject);
         CCAssert(it != _object2maskedContainer.end(), "iterator must be valid");
         _object2maskedContainer.erase(it);
-        _maskedObjects->removeObject(anObject);
-        _isReorderMaskedObjectsDirty = true;
+        m_maskedObjects->removeObject(anObject);
+        m_isReorderMaskedObjectsDirty = true;
     }
 }
 
-void GAFStencilMaskSprite::invalidateMaskedObjectsOrder()
+cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
 {
-    _isReorderMaskedObjectsDirty = true;
-}
-
-CCGLProgram * GAFStencilMaskSprite::programShaderForMask()
-{
-    CCGLProgram *program = CCShaderCache::sharedShaderCache()->programForKey(kGAFStencilMaskAlphaFilterProgramCacheKey);
+    cocos2d::GLProgram *program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFStencilMaskAlphaFilterProgramCacheKey);
 
     if (!program)
     {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT && !defined(_DEBUG))
 #include "ShadersPrecompiled/GAFPrecompiledShaders.h"
-        program = new CCGLProgram();
-        program->autorelease();
-        program->initWithPrecompiledProgramByteArray((const GLchar*)kGAFScrollLayerAlphaFilterProgramCacheKey,
-            sizeof(kGAFScrollLayerAlphaFilterProgramCacheKey));
-        program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
-        program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
-        program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
+        program = cocos2d::GLProgram::createWithPrecompiledProgramByteArray(kGAFScrollLayerAlphaFilterProgramCacheKey, kGAFScrollLayerAlphaFilterProgramCacheKey);
+        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
+        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
+        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
         program->updateUniforms();
         CHECK_GL_ERROR_DEBUG();
-        CCShaderCache::sharedShaderCache()->addProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
+        cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
 #else
-        program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename);
+        const char* frag = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::AlphaFilter);
+        program = cocos2d::GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, frag);
         if (program)
         {
-            program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
-            program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
-            program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
+            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
+            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
+            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
+
             program->link();
             program->updateUniforms();
             CHECK_GL_ERROR_DEBUG();
-            CCShaderCache::sharedShaderCache()->addProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
+            cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
         }
         else
         {
@@ -338,35 +341,7 @@ CCGLProgram * GAFStencilMaskSprite::programShaderForMask()
     return program;
 }
 
-void GAFStencilMaskSprite::updateStencilLayer( int newLayer )
+void GAFStencilMaskSprite::updateStencilLayer(int newLayer)
 {
     m_stencilLayer = newLayer;
 }
-
-#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
-void _GAFreloadStencilShader()
-{
-    CCGLProgram * program = CCShaderCache::sharedShaderCache()->programForKey(kGAFStencilMaskAlphaFilterProgramCacheKey);
-
-    if (!program)
-    {
-        return;
-    }
-    program->reset();
-    program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kPCStencilMaskAlphaFilterFragmentShaderFilename, program);
-    if (program)
-    {
-        program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
-        program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
-        program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
-        program->link();
-        program->updateUniforms();
-        CHECK_GL_ERROR_DEBUG();
-        CCLOGERROR("GAFStencilMaskSprite RELOADED");
-    }
-    else
-    {
-        CCAssert(false, "Can not RELOAD programShaderForMask");
-    }
-}
-#endif

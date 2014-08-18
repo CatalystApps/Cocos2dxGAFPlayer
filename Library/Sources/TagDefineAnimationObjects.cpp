@@ -18,7 +18,7 @@ void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* ctx)
 
         if (in->getInput()->getHeader().getMajorVersion() >= 4)
         {
-            unsigned short objType = in->readU16();
+            /*unsigned short objType = */in->readU16();
         }
     }
 }

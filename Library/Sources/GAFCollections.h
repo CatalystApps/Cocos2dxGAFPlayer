@@ -5,6 +5,7 @@ class GAFAnimationFrame;
 class GAFSprite;
 class GAFFilterData;
 
+#include <unordered_map>
 #include "GAFAnimationSequence.h"
 
 enum GAFFilterType
@@ -19,10 +20,10 @@ typedef std::vector<GAFTextureAtlas*>               TextureAtlases_t;
 typedef std::map<unsigned int, unsigned int>        AnimationMasks_t;      // Object id -> Element Atlas Id
 typedef std::map<unsigned int, unsigned int>        AnimationObjects_t;    // Object id -> Element Atlas Id
 typedef std::vector<GAFAnimationFrame*>             AnimationFrames_t;
-typedef std::map<unsigned int, GAFSprite*>          SubObjects_t;
+typedef std::unordered_map<unsigned int, GAFSprite*> SubObjects_t;
 typedef std::vector<GAFFilterData*>                 Filters_t;
 
-typedef std::map<unsigned int, int>                 CaptureObjects_t;      // Object id -> capture flags
+typedef std::unordered_map<unsigned int, int>       CaptureObjects_t;      // Object id -> capture flags
 
 // TODO: it better to use HashMap(Unordered map)
 typedef std::map<std::string, GAFAnimationSequence> AnimationSequences_t;

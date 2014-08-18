@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>gafexample</name>
+	<name>Example</name>
 	<comment></comment>
 	<projects>
+		<project>libcocos2dx</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -18,16 +19,6 @@
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
-			<triggers>full,incremental,</triggers>
-			<arguments>
-				<dictionary>
-					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Javah_jni_builder.launch</value>
-				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
@@ -52,11 +43,11 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
-					<value>${ProjDirPath}/build_native.sh</value>
+					<value>${ProjDirPath}/build_native.py</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>
-					<value>bash</value>
+					<value>python</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
@@ -84,7 +75,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.fullBuildTarget</key>
-					<value></value>
+					<value>all</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.stopOnError</key>
@@ -120,22 +111,22 @@
 		<link>
 			<name>Classes</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/samples/Cpp/HelloCpp/Classes</locationURI>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/Classes</locationURI>
 		</link>
 		<link>
-			<name>Cocos2dx-source</name>
+			<name>GAF</name>
 			<type>2</type>
-			<location>D:/Work/cocos2d-x/cocos2dx/platform/android/java/src</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Library</locationURI>
 		</link>
 		<link>
-			<name>cocos2dx</name>
+			<name>cocos2d</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/cocos2dx</locationURI>
+			<locationURI>PARENT-4-PROJECT_LOC</locationURI>
 		</link>
 		<link>
-			<name>extensions</name>
+			<name>libcocos2d</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/extensions</locationURI>
+			<locationURI>PARENT-4-PROJECT_LOC/cocos/platform/android/java/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

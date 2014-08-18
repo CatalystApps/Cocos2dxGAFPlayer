@@ -8,8 +8,6 @@
 
 #include "GAFDelegates.h"
 
-using namespace cocos2d;
-
 class GAFTextureAtlas;
 class GAFAnimatedObject;
 class GAFAnimationSequence;
@@ -17,7 +15,7 @@ class GAFAnimationFrame;
 
 class GAFLoader;
 
-class GAFAsset : public CCObject
+class GAFAsset : public cocos2d::Ref
 {
 private:
     TextureAtlases_t        m_textureAtlases;
@@ -34,17 +32,21 @@ private:
     unsigned int            m_sceneFps;
     unsigned int            m_sceneWidth;
     unsigned int            m_sceneHeight;
-    ccColor4B               m_sceneColor;
+    cocos2d::Color4B        m_sceneColor;
 
 private:
-    float                   m_usedAtlasContentScaleFactor;
-    int                     m_majorVersion;
-    int                     m_minorVersion;
+    float _usedAtlasContentScaleFactor;
+    int _majorVersion;
+    int _minorVersion;
 
+    void                        _chooseTextureAtlas();
 public:
     /// Initializes asset with bGAF data
 
     bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate = NULL);
+
+
+    bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
     void                        pushTextureAtlas(GAFTextureAtlas* atlas);
     void                        pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef);
@@ -64,23 +66,24 @@ public:
     /// get all of the sequences
     const AnimationSequences_t& getAnimationSequences() const;
 
+    static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
     static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate = NULL);
 
     GAFAsset();
     ~GAFAsset();
     /// total number of frames in animation
-    int                         animationFramesCount() const;
+    size_t                      getAnimationFramesCount() const;
 
-    GAFTextureAtlas *           textureAtlas();
+    GAFTextureAtlas *           getTextureAtlas();
 
     /// get GAFAnimationSequence by name specified in editor
     const GAFAnimationSequence* getSequence(const std::string& name) const;
 
     /// get GAFAnimationSequence by last frame number in sequence	
-    const GAFAnimationSequence* getSequenceByLastFrame(int frame) const;
+    const GAFAnimationSequence* getSequenceByLastFrame(size_t frame) const;
 
     /// get GAFAnimationSequence by first frame number in sequence	
-    const GAFAnimationSequence* getSequenceByFirstFrame(int frame) const;
+    const GAFAnimationSequence* getSequenceByFirstFrame(size_t frame) const;
     /// List of GAFAnimationFrame objects	
     static bool                 isAssetVersionPlayable(const char * version);
 
@@ -91,19 +94,19 @@ public:
     static float                desiredCsf();
     /// sets desired content scale factor
     static void                 setDesiredCsf(float csf);
-    /// used content scale factor
+    /// used content scale factor		
     float                       usedAtlasContentScaleFactor()const;
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
     
-    const unsigned int          getSceneFps() const;
-    const unsigned int          getSceneWidth() const;
-    const unsigned int          getSceneHeight() const;
-    const ccColor4B&            getSceneColor() const;
-    void                        setSceneFps(unsigned int);
-    void                        setSceneWidth(unsigned int);
-    void                        setSceneHeight(unsigned int);
-    void                        setSceneColor(const ccColor4B&);
+    const unsigned int getSceneFps() const;
+    const unsigned int getSceneWidth() const;
+    const unsigned int getSceneHeight() const;
+    const cocos2d::Color4B& getSceneColor() const;
+    void setSceneFps(unsigned int);
+    void setSceneWidth(unsigned int);
+    void setSceneHeight(unsigned int);
+    void setSceneColor(const cocos2d::Color4B&);
 };
 
 
