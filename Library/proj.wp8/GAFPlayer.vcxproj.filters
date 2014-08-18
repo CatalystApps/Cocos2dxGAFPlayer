@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\GAFPrecompiled.cpp" />
+    <ClCompile Include="..\Sources\GAFAnimatedObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFAnimation.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFAnimationFrame.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFAnimationSequence.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFAsset.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFCachedTexture.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFFilterData.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFFilterManager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFQuadCommand.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFShaderManager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFSprite.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFSpriteWithAlpha.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFStencilMaskSprite.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFStream.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFSubobjectState.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFTextureAtlas.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFTextureAtlasElement.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineAnimationFrames.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineAnimationFrames2.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineAnimationMasks.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineAnimationObjects.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineAtlas.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineNamedParts.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineSequences.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineStage.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineTimeline.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFFile.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFLoader.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PrimitiveDeserializer.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="..\GAFPrecompiled.h" />
+    <ClInclude Include="..\Sources\GAFAnimatedObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFAnimation.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFAnimationFrame.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFAnimationSequence.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFAsset.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFCachedTexture.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFCollections.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFDelegates.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFFilterData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFFilterManager.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFHeader.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFQuadCommand.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFShaderManager.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFSprite.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFSpriteWithAlpha.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFStencilMaskSprite.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFStream.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFSubobjectState.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFTextureAtlas.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFTextureAtlasElement.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DefinitionTagBase.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineAnimationFrames.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineAnimationFrames2.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineAnimationMasks.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineAnimationObjects.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineAtlas.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineNamedParts.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefines.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineSequences.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineStage.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineTimeline.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFFile.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFLoader.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PrimitiveDeserializer.h">
+      <Filter>Sources\Loader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{e44cec13-d44b-40e3-bb75-dafeee387257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Loader">
+      <UniqueIdentifier>{27ee2c7e-e440-4448-9b8e-dbdc84f12d87}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

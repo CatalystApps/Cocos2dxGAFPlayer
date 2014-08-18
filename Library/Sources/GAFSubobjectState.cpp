@@ -22,7 +22,7 @@ bool GAFSubobjectState::initEmpty(unsigned int ref)
 {
     objectIdRef = ref;
     zIndex = 0;
-    affineTransform = CCAffineTransformMake(1, 0, 0, 1, 0, 0);
+    affineTransform = cocos2d::AffineTransformMake(1, 0, 0, 1, 0, 0);
     _colorOffsets[0] = _colorOffsets[1] = _colorOffsets[2] = _colorOffsets[3] = _colorMults[GAFCTI_A] = 0;
     _colorMults[GAFCTI_R] = _colorMults[GAFCTI_G] = _colorMults[GAFCTI_B] = 1;
     return true;

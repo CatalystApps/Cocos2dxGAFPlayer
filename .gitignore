@@ -40,13 +40,6 @@ Library/Sources/latex
 /ipch/gafplayer-b41ae148/*.ipch
 
 /ipch/gafplayer-9375c618/*.ipch
-/ipch/gafplayer_vc10-78a05117/*.ipch
-/ipch/gafplayer-c4b995e/*.ipch
-/Library/Release/*.pch
-/Library/Release/*.log
-/Library/Release/*.lastbuildstate
-/Library/Release/*.codeanalysis
-/Examples/Example.android/.metadata
 /Examples/Example.android/assets
 /Examples/Example.android/bin
 /Examples/Example.android/gen

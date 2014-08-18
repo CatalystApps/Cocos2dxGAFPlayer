@@ -1,4 +1,4 @@
-const BYTE kGAFScrollLayerAlphaFilterProgramCacheKey[] = {
+const GLchar kGAFScrollLayerAlphaFilterProgramCacheKey[] = {
 
 166, 147,   0,   0, 142,   9,   2,   1, 
   0, 128,   0,   0,  82, 139,   0,   0, 

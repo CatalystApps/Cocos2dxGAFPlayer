@@ -145,7 +145,7 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
 
             if (type == GFT_Blur)
             {
-                CCSize p;
+                cocos2d::Size p;
                 PrimitiveDeserializer::deserialize(in, &p);
                 GAFBlurFilterData* blurFilter = new GAFBlurFilterData();
                 blurFilter->blurSize = p;
@@ -169,10 +169,10 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
             else if (type == GFT_Glow)
             {
                 GAFGlowFilterData* filter = new GAFGlowFilterData();
-                ccColor4B clr;
+                cocos2d::Color4B clr;
                 PrimitiveDeserializer::deserialize(in, &clr);
 
-                filter->color = ccc4FFromccc4B(clr);
+                filter->color = cocos2d::Color4F(clr.r / 255.f, clr.g / 255.f, clr.b / 255.f, clr.a / 255.f);
 
                 PrimitiveDeserializer::deserialize(in, &filter->blurSize);
 
@@ -186,10 +186,10 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
             {
                 GAFDropShadowFilterData* filter = new GAFDropShadowFilterData();
 
-                ccColor4B clr;
+                cocos2d::Color4B clr;
                 PrimitiveDeserializer::deserialize(in, &clr);
 
-                filter->color = ccc4FFromccc4B(clr);
+                filter->color = cocos2d::Color4F(clr.r / 255.f, clr.g / 255.f, clr.b / 255.f, clr.a / 255.f);
 
                 PrimitiveDeserializer::deserialize(in, &filter->blurSize);
                 filter->angle = in->readFloat();

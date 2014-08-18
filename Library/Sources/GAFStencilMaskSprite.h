@@ -1,58 +1,58 @@
 #pragma once
 
-#ifndef __GAF_STENCIL_MASK_SPRITE__
-#define __GAF_STENCIL_MASK_SPRITE__
-
 #include "GAFSprite.h"
+
+static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
 
 namespace cocos2d
 {
-    class CCArray;
+    class __Array;
 }
-
-#define  kGAFStencilMaskAlphaFilterProgramCacheKey "kGAFScrollLayerAlphaFilterProgramCacheKey"
-
-using namespace cocos2d;
 
 class GAFStencilMaskSprite : public GAFSprite
 {
 private:
     struct StencilState
     {
-        GLboolean currentStencilEnabled;
-        GLuint currentStencilWriteMask;
-        GLenum currentStencilFunc;
-        GLint currentStencilRef;
-        GLuint currentStencilValueMask;
-        GLenum currentStencilFail;
-        GLenum currentStencilPassDepthFail;
-        GLenum currentStencilPassDepthPass;
+        GLboolean   currentStencilEnabled;
+        GLuint      currentStencilWriteMask;
+        GLenum      currentStencilFunc;
+        GLint       currentStencilRef;
+        GLuint      currentStencilValueMask;
+        GLenum      currentStencilFail;
+        GLenum      currentStencilPassDepthFail;
+        GLenum      currentStencilPassDepthPass;
     } m_stencilState;
 
 public:
     GAFStencilMaskSprite(int stencilLayer);
     ~GAFStencilMaskSprite();
-    virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
-    static CCGLProgram * programShaderForMask();
-    virtual void draw();
-    virtual void visit();
+    virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
+    static cocos2d::GLProgram * programShaderForMask();
 
-    void invalidateMaskedObjectsOrder();
-
-    static void updateMaskContainerOf(CCNode * node);
-
-    void addMaskedObject(CCNode * anObject);
-    void removeMaskedObject(CCNode * anObject);
+#if COCOS2D_VERSION < 0x00030200
+    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
+    virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
+#else
+    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
+    virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
+#endif
+    
+    void addMaskedObject(cocos2d::Node * anObject);
+    void removeMaskedObject(cocos2d::Node * anObject);
     void updateStencilLayer(int newLayer);
-protected:
-    void sortAllMaskedObjects();
-private:
-    int       m_stencilLayer;
-    CCArray * _maskedObjects;
-    bool     _isReorderMaskedObjectsDirty;
-    void     _setupStencilForMask();
-    void     _setupStencilForContent();
-    void     _disableStencil();
-};
 
-#endif // __GAF_STENCIL_MASK_SPRITE__
+protected:
+    void beginStencil(cocos2d::Mat4& transform);
+    void endStencil();
+
+private:
+    void                    _sortAllMaskedObjects();
+    void                    _disableStencil();
+    int                     m_stencilLayer;
+    bool                    m_isReorderMaskedObjectsDirty;
+
+    cocos2d::GroupCommand   m_group;
+    cocos2d::CustomCommand  m_customCommand2;
+    cocos2d::__Array*       m_maskedObjects;
+};

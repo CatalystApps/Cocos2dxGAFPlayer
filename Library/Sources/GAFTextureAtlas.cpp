@@ -2,18 +2,18 @@
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
 #include "GAFAsset.h"
-#include "cocoa/CCInteger.h"
 
-#if 0 //CC_ENABLE_CACHE_TEXTURE_DATA
-#include "textures/CCTextureCache.h"
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+#include "renderer/CCTextureCache.h"
 #endif
 
 GAFTextureAtlas::GAFTextureAtlas()
 :
+m_scale(1.f),
 m_loaded(false),
 m_images(NULL),
 m_textures(NULL),
-m_scale(1.f)
+m_memoryConsumption(0)
 {
 }
 
@@ -30,12 +30,13 @@ static bool compareAtlasesById(const GAFTextureAtlas::AtlasInfo& ai1, const GAFT
     return ai1.id < ai2.id;
 }
 
-void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate)
+void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate, cocos2d::ZipFile* bundle)
 {
     std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
     CC_SAFE_RELEASE(m_images);
-    m_images = new CCArray();
+    m_images = new cocos2d::__Array();
+    m_images->initWithCapacity(m_atlasInfos.size());
 
     if (!m_atlasInfos.empty())
     {
@@ -60,15 +61,46 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
                 }
             }
 
-            CCImage* image = new CCImage();
-            std::string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativeFile(source.c_str(), dir.c_str());
+            cocos2d::Image* image = new cocos2d::Image();
+            std::string path = cocos2d::FileUtils::getInstance()->fullPathFromRelativeFile(source.c_str(), dir.c_str());
 
             if (delegate)
             {
                 delegate->onTexturePreLoad(path);
             }
 
-            image->initWithImageFile(path.c_str());
+            if (!bundle)
+            {
+                image->initWithImageFile(path.c_str());
+            }
+            else
+            {
+                ssize_t sz = 0;
+                unsigned char* imgData = bundle->getFileData(path, &sz);
+                if (!imgData || !sz)
+                    return;
+
+                image->initWithImageData(imgData, sz);
+            }
+            
+            m_memoryConsumption += image->getDataLen();
+
+#if ENABLE_GAF_MANUAL_PREMULTIPLY
+            if (!image->isPremultipliedAlpha() && image->hasAlpha())
+            {
+                //Premultiply
+                unsigned char* begin = image->getData();
+                unsigned int width = image->getWidth();
+                unsigned int height = image->getHeight();
+                int Bpp = image->getBitPerPixel() / 8;
+                unsigned char* end = begin + width * height * Bpp;
+                for (auto data = begin; data < end; data += Bpp)
+                {
+                    unsigned int* wordData = (unsigned int*)(data);
+                    *wordData = CC_RGB_PREMULTIPLY_ALPHA(data[0], data[1], data[2], data[3]);
+                }
+            }
+#endif
             m_images->addObject(image);
             image->release();
         }
@@ -80,46 +112,49 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
     }
 }
 
-CCImage     * GAFTextureAtlas::image()
+cocos2d::Image * GAFTextureAtlas::image()
 {
     if (m_images && m_images->count() > 0)
     {
-        return (CCImage*)m_images->objectAtIndex(0);
+        return (cocos2d::Image*)m_images->getObjectAtIndex(0);
     }
     return NULL;
 }
 
-CCArray     * GAFTextureAtlas::images()
+cocos2d::__Array * GAFTextureAtlas::images()
 {
     return m_images;
 }
 
-CCTexture2D * GAFTextureAtlas::texture()
+cocos2d::Texture2D * GAFTextureAtlas::texture()
 {
     if (m_textures && m_textures->count() > 0)
     {
-        return (CCTexture2D*)m_textures->objectAtIndex(0);
+        return (cocos2d::Texture2D*)m_textures->getObjectAtIndex(0);
     }
     return NULL;
 }
 
-CCArray * GAFTextureAtlas::textures()
+cocos2d::__Array * GAFTextureAtlas::textures()
 {
     if (!m_textures)
     {
-        m_textures = CCArray::createWithCapacity(m_images->count());
-        for (unsigned int i = 0; i < m_images->count(); ++i)
+        m_textures = cocos2d::__Array::createWithCapacity(m_images->count());
+        for (int i = 0; i < m_images->count(); ++i)
         {
-            CCTexture2D * texture = new CCTexture2D();
-            CCImage * image = (CCImage*)m_images->objectAtIndex(i);
+            cocos2d::Texture2D * texture = new cocos2d::Texture2D();
+            cocos2d::Image * image = (cocos2d::Image*)m_images->getObjectAtIndex(i);
             texture->initWithImage(image);
             m_textures->addObject(texture);
-#if 0
-            VolatileTexture::addCCImage(texture, image);
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+            cocos2d::VolatileTextureMgr::addImage(texture, image);
 #endif
             texture->release();
         }
         m_textures->retain();
+
+        CC_SAFE_RELEASE(m_images);
+        m_images = nullptr;
     }
     return m_textures;
 }
@@ -149,7 +184,7 @@ const GAFTextureAtlas::Elements_t& GAFTextureAtlas::getElements() const
     return m_elements;
 }
 
-bool GAFTextureAtlas::loaded() const
+uint32_t GAFTextureAtlas::getMemoryConsumptionStat() const
 {
-    return m_loaded;
+    return m_memoryConsumption;
 }

@@ -6,21 +6,21 @@
 
 GAFAnimation::GAFAnimation()
 :
-_asset(NULL),
+m_asset(NULL),
 _currentFrameIndex(GAF_FIRST_FRAME_INDEX),
 _sequenceDelegate(NULL),
 m_animationPlaybackDelegate(NULL),
-_totalFrameCount(0),
-_isRunning(false),
-_isReversed(false),
-_isLooped(false)
+m_totalFrameCount(0),
+m_isRunning(false),
+m_isReversed(false),
+m_isLooped(false)
 {
 
 }
 
 GAFAnimation::~GAFAnimation()
 {
-    CC_SAFE_RELEASE(_asset);
+    CC_SAFE_RELEASE(m_asset);
 }
 
 void GAFAnimation::setSequenceDelegate(GAFSequenceDelegate * delegate)
@@ -32,46 +32,46 @@ void GAFAnimation::setSequenceDelegate(GAFSequenceDelegate * delegate)
 bool GAFAnimation::init(GAFAsset * anAssetData)
 {
     CCAssert(anAssetData, "anAssetData data should not be nil");
-    if (_asset != anAssetData)
+    if (m_asset != anAssetData)
     {
-        CC_SAFE_RELEASE(_asset);
-        _asset = anAssetData;
-        CC_SAFE_RETAIN(_asset);
+        CC_SAFE_RELEASE(m_asset);
+        m_asset = anAssetData;
+        CC_SAFE_RETAIN(m_asset);
     }
-    _currentSequenceStart = _currentFrameIndex = GAF_FIRST_FRAME_INDEX;
-    _currentSequenceEnd = _totalFrameCount = anAssetData->animationFramesCount();
+    m_currentSequenceStart = _currentFrameIndex = GAF_FIRST_FRAME_INDEX;
+    m_currentSequenceEnd = m_totalFrameCount = anAssetData->getAnimationFramesCount();
     return true;
 }
 
 void GAFAnimation::clearSequence()
 {
-    _currentSequenceStart = GAF_FIRST_FRAME_INDEX;
-    _currentSequenceEnd = _totalFrameCount;
+    m_currentSequenceStart = GAF_FIRST_FRAME_INDEX;
+    m_currentSequenceEnd = m_totalFrameCount;
 }
 
 void GAFAnimation::step()
 {
-    if (! _isReversed)
+    if (! m_isReversed)
     {
-        if (_currentFrameIndex < _currentSequenceStart)
+        if (_currentFrameIndex < m_currentSequenceStart)
         {
-            _currentFrameIndex = _currentSequenceStart;
+            _currentFrameIndex = m_currentSequenceStart;
         }
 
-        if (_sequenceDelegate && _asset)
+        if (_sequenceDelegate && m_asset)
         {
-            const GAFAnimationSequence * seq = _asset->getSequenceByLastFrame(_currentFrameIndex);
+            const GAFAnimationSequence * seq = m_asset->getSequenceByLastFrame(_currentFrameIndex);
             if (seq)
             {
                 _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
             }
         }
 
-        if (_currentFrameIndex >= _currentSequenceEnd)
+        if (_currentFrameIndex >= m_currentSequenceEnd)
         {
-            if (_isLooped)
+            if (m_isLooped)
             {
-                _currentFrameIndex = _currentSequenceStart;
+                _currentFrameIndex = m_currentSequenceStart;
                 
                 if (m_animationPlaybackDelegate)
                 {
@@ -98,25 +98,25 @@ void GAFAnimation::step()
     else
     {
         // If switched to reverse after final frame played
-        if (_currentFrameIndex >= _currentSequenceEnd)
+        if (_currentFrameIndex >= m_currentSequenceEnd)
         {
-            _currentFrameIndex = _currentSequenceEnd - 1;
+            _currentFrameIndex = m_currentSequenceEnd - 1;
         }
 
-        if (_sequenceDelegate && _asset)
+        if (_sequenceDelegate && m_asset)
         {
-            const GAFAnimationSequence * seq = _asset->getSequenceByFirstFrame(_currentFrameIndex + 1);
+            const GAFAnimationSequence * seq = m_asset->getSequenceByFirstFrame(_currentFrameIndex + 1);
             if (seq)
             {
                 _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
             }
         }
 
-        if (_currentFrameIndex < _currentSequenceStart)
+        if (_currentFrameIndex < m_currentSequenceStart)
         {
-            if (_isLooped)
+            if (m_isLooped)
             {
-                _currentFrameIndex = _currentSequenceEnd - 1;
+                _currentFrameIndex = m_currentSequenceEnd - 1;
 
                 if (m_animationPlaybackDelegate)
                 {
@@ -149,15 +149,15 @@ void GAFAnimation::processAnimation()
 
 bool GAFAnimation::isDone() const
 {
-    if (_isLooped)
+    if (m_isLooped)
     {
         return false;
     }
     else
     {
-        if (!_isReversed)
+        if (!m_isReversed)
         {
-            return _currentFrameIndex > _totalFrameCount;
+            return _currentFrameIndex > m_totalFrameCount;
         }
         else
         {
@@ -168,7 +168,7 @@ bool GAFAnimation::isDone() const
 
 int GAFAnimation::totalFrameCount() const
 {
-    return _totalFrameCount;
+    return m_totalFrameCount;
 }
 
 int GAFAnimation::currentFrameIndex() const
@@ -178,39 +178,39 @@ int GAFAnimation::currentFrameIndex() const
 
 bool GAFAnimation::isAnimationRunning() const
 {
-    return _isRunning;
+    return m_isRunning;
 }
 
 bool GAFAnimation::isLooped() const
 {
-    return _isLooped;
+    return m_isLooped;
 }
 
 void GAFAnimation::setLooped(bool looped)
 {
-    _isLooped = looped;
+    m_isLooped = looped;
 }
 
 void GAFAnimation::start()
 {
-    if (!_isRunning)
+    if (!m_isRunning)
     {
         _currentFrameIndex = GAF_FIRST_FRAME_INDEX;
         setAnimationRunning(true);
     }
 }
 
-void GAFAnimation::pause()
+void GAFAnimation::pauseAnimation()
 {
-    if (_isRunning)
+    if (m_isRunning)
     {
         setAnimationRunning(false);
     }
 }
 
-void GAFAnimation::resume()
+void GAFAnimation::resumeAnimation()
 {
-    if (!_isRunning)
+    if (!m_isRunning)
     {
         setAnimationRunning(true);
     }
@@ -218,7 +218,7 @@ void GAFAnimation::resume()
 
 void GAFAnimation::stop()
 {
-    if (_isRunning)
+    if (m_isRunning)
     {
         _currentFrameIndex = GAF_FIRST_FRAME_INDEX;
         setAnimationRunning(false);
@@ -268,7 +268,7 @@ bool GAFAnimation::gotoAndPlay(int frameNumber)
 
 bool GAFAnimation::setFrame(int aFrameIndex)
 {
-    if (aFrameIndex >= 0 && aFrameIndex < _totalFrameCount)
+    if (aFrameIndex >= 0 && aFrameIndex < m_totalFrameCount)
     {
         _currentFrameIndex = aFrameIndex;
         processAnimation();
@@ -279,11 +279,11 @@ bool GAFAnimation::setFrame(int aFrameIndex)
 
 int GAFAnimation::getStartFrame(const char * sequence_name)
 {
-    if (!_asset)
+    if (!m_asset)
     {
         return -1;
     }
-    const GAFAnimationSequence * seq = _asset->getSequence(sequence_name);
+    const GAFAnimationSequence * seq = m_asset->getSequence(sequence_name);
     if (seq)
     {
         return seq->startFrameNo;
@@ -293,11 +293,11 @@ int GAFAnimation::getStartFrame(const char * sequence_name)
 
 int GAFAnimation::getEndFrame(const char * sequence_name)
 {
-    if (!_asset)
+    if (!m_asset)
     {
         return -1;
     }
-    const GAFAnimationSequence * seq = _asset->getSequence(sequence_name);
+    const GAFAnimationSequence * seq = m_asset->getSequence(sequence_name);
     if (seq)
     {
         return seq->endFrameNo;
@@ -307,7 +307,7 @@ int GAFAnimation::getEndFrame(const char * sequence_name)
 
 bool GAFAnimation::playSequence(const char * name, bool looped, bool _resume, AnimSetSequenceHint hint)
 {
-    if (!_asset)
+    if (!m_asset)
     {
         return false;
     }
@@ -321,18 +321,18 @@ bool GAFAnimation::playSequence(const char * name, bool looped, bool _resume, An
     {
         return false;
     }
-    _currentSequenceStart = s;
-    _currentSequenceEnd = e;
+    m_currentSequenceStart = s;
+    m_currentSequenceEnd = e;
 
-    if (_currentFrameIndex < _currentSequenceStart || _currentFrameIndex >_currentSequenceEnd)
+    if (_currentFrameIndex < m_currentSequenceStart || _currentFrameIndex >m_currentSequenceEnd)
     {
-        _currentFrameIndex = _currentSequenceStart;
+        _currentFrameIndex = m_currentSequenceStart;
     }
     else
     {
         if (hint == ASSH_RESTART)
         {
-            _currentFrameIndex = _currentSequenceStart;
+            _currentFrameIndex = m_currentSequenceStart;
         }
         else
         {
@@ -342,7 +342,7 @@ bool GAFAnimation::playSequence(const char * name, bool looped, bool _resume, An
     setLooped(looped);
     if (_resume)
     {
-        resume();
+        resumeAnimation();
     }
     else
     {
@@ -352,25 +352,25 @@ bool GAFAnimation::playSequence(const char * name, bool looped, bool _resume, An
 }
 bool GAFAnimation::hasSequences() const
 {
-    return !_asset->getAnimationSequences().empty();
+    return !m_asset->getAnimationSequences().empty();
 }
 bool GAFAnimation::isReversed() const
 {
-    return _isReversed;
+    return m_isReversed;
 }
 void GAFAnimation::setReversed(bool reversed)
 {
-    _isReversed = reversed;
+    m_isReversed = reversed;
 }
 
 void GAFAnimation::setAnimationRunning(bool value)
 {
-    _isRunning = value;
+    m_isRunning = value;
 }
 
 bool GAFAnimation::getIsRunning() const
 {
-    return _isRunning;
+    return m_isRunning;
 }
 
 void GAFAnimation::setAnimationPlaybackDelegate(GAFAnimationPlaybackDelegate* delegate)

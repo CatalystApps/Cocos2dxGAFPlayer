@@ -3,15 +3,6 @@
 #ifndef __GAF_TEXTURE_ATLAS___
 #define __GAF_TEXTURE_ATLAS___
 
-
-namespace cocos2d
-{
-    class CCImage;
-    class CCArray;
-    class CCTexture2D;
-}
-using namespace cocos2d;
-
 class GAFTextureAtlasElement;
 class GAFTextureLoadDelegate;
 
@@ -43,29 +34,40 @@ private:
     AtlasInfos_t    m_atlasInfos;
     Elements_t      m_elements;
 
-    bool            m_loaded;
-    CCArray*        m_images;
-    CCArray*        m_textures;
+    bool           m_loaded;
+    cocos2d::__Array      *  m_images;
+    cocos2d::__Array      *  m_textures;
+    
+    uint32_t        m_memoryConsumption;
 public:
     ~GAFTextureAtlas();
 
     void                    pushAtlasInfo(const AtlasInfo& ai);
     void                    pushElement(unsigned int idx, GAFTextureAtlasElement* el);
 
-    void                    loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate);
+    void                    loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate, cocos2d::ZipFile* bundle = nullptr);
 
-    bool                    loaded() const;
+    inline bool     loaded() const
+    {
+        return m_loaded;
+    }
 
-    void                    setScale(float val);
-    float                   getScale() const;
+    void          setScale(float val);
+    float         getScale() const;
 
-    CCImage     *           image();
-    CCArray     *           images();
+    cocos2d::Image     * image();
+    cocos2d::__Array     * images();
 
-    CCTexture2D *           texture();
-    CCArray     *           textures();
+    cocos2d::Texture2D * texture();
+    cocos2d::__Array     * textures();
 
-    const Elements_t&       getElements() const;
+    const Elements_t& getElements() const;
+    
+    //! All CCImages will be freed at the first call of textures()
+    //! So there is only VRAM occupation
+    //! In case you don't want to release CCImages at textures(), remove releasing ones and
+    //! after calling getMemoryConsumptionStat you will need x2 a given number: RAM + VRAM
+    uint32_t     getMemoryConsumptionStat() const;
 };
 
 #endif // __GAF_TEXTURE_ATLAS___

@@ -11,10 +11,10 @@
 
 void TagDefineTimeline::read(GAFStream* in, GAFAsset* ctx)
 {
-    unsigned int id = in->readU32();
-    unsigned int framesCount = in->readU32();
-    CCRect aabb;
-    CCPoint pivot;
+    /*unsigned int id = */in->readU32();
+    /*unsigned int framesCount = */in->readU32();
+    cocos2d::Rect aabb;
+    cocos2d::Point pivot;
 
     PrimitiveDeserializer::deserialize(in, &aabb);
     PrimitiveDeserializer::deserialize(in, &pivot);

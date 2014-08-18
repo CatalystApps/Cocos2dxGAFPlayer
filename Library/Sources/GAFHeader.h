@@ -19,9 +19,9 @@ public:
 
     // Version 3
     unsigned short  framesCount;
-    CCRect          frameSize;
-    CCPoint         pivot;
-
+    cocos2d::Rect   frameSize;
+    cocos2d::Vect   pivot;
+	
     // Version 4
     std::vector<float>          scaleValues;
     std::vector<float>          csfValues;
