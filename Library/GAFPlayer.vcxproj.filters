@@ -105,6 +105,9 @@
     <ClCompile Include="Sources\TagDefineTimeline.cpp">
       <Filter>Sources\GAFLoader</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GAFTimeline.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimatedObject.h">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="Sources\TagDefineTimeline.h">
       <Filter>Sources\GAFLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTimeline.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

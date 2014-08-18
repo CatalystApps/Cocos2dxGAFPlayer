@@ -36,6 +36,7 @@
 		1A95AE941948600500AE1F30 /* GAFPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A95AE921948600500AE1F30 /* GAFPrecompiled.cpp */; };
 		1AB30523193CE3BF0012C01D /* GAFFilterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB30521193CE3BF0012C01D /* GAFFilterManager.cpp */; };
 		1AB33DBE1949BA57006B92A0 /* GAFQuadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */; };
+		29289E3919843B40003132F2 /* GAFTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29289E3719843B40003132F2 /* GAFTimeline.cpp */; };
 		39869DB219532453004628D9 /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DAE19532453004628D9 /* TagDefineAnimationFrames2.cpp */; };
 		39869DB319532453004628D9 /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DB019532453004628D9 /* TagDefineTimeline.cpp */; };
 /* End PBXBuildFile section */
@@ -123,6 +124,8 @@
 		1AB30522193CE3BF0012C01D /* GAFFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFFilterManager.h; sourceTree = "<group>"; };
 		1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFQuadCommand.cpp; sourceTree = "<group>"; };
 		1AB33DBD1949BA57006B92A0 /* GAFQuadCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFQuadCommand.h; sourceTree = "<group>"; };
+		29289E3719843B40003132F2 /* GAFTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFTimeline.cpp; sourceTree = "<group>"; };
+		29289E3819843B40003132F2 /* GAFTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFTimeline.h; sourceTree = "<group>"; };
 		39869DAE19532453004628D9 /* TagDefineAnimationFrames2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineAnimationFrames2.cpp; sourceTree = "<group>"; };
 		39869DAF19532453004628D9 /* TagDefineAnimationFrames2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineAnimationFrames2.h; sourceTree = "<group>"; };
 		39869DB019532453004628D9 /* TagDefineTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineTimeline.cpp; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 		1A2FBF0B192E00C800631FE9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				29289E3719843B40003132F2 /* GAFTimeline.cpp */,
+				29289E3819843B40003132F2 /* GAFTimeline.h */,
 				1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */,
 				1AB33DBD1949BA57006B92A0 /* GAFQuadCommand.h */,
 				1A95AE921948600500AE1F30 /* GAFPrecompiled.cpp */,
@@ -320,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A2FBF62192E00C800631FE9 /* TagDefineAtlas.cpp in Sources */,
+				29289E3919843B40003132F2 /* GAFTimeline.cpp in Sources */,
 				1A2FBF5A192E00C800631FE9 /* GAFSubobjectState.cpp in Sources */,
 				1A2FBF52192E00C800631FE9 /* GAFFilterData.cpp in Sources */,
 				1A2FBF5F192E00C800631FE9 /* TagDefineAnimationFrames.cpp in Sources */,
