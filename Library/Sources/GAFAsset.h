@@ -5,6 +5,7 @@
 
 #include "GAFCollections.h"
 #include "GAFHeader.h"
+#include "GAFTimeline.h"
 
 #include "GAFDelegates.h"
 
@@ -25,6 +26,7 @@ private:
     AnimationSequences_t    m_animationSequences;
     NamedParts_t            m_namedParts;
     GAFHeader               m_header;
+	Timelines_t				m_timelines;
 
     GAFTextureAtlas*        m_currentTextureAtlas;
     GAFTextureLoadDelegate* m_textureLoadDelegate;
@@ -54,14 +56,16 @@ public:
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
     void                        pushNamedPart(unsigned int objectIdRef, const std::string& name);
+	void						pushTimeline(GAFTimeline* t);
 
     void                        setHeader(GAFHeader& h);
     const GAFHeader&            getHeader() const;
 
-    const AnimationObjects_t&   getAnimationObjects() const;
+	const AnimationObjects_t&   getAnimationObjects() const;
     const AnimationMasks_t&     getAnimationMasks() const;
     const AnimationFrames_t&    getAnimationFrames() const;
     const NamedParts_t&         getNamedParts() const;
+	const Timelines_t&			getTimelines() const;
 
     /// get all of the sequences
     const AnimationSequences_t& getAnimationSequences() const;

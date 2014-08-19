@@ -3,6 +3,7 @@
 #include "TagDefines.h"
 
 class GAFAsset;
+class GAFTimeline;
 
 class GAFStream;
 class DefinitionTagBase;
@@ -44,5 +45,5 @@ public:
 
     void                 registerTagLoader(unsigned int idx, DefinitionTagBase*);
 
-    void                 loadTags(GAFStream* in, GAFAsset* context);
+    void                 loadTags(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline);
 };

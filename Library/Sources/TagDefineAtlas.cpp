@@ -5,12 +5,13 @@
 #include "GAFHeader.h"
 #include "GAFStream.h"
 #include "GAFAsset.h"
+#include "GAFTimeline.h"
 
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
 #include "PrimitiveDeserializer.h"
 
-void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
+void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     GAFTextureAtlas* txAtlas = new GAFTextureAtlas();
 
@@ -80,5 +81,5 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
         }
     }
 
-    ctx->pushTextureAtlas(txAtlas);
+    asset->pushTextureAtlas(txAtlas);
 }

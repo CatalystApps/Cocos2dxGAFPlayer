@@ -127,11 +127,10 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
-    if (m_textureAtlases.empty())
+	if (m_textureAtlases.empty())
     {
         return false;
     }
-
     if (isLoaded)
     {
         _chooseTextureAtlas();
@@ -213,12 +212,12 @@ void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)
 
 void GAFAsset::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef)
 {
-    m_animationMasks[objectId] = elementAtlasIdRef;
+    m_animationMasks[objectId] = std::make_tuple(elementAtlasIdRef, GCT_TEXTURE);
 }
 
 void GAFAsset::pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef)
 {
-    m_animationObjects[objectId] = elementAtlasIdRef;
+    m_animationObjects[objectId] = std::make_tuple(elementAtlasIdRef, GCT_TEXTURE);
 }
 
 void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
@@ -261,6 +260,11 @@ void GAFAsset::pushNamedPart(unsigned int objectIdRef, const std::string& name)
     m_namedParts[name] = objectIdRef;
 }
 
+void GAFAsset::pushTimeline(GAFTimeline* t)
+{
+	m_timelines.push_back(t);
+}
+
 const NamedParts_t& GAFAsset::getNamedParts() const
 {
     return m_namedParts;
@@ -279,6 +283,11 @@ void GAFAsset::setHeader(GAFHeader& h)
 void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
 {
     m_textureLoadDelegate = delegate;
+}
+
+const Timelines_t& GAFAsset::getTimelines() const
+{
+	return m_timelines;
 }
 
 const GAFHeader& GAFAsset::getHeader() const

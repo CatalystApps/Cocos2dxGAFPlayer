@@ -5,6 +5,7 @@
 #include "GAFHeader.h"
 #include "GAFStream.h"
 #include "GAFFile.h"
+#include "GAFTimeline.h"
 
 #include "PrimitiveDeserializer.h"
 
@@ -83,7 +84,7 @@ GAFLoader::~GAFLoader()
     }
 }
 
-void GAFLoader::loadTags(GAFStream* in, GAFAsset* context)
+void GAFLoader::loadTags(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     bool tagEndRead = false;
 
@@ -95,7 +96,7 @@ void GAFLoader::loadTags(GAFStream* in, GAFAsset* context)
 
         if (it != m_tagLoaders.end())
         {
-            it->second->read(in, context);
+            it->second->read(in, asset, timeline);
         }
         else
         {
@@ -156,7 +157,7 @@ void GAFLoader::_processLoad(GAFFile* file, GAFAsset* context)
 
     context->setHeader(header);
 
-    loadTags(m_stream, context);
+    loadTags(m_stream, context, NULL); // TODO: check
 
     delete m_stream;
 }

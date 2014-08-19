@@ -173,7 +173,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
         cocos2d::SpriteFrame * spriteFrame = NULL;
 
-        unsigned int atlasElementIdRef = i->second;
+        unsigned int atlasElementIdRef = std::get<0>(i->second);
 
         GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by its xref
 
@@ -230,7 +230,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
 
-        unsigned int atlasElementIdRef = i->second;
+        unsigned int atlasElementIdRef = std::get<0>(i->second);
 
         GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by it's xref
 

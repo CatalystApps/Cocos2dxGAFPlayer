@@ -14,21 +14,21 @@ m_id(id)
 
 GAFTimeline::~GAFTimeline()
 {
-    GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
+    //GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
 }
 
-void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
+/*void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
 {
     m_textureAtlases.push_back(atlas);
-}
+}*/
 
-void GAFTimeline::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef, CharacterType charType)
+void GAFTimeline::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef, GAFCharacterType charType)
 {
     m_animationMasks[objectId] = std::make_tuple(elementAtlasIdRef, charType);
 }
 
-void GAFTimeline::pushAnimationObject(uint32_t objectId, uint32_t elementAtlasIdRef, CharacterType charType)
+void GAFTimeline::pushAnimationObject(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType)
 {
     m_animationObjects[objectId] = std::make_tuple(elementAtlasIdRef, charType);
 }
@@ -83,6 +83,11 @@ const AnimationMasks_t& GAFTimeline::getAnimationMasks() const
     return m_animationMasks;
 }
 
+/*const TextureAtlases_t& GAFTimeline::getTextureAtlases() const
+{
+	return m_textureAtlases;
+}*/
+
 void GAFTimeline::setLinkageName(const std::string &linkageName)
 {
     m_linkageName = linkageName;
@@ -93,13 +98,13 @@ uint32_t GAFTimeline::getFramesCount() const
     return m_framesCount;
 }
 
-void GAFTimeline::loadImages()
+/*void GAFTimeline::loadImages()
 {
     _chooseTextureAtlas();
     
 }
 
-void GAFTimeline::_chooseTextureAtlas()
+/*void GAFTimeline::_chooseTextureAtlas()
 {
     float atlasScale = m_textureAtlases[0]->getScale();
     
@@ -107,6 +112,9 @@ void GAFTimeline::_chooseTextureAtlas()
     
     const size_t count = m_textureAtlases.size();
     
+	//TODO: check
+	float _currentDeviceScale = 1.f;
+
     for (size_t i = 1; i < count; ++i)
     {
         float as = m_textureAtlases[i]->getScale();
@@ -117,5 +125,5 @@ void GAFTimeline::_chooseTextureAtlas()
         }
     }
     
-    _usedAtlasContentScaleFactor = atlasScale;
-}
+    //_usedAtlasContentScaleFactor = atlasScale;
+}*/
