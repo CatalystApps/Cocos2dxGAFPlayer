@@ -78,17 +78,6 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
     
     if (!program || reset)
     {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT && !defined(_DEBUG))
-#include "ShadersPrecompiled/GAFPrecompiledShaders.h"
-        //program = cocos2d::GLProgram::addP;
-        program = cocos2d::GLProgram::createWithPrecompiledProgramByteArray(kGAFScrollLayerAlphaFilterProgramCacheKey, kGAFScrollLayerAlphaFilterProgramCacheKey);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-        program->updateUniforms();
-        CHECK_GL_ERROR_DEBUG();
-        cocos2d::GLProgramCache::getInstance()-> addGLProgram(program, kGAFSpriteWithAlphaShaderProgramCacheKey);
-#else
         const char* fragmentShader = nullptr;
         if (isCTXidt)
         {
@@ -125,7 +114,6 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
         }
 
         CHECK_GL_ERROR_DEBUG();
-#endif
         program->use();
         colorTransformMultLocation = glGetUniformLocation(program->getProgram(), "colorTransformMult");
         colorTransformOffsetLocation = glGetUniformLocation(program->getProgram(), "colorTransformOffsets");
