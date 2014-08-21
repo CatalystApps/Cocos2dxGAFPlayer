@@ -5,9 +5,6 @@
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Classes\HelloWorldScene.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cocos2dRenderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -23,13 +20,13 @@
     <ClCompile Include="src\EditBoxEvent.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Classes\GafFeatures.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="..\..\Classes\AppDelegate.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Classes\HelloWorldScene.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="src\Cocos2dRenderer.h">
@@ -50,6 +47,9 @@
     <ClInclude Include="src\EditBoxEvent.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\GafFeatures.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -60,17 +60,17 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\cocos2d\external\wp8-specific\angle\prebuilt\Win32\libEGL_phone.dll" />
-    <None Include="..\..\cocos2d\external\wp8-specific\angle\prebuilt\Win32\libGLESv2_phone.dll" />
-    <None Include="..\..\cocos2d\external\wp8-specific\angle\prebuilt\ARM\libEGL_phone.dll" />
-    <None Include="..\..\cocos2d\external\wp8-specific\angle\prebuilt\ARM\libGLESv2_phone.dll" />
-    <None Include="..\..\cocos2d\external\curl\prebuilt\wp8\win32\libcurl.dll" />
-    <None Include="..\..\cocos2d\external\curl\prebuilt\wp8\win32\libeay32.dll" />
-    <None Include="..\..\cocos2d\external\curl\prebuilt\wp8\win32\ssleay32.dll" />
-    <None Include="..\..\cocos2d\external\curl\prebuilt\wp8\arm\libcurl.dll" />
-    <None Include="..\..\cocos2d\external\curl\prebuilt\wp8\arm\libeay32.dll" />
-    <None Include="..\..\cocos2d\external\curl\prebuilt\wp8\arm\ssleay32.dll" />
-    <None Include="..\..\cocos2d\external\websockets\prebuilt\wp8\win32\libwebsockets.dll" />
-    <None Include="..\..\cocos2d\external\websockets\prebuilt\wp8\arm\libwebsockets.dll" />
+    <None Include="..\..\..\..\..\external\curl\prebuilt\wp8\arm\libcurl.dll" />
+    <None Include="..\..\..\..\..\external\curl\prebuilt\wp8\arm\libeay32.dll" />
+    <None Include="..\..\..\..\..\external\curl\prebuilt\wp8\arm\ssleay32.dll" />
+    <None Include="..\..\..\..\..\external\curl\prebuilt\wp8\win32\libcurl.dll" />
+    <None Include="..\..\..\..\..\external\curl\prebuilt\wp8\win32\libeay32.dll" />
+    <None Include="..\..\..\..\..\external\curl\prebuilt\wp8\win32\ssleay32.dll" />
+    <None Include="..\..\..\..\..\external\websockets\prebuilt\wp8\arm\libwebsockets.dll" />
+    <None Include="..\..\..\..\..\external\websockets\prebuilt\wp8\win32\libwebsockets.dll" />
+    <None Include="..\..\..\..\..\external\wp8-specific\angle\prebuilt\ARM\libEGL_phone.dll" />
+    <None Include="..\..\..\..\..\external\wp8-specific\angle\prebuilt\ARM\libGLESv2_phone.dll" />
+    <None Include="..\..\..\..\..\external\wp8-specific\angle\prebuilt\Win32\libEGL_phone.dll" />
+    <None Include="..\..\..\..\..\external\wp8-specific\angle\prebuilt\Win32\libGLESv2_phone.dll" />
   </ItemGroup>
 </Project>
