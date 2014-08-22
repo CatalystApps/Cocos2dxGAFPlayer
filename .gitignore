@@ -45,3 +45,10 @@ Library/Sources/latex
 /Examples/Example.android/gen
 /Examples/Example.android/libs
 /Examples/Example.android/obj
+/Examples/Example.wp8-xaml/App/Assets/Resources
+/Examples/Example.wp8-xaml/App/Bin
+/Examples/Example.wp8-xaml/App/obj
+/Examples/Example.wp8-xaml/ARM
+/Examples/Example.wp8-xaml/Debug
+/Examples/Example.wp8-xaml/Release
+/Examples/Example.wp8-xaml/ipch
