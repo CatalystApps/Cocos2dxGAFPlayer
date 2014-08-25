@@ -105,7 +105,7 @@ public:
 
     cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
 
-    void realizeFrame(cocos2d::Node* out, int frameIndex);
+    void realizeFrame(cocos2d::Node* out, size_t frameIndex);
 
     //! 0 means all masked pixels will be marked as 1 and so on
     void setStencilLayer(int newLayer);

@@ -504,180 +504,185 @@ cocos2d::Sprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextu
     return(res);
 }
 
-void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
+void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 {
-    GAFAnimationFrame *currentFrame = m_asset->getAnimationFrames()[frameIndex];
+    const AnimationFrames_t& animationFrames = m_asset->getAnimationFrames();
 
-    for (SubObjectsList_t::iterator i = m_visibleObjects.begin(), e = m_visibleObjects.end(); i != e; ++i)
+    if (frameIndex >= 0 && animationFrames.size() > frameIndex)
     {
-        (*i)->setVisible(false);
-    }
-    
-    m_visibleObjects.clear();
-    
-    const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
-    {
-        size_t statesCount = states.size();
-        for (size_t i = 0; i < statesCount; ++i)
+        GAFAnimationFrame *currentFrame = animationFrames[frameIndex];
+
+        for (SubObjectsList_t::iterator i = m_visibleObjects.begin(), e = m_visibleObjects.end(); i != e; ++i)
         {
-            const GAFSubobjectState *state = states[i];
+            (*i)->setVisible(false);
+        }
+
+        m_visibleObjects.clear();
+
+        const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
+        {
+            size_t statesCount = states.size();
+            for (size_t i = 0; i < statesCount; ++i)
             {
-                GAFSpriteWithAlpha *subObject = NULL;
-
-                SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
-
-                if (sboIt != m_subObjects.end())
+                const GAFSubobjectState *state = states[i];
                 {
-                    subObject = static_cast<GAFSpriteWithAlpha*>(sboIt->second);
-                }
+                    GAFSpriteWithAlpha *subObject = NULL;
 
-                if (subObject)
-                {
-                    cocos2d::Vect prevAP = subObject->getAnchorPoint();
-                    cocos2d::Size  prevCS = subObject->getContentSize();
+                    SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
+
+                    if (sboIt != m_subObjects.end())
+                    {
+                        subObject = static_cast<GAFSpriteWithAlpha*>(sboIt->second);
+                    }
+
+                    if (subObject)
+                    {
+                        cocos2d::Vect prevAP = subObject->getAnchorPoint();
+                        cocos2d::Size  prevCS = subObject->getContentSize();
 #if ENABLE_RUNTIME_FILTERS
-                    // Validate sprite type (w/ or w/o filter)
-                    const Filters_t& filters = state->getFilters();
-                    GAFFilterData* filter = NULL;
+                        // Validate sprite type (w/ or w/o filter)
+                        const Filters_t& filters = state->getFilters();
+                        GAFFilterData* filter = NULL;
 
-                    if (!filters.empty())
-                    {
-                        filter = filters[0];
-                        filter->apply(subObject);
-                    }
+                        if (!filters.empty())
+                        {
+                            filter = filters[0];
+                            filter->apply(subObject);
+                        }
 
-                    if (!filter || filter->getType() != GFT_Blur)
-                    {
-                        subObject->setBlurFilterData(NULL);
-                    }
+                        if (!filter || filter->getType() != GFT_Blur)
+                        {
+                            subObject->setBlurFilterData(NULL);
+                        }
 
-                    if (!filter || filter->getType() != GFT_ColorMatrix)
-                    {
-                        subObject->setColorMarixFilterData(NULL);
-                    }
+                        if (!filter || filter->getType() != GFT_ColorMatrix)
+                        {
+                            subObject->setColorMarixFilterData(NULL);
+                        }
 
-                    if (!filter || filter->getType() != GFT_Glow)
-                    {
-                        subObject->setGlowFilterData(NULL);
-                    }
+                        if (!filter || filter->getType() != GFT_Glow)
+                        {
+                            subObject->setGlowFilterData(NULL);
+                        }
 
-                    if (!filter || filter->getType() != GFT_DropShadow)
-                    {
-                        GAFDropShadowFilterData::reset(subObject);
-                    }
+                        if (!filter || filter->getType() != GFT_DropShadow)
+                        {
+                            GAFDropShadowFilterData::reset(subObject);
+                        }
 #endif
 
-                    cocos2d::Size newCS = subObject->getContentSize();
-                    cocos2d::Vect newAP = cocos2d::Vect(((prevAP.x - 0.5f) * prevCS.width) / newCS.width + 0.5f,
-                        ((prevAP.y - 0.5f) * prevCS.height) / newCS.height + 0.5f);
-                    subObject->setAnchorPoint(newAP);
+                        cocos2d::Size newCS = subObject->getContentSize();
+                        cocos2d::Vect newAP = cocos2d::Vect(((prevAP.x - 0.5f) * prevCS.width) / newCS.width + 0.5f,
+                            ((prevAP.y - 0.5f) * prevCS.height) / newCS.height + 0.5f);
+                        subObject->setAnchorPoint(newAP);
 
-                    if (state->maskObjectIdRef == IDNONE)
-                    {
-                        if (!subObject->getParent())
+                        if (state->maskObjectIdRef == IDNONE)
                         {
-                            out->addChild(subObject);
+                            if (!subObject->getParent())
+                            {
+                                out->addChild(subObject);
+                            }
+                        }
+                        else
+                        {
+                            if (subObject->getParent())
+                            {
+                                out->removeChild(subObject, false);
+                            }
+                            GAFStencilMaskSprite * mask = NULL;
+
+                            if (!m_masks.empty())
+                            {
+                                mask = static_cast<GAFStencilMaskSprite *>(m_masks[state->maskObjectIdRef]);
+                            }
+
+                            if (mask)
+                            {
+                                mask->addMaskedObject(subObject);
+
+                                if (mask->getParent() != this)
+                                {
+                                    addChild(mask);
+                                }
+                            }
+                        }
+
+                        bool subobjectCaptured = false;
+                        GAFAnimatedObjectControlFlags controlFlags = kGAFAnimatedObjectControl_None;
+
+                        CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
+                        if (cpoIt != m_capturedObjects.end())
+                        {
+                            subobjectCaptured = true;
+                            controlFlags = (GAFAnimatedObjectControlFlags)cpoIt->second;
+                        }
+
+                        if (!subobjectCaptured ||
+                            (subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
+                        {
+                            cocos2d::AffineTransform stateTransform = state->affineTransform;
+                            float csf = m_asset->usedAtlasContentScaleFactor();
+                            stateTransform.tx *= csf;
+                            stateTransform.ty *= csf;
+                            cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
+                            subObject->setExternaTransform(t);
+                            if (subObject->getLocalZOrder() != state->zIndex)
+                            {
+                                subObject->setLocalZOrder(state->zIndex);
+                            }
+                            subObject->setVisible(state->isVisible());
+                            m_visibleObjects.push_back(subObject);
+
+                            subObject->setColorTransform(state->colorMults(), state->colorOffsets());
                         }
                     }
                     else
                     {
-                        if (subObject->getParent())
-                        {
-                            out->removeChild(subObject, false);
-                        }
-                        GAFStencilMaskSprite * mask = NULL;
-
+                        GAFSprite * mask = NULL;
                         if (!m_masks.empty())
                         {
-                            mask = static_cast<GAFStencilMaskSprite *>(m_masks[state->maskObjectIdRef]);
+                            mask = m_masks[state->objectIdRef];
                         }
 
                         if (mask)
                         {
-                            mask->addMaskedObject(subObject);
+                            mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
 
-                            if (mask->getParent() != this)
+                            if (mask->getLocalZOrder() != state->zIndex)
                             {
-                                addChild(mask);
+                                mask->setLocalZOrder(state->zIndex);
                             }
-                        }
-                    }
-
-                    bool subobjectCaptured = false;
-                    GAFAnimatedObjectControlFlags controlFlags = kGAFAnimatedObjectControl_None;
-
-                    CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
-                    if (cpoIt != m_capturedObjects.end())
-                    {
-                        subobjectCaptured = true;
-                        controlFlags = (GAFAnimatedObjectControlFlags)cpoIt->second;
-                    }
-
-                    if (!subobjectCaptured ||
-                        (subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
-                    {
-                        cocos2d::AffineTransform stateTransform = state->affineTransform;
-                        float csf = m_asset->usedAtlasContentScaleFactor();
-                        stateTransform.tx *= csf;
-                        stateTransform.ty *= csf;
-                        cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
-                        subObject->setExternaTransform(t);
-                        if (subObject->getLocalZOrder() != state->zIndex)
-                        {
-                            subObject->setLocalZOrder(state->zIndex);
-                        }
-                        subObject->setVisible(state->isVisible());
-                        m_visibleObjects.push_back(subObject);
-                        
-                        subObject->setColorTransform(state->colorMults(), state->colorOffsets());
-                    }
-                }
-                else
-                {
-                    GAFSprite * mask = NULL;
-                    if (!m_masks.empty())
-                    {
-                        mask = m_masks[state->objectIdRef];
-                    }
-
-                    if (mask)
-                    {
-                        mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
-
-                        if (mask->getLocalZOrder() != state->zIndex)
-                        {
-                            mask->setLocalZOrder(state->zIndex);
                         }
                     }
                 }
             }
         }
-    }
 
-    if (m_controlDelegate)
-    {
-        size_t statesCount = states.size();
-        for (size_t i = 0; i < statesCount; ++i)
+        if (m_controlDelegate)
         {
-            const GAFSubobjectState *state = states[i];
-
-            SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
-
-            if (sboIt != m_subObjects.end())
+            size_t statesCount = states.size();
+            for (size_t i = 0; i < statesCount; ++i)
             {
-                const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
+                const GAFSubobjectState *state = states[i];
 
-                CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
+                SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
 
-                bool subobjectCaptured = cpoIt != m_capturedObjects.end();
-                if (subobjectCaptured && m_controlDelegate)
+                if (sboIt != m_subObjects.end())
                 {
-                    m_controlDelegate->onFrameDisplayed(this, subObject);
+                    const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
+
+                    CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
+
+                    bool subobjectCaptured = cpoIt != m_capturedObjects.end();
+                    if (subobjectCaptured && m_controlDelegate)
+                    {
+                        m_controlDelegate->onFrameDisplayed(this, subObject);
+                    }
                 }
-            }
-            else
-            {
-                // Masks cannot be captured right now
+                else
+                {
+                    // Masks cannot be captured right now
+                }
             }
         }
     }

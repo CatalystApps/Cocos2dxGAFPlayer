@@ -24,7 +24,7 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
 {
     in->readU32(); // read count. Unused here
     
-    assert(!ctx->getAnimationObjects().empty());
+    if (ctx->getAnimationObjects().empty()) return;
 
     for (AnimationObjects_t::const_iterator i = ctx->getAnimationObjects().begin(), e = ctx->getAnimationObjects().end(); i != e; ++i)
     {
