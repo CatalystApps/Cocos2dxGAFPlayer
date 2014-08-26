@@ -31,7 +31,7 @@ typedef std::map<unsigned int, AnimationObjectEx_t>	AnimationObjects_t;    // Ob
 typedef std::vector<GAFAnimationFrame*>             AnimationFrames_t;
 typedef std::unordered_map<unsigned int, GAFSprite*> SubObjects_t;
 typedef std::vector<GAFFilterData*>                 Filters_t;
-typedef std::vector<GAFTimeline*>					Timelines_t;
+typedef std::map<unsigned int, GAFTimeline*>		Timelines_t;
 
 typedef std::unordered_map<unsigned int, int>       CaptureObjects_t;      // Object id -> capture flags
 

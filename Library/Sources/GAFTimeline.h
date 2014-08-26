@@ -36,8 +36,7 @@ private:
     //void                    _chooseTextureAtlas();
 public:
 
-	GAFTimeline(){} //TODO: refactor
-    GAFTimeline(uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount);
+	GAFTimeline(uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount);
     virtual ~GAFTimeline();
 
     //void                        pushTextureAtlas(GAFTextureAtlas* atlas);
@@ -54,8 +53,9 @@ public:
     
     void                        setLinkageName(const std::string& linkageName);
     
-    const AnimationObjects_t&   getAnimationObjects() const;
+	const AnimationObjects_t&   getAnimationObjects() const;
     const AnimationMasks_t&     getAnimationMasks() const;
+	const AnimationFrames_t&	getAnimationFrames() const;
 	//const TextureAtlases_t&		getTextureAtlases() const;
     uint32_t                    getFramesCount() const;
     

@@ -83,6 +83,11 @@ const AnimationMasks_t& GAFTimeline::getAnimationMasks() const
     return m_animationMasks;
 }
 
+const AnimationFrames_t& GAFTimeline::getAnimationFrames() const
+{
+	return m_animationFrames;
+}
+
 /*const TextureAtlases_t& GAFTimeline::getTextureAtlases() const
 {
 	return m_textureAtlases;

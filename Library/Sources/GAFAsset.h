@@ -56,11 +56,12 @@ public:
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
     void                        pushNamedPart(unsigned int objectIdRef, const std::string& name);
-	void						pushTimeline(GAFTimeline* t);
+	void						pushTimeline(unsigned int timelineIdRef, GAFTimeline* t);
 
     void                        setHeader(GAFHeader& h);
     const GAFHeader&            getHeader() const;
 
+	void						getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const;
 	const AnimationObjects_t&   getAnimationObjects() const;
     const AnimationMasks_t&     getAnimationMasks() const;
     const AnimationFrames_t&    getAnimationFrames() const;

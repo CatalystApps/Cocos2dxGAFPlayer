@@ -37,7 +37,7 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
     }
 	
 	m_loader->loadTags(in, asset, tl);
-	asset->pushTimeline(tl);
+	asset->pushTimeline(id, tl);
 }
 
 TagDefineTimeline::TagDefineTimeline(GAFLoader* loader):

@@ -225,6 +225,33 @@ void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
     m_animationFrames.push_back(frame);
 }
 
+void GAFAsset::getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const
+{
+	AnimationObjects_t timelineObjects = timeline.getAnimationObjects();
+	for (AnimationObjects_t::const_iterator i = timelineObjects.begin(), e = timelineObjects.end(); i != e; ++i)
+	{
+		GAFCharacterType objType = std::get<1>(i->second);
+		switch (objType)
+		{
+		case GCT_TEXTURE:
+			objectsContainer[i->first] = i->second;
+			break;
+		case GCT_TEXT_FIELD:
+			break;
+		case GCT_TIMELINE:
+			{
+				unsigned int timelineIdRef = std::get<0>(i->second);
+				Timelines_t::const_iterator elIt = m_timelines.find(timelineIdRef); // Search for atlas element by its xref
+				assert(elIt != m_timelines.end());
+				getAnimationObjectsFromTimeline(objectsContainer, *elIt->second);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 const AnimationObjects_t& GAFAsset::getAnimationObjects() const
 {
     return m_animationObjects;
@@ -260,9 +287,9 @@ void GAFAsset::pushNamedPart(unsigned int objectIdRef, const std::string& name)
     m_namedParts[name] = objectIdRef;
 }
 
-void GAFAsset::pushTimeline(GAFTimeline* t)
+void GAFAsset::pushTimeline(unsigned int timelineIdRef, GAFTimeline* t)
 {
-	m_timelines.push_back(t);
+	m_timelines[timelineIdRef] = t;
 }
 
 const NamedParts_t& GAFAsset::getNamedParts() const
