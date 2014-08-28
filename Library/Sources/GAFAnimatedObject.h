@@ -35,38 +35,38 @@ class GAFAnimatedObject : public cocos2d::Layer, public GAFAnimation
 protected:
     GAFAnimatedObject();
 private:
-    GAFAsset * m_asset;
 
-    SubObjects_t m_subObjects;
-    SubObjects_t m_masks;
+    SubAnimatedObjects_t                m_subAnimatedObjects;
+    SubObjects_t                        m_subObjects;
+    SubObjects_t                        m_masks;
     
-    typedef std::list<GAFSprite*> SubObjectsList_t;
+    typedef std::list<GAFSprite*>       SubObjectsList_t;
     
-    SubObjectsList_t m_visibleObjects;
+    SubObjectsList_t                    m_visibleObjects;
 
-    int         m_stencilLayer;
+    int                                 m_stencilLayer;
 
-    CaptureObjects_t m_capturedObjects;
-    bool _animationsSelectorScheduled;
-    GAFFramePlayedDelegate * m_framePlayedDelegate;
-    GAFAnimatedObjectControlDelegate * m_controlDelegate;
+    CaptureObjects_t                    m_capturedObjects;
+    bool                                _animationsSelectorScheduled;
+    GAFFramePlayedDelegate *            m_framePlayedDelegate;
+    GAFAnimatedObjectControlDelegate *  m_controlDelegate;
 
     int numberOfGlobalFramesForOneAnimationFrame();
-    int m_extraFramesCounter;
+    int                                 m_extraFramesCounter;
 
-    double m_timeDelta;
+    double                              m_timeDelta;
 
     PCAnimationFPSType _FPSType; // Obsolete. Will be removed
-    int m_fps;
+    int                                 m_fps;
 
     void _updateStencilLayer(int newLayer);
     void _constructObject();
 public:
     ~GAFAnimatedObject();
-    static GAFAnimatedObject * create(GAFAsset * anAsset);
+    static GAFAnimatedObject * create(GAFAsset * anAsset, GAFTimeline* tl);
     static GAFAnimatedObject * createAndRun(const std::string& gafPath, bool looped = false);
 
-    bool init(GAFAsset * anAsset);
+    bool init(GAFAsset * anAsset, GAFTimeline* tl);
     void processAnimations(float dt);
     cocos2d::Vect pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, cocos2d::Vect aCenter, cocos2d::Vect anExternalPoint);
     void removeAllSubObjects();
@@ -105,7 +105,7 @@ public:
 
     cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
 
-    void realizeFrame(cocos2d::Node* out, int frameIndex);
+    void realizeFrame(cocos2d::Node* out, size_t frameIndex);
 
     //! 0 means all masked pixels will be marked as 1 and so on
     void setStencilLayer(int newLayer);

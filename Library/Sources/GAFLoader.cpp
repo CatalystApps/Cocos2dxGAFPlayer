@@ -157,7 +157,7 @@ void GAFLoader::_processLoad(GAFFile* file, GAFAsset* context)
 
     context->setHeader(header);
 
-    loadTags(m_stream, context, NULL); // TODO: check
+    loadTags(m_stream, context, nullptr);
 
     delete m_stream;
 }

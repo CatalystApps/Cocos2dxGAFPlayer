@@ -3,11 +3,12 @@
 #include "GAFTextureAtlas.h"
 #include "GAFAnimationFrame.h"
 
-GAFTimeline::GAFTimeline(uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount):
+GAFTimeline::GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount):
 m_id(id)
 , m_aabb(aabb)
 , m_pivot(pivot)
 , m_framesCount(framesCount)
+, m_parent(parent)
 {
 
 }
@@ -88,6 +89,11 @@ const AnimationFrames_t& GAFTimeline::getAnimationFrames() const
 	return m_animationFrames;
 }
 
+const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
+{
+    return m_animationSequences;
+}
+
 /*const TextureAtlases_t& GAFTimeline::getTextureAtlases() const
 {
 	return m_textureAtlases;
@@ -101,6 +107,11 @@ void GAFTimeline::setLinkageName(const std::string &linkageName)
 uint32_t GAFTimeline::getFramesCount() const
 {
     return m_framesCount;
+}
+
+GAFTimeline* GAFTimeline::getParent() const
+{
+    return m_parent;
 }
 
 /*void GAFTimeline::loadImages()
