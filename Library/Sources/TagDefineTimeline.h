@@ -12,6 +12,6 @@ public:
 
     TagDefineTimeline(GAFLoader*);
 
-    virtual void read(GAFStream*, GAFAsset*);
+    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
 
 };

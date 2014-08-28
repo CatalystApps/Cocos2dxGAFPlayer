@@ -99,14 +99,14 @@
     <ClCompile Include="Sources\GAFQuadCommand.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\TagDefineAnimationFrames2.cpp">
-      <Filter>Sources\GAFLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\TagDefineTimeline.cpp">
-      <Filter>Sources\GAFLoader</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\GAFTimeline.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\TagDefineAnimationFrames2.cpp">
+      <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\TagDefineTimeline.cpp">
+      <Filter>Sources\GAFLoader\Tags</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,14 +221,14 @@
     <ClInclude Include="Sources\GAFQuadCommand.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\TagDefineAnimationFrames2.h">
-      <Filter>Sources\GAFLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\TagDefineTimeline.h">
-      <Filter>Sources\GAFLoader</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\GAFTimeline.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\TagDefineTimeline.h">
+      <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\TagDefineAnimationFrames2.h">
+      <Filter>Sources\GAFLoader\Tags</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,6 +6,6 @@ class TagDefineAnimationMasks : public DefinitionTagBase
 {
 public:
 
-    virtual void read(GAFStream*, GAFAsset*);
+    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
 
 };

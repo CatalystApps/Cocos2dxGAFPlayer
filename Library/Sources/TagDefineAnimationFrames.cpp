@@ -20,13 +20,13 @@ TagDefineAnimationFrames::~TagDefineAnimationFrames()
     }
 }
 
-void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
+void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* asset, GAFTimeline*)
 {
     in->readU32(); // read count. Unused here
     
-    assert(!ctx->getAnimationObjects().empty());
+	assert(!asset->getAnimationObjects().empty());
 
-    for (AnimationObjects_t::const_iterator i = ctx->getAnimationObjects().begin(), e = ctx->getAnimationObjects().end(); i != e; ++i)
+	for (AnimationObjects_t::const_iterator i = asset->getAnimationObjects().begin(), e = asset->getAnimationObjects().end(); i != e; ++i)
     {
         unsigned int objectId = i->first;
         GAFSubobjectState *state = new GAFSubobjectState();
@@ -80,7 +80,7 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
             frame->pushObjectState(it->second);
         }
 
-        ctx->pushAnimationFrame(frame);
+		asset->pushAnimationFrame(frame);
     }
 }
 

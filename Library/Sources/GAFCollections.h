@@ -4,6 +4,7 @@ class GAFTextureAtlas;
 class GAFAnimationFrame;
 class GAFSprite;
 class GAFFilterData;
+class GAFTimeline;
 
 #include <unordered_map>
 #include "GAFAnimationSequence.h"
@@ -16,12 +17,21 @@ enum GAFFilterType
     GFT_ColorMatrix = 6
 };
 
+enum GAFCharacterType
+{
+	GCT_TEXTURE = 0,
+	GCT_TEXT_FIELD,
+	GCT_TIMELINE
+};
+
+typedef std::tuple<unsigned int, GAFCharacterType>	AnimationObjectEx_t;
 typedef std::vector<GAFTextureAtlas*>               TextureAtlases_t;
-typedef std::map<unsigned int, unsigned int>        AnimationMasks_t;      // Object id -> Element Atlas Id
-typedef std::map<unsigned int, unsigned int>        AnimationObjects_t;    // Object id -> Element Atlas Id
+typedef std::map<unsigned int, AnimationObjectEx_t>	AnimationMasks_t;      // Object id -> Element Atlas Id
+typedef std::map<unsigned int, AnimationObjectEx_t>	AnimationObjects_t;    // Object id -> Element Atlas Id
 typedef std::vector<GAFAnimationFrame*>             AnimationFrames_t;
 typedef std::unordered_map<unsigned int, GAFSprite*> SubObjects_t;
 typedef std::vector<GAFFilterData*>                 Filters_t;
+typedef std::map<unsigned int, GAFTimeline*>		Timelines_t;
 
 typedef std::unordered_map<unsigned int, int>       CaptureObjects_t;      // Object id -> capture flags
 

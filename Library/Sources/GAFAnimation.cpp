@@ -39,7 +39,8 @@ bool GAFAnimation::init(GAFAsset * anAssetData)
         CC_SAFE_RETAIN(m_asset);
     }
     m_currentSequenceStart = _currentFrameIndex = GAF_FIRST_FRAME_INDEX;
-    m_currentSequenceEnd = m_totalFrameCount = anAssetData->getAnimationFramesCount();
+	Timelines_t tl = anAssetData->getTimelines();
+	m_currentSequenceEnd = m_totalFrameCount = anAssetData->getTimelines().at(0)->getFramesCount();
     return true;
 }
 

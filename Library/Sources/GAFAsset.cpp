@@ -127,11 +127,10 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
-    if (m_textureAtlases.empty())
+	if (m_textureAtlases.empty())
     {
         return false;
     }
-
     if (isLoaded)
     {
         _chooseTextureAtlas();
@@ -213,17 +212,44 @@ void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)
 
 void GAFAsset::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef)
 {
-    m_animationMasks[objectId] = elementAtlasIdRef;
+    m_animationMasks[objectId] = std::make_tuple(elementAtlasIdRef, GCT_TEXTURE);
 }
 
 void GAFAsset::pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef)
 {
-    m_animationObjects[objectId] = elementAtlasIdRef;
+    m_animationObjects[objectId] = std::make_tuple(elementAtlasIdRef, GCT_TEXTURE);
 }
 
 void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
 {
     m_animationFrames.push_back(frame);
+}
+
+void GAFAsset::getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const
+{
+	AnimationObjects_t timelineObjects = timeline.getAnimationObjects();
+	for (AnimationObjects_t::const_iterator i = timelineObjects.begin(), e = timelineObjects.end(); i != e; ++i)
+	{
+		GAFCharacterType objType = std::get<1>(i->second);
+		switch (objType)
+		{
+		case GCT_TEXTURE:
+			objectsContainer[i->first] = i->second;
+			break;
+		case GCT_TEXT_FIELD:
+			break;
+		case GCT_TIMELINE:
+			{
+				unsigned int timelineIdRef = std::get<0>(i->second);
+				Timelines_t::const_iterator elIt = m_timelines.find(timelineIdRef); // Search for atlas element by its xref
+				assert(elIt != m_timelines.end());
+				getAnimationObjectsFromTimeline(objectsContainer, *elIt->second);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 const AnimationObjects_t& GAFAsset::getAnimationObjects() const
@@ -261,6 +287,11 @@ void GAFAsset::pushNamedPart(unsigned int objectIdRef, const std::string& name)
     m_namedParts[name] = objectIdRef;
 }
 
+void GAFAsset::pushTimeline(unsigned int timelineIdRef, GAFTimeline* t)
+{
+	m_timelines[timelineIdRef] = t;
+}
+
 const NamedParts_t& GAFAsset::getNamedParts() const
 {
     return m_namedParts;
@@ -279,6 +310,11 @@ void GAFAsset::setHeader(GAFHeader& h)
 void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
 {
     m_textureLoadDelegate = delegate;
+}
+
+const Timelines_t& GAFAsset::getTimelines() const
+{
+	return m_timelines;
 }
 
 const GAFHeader& GAFAsset::getHeader() const

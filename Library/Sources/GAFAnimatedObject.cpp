@@ -147,7 +147,9 @@ void GAFAnimatedObject::_constructObject()
     m_extraFramesCounter = 0;
     _animationsSelectorScheduled = false;
     
-    instantiateObject(m_asset->getAnimationObjects(), m_asset->getAnimationMasks());
+	AnimationObjects_t objsContainer;
+	m_asset->getAnimationObjectsFromTimeline(objsContainer, *m_asset->getTimelines().at(0));
+    instantiateObject(objsContainer, m_asset->getTimelines().at(0)->getAnimationMasks());
 
 }
 
@@ -167,13 +169,13 @@ unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
 
 void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
 {
-    for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
+	for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
         GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
         cocos2d::SpriteFrame * spriteFrame = NULL;
 
-        unsigned int atlasElementIdRef = i->second;
+        unsigned int atlasElementIdRef = std::get<0>(i->second);
 
         GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by its xref
 
@@ -230,7 +232,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
 
-        unsigned int atlasElementIdRef = i->second;
+        unsigned int atlasElementIdRef = std::get<0>(i->second);
 
         GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by it's xref
 
@@ -506,7 +508,7 @@ cocos2d::Sprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextu
 
 void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, int frameIndex)
 {
-    GAFAnimationFrame *currentFrame = m_asset->getAnimationFrames()[frameIndex];
+    GAFAnimationFrame *currentFrame = m_asset->getTimelines().at(0)->getAnimationFrames()[frameIndex]; //TODO: Get all animation frames???
 
     for (SubObjectsList_t::iterator i = m_visibleObjects.begin(), e = m_visibleObjects.end(); i != e; ++i)
     {

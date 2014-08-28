@@ -5,6 +5,7 @@
 #include "GAFAsset.h"
 #include "GAFFile.h"
 #include "GAFHeader.h"
+#include "GAFTimeline.h"
 
 #include "PrimitiveDeserializer.h"
 
@@ -13,16 +14,16 @@
 #include "GAFFilterData.h"
 
 
-void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* ctx)
+void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     unsigned int count = in->readU32();
 
     typedef std::map<unsigned int, GAFSubobjectState*> States_t;
     States_t currentStates;
 
-    assert(!ctx->getAnimationObjects().empty());
+	assert(!timeline->getAnimationObjects().empty());
 
-    for (AnimationObjects_t::const_iterator i = ctx->getAnimationObjects().begin(), e = ctx->getAnimationObjects().end(); i != e; ++i)
+	for (AnimationObjects_t::const_iterator i = timeline->getAnimationObjects().begin(), e = timeline->getAnimationObjects().end(); i != e; ++i)
     {
         unsigned int objectId = i->first;
         GAFSubobjectState *state = new GAFSubobjectState();
@@ -92,7 +93,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* ctx)
             frame->pushObjectState(it->second);
         }
 
-        ctx->pushAnimationFrame(frame);
+		timeline->pushAnimationFrame(frame);
     }
 }
 

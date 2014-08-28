@@ -10,6 +10,6 @@ private:
     GAFSubobjectState* extractState(GAFStream* in);
 public:
 
-    virtual void read(GAFStream*, GAFAsset*);
+    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
 
 };

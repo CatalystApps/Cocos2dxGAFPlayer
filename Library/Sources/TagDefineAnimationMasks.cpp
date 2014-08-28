@@ -4,8 +4,9 @@
 #include "GAFFile.h"
 #include "GAFStream.h"
 #include "GAFAsset.h"
+#include "GAFTimeline.h"
 
-void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* ctx)
+void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     unsigned int count = in->readU32();
 
@@ -14,11 +15,14 @@ void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* ctx)
         unsigned int objectId = in->readU32();
         unsigned int elementAtlasIdRef = in->readU32();
 
-        ctx->pushAnimationMask(objectId, elementAtlasIdRef);
-
         if (in->getInput()->getHeader().getMajorVersion() >= 4)
         {
             unsigned short objType = in->readU16();
+			timeline->pushAnimationMask(objectId, elementAtlasIdRef, static_cast<GAFCharacterType>(objType));
         }
+		else
+		{
+			asset->pushAnimationMask(objectId, elementAtlasIdRef);
+		}
     }
 }
