@@ -15,14 +15,14 @@ m_id(id)
 
 GAFTimeline::~GAFTimeline()
 {
-    //GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
+    GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
 }
 
-/*void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
+void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
 {
     m_textureAtlases.push_back(atlas);
-}*/
+}
 
 void GAFTimeline::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef, GAFCharacterType charType)
 {
@@ -94,10 +94,10 @@ const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
     return m_animationSequences;
 }
 
-/*const TextureAtlases_t& GAFTimeline::getTextureAtlases() const
+GAFTextureAtlas* GAFTimeline::getTextureAtlas()
 {
-	return m_textureAtlases;
-}*/
+	return m_currentTextureAtlas;
+}
 
 void GAFTimeline::setLinkageName(const std::string &linkageName)
 {
@@ -114,13 +114,18 @@ GAFTimeline* GAFTimeline::getParent() const
     return m_parent;
 }
 
-/*void GAFTimeline::loadImages()
+void GAFTimeline::loadImages()
 {
+	if (m_textureAtlases.empty())
+	{
+		m_currentTextureAtlas = nullptr;
+		return;
+	}
     _chooseTextureAtlas();
     
 }
 
-/*void GAFTimeline::_chooseTextureAtlas()
+void GAFTimeline::_chooseTextureAtlas()
 {
     float atlasScale = m_textureAtlases[0]->getScale();
     
@@ -141,5 +146,5 @@ GAFTimeline* GAFTimeline::getParent() const
         }
     }
     
-    //_usedAtlasContentScaleFactor = atlasScale;
-}*/
+    m_usedAtlasContentScaleFactor = atlasScale;
+}

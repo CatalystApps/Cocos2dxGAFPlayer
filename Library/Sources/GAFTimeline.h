@@ -10,7 +10,7 @@ class GAFTextureAtlas;
 class GAFTimeline : public cocos2d::Ref
 {
 private:
-    //TextureAtlases_t        m_textureAtlases;
+    TextureAtlases_t        m_textureAtlases;
     AnimationMasks_t        m_animationMasks;
     AnimationObjects_t      m_animationObjects;
     AnimationFrames_t       m_animationFrames;
@@ -32,16 +32,18 @@ private:
     
     GAFTextureAtlas*        m_currentTextureAtlas;
     GAFTextureLoadDelegate* m_textureLoadDelegate;
+	
+	float					m_usedAtlasContentScaleFactor;
     
     GAFTimeline*            m_parent = nullptr; // weak
 
-    //void                    _chooseTextureAtlas();
+    void                    _chooseTextureAtlas();
 public:
 
 	GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount);
     virtual ~GAFTimeline();
 
-    //void                        pushTextureAtlas(GAFTextureAtlas* atlas);
+    void                        pushTextureAtlas(GAFTextureAtlas* atlas);
 	void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
 	void                        pushAnimationObject(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
@@ -59,10 +61,10 @@ public:
     const AnimationMasks_t&     getAnimationMasks() const;
 	const AnimationFrames_t&	getAnimationFrames() const;
     const AnimationSequences_t& getAnimationSequences() const;
-	//const TextureAtlases_t&		getTextureAtlases() const;
     uint32_t                    getFramesCount() const;
     
     GAFTimeline*                getParent() const;
     
-    //void                        loadImages();
+	GAFTextureAtlas*			getTextureAtlas();
+    void                        loadImages();
 };

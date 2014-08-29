@@ -39,6 +39,8 @@ private:
     SubAnimatedObjects_t                m_subAnimatedObjects;
     SubObjects_t                        m_subObjects;
     SubObjects_t                        m_masks;
+	Filters_t							m_parentFilters;
+	std::tuple<cocos2d::Vec4, cocos2d::Vec4> m_parentColorTransforms;
     
     typedef std::list<GAFSprite*>       SubObjectsList_t;
     

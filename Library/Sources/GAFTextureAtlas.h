@@ -24,6 +24,8 @@ public:
         unsigned int id;
     };
 
+	static bool compareAtlasesById(const AtlasInfo& ai1, const AtlasInfo& ai2);
+
     typedef std::vector<AtlasInfo> AtlasInfos_t;
     typedef std::map<unsigned int, GAFTextureAtlasElement*> Elements_t;
 
@@ -62,6 +64,7 @@ public:
     cocos2d::__Array     * textures();
 
     const Elements_t& getElements() const;
+	const AtlasInfos_t& getAtlasInfos() const;
     
     //! All CCImages will be freed at the first call of textures()
     //! So there is only VRAM occupation

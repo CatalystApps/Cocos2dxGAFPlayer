@@ -176,11 +176,12 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             GAFAnimatedObject* newObject = GAFAnimatedObject::create(m_asset, tl->second);
             m_subAnimatedObjects[objectId] = newObject;
 			addChild(newObject);
+			newObject->setAnimationRunning(true);
             newObject->retain();
         }
         else if (charType == GAFCharacterType::GCT_TEXTURE)
         {
-            GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
+            GAFTextureAtlas* atlas = m_timeline->getTextureAtlas();
             const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
             cocos2d::SpriteFrame * spriteFrame = NULL;
             
@@ -239,7 +240,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
 
     for (AnimationMasks_t::const_iterator i = masks.begin(), e = masks.end(); i != e; ++i)
     {
-        GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
+        GAFTextureAtlas* atlas = m_timeline->getTextureAtlas();
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
 
         unsigned int atlasElementIdRef = std::get<0>(i->second);
@@ -547,21 +548,29 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 					SubAnimatedObjects_t::iterator objIt = m_subAnimatedObjects.find(state->objectIdRef);
 					if (objIt != m_subAnimatedObjects.end())
 					{
-						objIt->second->step();
+						GAFAnimatedObject* animatedObj = objIt->second;
+
 						cocos2d::AffineTransform stateTransform = state->affineTransform;
 						float csf = m_asset->usedAtlasContentScaleFactor();
 						stateTransform.tx *= csf;
 						stateTransform.ty *= csf;
 						cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
-						objIt->second->setAdditionalTransform(t);
-						
-						const Filters_t& filters = state->getFilters();
-						GAFFilterData* filter = NULL;
+						animatedObj->setAdditionalTransform(t);
 
-						if (!filters.empty())
+						animatedObj->m_parentFilters.clear();
+						const Filters_t& filters = state->getFilters();
+						animatedObj->m_parentFilters.insert(animatedObj->m_parentFilters.end(), filters.begin(), filters.end());
+
+						animatedObj->m_parentColorTransforms = std::make_tuple(
+							cocos2d::Vec4(state->colorMults()),
+							cocos2d::Vec4(state->colorOffsets())
+							);
+
+						animatedObj->setLocalZOrder(state->zIndex);
+
+						if (animatedObj->isAnimationRunning())
 						{
-							filter = filters[0];
-							//filter->apply(objIt->second);
+							animatedObj->step();
 						}
 					}
 				}
@@ -575,9 +584,10 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     const Filters_t& filters = state->getFilters();
                     GAFFilterData* filter = NULL;
 
-                    if (!filters.empty())
+					m_parentFilters.insert(m_parentFilters.end(), filters.begin(), filters.end());
+					if (!m_parentFilters.empty())
                     {
-                        filter = filters[0];
+						filter = m_parentFilters[0];
                         filter->apply(subObject);
                     }
 
@@ -648,24 +658,28 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                         controlFlags = (GAFAnimatedObjectControlFlags)cpoIt->second;
                     }
 
-                    if (!subobjectCaptured ||
-                        (subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
-                    {
-                        cocos2d::AffineTransform stateTransform = state->affineTransform;
-                        float csf = m_asset->usedAtlasContentScaleFactor();
-                        stateTransform.tx *= csf;
-                        stateTransform.ty *= csf;
-                        cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
-                        subObject->setExternaTransform(t);
-                        if (subObject->getLocalZOrder() != state->zIndex)
-                        {
-                            subObject->setLocalZOrder(state->zIndex);
-                        }
-                        subObject->setVisible(state->isVisible());
-                        m_visibleObjects.push_back(subObject);
-                        
-                        subObject->setColorTransform(state->colorMults(), state->colorOffsets());
-                    }
+					if (!subobjectCaptured ||
+						(subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
+					{
+						cocos2d::AffineTransform stateTransform = state->affineTransform;
+						float csf = m_asset->usedAtlasContentScaleFactor();
+						stateTransform.tx *= csf;
+						stateTransform.ty *= csf;
+						cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
+						subObject->setExternaTransform(t);
+						if (subObject->getLocalZOrder() != state->zIndex)
+						{
+							subObject->setLocalZOrder(state->zIndex);
+						}
+						subObject->setVisible(state->isVisible());
+						m_visibleObjects.push_back(subObject);
+
+						//subObject->setColorTransform(state->colorMults(), state->colorOffsets());
+						subObject->setColorTransform(
+							std::get<0>(m_parentColorTransforms),
+							std::get<1>(m_parentColorTransforms)
+							);
+					}
                 }
                 else
                 {

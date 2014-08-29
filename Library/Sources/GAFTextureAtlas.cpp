@@ -25,7 +25,7 @@ GAFTextureAtlas::~GAFTextureAtlas()
     GAF_RELEASE_MAP(GAFTextureAtlas::Elements_t, m_elements);
 }
 
-static bool compareAtlasesById(const GAFTextureAtlas::AtlasInfo& ai1, const GAFTextureAtlas::AtlasInfo& ai2)
+bool GAFTextureAtlas::compareAtlasesById(const AtlasInfo& ai1, const AtlasInfo& ai2)
 {
     return ai1.id < ai2.id;
 }
@@ -182,6 +182,11 @@ void GAFTextureAtlas::pushElement(unsigned int idx, GAFTextureAtlasElement* el)
 const GAFTextureAtlas::Elements_t& GAFTextureAtlas::getElements() const
 {
     return m_elements;
+}
+
+const GAFTextureAtlas::AtlasInfos_t& GAFTextureAtlas::getAtlasInfos() const
+{
+	return m_atlasInfos;
 }
 
 uint32_t GAFTextureAtlas::getMemoryConsumptionStat() const

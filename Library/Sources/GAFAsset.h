@@ -6,6 +6,7 @@
 #include "GAFCollections.h"
 #include "GAFHeader.h"
 #include "GAFTimeline.h"
+#include "GAFAssetTextureManager.h"
 
 #include "GAFDelegates.h"
 
@@ -29,8 +30,8 @@ private:
 	Timelines_t				m_timelines;
     GAFTimeline*            m_rootTimeline;
 
-    GAFTextureAtlas*        m_currentTextureAtlas;
     GAFTextureLoadDelegate* m_textureLoadDelegate;
+	GAFAssetTextureManager	m_textureManager;
 
     unsigned int            m_sceneFps;
     unsigned int            m_sceneWidth;
@@ -41,8 +42,6 @@ private:
     float _usedAtlasContentScaleFactor;
     int _majorVersion;
     int _minorVersion;
-
-    void                        _chooseTextureAtlas();
 public:
     /// Initializes asset with bGAF data
 
@@ -50,8 +49,7 @@ public:
 
     bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
-    void                        pushTextureAtlas(GAFTextureAtlas* atlas);
-    void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef);
+	void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef);
     void                        pushAnimationObjects(uint32_t objectId, uint32_t elementAtlasIdRef);
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
@@ -82,8 +80,6 @@ public:
     ~GAFAsset();
     /// total number of frames in animation
     size_t                      getAnimationFramesCount() const;
-
-    GAFTextureAtlas *           getTextureAtlas();
 
     /// get GAFAnimationSequence by name specified in editor
     const GAFAnimationSequence* getSequence(const std::string& name) const;

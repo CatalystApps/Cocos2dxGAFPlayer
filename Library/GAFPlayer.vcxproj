@@ -15,6 +15,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sources\GAFAssetTextureManager.cpp" />
     <ClCompile Include="Sources\GAFCachedTexture.cpp" />
     <ClCompile Include="Sources\GAFFile.cpp" />
     <ClCompile Include="Sources\GAFAnimatedObject.cpp" />
@@ -49,6 +50,7 @@
   <ItemGroup>
     <ClInclude Include="GAFPrecompiled.h" />
     <ClInclude Include="Sources\DefinitionTagBase.h" />
+    <ClInclude Include="Sources\GAFAssetTextureManager.h" />
     <ClInclude Include="Sources\GAFCachedTexture.h" />
     <ClInclude Include="Sources\GAFCollections.h" />
     <ClInclude Include="Sources\GAFDelegates.h" />

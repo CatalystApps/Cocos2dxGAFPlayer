@@ -271,6 +271,10 @@ bool GafFeatures::init()
     setupMenuItems();
     gray(NULL);
     
+	m_files.push_back("interface/interface.gaf");
+	m_files.push_back("test-1/test-1.gaf");
+	m_files.push_back("test-2/test-2.gaf");
+	m_files.push_back("roboprogrm/roboprogrm.gaf");
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
@@ -508,9 +512,10 @@ void GafFeatures::addObjectsToScene()
         
         ss.str("");
         
-        ss << "VRAM: ";
-        ss << m_asset->getTextureAtlas()->getMemoryConsumptionStat();
-        ss << " bytes";
+		//  TODO: rework with timelines
+        //ss << "VRAM: ";
+        //ss << m_asset->getTextureAtlas()->getMemoryConsumptionStat();
+        //ss << " bytes";
         
         m_vramStat->setString(ss.str());
         
