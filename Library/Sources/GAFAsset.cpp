@@ -24,12 +24,12 @@ void GAFAsset::setDesiredCsf(float csf)
 
 GAFAnimatedObject * GAFAsset::createObject()
 {
-    if (!m_currentTextureAtlas)
+    if (m_timelines.empty())
     {
-        return NULL;
+        return nullptr;
     }
 
-    return GAFAnimatedObject::create(this);
+    return GAFAnimatedObject::create(this, m_rootTimeline);
 }
 
 GAFAnimatedObject * GAFAsset::createObjectAndRun(bool looped)
@@ -44,8 +44,7 @@ GAFAnimatedObject * GAFAsset::createObjectAndRun(bool looped)
 }
 
 GAFAsset::GAFAsset():
-m_currentTextureAtlas(NULL),
-m_textureLoadDelegate(NULL),
+m_textureLoadDelegate(nullptr),
 m_sceneFps(60),
 m_sceneWidth(0),
 m_sceneHeight(0)
@@ -56,6 +55,7 @@ GAFAsset::~GAFAsset()
 {
     GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
+    CC_SAFE_RELEASE(m_rootTimeline);
 }
 
 bool GAFAsset::isAssetVersionPlayable(const char * version)
@@ -105,13 +105,14 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
 
     if (isLoaded)
     {
-        _chooseTextureAtlas();
+        /*_chooseTextureAtlas();
 
         if (m_currentTextureAtlas)
         {
             m_textureLoadDelegate = delegate;
             m_currentTextureAtlas->loadImages(entryFile, m_textureLoadDelegate, &bundle);
         }
+		*/
     }
 
     delete loader;
@@ -127,19 +128,29 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
-	if (m_textureAtlases.empty())
+	if (m_textureAtlases.empty() && m_timelines.empty())
     {
         return false;
     }
     if (isLoaded)
     {
-        _chooseTextureAtlas();
+		size_t memory = 0;
+		for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
+		{
+			i->second->loadImages();
 
-        if (m_currentTextureAtlas)
-        {
-            m_textureLoadDelegate = delegate;
-            m_currentTextureAtlas->loadImages(fullfilePath, m_textureLoadDelegate);
-        }
+			if (i->second->getTextureAtlas())
+			{
+				m_textureManager.appendInfoFromTextureAtlas(i->second->getTextureAtlas());
+				//i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
+				//memory += i->second->getTextureAtlas()->getMemoryConsumptionStat();
+			}
+		}
+
+		m_textureLoadDelegate = delegate;
+		m_textureManager.loadImages(fullfilePath, m_textureLoadDelegate);
+
+		memory++;
     }
 
     delete loader;
@@ -147,10 +158,10 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     return isLoaded;
 }
 
-GAFTextureAtlas* GAFAsset::getTextureAtlas()
+/*GAFTextureAtlas* GAFAsset::getTextureAtlas()
 {
     return m_currentTextureAtlas;
-}
+}*/
 
 size_t GAFAsset::getAnimationFramesCount() const
 {
@@ -204,20 +215,14 @@ const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) con
 
     return NULL;
 }
-
-void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)
-{
-    m_textureAtlases.push_back(atlas);
-}
-
 void GAFAsset::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef)
 {
-    m_animationMasks[objectId] = std::make_tuple(elementAtlasIdRef, GCT_TEXTURE);
+    m_animationMasks[objectId] = std::make_tuple(elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
 }
 
 void GAFAsset::pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef)
 {
-    m_animationObjects[objectId] = std::make_tuple(elementAtlasIdRef, GCT_TEXTURE);
+    m_animationObjects[objectId] = std::make_tuple(elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
 }
 
 void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
@@ -233,23 +238,34 @@ void GAFAsset::getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContai
 		GAFCharacterType objType = std::get<1>(i->second);
 		switch (objType)
 		{
-		case GCT_TEXTURE:
-			objectsContainer[i->first] = i->second;
-			break;
-		case GCT_TEXT_FIELD:
-			break;
-		case GCT_TIMELINE:
+            case GAFCharacterType::GCT_TEXTURE:
+                objectsContainer[i->first] = i->second;
+                break;
+            case GAFCharacterType::GCT_TEXT_FIELD:
+                break;
+            case GAFCharacterType::GCT_TIMELINE:
 			{
 				unsigned int timelineIdRef = std::get<0>(i->second);
 				Timelines_t::const_iterator elIt = m_timelines.find(timelineIdRef); // Search for atlas element by its xref
 				assert(elIt != m_timelines.end());
 				getAnimationObjectsFromTimeline(objectsContainer, *elIt->second);
 			}
-			break;
+                break;
 		default:
 			break;
 		}
 	}
+}
+
+void GAFAsset::setRootTimeline(GAFTimeline *tl)
+{
+    m_rootTimeline = tl;
+    m_rootTimeline->retain();
+}
+
+GAFTimeline* GAFAsset::getRootTimeline() const
+{
+    return m_rootTimeline;
 }
 
 const AnimationObjects_t& GAFAsset::getAnimationObjects() const
@@ -282,14 +298,15 @@ const AnimationSequences_t& GAFAsset::getAnimationSequences() const
     return m_animationSequences;
 }
 
-void GAFAsset::pushNamedPart(unsigned int objectIdRef, const std::string& name)
+void GAFAsset::pushNamedPart(uint32_t objectIdRef, const std::string& name)
 {
     m_namedParts[name] = objectIdRef;
 }
 
-void GAFAsset::pushTimeline(unsigned int timelineIdRef, GAFTimeline* t)
+void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)
 {
 	m_timelines[timelineIdRef] = t;
+    t->retain();
 }
 
 const NamedParts_t& GAFAsset::getNamedParts() const
@@ -310,6 +327,11 @@ void GAFAsset::setHeader(GAFHeader& h)
 void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
 {
     m_textureLoadDelegate = delegate;
+}
+
+Timelines_t& GAFAsset::getTimelines()
+{
+    return m_timelines;
 }
 
 const Timelines_t& GAFAsset::getTimelines() const
@@ -360,25 +382,4 @@ void GAFAsset::setSceneHeight(unsigned int value)
 void GAFAsset::setSceneColor(const cocos2d::Color4B& value)
 {
     m_sceneColor = value;
-}
-
-void GAFAsset::_chooseTextureAtlas()
-{
-    float atlasScale = m_textureAtlases[0]->getScale();
-
-    m_currentTextureAtlas = m_textureAtlases[0];
-
-    const unsigned int count = m_textureAtlases.size();
-
-    for (unsigned int i = 1; i < count; ++i)
-    {
-        float as = m_textureAtlases[i]->getScale();
-        if (fabs(atlasScale - _currentDeviceScale) > fabs(as - _currentDeviceScale))
-        {
-            m_currentTextureAtlas = m_textureAtlases[i];
-            atlasScale = as;
-        }
-    }
-
-    _usedAtlasContentScaleFactor = atlasScale;
 }

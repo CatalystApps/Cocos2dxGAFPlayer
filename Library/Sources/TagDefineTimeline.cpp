@@ -20,7 +20,7 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
     PrimitiveDeserializer::deserialize(in, &aabb);
     PrimitiveDeserializer::deserialize(in, &pivot);
 
-	GAFTimeline *tl = new GAFTimeline(id, aabb, pivot, framesCount);
+	GAFTimeline *tl = new GAFTimeline(timeline, id, aabb, pivot, framesCount);
 
     // STUB
     GAFHeader header = asset->getHeader();
@@ -37,6 +37,12 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
     }
 	
 	m_loader->loadTags(in, asset, tl);
+    
+    if (id == 0)
+    {
+        asset->setRootTimeline(tl);
+    }
+    
 	asset->pushTimeline(id, tl);
 }
 

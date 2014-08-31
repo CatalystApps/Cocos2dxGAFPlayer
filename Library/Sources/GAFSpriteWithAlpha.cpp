@@ -253,6 +253,16 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
     return XXH32((void*)&hash, sizeof(Hash), 0);
 }
 
+void GAFSpriteWithAlpha::setColorTransform(const Vec4 &mults, const Vec4 &offsets)
+{
+	m_colorTransformMult = mults;
+	m_colorTransformOffsets = offsets;
+	_setBlendingFunc();
+#if CHECK_CTX_IDENTITY
+	setShaderProgram(programForShader());
+#endif
+}
+
 void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat * offsets)
 {
     m_colorTransformMult = Vec4(mults);

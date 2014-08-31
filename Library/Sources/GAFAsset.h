@@ -6,6 +6,7 @@
 #include "GAFCollections.h"
 #include "GAFHeader.h"
 #include "GAFTimeline.h"
+#include "GAFAssetTextureManager.h"
 
 #include "GAFDelegates.h"
 
@@ -27,9 +28,10 @@ private:
     NamedParts_t            m_namedParts;
     GAFHeader               m_header;
 	Timelines_t				m_timelines;
+    GAFTimeline*            m_rootTimeline;
 
-    GAFTextureAtlas*        m_currentTextureAtlas;
     GAFTextureLoadDelegate* m_textureLoadDelegate;
+	GAFAssetTextureManager	m_textureManager;
 
     unsigned int            m_sceneFps;
     unsigned int            m_sceneWidth;
@@ -40,26 +42,25 @@ private:
     float _usedAtlasContentScaleFactor;
     int _majorVersion;
     int _minorVersion;
-
-    void                        _chooseTextureAtlas();
 public:
     /// Initializes asset with bGAF data
 
     bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate = NULL);
 
-
     bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
-    void                        pushTextureAtlas(GAFTextureAtlas* atlas);
-    void                        pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef);
-    void                        pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef);
+	void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef);
+    void                        pushAnimationObjects(uint32_t objectId, uint32_t elementAtlasIdRef);
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
-    void                        pushNamedPart(unsigned int objectIdRef, const std::string& name);
-	void						pushTimeline(unsigned int timelineIdRef, GAFTimeline* t);
+    void                        pushNamedPart(uint32_t objectIdRef, const std::string& name);
+	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
 
     void                        setHeader(GAFHeader& h);
     const GAFHeader&            getHeader() const;
+    
+    void                        setRootTimeline(GAFTimeline* tl);
+    GAFTimeline*                getRootTimeline() const;
 
 	void						getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const;
 	const AnimationObjects_t&   getAnimationObjects() const;
@@ -67,6 +68,7 @@ public:
     const AnimationFrames_t&    getAnimationFrames() const;
     const NamedParts_t&         getNamedParts() const;
 	const Timelines_t&			getTimelines() const;
+    Timelines_t&                getTimelines();
 
     /// get all of the sequences
     const AnimationSequences_t& getAnimationSequences() const;
@@ -78,8 +80,6 @@ public:
     ~GAFAsset();
     /// total number of frames in animation
     size_t                      getAnimationFramesCount() const;
-
-    GAFTextureAtlas *           getTextureAtlas();
 
     /// get GAFAnimationSequence by name specified in editor
     const GAFAnimationSequence* getSequence(const std::string& name) const;

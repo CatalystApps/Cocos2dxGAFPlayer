@@ -3,25 +3,26 @@
 #include "GAFTextureAtlas.h"
 #include "GAFAnimationFrame.h"
 
-GAFTimeline::GAFTimeline(uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount):
+GAFTimeline::GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount):
 m_id(id)
 , m_aabb(aabb)
 , m_pivot(pivot)
 , m_framesCount(framesCount)
+, m_parent(parent)
 {
 
 }
 
 GAFTimeline::~GAFTimeline()
 {
-    //GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
+    GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
 }
 
-/*void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
+void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
 {
     m_textureAtlases.push_back(atlas);
-}*/
+}
 
 void GAFTimeline::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef, GAFCharacterType charType)
 {
@@ -88,10 +89,15 @@ const AnimationFrames_t& GAFTimeline::getAnimationFrames() const
 	return m_animationFrames;
 }
 
-/*const TextureAtlases_t& GAFTimeline::getTextureAtlases() const
+const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
 {
-	return m_textureAtlases;
-}*/
+    return m_animationSequences;
+}
+
+GAFTextureAtlas* GAFTimeline::getTextureAtlas()
+{
+	return m_currentTextureAtlas;
+}
 
 void GAFTimeline::setLinkageName(const std::string &linkageName)
 {
@@ -103,13 +109,23 @@ uint32_t GAFTimeline::getFramesCount() const
     return m_framesCount;
 }
 
-/*void GAFTimeline::loadImages()
+GAFTimeline* GAFTimeline::getParent() const
 {
+    return m_parent;
+}
+
+void GAFTimeline::loadImages()
+{
+	if (m_textureAtlases.empty())
+	{
+		m_currentTextureAtlas = nullptr;
+		return;
+	}
     _chooseTextureAtlas();
     
 }
 
-/*void GAFTimeline::_chooseTextureAtlas()
+void GAFTimeline::_chooseTextureAtlas()
 {
     float atlasScale = m_textureAtlases[0]->getScale();
     
@@ -130,5 +146,5 @@ uint32_t GAFTimeline::getFramesCount() const
         }
     }
     
-    //_usedAtlasContentScaleFactor = atlasScale;
-}*/
+    m_usedAtlasContentScaleFactor = atlasScale;
+}

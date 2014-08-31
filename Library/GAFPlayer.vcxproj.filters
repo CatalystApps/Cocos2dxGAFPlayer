@@ -108,6 +108,9 @@
     <ClCompile Include="Sources\TagDefineTimeline.cpp">
       <Filter>Sources\GAFLoader\Tags</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GAFAssetTextureManager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimatedObject.h">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="Sources\TagDefineAnimationFrames2.h">
       <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFAssetTextureManager.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 #include "GAFDelegates.h"
 
 class GAFAsset;
+class GAFTimeline;
 
 enum AnimSetSequenceHint
 {
@@ -20,7 +21,7 @@ class GAFAnimation
 {
 public:
     ~GAFAnimation();
-    bool init(GAFAsset * anAnimationData);
+    bool init(GAFAsset * anAnimationData, GAFTimeline* tl);
 
     virtual void processAnimation();
     virtual void start();
@@ -35,22 +36,22 @@ public:
     void setLooped(bool looped);
     bool isReversed() const;
     void setReversed(bool reversed);
-    int totalFrameCount() const;
-    int currentFrameIndex() const;
+    size_t totalFrameCount() const;
+    size_t currentFrameIndex() const;
 
     bool setFrame(int index);
 
     /// Plays specified frame and then stops	
-    bool gotoAndStop(const char * frameLabel);
+    bool gotoAndStop(const std::string& frameLabel);
     bool gotoAndStop(int frameNumber);
 
     /// Plays animation from specified frame	
-    bool gotoAndPlay(const char * frameLabel);
+    bool gotoAndPlay(const std::string& frameLabel);
     bool gotoAndPlay(int frameNumber);
 
 
-    int getStartFrame(const char * frameLabel);
-    int getEndFrame(const char * frameLabel);
+    int getStartFrame(const std::string& frameLabel);
+    int getEndFrame(const std::string& frameLabel);
 
     /// Plays animation sequence with specified name
     /// @param name a sequence name
@@ -58,7 +59,7 @@ public:
     /// @param resume if true - animation will be played immediately, if false - playback will be paused after the first frame is shown
     /// @param hint specific animation playback parameters
 
-    bool playSequence(const char * name, bool looped = false, bool resume = true, AnimSetSequenceHint hint = ASSH_RESTART);
+    bool playSequence(const std::string& name, bool looped = false, bool resume = true, AnimSetSequenceHint hint = ASSH_RESTART);
     void clearSequence();
 
     /// @note do not forget to call setSequenceDelegate(NULL) before deleting your subscriber
@@ -72,6 +73,7 @@ protected:
     GAFAnimation();
 protected:
     GAFAsset * m_asset;
+    GAFTimeline* m_timeline;
     size_t _currentFrameIndex;
 
     void    setAnimationRunning(bool value);
