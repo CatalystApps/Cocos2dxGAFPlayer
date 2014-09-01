@@ -85,6 +85,7 @@
       <CompileAsWinRT>true</CompileAsWinRT>
       <CompileAs>CompileAsCpp</CompileAs>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
+      <AdditionalOptions>/Zm200</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +124,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <AdditionalOptions>/Zm200</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
