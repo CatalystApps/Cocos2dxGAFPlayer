@@ -143,16 +143,28 @@ void GAFAnimatedObject::_constructObject()
 
 }
 
-unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
+unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj)
 {
-    const NamedParts_t& np = m_asset->getNamedParts();
+    const NamedParts_t& np = m_timeline->getNamedParts();
 
     NamedParts_t::const_iterator it = np.find(aName);
 
     if (it != np.end())
     {
+		*parentObj = this;
         return it->second;
     }
+	else
+	{
+		for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; i++)
+		{
+			unsigned int res = i->second->objectIdByObjectName(aName, parentObj);
+			if (res != IDNONE)
+			{
+				return res;
+			}
+		}
+	}
 
     return IDNONE;
 }
@@ -197,7 +209,19 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             {
                 txElemet = elIt->second;
                 
-                if ((unsigned int)atlas->textures()->count() >= txElemet->atlasIdx + 1)
+				GAFAssetTextureManager &txMgr = m_asset->getTextureManager();
+
+				cocos2d::Texture2D * texture = txMgr.getTextureById(txElemet->atlasIdx + 1);
+				if (texture)
+				{
+					spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
+				}
+				else
+				{
+					CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
+				}
+
+                /*if ((unsigned int)atlas->textures()->count() >= txElemet->atlasIdx + 1)
                 {
                     cocos2d::Texture2D * texture = (cocos2d::Texture2D *)atlas->textures()->getObjectAtIndex(txElemet->atlasIdx);
                     spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
@@ -205,7 +229,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
                 else
                 {
                     CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
-                }
+                }*/
             }
             
             if (spriteFrame && txElemet)
@@ -307,7 +331,7 @@ bool GAFAnimatedObject::captureControlOverSubobject(unsigned int id, GAFAnimated
 
 bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAFAnimatedObjectControlFlags aControlFlags)
 {
-    unsigned int objectId = objectIdByObjectName(aName);
+    unsigned int objectId = objectIdByObjectName(aName, nullptr);
     if (IDNONE == objectId)
     {
         return false;
@@ -326,7 +350,7 @@ bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAF
 
 void GAFAnimatedObject::releaseControlOverSubobjectNamed(const char * aName)
 {
-    unsigned int objectId = objectIdByObjectName(aName);
+    unsigned int objectId = objectIdByObjectName(aName, nullptr);
     if (objectId != IDNONE)
     {
         CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(objectId);
@@ -427,7 +451,29 @@ GAFSprite * GAFAnimatedObject::subObjectForInnerObjectId(unsigned int anInnerObj
             return anim;
         }
     }
-    return NULL;
+
+	// TODO: add inner timelines to search
+    return nullptr;
+}
+
+GAFAnimatedObject * GAFAnimatedObject::subAnimatedObjectForInnerObjectId(unsigned int anInnerObjectId) const
+{
+	for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; ++i)
+	{
+		if (i->first == anInnerObjectId)
+		{
+			return i->second;
+		}
+		else
+		{
+			GAFAnimatedObject * res = i->second->subAnimatedObjectForInnerObjectId(anInnerObjectId);
+			if (res)
+			{
+				return res;
+			}
+		}
+	}
+	return nullptr;
 }
 
 const SubObjects_t& GAFAnimatedObject::getSubojects() const
@@ -454,6 +500,53 @@ void GAFAnimatedObject::stop()
 
     unschedule(cocos2d::SEL_SCHEDULE(&GAFAnimatedObject::processAnimations));
     _animationsSelectorScheduled = false;
+}
+
+bool GAFAnimatedObject::performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params)
+{
+	bool isComplexName = namedPart.find('.') != std::string::npos; // F.e. "element2.button"
+
+	// get id
+	if (isComplexName)
+	{
+		std::queue<uint32_t> ids;
+	}
+	else
+	{
+		GAFAnimatedObject * parentObj = nullptr;
+		int id = objectIdByObjectName(namedPart, &parentObj);
+
+		return performActionByObjectId(id, action, params, parentObj);
+	}
+}
+
+bool GAFAnimatedObject::performActionByObjectId(uint32_t id, GAFActionType action, std::vector<std::string>& params, const GAFAnimatedObject * parentObj)
+{
+	GAFAnimatedObject * objRef = parentObj->subAnimatedObjectForInnerObjectId(id);
+	if (objRef)
+	{
+		switch (action)
+		{
+		case GAFActionType::GAT_STOP:
+			objRef->stop();
+			break;
+		case GAFActionType::GAT_PLAY:
+			objRef->start();
+			break;
+		case GAFActionType::GAT_GOTO_AND_STOP:
+			break;
+		case GAFActionType::GAT_GOTO_AND_PLAY:
+			break;
+		case GAFActionType::GAT_DISPATCH_EVENT:
+			break;
+		default:
+			break;
+		}
+
+		return true;
+	}
+
+	return false;
 }
 
 int GAFAnimatedObject::numberOfGlobalFramesForOneAnimationFrame()

@@ -134,7 +134,6 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     }
     if (isLoaded)
     {
-		size_t memory = 0;
 		for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
 		{
 			i->second->loadImages();
@@ -143,14 +142,11 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 			{
 				m_textureManager.appendInfoFromTextureAtlas(i->second->getTextureAtlas());
 				//i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
-				//memory += i->second->getTextureAtlas()->getMemoryConsumptionStat();
 			}
 		}
 
 		m_textureLoadDelegate = delegate;
 		m_textureManager.loadImages(fullfilePath, m_textureLoadDelegate);
-
-		memory++;
     }
 
     delete loader;
@@ -298,20 +294,10 @@ const AnimationSequences_t& GAFAsset::getAnimationSequences() const
     return m_animationSequences;
 }
 
-void GAFAsset::pushNamedPart(uint32_t objectIdRef, const std::string& name)
-{
-    m_namedParts[name] = objectIdRef;
-}
-
 void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)
 {
 	m_timelines[timelineIdRef] = t;
     t->retain();
-}
-
-const NamedParts_t& GAFAsset::getNamedParts() const
-{
-    return m_namedParts;
 }
 
 float GAFAsset::usedAtlasContentScaleFactor() const
@@ -327,6 +313,11 @@ void GAFAsset::setHeader(GAFHeader& h)
 void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
 {
     m_textureLoadDelegate = delegate;
+}
+
+GAFAssetTextureManager& GAFAsset::getTextureManager()
+{
+	return m_textureManager;
 }
 
 Timelines_t& GAFAsset::getTimelines()

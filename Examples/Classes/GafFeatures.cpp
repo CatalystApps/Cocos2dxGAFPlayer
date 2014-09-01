@@ -512,10 +512,9 @@ void GafFeatures::addObjectsToScene()
         
         ss.str("");
         
-		//  TODO: rework with timelines
-        //ss << "VRAM: ";
-        //ss << m_asset->getTextureAtlas()->getMemoryConsumptionStat();
-        //ss << " bytes";
+		ss << "VRAM: ";
+        ss << m_asset->getTextureManager().getMemoryConsumptionStat();
+        ss << " bytes";
         
         m_vramStat->setString(ss.str());
         

@@ -25,7 +25,6 @@ private:
     AnimationObjects_t      m_animationObjects;
     AnimationFrames_t       m_animationFrames;
     AnimationSequences_t    m_animationSequences;
-    NamedParts_t            m_namedParts;
     GAFHeader               m_header;
 	Timelines_t				m_timelines;
     GAFTimeline*            m_rootTimeline;
@@ -53,7 +52,6 @@ public:
     void                        pushAnimationObjects(uint32_t objectId, uint32_t elementAtlasIdRef);
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
-    void                        pushNamedPart(uint32_t objectIdRef, const std::string& name);
 	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
 
     void                        setHeader(GAFHeader& h);
@@ -66,7 +64,6 @@ public:
 	const AnimationObjects_t&   getAnimationObjects() const;
     const AnimationMasks_t&     getAnimationMasks() const;
     const AnimationFrames_t&    getAnimationFrames() const;
-    const NamedParts_t&         getNamedParts() const;
 	const Timelines_t&			getTimelines() const;
     Timelines_t&                getTimelines();
 
@@ -104,6 +101,8 @@ public:
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
     
+	GAFAssetTextureManager& getTextureManager();
+
     const unsigned int getSceneFps() const;
     const unsigned int getSceneWidth() const;
     const unsigned int getSceneHeight() const;

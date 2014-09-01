@@ -117,5 +117,28 @@ void GAFAssetTextureManager::loadImages(const std::string& dir, GAFTextureLoadDe
 
 cocos2d::Texture2D* GAFAssetTextureManager::getTextureById(uint32_t id)
 {
+	TexturesMap_t::const_iterator txIt = m_textures.find(id);
+	if (txIt != m_textures.end())
+	{
+		return txIt->second;
+	}
+	else
+	{
+		// check if still not created
+		ImagesMap_t::const_iterator imagesIt = m_images.find(id);
+		if (imagesIt != m_images.end())
+		{
+			cocos2d::Texture2D * texture = new cocos2d::Texture2D();
+			texture->initWithImage(imagesIt->second);
+			m_textures[id] = texture;
+			m_images.erase(imagesIt);
+			return texture;
+		}
+	}
 	return nullptr;
+}
+
+uint32_t GAFAssetTextureManager::getMemoryConsumptionStat() const
+{
+	return m_memoryConsumption;
 }

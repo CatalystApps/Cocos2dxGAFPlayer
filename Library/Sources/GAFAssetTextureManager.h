@@ -14,12 +14,15 @@ public:
 	uint32_t				getMemoryConsumptionStat() const;
 
 private:
+	typedef std::map<size_t, cocos2d::Image*> ImagesMap_t;
+	typedef std::map<size_t, cocos2d::Texture2D*> TexturesMap_t;
+
 	bool isAtlasInfoPresent(const GAFTextureAtlas::AtlasInfo &ai);
 
 	GAFTextureAtlas::AtlasInfos_t m_atlasInfos;
 
-	std::map<size_t, cocos2d::Image*> m_images;
-	std::map<size_t, cocos2d::Texture2D*> m_textures;
+	ImagesMap_t m_images;
+	TexturesMap_t m_textures;
 
 	uint32_t m_memoryConsumption;
 };

@@ -74,7 +74,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
         if (hasActions)
         {
             // STUB
-            unsigned int type = in->readU32();
+            GAFActionType type = static_cast<GAFActionType>(in->readU32());
             unsigned int paramsCount = in->readU32();
 
             while (paramsCount)

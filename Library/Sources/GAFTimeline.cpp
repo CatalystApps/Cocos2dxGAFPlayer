@@ -94,6 +94,11 @@ const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
     return m_animationSequences;
 }
 
+const NamedParts_t& GAFTimeline::getNamedParts() const
+{
+	return m_namedParts;
+}
+
 GAFTextureAtlas* GAFTimeline::getTextureAtlas()
 {
 	return m_currentTextureAtlas;

@@ -61,6 +61,7 @@ public:
     const AnimationMasks_t&     getAnimationMasks() const;
 	const AnimationFrames_t&	getAnimationFrames() const;
     const AnimationSequences_t& getAnimationSequences() const;
+	const NamedParts_t&			getNamedParts() const;
     uint32_t                    getFramesCount() const;
     
     GAFTimeline*                getParent() const;
