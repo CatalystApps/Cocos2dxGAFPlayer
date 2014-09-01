@@ -111,11 +111,11 @@ void Direct3DInterop::OnPointerReleased(DrawingSurfaceManipulationHost^ sender, 
 
 void Direct3DInterop::OnOrientationChanged(Windows::Graphics::Display::DisplayOrientations orientation)
 {
-    std::shared_ptr<cocos2d::InputEvent> e(new cocos2d::CustomInputEvent([this, orientation]()
+/*    std::shared_ptr<cocos2d::InputEvent> e(new cocos2d::CustomInputEvent([this, orientation]()
     {
         m_renderer->OnOrientationChanged(orientation);
     }));
-    cocos2d::GLViewImpl::sharedOpenGLView()->QueueEvent(e);
+    cocos2d::GLViewImpl::sharedOpenGLView()->QueueEvent(e);*/
 }
 
 void Direct3DInterop::OnCocos2dKeyEvent(Cocos2dKeyEvent key)
