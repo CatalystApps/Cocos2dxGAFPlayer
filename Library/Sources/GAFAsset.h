@@ -38,7 +38,6 @@ private:
     cocos2d::Color4B        m_sceneColor;
 
 private:
-    float _usedAtlasContentScaleFactor;
     int _majorVersion;
     int _minorVersion;
 public:
@@ -96,8 +95,6 @@ public:
     static float                desiredCsf();
     /// sets desired content scale factor
     static void                 setDesiredCsf(float csf);
-    /// used content scale factor		
-    float                       usedAtlasContentScaleFactor()const;
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
     

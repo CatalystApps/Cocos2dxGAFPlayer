@@ -153,3 +153,9 @@ void GAFTimeline::_chooseTextureAtlas()
     
     m_usedAtlasContentScaleFactor = atlasScale;
 }
+
+float GAFTimeline::usedAtlasContentScaleFactor() const
+{
+	return m_usedAtlasContentScaleFactor;
+}
+

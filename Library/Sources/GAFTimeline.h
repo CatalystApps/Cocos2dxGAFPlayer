@@ -68,4 +68,6 @@ public:
     
 	GAFTextureAtlas*			getTextureAtlas();
     void                        loadImages();
+
+	float						usedAtlasContentScaleFactor() const;
 };

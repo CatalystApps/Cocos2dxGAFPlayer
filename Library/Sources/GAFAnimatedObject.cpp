@@ -188,7 +188,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             GAFAnimatedObject* newObject = GAFAnimatedObject::create(m_asset, tl->second);
             m_subAnimatedObjects[objectId] = newObject;
 			addChild(newObject);
-			newObject->setAnimationRunning(true);
+			newObject->start();
             newObject->retain();
         }
         else if (charType == GAFCharacterType::GCT_TEXTURE)
@@ -220,16 +220,6 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
 				{
 					CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
 				}
-
-                /*if ((unsigned int)atlas->textures()->count() >= txElemet->atlasIdx + 1)
-                {
-                    cocos2d::Texture2D * texture = (cocos2d::Texture2D *)atlas->textures()->getObjectAtIndex(txElemet->atlasIdx);
-                    spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
-                }
-                else
-                {
-                    CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
-                }*/
             }
             
             if (spriteFrame && txElemet)
@@ -280,15 +270,17 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         {
             txElemet = elIt->second;
 
-            if (atlas->textures()->count() >= txElemet->atlasIdx + 1)
-            {
-                cocos2d::Texture2D * texture = (cocos2d::Texture2D *)atlas->textures()->getObjectAtIndex(txElemet->atlasIdx);
-                spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
-            }
-            else
-            {
-                CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
-            }
+			GAFAssetTextureManager &txMgr = m_asset->getTextureManager();
+
+			cocos2d::Texture2D * texture = txMgr.getTextureById(txElemet->atlasIdx + 1);
+			if (texture)
+			{
+				spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
+			}
+			else
+			{
+				CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
+			}
 
             if (spriteFrame)
             {
@@ -659,7 +651,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 						GAFAnimatedObject* animatedObj = objIt->second;
 
 						cocos2d::AffineTransform stateTransform = state->affineTransform;
-						float csf = m_asset->usedAtlasContentScaleFactor();
+						float csf = m_timeline->usedAtlasContentScaleFactor();
 						stateTransform.tx *= csf;
 						stateTransform.ty *= csf;
 						cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
@@ -731,7 +723,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     }
                     else
                     {
-                        if (subObject->getParent())
+						if (subObject->getParent())
                         {
                             out->removeChild(subObject, false);
                         }
@@ -767,7 +759,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 						(subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
 					{
 						cocos2d::AffineTransform stateTransform = state->affineTransform;
-						float csf = m_asset->usedAtlasContentScaleFactor();
+						float csf = m_timeline->usedAtlasContentScaleFactor();
 						stateTransform.tx *= csf;
 						stateTransform.ty *= csf;
 						cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
@@ -779,11 +771,12 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 						subObject->setVisible(state->isVisible());
 						m_visibleObjects.push_back(subObject);
 
-						//subObject->setColorTransform(state->colorMults(), state->colorOffsets());
-						subObject->setColorTransform(
+						subObject->setColorTransform(state->colorMults(), state->colorOffsets());
+						
+						/*subObject->setColorTransform(
 							std::get<0>(m_parentColorTransforms),
 							std::get<1>(m_parentColorTransforms)
-							);
+							);*/
 					}
                 }
                 else

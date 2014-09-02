@@ -300,11 +300,6 @@ void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)
     t->retain();
 }
 
-float GAFAsset::usedAtlasContentScaleFactor() const
-{
-    return _usedAtlasContentScaleFactor;
-}
-
 void GAFAsset::setHeader(GAFHeader& h)
 {
     m_header = h;
