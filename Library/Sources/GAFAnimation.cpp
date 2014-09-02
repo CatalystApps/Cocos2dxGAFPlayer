@@ -106,7 +106,10 @@ void GAFAnimation::step()
 
         processAnimation();
 
-        ++_currentFrameIndex;
+		if (isAnimationRunning())
+		{
+			++_currentFrameIndex;
+		}
     }
     else
     {
@@ -151,7 +154,10 @@ void GAFAnimation::step()
 
         processAnimation();
 
-        --_currentFrameIndex;
+		if (isAnimationRunning())
+		{
+			--_currentFrameIndex;
+		}
     }
 }
 

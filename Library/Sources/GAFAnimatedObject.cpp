@@ -385,9 +385,6 @@ void GAFAnimatedObject::setSubobjectsVisible(bool visible)
 
 void GAFAnimatedObject::processAnimations(float dt)
 {
-    if (!isAnimationRunning())
-        return;
-
     m_timeDelta += dt;
     double frameTime = 1.0 / m_fps;
     while (m_timeDelta >= frameTime)
@@ -504,19 +501,35 @@ void GAFAnimatedObject::stop()
 
 bool GAFAnimatedObject::performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params)
 {
-	bool isComplexName = namedPart.find('.') != std::string::npos; // F.e. "element2.button"
+	size_t offset = namedPart.find('.');
+	bool isComplexName = offset != std::string::npos; // F.e. "element2.button"
 
 	// get id
 	if (isComplexName)
 	{
-		std::queue<uint32_t> ids;
+		std::string curName = namedPart.substr(0, offset);
+		std::string nextName = namedPart.substr(offset + 1);
+
+		GAFAnimatedObject * parentObj = nullptr;
+		uint32_t id = objectIdByObjectName(curName, &parentObj);
+		if (id != IDNONE)
+		{
+			GAFAnimatedObject * childObj = parentObj->subAnimatedObjectForInnerObjectId(id);
+
+			return childObj->performActionByObjectName(nextName, action, params);
+		}
+		return false;
 	}
 	else
 	{
 		GAFAnimatedObject * parentObj = nullptr;
-		int id = objectIdByObjectName(namedPart, &parentObj);
+		uint32_t id = objectIdByObjectName(namedPart, &parentObj);
 
-		return performActionByObjectId(id, action, params, parentObj);
+		if (id != IDNONE)
+		{
+			return performActionByObjectId(id, action, params, parentObj);
+		}
+		return false;
 	}
 }
 
@@ -527,15 +540,17 @@ bool GAFAnimatedObject::performActionByObjectId(uint32_t id, GAFActionType actio
 	{
 		switch (action)
 		{
+		case GAFActionType::GAT_GOTO_AND_STOP:
+			objRef->gotoAndStop(params[0]);
+			break;
 		case GAFActionType::GAT_STOP:
 			objRef->stop();
 			break;
+		case GAFActionType::GAT_GOTO_AND_PLAY:
+			objRef->gotoAndPlay(params[0]);
+			break;
 		case GAFActionType::GAT_PLAY:
 			objRef->start();
-			break;
-		case GAFActionType::GAT_GOTO_AND_STOP:
-			break;
-		case GAFActionType::GAT_GOTO_AND_PLAY:
 			break;
 		case GAFActionType::GAT_DISPATCH_EVENT:
 			break;
@@ -620,7 +635,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
     }
     
     m_visibleObjects.clear();
-    
+	
     const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
     {
         size_t statesCount = states.size();
@@ -661,10 +676,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 
 						animatedObj->setLocalZOrder(state->zIndex);
 
-						if (animatedObj->isAnimationRunning())
-						{
-							animatedObj->step();
-						}
+						animatedObj->step();
 					}
 				}
 
