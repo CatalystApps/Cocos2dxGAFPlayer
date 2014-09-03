@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_TEXTURE_ATLAS_ELEMENT__
-#define __GAF_TEXTURE_ATLAS_ELEMENT__
-
 class GAFTextureAtlasElement
 {
 public:
@@ -18,5 +15,3 @@ public:
 
     GAFTextureAtlasElement();
 }; // GAFTextureAtlasElement
-
-#endif // __GAF_TEXTURE_ATLAS_ELEMENT__

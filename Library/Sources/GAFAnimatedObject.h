@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_ANIMATED_OBJECT_H__
-#define __GAF_ANIMATED_OBJECT_H__
-
 #include "GAFAnimation.h"
 #include "GAFCollections.h"
 
@@ -130,5 +127,3 @@ public:
 
     void setFps(int value);
 }; // GAFAnimatedObject
-
-#endif // __GAF_ANIMATED_OBJECT_H__

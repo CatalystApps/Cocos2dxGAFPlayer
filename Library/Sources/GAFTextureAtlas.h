@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_TEXTURE_ATLAS___
-#define __GAF_TEXTURE_ATLAS___
-
 class GAFTextureAtlasElement;
 class GAFTextureLoadDelegate;
 
@@ -72,5 +69,3 @@ public:
     //! after calling getMemoryConsumptionStat you will need x2 a given number: RAM + VRAM
     uint32_t     getMemoryConsumptionStat() const;
 };
-
-#endif // __GAF_TEXTURE_ATLAS___

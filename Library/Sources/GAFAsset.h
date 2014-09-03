@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_ASSET_H__
-#define __GAF_ASSET_H__
-
 #include "GAFCollections.h"
 #include "GAFHeader.h"
 #include "GAFTimeline.h"
@@ -109,6 +106,3 @@ public:
     void setSceneHeight(unsigned int);
     void setSceneColor(const cocos2d::Color4B&);
 };
-
-
-#endif // __GAF_ASSET_H__
