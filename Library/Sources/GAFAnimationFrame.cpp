@@ -10,7 +10,7 @@ GAFAnimationFrame::GAFAnimationFrame()
 
 GAFAnimationFrame::~GAFAnimationFrame()
 {
-    for (GAFAnimationFrame::SubobjectStates_t::iterator i = m_subObjectStates.begin(), e = m_subObjectStates.end(); i != e; ++i)
+    for (SubobjectStates_t::iterator i = m_subObjectStates.begin(), e = m_subObjectStates.end(); i != e; ++i)
     {
         (*i)->release();
     }

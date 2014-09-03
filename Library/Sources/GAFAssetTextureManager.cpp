@@ -11,7 +11,8 @@ m_memoryConsumption(0)
 
 GAFAssetTextureManager::~GAFAssetTextureManager()
 {
-
+    GAF_RELEASE_MAP(ImagesMap_t, m_images);
+    GAF_RELEASE_MAP(TexturesMap_t, m_textures);
 }
 
 void GAFAssetTextureManager::appendInfoFromTextureAtlas(GAFTextureAtlas* atlas)
@@ -109,8 +110,7 @@ void GAFAssetTextureManager::loadImages(const std::string& dir, GAFTextureLoadDe
 				}
 			}
 #endif
-			m_images[info.id] = image;//->addObject(image);
-			//image->release(); ???
+			m_images[info.id] = image;
 		}
 	}
 }
@@ -131,6 +131,7 @@ cocos2d::Texture2D* GAFAssetTextureManager::getTextureById(uint32_t id)
 			cocos2d::Texture2D * texture = new cocos2d::Texture2D();
 			texture->initWithImage(imagesIt->second);
 			m_textures[id] = texture;
+            imagesIt->second->release();
 			m_images.erase(imagesIt);
 			return texture;
 		}

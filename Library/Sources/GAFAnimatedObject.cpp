@@ -84,7 +84,7 @@ m_timeDelta(0.f)
 GAFAnimatedObject::~GAFAnimatedObject()
 {
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-
+    GAF_SAFE_RELEASE_MAP(SubAnimatedObjects_t, m_subAnimatedObjects);
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
 }
 
@@ -186,7 +186,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             m_subAnimatedObjects[objectId] = newObject;
 			addChild(newObject);
 			newObject->start();
-            newObject->retain();
+            //newObject->retain();
         }
         else if (charType == GAFCharacterType::GCT_TEXTURE)
         {

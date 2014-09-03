@@ -9,7 +9,6 @@
 
 #include "GAFLoader.h"
 
-static float _currentDeviceScale = 1.0f;
 static float  _desiredCsf = 1.f;
 
 float GAFAsset::desiredCsf()
@@ -54,7 +53,8 @@ m_sceneHeight(0)
 GAFAsset::~GAFAsset()
 {
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
-    CC_SAFE_RELEASE(m_rootTimeline);
+    GAF_RELEASE_MAP(Timelines_t, m_timelines);
+    //CC_SAFE_RELEASE(m_rootTimeline);
 }
 
 bool GAFAsset::isAssetVersionPlayable(const char * version)
@@ -219,7 +219,7 @@ void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
 {
     m_rootTimeline = tl;
-    m_rootTimeline->retain();
+    //m_rootTimeline->retain();
 }
 
 GAFTimeline* GAFAsset::getRootTimeline() const

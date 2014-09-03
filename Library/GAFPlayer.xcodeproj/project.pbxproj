@@ -39,6 +39,7 @@
 		29289E3919843B40003132F2 /* GAFTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29289E3719843B40003132F2 /* GAFTimeline.cpp */; };
 		39869DB219532453004628D9 /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DAE19532453004628D9 /* TagDefineAnimationFrames2.cpp */; };
 		39869DB319532453004628D9 /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DB019532453004628D9 /* TagDefineTimeline.cpp */; };
+		B643F9E119B741E0005D2E26 /* GAFAssetTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B643F9DF19B741E0005D2E26 /* GAFAssetTextureManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -130,6 +131,8 @@
 		39869DAF19532453004628D9 /* TagDefineAnimationFrames2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineAnimationFrames2.h; sourceTree = "<group>"; };
 		39869DB019532453004628D9 /* TagDefineTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineTimeline.cpp; sourceTree = "<group>"; };
 		39869DB119532453004628D9 /* TagDefineTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineTimeline.h; sourceTree = "<group>"; };
+		B643F9DF19B741E0005D2E26 /* GAFAssetTextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFAssetTextureManager.cpp; sourceTree = "<group>"; };
+		B643F9E019B741E0005D2E26 /* GAFAssetTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFAssetTextureManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +178,8 @@
 		1A2FBF0B192E00C800631FE9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B643F9DF19B741E0005D2E26 /* GAFAssetTextureManager.cpp */,
+				B643F9E019B741E0005D2E26 /* GAFAssetTextureManager.h */,
 				29289E3719843B40003132F2 /* GAFTimeline.cpp */,
 				29289E3819843B40003132F2 /* GAFTimeline.h */,
 				1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */,
@@ -329,6 +334,7 @@
 				1A2FBF5A192E00C800631FE9 /* GAFSubobjectState.cpp in Sources */,
 				1A2FBF52192E00C800631FE9 /* GAFFilterData.cpp in Sources */,
 				1A2FBF5F192E00C800631FE9 /* TagDefineAnimationFrames.cpp in Sources */,
+				B643F9E119B741E0005D2E26 /* GAFAssetTextureManager.cpp in Sources */,
 				1A2FBF4F192E00C800631FE9 /* GAFAnimationSequence.cpp in Sources */,
 				1A2FBF4C192E00C800631FE9 /* GAFAnimatedObject.cpp in Sources */,
 				39869DB319532453004628D9 /* TagDefineTimeline.cpp in Sources */,

@@ -13,13 +13,17 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+TagDefineAnimationFrames2::~TagDefineAnimationFrames2()
+{
+    for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
+    {
+        it->second->release();
+    }
+}
 
 void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     unsigned int count = in->readU32();
-
-    typedef std::map<unsigned int, GAFSubobjectState*> States_t;
-    States_t currentStates;
 
 	assert(!timeline->getAnimationObjects().empty());
 
@@ -29,7 +33,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
         GAFSubobjectState *state = new GAFSubobjectState();
         state->initEmpty(objectId);
 
-        currentStates[objectId] = state;
+        m_currentStates[objectId] = state;
     }
 
     unsigned int frameNumber = in->readU32();
@@ -57,14 +61,14 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
             {
                 GAFSubobjectState* st = *it;
 
-                GAFSubobjectState* ps = currentStates[st->objectIdRef];
+                GAFSubobjectState* ps = m_currentStates[st->objectIdRef];
 
                 if (ps)
                 {
                     ps->release();
                 }
 
-                currentStates[st->objectIdRef] = st;
+                m_currentStates[st->objectIdRef] = st;
             }
         }
 
@@ -88,7 +92,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
 
         GAFAnimationFrame* frame = new GAFAnimationFrame();
 
-        for (States_t::iterator it = currentStates.begin(), ie = currentStates.end(); it != ie; ++it)
+        for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
         {
             frame->pushObjectState(it->second);
         }
