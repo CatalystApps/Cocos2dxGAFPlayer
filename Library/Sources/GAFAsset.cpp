@@ -53,7 +53,6 @@ m_sceneHeight(0)
 
 GAFAsset::~GAFAsset()
 {
-    GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
     CC_SAFE_RELEASE(m_rootTimeline);
 }
@@ -128,7 +127,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
-	if (m_textureAtlases.empty() && m_timelines.empty())
+	if (m_timelines.empty())
     {
         return false;
     }
@@ -211,46 +210,10 @@ const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) con
 
     return NULL;
 }
-void GAFAsset::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef)
-{
-    m_animationMasks[objectId] = std::make_tuple(elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
-}
-
-void GAFAsset::pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef)
-{
-    m_animationObjects[objectId] = std::make_tuple(elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
-}
 
 void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
 {
     m_animationFrames.push_back(frame);
-}
-
-void GAFAsset::getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const
-{
-	AnimationObjects_t timelineObjects = timeline.getAnimationObjects();
-	for (AnimationObjects_t::const_iterator i = timelineObjects.begin(), e = timelineObjects.end(); i != e; ++i)
-	{
-		GAFCharacterType objType = std::get<1>(i->second);
-		switch (objType)
-		{
-            case GAFCharacterType::GCT_TEXTURE:
-                objectsContainer[i->first] = i->second;
-                break;
-            case GAFCharacterType::GCT_TEXT_FIELD:
-                break;
-            case GAFCharacterType::GCT_TIMELINE:
-			{
-				unsigned int timelineIdRef = std::get<0>(i->second);
-				Timelines_t::const_iterator elIt = m_timelines.find(timelineIdRef); // Search for atlas element by its xref
-				assert(elIt != m_timelines.end());
-				getAnimationObjectsFromTimeline(objectsContainer, *elIt->second);
-			}
-                break;
-		default:
-			break;
-		}
-	}
 }
 
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
@@ -262,16 +225,6 @@ void GAFAsset::setRootTimeline(GAFTimeline *tl)
 GAFTimeline* GAFAsset::getRootTimeline() const
 {
     return m_rootTimeline;
-}
-
-const AnimationObjects_t& GAFAsset::getAnimationObjects() const
-{
-    return m_animationObjects;
-}
-
-const AnimationMasks_t& GAFAsset::getAnimationMasks() const
-{
-    return m_animationMasks;
 }
 
 const AnimationFrames_t& GAFAsset::getAnimationFrames() const

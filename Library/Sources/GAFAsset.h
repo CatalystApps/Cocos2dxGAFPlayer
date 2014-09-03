@@ -17,9 +17,6 @@ class GAFLoader;
 class GAFAsset : public cocos2d::Ref
 {
 private:
-    TextureAtlases_t        m_textureAtlases;
-    AnimationMasks_t        m_animationMasks;
-    AnimationObjects_t      m_animationObjects;
     AnimationFrames_t       m_animationFrames;
     AnimationSequences_t    m_animationSequences;
     GAFHeader               m_header;
@@ -44,9 +41,7 @@ public:
 
     bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
-	void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef);
-    void                        pushAnimationObjects(uint32_t objectId, uint32_t elementAtlasIdRef);
-    void                        pushAnimationFrame(GAFAnimationFrame* frame);
+	void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
 	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
 
@@ -56,10 +51,7 @@ public:
     void                        setRootTimeline(GAFTimeline* tl);
     GAFTimeline*                getRootTimeline() const;
 
-	void						getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const;
-	const AnimationObjects_t&   getAnimationObjects() const;
-    const AnimationMasks_t&     getAnimationMasks() const;
-    const AnimationFrames_t&    getAnimationFrames() const;
+	const AnimationFrames_t&    getAnimationFrames() const;
 	const Timelines_t&			getTimelines() const;
     Timelines_t&                getTimelines();
 

@@ -136,11 +136,8 @@ void GAFAnimatedObject::_constructObject()
     m_fps = m_asset->getSceneFps();
     m_extraFramesCounter = 0;
     _animationsSelectorScheduled = false;
-    
-	//AnimationObjects_t objsContainer;
-	//m_asset->getAnimationObjectsFromTimeline(objsContainer, *m_asset->getTimelines().at(0));
-    instantiateObject(m_timeline->getAnimationObjects(), m_timeline->getAnimationMasks());
 
+    instantiateObject(m_timeline->getAnimationObjects(), m_timeline->getAnimationMasks());
 }
 
 unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj)
