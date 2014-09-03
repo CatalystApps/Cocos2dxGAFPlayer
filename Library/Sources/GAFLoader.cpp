@@ -142,6 +142,7 @@ void GAFLoader::_processLoad(GAFFile* file, GAFAsset* context)
 
     GAFHeader& header = m_stream->getInput()->getHeader();
 
+	GAFTimeline *timeline = nullptr;
     if (header.getMajorVersion() == 4)
     {
         _readHeaderEndV4(header);
@@ -151,13 +152,17 @@ void GAFLoader::_processLoad(GAFFile* file, GAFAsset* context)
     {
         _readHeaderEnd(header);
         _registerTagLoadersV3();
+
+		timeline = new GAFTimeline(nullptr, 0, header.frameSize, header.pivot, header.framesCount);
+		context->setRootTimeline(timeline);
+		context->pushTimeline(0, timeline);
     }
 
     _registerTagLoadersCommon();
 
     context->setHeader(header);
 
-    loadTags(m_stream, context, nullptr);
+    loadTags(m_stream, context, timeline);
 
     delete m_stream;
 }
