@@ -2,7 +2,7 @@
 
 #include "GAFTextureAtlas.h"
 
-class GAFAssetTextureManager
+class GAFAssetTextureManager : public cocos2d::Ref
 {
 public:
 	GAFAssetTextureManager();

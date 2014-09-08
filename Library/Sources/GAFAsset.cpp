@@ -6,6 +6,7 @@
 #include "GAFSubobjectState.h"
 #include "GAFAnimationSequence.h"
 #include "GAFAnimatedObject.h"
+#include "GAFAssetTextureManager.h"
 
 #include "GAFLoader.h"
 
@@ -46,15 +47,17 @@ GAFAsset::GAFAsset():
 m_textureLoadDelegate(nullptr),
 m_sceneFps(60),
 m_sceneWidth(0),
-m_sceneHeight(0)
+m_sceneHeight(0),
+m_rootTimeline(nullptr)
 {
+    m_textureManager = new GAFAssetTextureManager();
 }
 
 GAFAsset::~GAFAsset()
 {
-    GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
     GAF_RELEASE_MAP(Timelines_t, m_timelines);
     //CC_SAFE_RELEASE(m_rootTimeline);
+    m_textureManager->release();
 }
 
 bool GAFAsset::isAssetVersionPlayable(const char * version)
@@ -139,13 +142,13 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
 			if (i->second->getTextureAtlas())
 			{
-				m_textureManager.appendInfoFromTextureAtlas(i->second->getTextureAtlas());
+				m_textureManager->appendInfoFromTextureAtlas(i->second->getTextureAtlas());
 				//i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
 			}
 		}
 
 		m_textureLoadDelegate = delegate;
-		m_textureManager.loadImages(fullfilePath, m_textureLoadDelegate);
+		m_textureManager->loadImages(fullfilePath, m_textureLoadDelegate);
     }
 
     delete loader;
@@ -157,11 +160,6 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 {
     return m_currentTextureAtlas;
 }*/
-
-size_t GAFAsset::getAnimationFramesCount() const
-{
-    return m_animationFrames.size();
-}
 
 const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
 {
@@ -211,13 +209,9 @@ const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) con
     return NULL;
 }
 
-void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
-{
-    m_animationFrames.push_back(frame);
-}
-
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
 {
+    assert(!m_rootTimeline);
     m_rootTimeline = tl;
     //m_rootTimeline->retain();
 }
@@ -225,11 +219,6 @@ void GAFAsset::setRootTimeline(GAFTimeline *tl)
 GAFTimeline* GAFAsset::getRootTimeline() const
 {
     return m_rootTimeline;
-}
-
-const AnimationFrames_t& GAFAsset::getAnimationFrames() const
-{
-    return m_animationFrames;
 }
 
 void GAFAsset::pushAnimationSequence(const std::string nameId, int start, int end)
@@ -263,7 +252,7 @@ void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
     m_textureLoadDelegate = delegate;
 }
 
-GAFAssetTextureManager& GAFAsset::getTextureManager()
+GAFAssetTextureManager* GAFAsset::getTextureManager()
 {
 	return m_textureManager;
 }

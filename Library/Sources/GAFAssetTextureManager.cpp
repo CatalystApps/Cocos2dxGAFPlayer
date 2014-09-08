@@ -11,8 +11,8 @@ m_memoryConsumption(0)
 
 GAFAssetTextureManager::~GAFAssetTextureManager()
 {
-    GAF_RELEASE_MAP(ImagesMap_t, m_images);
-    GAF_RELEASE_MAP(TexturesMap_t, m_textures);
+    GAF_SAFE_RELEASE_MAP(ImagesMap_t, m_images);
+    GAF_SAFE_RELEASE_MAP(TexturesMap_t, m_textures);    
 }
 
 void GAFAssetTextureManager::appendInfoFromTextureAtlas(GAFTextureAtlas* atlas)

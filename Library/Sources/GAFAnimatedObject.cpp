@@ -8,6 +8,7 @@
 #include "GAFSpriteWithAlpha.h"
 #include "GAFStencilMaskSprite.h"
 #include "GAFFilterData.h"
+#include "GAFAssetTextureManager.h"
 
 // Still is under development
 #define ENABLE_RUNTIME_FILTERS 1
@@ -84,7 +85,6 @@ m_timeDelta(0.f)
 GAFAnimatedObject::~GAFAnimatedObject()
 {
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-    GAF_SAFE_RELEASE_MAP(SubAnimatedObjects_t, m_subAnimatedObjects);
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
 }
 
@@ -186,7 +186,6 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             m_subAnimatedObjects[objectId] = newObject;
 			addChild(newObject);
 			newObject->start();
-            //newObject->retain();
         }
         else if (charType == GAFCharacterType::GCT_TEXTURE)
         {
@@ -206,9 +205,9 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             {
                 txElemet = elIt->second;
                 
-				GAFAssetTextureManager &txMgr = m_asset->getTextureManager();
+				GAFAssetTextureManager* txMgr = m_asset->getTextureManager();
 
-				cocos2d::Texture2D * texture = txMgr.getTextureById(txElemet->atlasIdx + 1);
+				cocos2d::Texture2D * texture = txMgr->getTextureById(txElemet->atlasIdx + 1);
 				if (texture)
 				{
 					spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
@@ -267,9 +266,9 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         {
             txElemet = elIt->second;
 
-			GAFAssetTextureManager &txMgr = m_asset->getTextureManager();
+			GAFAssetTextureManager* txMgr = m_asset->getTextureManager();
 
-			cocos2d::Texture2D * texture = txMgr.getTextureById(txElemet->atlasIdx + 1);
+			cocos2d::Texture2D * texture = txMgr->getTextureById(txElemet->atlasIdx + 1);
 			if (texture)
 			{
 				spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
@@ -778,10 +777,14 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                 }
                 else
                 {
-                    GAFSprite * mask = NULL;
+                    GAFSprite * mask = nullptr;
                     if (!m_masks.empty())
                     {
-                        mask = m_masks[state->objectIdRef];
+                        SubObjects_t::iterator maskIt = m_masks.find(state->objectIdRef);
+                        if (maskIt != m_masks.end())
+                        {
+                            mask = maskIt->second;
+                        }
                     }
 
                     if (mask)
@@ -809,7 +812,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 
             if (sboIt != m_subObjects.end())
             {
-                const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
+                const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(sboIt->second);
 
                 CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
 
