@@ -2,9 +2,6 @@
 #include "GAFAsset.h"
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
-#include "GAFAnimationFrame.h"
-#include "GAFSubobjectState.h"
-#include "GAFAnimationSequence.h"
 #include "GAFAnimatedObject.h"
 #include "GAFAssetTextureManager.h"
 
@@ -161,54 +158,6 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     return m_currentTextureAtlas;
 }*/
 
-const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
-{
-    AnimationSequences_t::const_iterator it = m_animationSequences.find(name);
-
-    if (it != m_animationSequences.end())
-    {
-        return &it->second;
-    }
-
-    return NULL;
-}
-
-const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) const
-{
-    if (m_animationSequences.empty())
-    {
-        return NULL;
-    }
-
-    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
-    {
-        if (i->second.endFrameNo == frame + 1)
-        {
-            return &i->second;
-        }
-    }
-
-    return NULL;
-}
-
-const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) const
-{
-    if (m_animationSequences.empty())
-    {
-        return NULL;
-    }
-
-    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
-    {
-        if (i->second.startFrameNo == frame)
-        {
-            return &i->second;
-        }
-    }
-
-    return NULL;
-}
-
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
 {
     assert(!m_rootTimeline);
@@ -219,21 +168,6 @@ void GAFAsset::setRootTimeline(GAFTimeline *tl)
 GAFTimeline* GAFAsset::getRootTimeline() const
 {
     return m_rootTimeline;
-}
-
-void GAFAsset::pushAnimationSequence(const std::string nameId, int start, int end)
-{
-    GAFAnimationSequence seq;
-    seq.name = nameId;
-    seq.startFrameNo = start;
-    seq.endFrameNo = end;
-
-    m_animationSequences[nameId] = seq;
-}
-
-const AnimationSequences_t& GAFAsset::getAnimationSequences() const
-{
-    return m_animationSequences;
 }
 
 void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)

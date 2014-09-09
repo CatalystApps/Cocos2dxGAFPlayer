@@ -8,8 +8,6 @@
 
 class GAFTextureAtlas;
 class GAFAnimatedObject;
-class GAFAnimationSequence;
-class GAFAnimationFrame;
 class GAFAssetTextureManager;
 
 class GAFLoader;
@@ -17,7 +15,6 @@ class GAFLoader;
 class GAFAsset : public cocos2d::Ref
 {
 private:
-    AnimationSequences_t    m_animationSequences;
     GAFHeader               m_header;
 	Timelines_t				m_timelines;
     GAFTimeline*            m_rootTimeline;
@@ -40,7 +37,6 @@ public:
 
     bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
-	void                        pushAnimationSequence(const std::string nameId, int start, int end);
 	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
 
     void                        setHeader(GAFHeader& h);
@@ -52,23 +48,12 @@ public:
 	const Timelines_t&			getTimelines() const;
     Timelines_t&                getTimelines();
 
-    /// get all of the sequences
-    const AnimationSequences_t& getAnimationSequences() const;
-
     static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
     static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate = NULL);
 
     GAFAsset();
     ~GAFAsset();
 
-    /// get GAFAnimationSequence by name specified in editor
-    const GAFAnimationSequence* getSequence(const std::string& name) const;
-
-    /// get GAFAnimationSequence by last frame number in sequence	
-    const GAFAnimationSequence* getSequenceByLastFrame(size_t frame) const;
-
-    /// get GAFAnimationSequence by first frame number in sequence	
-    const GAFAnimationSequence* getSequenceByFirstFrame(size_t frame) const;
     /// List of GAFAnimationFrame objects	
     static bool                 isAssetVersionPlayable(const char * version);
 

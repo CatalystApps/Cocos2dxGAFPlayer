@@ -63,6 +63,13 @@ public:
     const AnimationSequences_t& getAnimationSequences() const;
 	const NamedParts_t&			getNamedParts() const;
     uint32_t                    getFramesCount() const;
+
+    /// get GAFAnimationSequence by name specified in editor
+    const GAFAnimationSequence* getSequence(const std::string& name) const;
+    /// get GAFAnimationSequence by last frame number in sequence	
+    const GAFAnimationSequence* getSequenceByLastFrame(size_t frame) const;
+    /// get GAFAnimationSequence by first frame number in sequence	
+    const GAFAnimationSequence* getSequenceByFirstFrame(size_t frame) const;
     
     GAFTimeline*                getParent() const;
     

@@ -71,9 +71,9 @@ void GAFAnimation::step()
             _currentFrameIndex = m_currentSequenceStart;
         }
 
-        if (_sequenceDelegate && m_asset)
+        if (_sequenceDelegate && m_timeline)
         {
-            const GAFAnimationSequence * seq = m_asset->getSequenceByLastFrame(_currentFrameIndex);
+            const GAFAnimationSequence * seq = m_timeline->getSequenceByLastFrame(_currentFrameIndex);
             if (seq)
             {
                 _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
@@ -119,9 +119,9 @@ void GAFAnimation::step()
             _currentFrameIndex = m_currentSequenceEnd - 1;
         }
 
-        if (_sequenceDelegate && m_asset)
+        if (_sequenceDelegate && m_timeline)
         {
-            const GAFAnimationSequence * seq = m_asset->getSequenceByFirstFrame(_currentFrameIndex + 1);
+            const GAFAnimationSequence * seq = m_timeline->getSequenceByFirstFrame(_currentFrameIndex + 1);
             if (seq)
             {
                 _sequenceDelegate->onFinishSequence(dynamic_cast<GAFAnimatedObject*>(this), seq->name);
@@ -302,7 +302,7 @@ int GAFAnimation::getStartFrame(const std::string& sequence_name)
     {
         return -1;
     }
-    const GAFAnimationSequence * seq = m_asset->getSequence(sequence_name);
+    const GAFAnimationSequence * seq = m_timeline->getSequence(sequence_name);
     if (seq)
     {
         return seq->startFrameNo;
@@ -316,7 +316,7 @@ int GAFAnimation::getEndFrame(const std::string& sequence_name)
     {
         return -1;
     }
-    const GAFAnimationSequence * seq = m_asset->getSequence(sequence_name);
+    const GAFAnimationSequence * seq = m_timeline->getSequence(sequence_name);
     if (seq)
     {
         return seq->endFrameNo;

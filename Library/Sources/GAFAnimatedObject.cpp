@@ -723,7 +723,8 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                         {
                             out->removeChild(subObject, false);
                         }
-                        GAFStencilMaskSprite * mask = NULL;
+
+                        GAFStencilMaskSprite * mask = nullptr;
 
                         if (!m_masks.empty())
                         {
@@ -778,15 +779,13 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                 else
                 {
                     GAFSprite * mask = nullptr;
-                    if (!m_masks.empty())
+                    
+                    SubObjects_t::iterator maskIt = m_masks.find(state->objectIdRef);
+                    if (maskIt != m_masks.end())
                     {
-                        SubObjects_t::iterator maskIt = m_masks.find(state->objectIdRef);
-                        if (maskIt != m_masks.end())
-                        {
-                            mask = maskIt->second;
-                        }
+                        mask = maskIt->second;
                     }
-
+                    
                     if (mask)
                     {
                         mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
