@@ -10,7 +10,7 @@ class GAFAnimatedObject;
 #include <unordered_map>
 #include "GAFAnimationSequence.h"
 
-enum GAFFilterType
+enum class GAFFilterType: uint32_t
 {
     GFT_DropShadow = 0,
     GFT_Blur = 1,

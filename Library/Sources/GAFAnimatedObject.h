@@ -79,8 +79,10 @@ public:
 
     void animatorDidPlayedFrame(GAFAnimator * anAnimator, int aFrameNo);
 
-    virtual void start();
-    virtual void stop();
+    virtual void start(bool withSubObjects = false);
+    virtual void pauseAnimation(bool withSubObjects = false);
+    virtual void resumeAnimation(bool withSubObjects = false);
+    virtual void stop(bool withSubObjects = false);
 	virtual void processAnimation();
 	bool performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params);
 	bool performActionByObjectId(uint32_t id, GAFActionType action, std::vector<std::string>& params, const GAFAnimatedObject* parentObj);

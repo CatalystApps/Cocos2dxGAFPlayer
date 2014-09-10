@@ -471,20 +471,62 @@ const SubObjects_t& GAFAnimatedObject::getMasks() const
     return m_masks;
 }
 
-void GAFAnimatedObject::start()
+void GAFAnimatedObject::start(bool withSubObjects /*= false*/)
 {
     GAFAnimation::start();
 
     schedule(cocos2d::SEL_SCHEDULE(&GAFAnimatedObject::processAnimations));
     _animationsSelectorScheduled = true;
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->start(withSubObjects);
+        }
+    }
 }
 
-void GAFAnimatedObject::stop()
+void GAFAnimatedObject::pauseAnimation(bool withSubObjects /*= false*/)
+{
+    GAFAnimation::pauseAnimation();
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->pauseAnimation(withSubObjects);
+        }
+    }
+}
+
+void GAFAnimatedObject::resumeAnimation(bool withSubObjects /*= false*/)
+{
+    GAFAnimation::resumeAnimation();
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->resumeAnimation(withSubObjects);
+        }
+    }
+}
+
+void GAFAnimatedObject::stop(bool withSubObjects /*= false*/)
 {
     GAFAnimation::stop();
 
     unschedule(cocos2d::SEL_SCHEDULE(&GAFAnimatedObject::processAnimations));
     _animationsSelectorScheduled = false;
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->stop(withSubObjects);
+        }
+    }
 }
 
 bool GAFAnimatedObject::performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params)
@@ -684,22 +726,22 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                         filter->apply(subObject);
                     }
 
-                    if (!filter || filter->getType() != GFT_Blur)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
                     {
                         subObject->setBlurFilterData(NULL);
                     }
 
-                    if (!filter || filter->getType() != GFT_ColorMatrix)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_ColorMatrix)
                     {
                         subObject->setColorMarixFilterData(NULL);
                     }
 
-                    if (!filter || filter->getType() != GFT_Glow)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_Glow)
                     {
                         subObject->setGlowFilterData(NULL);
                     }
 
-                    if (!filter || filter->getType() != GFT_DropShadow)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_DropShadow)
                     {
                         GAFDropShadowFilterData::reset(subObject);
                     }

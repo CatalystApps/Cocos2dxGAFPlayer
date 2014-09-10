@@ -3,6 +3,7 @@
 #include <GAFAsset.h>
 #include <GAFTextureAtlas.h>
 #include <GAFAnimatedObject.h>
+#include <GAFAssetTextureManager.h>
 #include <audio/include/SimpleAudioEngine.h>
 
 #include <iostream>
@@ -271,7 +272,7 @@ bool GafFeatures::init()
     setupMenuItems();
     gray(NULL);
     
-	m_files.push_back("cut_the_hope/cut_the_hope.gaf");
+    m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
     m_files.push_back("christmas2013_julia2/christmas2013_julia2.gaf");
@@ -391,8 +392,8 @@ void GafFeatures::restart(cocos2d::Ref*)
     }
 
     GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
-    object->stop();
-    object->start();
+    object->stop(true);
+    object->start(true);
 }
 
 void GafFeatures::playpause(cocos2d::Ref*)
@@ -406,11 +407,11 @@ void GafFeatures::playpause(cocos2d::Ref*)
 
     if (object->isAnimationRunning())
     {
-        object->pauseAnimation();
+        object->pauseAnimation(true);
     }
     else
     {
-        object->resumeAnimation();
+        object->resumeAnimation(true);
     }
 }
 
@@ -509,7 +510,7 @@ void GafFeatures::addObjectsToScene()
         ss.str("");
         
 		ss << "VRAM: ";
-        ss << m_asset->getTextureManager().getMemoryConsumptionStat();
+        ss << m_asset->getTextureManager()->getMemoryConsumptionStat();
         ss << " bytes";
         
         m_vramStat->setString(ss.str());
@@ -548,7 +549,7 @@ void GafFeatures::addObjectsToScene()
 #endif
         m_musicEffects.clear();
         
-        const AnimationSequences_t& secDictionary = m_asset->getAnimationSequences();
+        const AnimationSequences_t& secDictionary = m_asset->getRootTimeline()->getAnimationSequences(); // TODO: only root timeline (temporary workaround)
         if (!secDictionary.empty())
         {
             for (AnimationSequences_t::const_iterator i = secDictionary.begin(), e = secDictionary.end(); i != e; ++i)

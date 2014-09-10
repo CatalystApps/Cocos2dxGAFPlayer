@@ -5,7 +5,7 @@
 #include "GAFFilterManager.h"
 
 GAFBlurFilterData::GAFBlurFilterData():
-GAFFilterData(GFT_Blur)
+GAFFilterData(GAFFilterType::GFT_Blur)
 {
 
 }
@@ -16,7 +16,7 @@ void GAFBlurFilterData::apply(GAFSpriteWithAlpha* subObject)
 }
 
 GAFColorColorMatrixFilterData::GAFColorColorMatrixFilterData():
-GAFFilterData(GFT_ColorMatrix)
+GAFFilterData(GAFFilterType::GFT_ColorMatrix)
 {
 
 }
@@ -27,7 +27,7 @@ void GAFColorColorMatrixFilterData::apply(GAFSpriteWithAlpha* subObject)
 }
 
 GAFGlowFilterData::GAFGlowFilterData():
-GAFFilterData(GFT_Glow)
+GAFFilterData(GAFFilterType::GFT_Glow)
 {
 
 }
@@ -38,7 +38,7 @@ void GAFGlowFilterData::apply(GAFSpriteWithAlpha* subObject)
 }
 
 GAFDropShadowFilterData::GAFDropShadowFilterData():
-GAFFilterData(GFT_DropShadow)
+GAFFilterData(GAFFilterType::GFT_DropShadow)
 {
 
 }
