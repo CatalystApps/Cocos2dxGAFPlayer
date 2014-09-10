@@ -22,7 +22,7 @@ void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* asset, GAFTimeline
         }
 		else
 		{
-			asset->pushAnimationObjects(objectId, elementAtlasIdRef);
+			timeline->pushAnimationObject(objectId, elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
 		}
     }
 }

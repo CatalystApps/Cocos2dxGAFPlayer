@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_SUBOBJECT_STATE__
-#define __GAF_SUBOBJECT_STATE__
-
 #include "GAFCollections.h"
 
 enum GAFColorTransformIndex
@@ -69,5 +66,3 @@ public:
     void                release();
 
 }; // GAFSubobjectState
-
-#endif // __GAF_SUBOBJECT_STATE__

@@ -22,11 +22,6 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
 
 	GAFTimeline *tl = new GAFTimeline(timeline, id, aabb, pivot, framesCount);
 
-    // STUB
-    GAFHeader header = asset->getHeader();
-    header.pivot = pivot;
-    header.frameSize = aabb;
-	asset->setHeader(header);
     //////////////////////////////////////////////////////////////////////////
 
     char hasLinkage = in->readUByte();
@@ -41,6 +36,10 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
     if (id == 0)
     {
         asset->setRootTimeline(tl);
+		GAFHeader header = asset->getHeader();
+		header.pivot = pivot;
+		header.frameSize = aabb;
+		asset->setHeader(header);
     }
     
 	asset->pushTimeline(id, tl);

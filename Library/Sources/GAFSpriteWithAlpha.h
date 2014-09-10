@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_SPRITE_WITH_ALPHA__
-#define __GAF_SPRITE_WITH_ALPHA__
-
 #include "GAFSprite.h"
 
 static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
@@ -53,5 +50,3 @@ protected:
     virtual uint32_t setUniforms() override;
 
 };
-
-#endif // __GAF_SPRITE_WITH_ALPHA__

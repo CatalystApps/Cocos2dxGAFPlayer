@@ -94,6 +94,59 @@ const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
     return m_animationSequences;
 }
 
+const NamedParts_t& GAFTimeline::getNamedParts() const
+{
+	return m_namedParts;
+}
+
+const GAFAnimationSequence* GAFTimeline::getSequence(const std::string& name) const
+{
+    AnimationSequences_t::const_iterator it = m_animationSequences.find(name);
+
+    if (it != m_animationSequences.end())
+    {
+        return &it->second;
+    }
+
+    return nullptr;
+}
+
+const GAFAnimationSequence * GAFTimeline::getSequenceByLastFrame(size_t frame) const
+{
+    if (m_animationSequences.empty())
+    {
+        return nullptr;
+    }
+
+    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
+    {
+        if (i->second.endFrameNo == frame + 1)
+        {
+            return &i->second;
+        }
+    }
+
+    return nullptr;
+}
+
+const GAFAnimationSequence * GAFTimeline::getSequenceByFirstFrame(size_t frame) const
+{
+    if (m_animationSequences.empty())
+    {
+        return nullptr;
+    }
+
+    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
+    {
+        if (i->second.startFrameNo == frame)
+        {
+            return &i->second;
+        }
+    }
+
+    return nullptr;
+}
+
 GAFTextureAtlas* GAFTimeline::getTextureAtlas()
 {
 	return m_currentTextureAtlas;
@@ -148,3 +201,9 @@ void GAFTimeline::_chooseTextureAtlas()
     
     m_usedAtlasContentScaleFactor = atlasScale;
 }
+
+float GAFTimeline::usedAtlasContentScaleFactor() const
+{
+	return m_usedAtlasContentScaleFactor;
+}
+

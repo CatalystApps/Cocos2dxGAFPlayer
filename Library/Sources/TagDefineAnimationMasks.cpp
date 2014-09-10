@@ -22,7 +22,7 @@ void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* asset, GAFTimeline* 
         }
 		else
 		{
-			asset->pushAnimationMask(objectId, elementAtlasIdRef);
+			timeline->pushAnimationMask(objectId, elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
 		}
     }
 }

@@ -13,13 +13,17 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+TagDefineAnimationFrames2::~TagDefineAnimationFrames2()
+{
+    for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
+    {
+        it->second->release();
+    }
+}
 
 void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     unsigned int count = in->readU32();
-
-    typedef std::map<unsigned int, GAFSubobjectState*> States_t;
-    States_t currentStates;
 
 	assert(!timeline->getAnimationObjects().empty());
 
@@ -29,7 +33,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
         GAFSubobjectState *state = new GAFSubobjectState();
         state->initEmpty(objectId);
 
-        currentStates[objectId] = state;
+        m_currentStates[objectId] = state;
     }
 
     unsigned int frameNumber = in->readU32();
@@ -57,24 +61,23 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
             {
                 GAFSubobjectState* st = *it;
 
-                GAFSubobjectState* ps = currentStates[st->objectIdRef];
+                GAFSubobjectState* ps = m_currentStates[st->objectIdRef];
 
                 if (ps)
                 {
                     ps->release();
                 }
 
-                currentStates[st->objectIdRef] = st;
+                m_currentStates[st->objectIdRef] = st;
             }
         }
 
-        if (in->getPosition() < in->getTagExpectedPosition())
-            frameNumber = in->readU32();
+
 
         if (hasActions)
         {
             // STUB
-            unsigned int type = in->readU32();
+            GAFActionType type = static_cast<GAFActionType>(in->readU32());
             unsigned int paramsCount = in->readU32();
 
             while (paramsCount)
@@ -85,10 +88,13 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
                 paramsCount--;
             }
         }
+        
+        if (in->getPosition() < in->getTagExpectedPosition())
+            frameNumber = in->readU32();
 
         GAFAnimationFrame* frame = new GAFAnimationFrame();
 
-        for (States_t::iterator it = currentStates.begin(), ie = currentStates.end(); it != ie; ++it)
+        for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
         {
             frame->pushObjectState(it->second);
         }
@@ -142,9 +148,9 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
 
         for (unsigned int e = 0; e < effects; ++e)
         {
-            GAFFilterType type = (GAFFilterType)in->readU32();
+            GAFFilterType type = static_cast<GAFFilterType>(in->readU32());
 
-            if (type == GFT_Blur)
+            if (type == GAFFilterType::GFT_Blur)
             {
                 cocos2d::Size p;
                 PrimitiveDeserializer::deserialize(in, &p);
@@ -152,7 +158,7 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
                 blurFilter->blurSize = p;
                 state->pushFilter(blurFilter);
             }
-            else if (type == GFT_ColorMatrix)
+            else if (type == GAFFilterType::GFT_ColorMatrix)
             {
                 GAFColorColorMatrixFilterData* colorFilter = new GAFColorColorMatrixFilterData();
                 for (unsigned int i = 0; i < 4; ++i)
@@ -167,7 +173,7 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
 
                 state->pushFilter(colorFilter);
             }
-            else if (type == GFT_Glow)
+            else if (type == GAFFilterType::GFT_Glow)
             {
                 GAFGlowFilterData* filter = new GAFGlowFilterData();
                 cocos2d::Color4B clr;
@@ -183,7 +189,7 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
 
                 state->pushFilter(filter);
             }
-            else if (type == GFT_DropShadow)
+            else if (type == GAFFilterType::GFT_DropShadow)
             {
                 GAFDropShadowFilterData* filter = new GAFDropShadowFilterData();
 

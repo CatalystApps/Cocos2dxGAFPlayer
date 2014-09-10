@@ -10,7 +10,7 @@ class GAFAnimatedObject;
 #include <unordered_map>
 #include "GAFAnimationSequence.h"
 
-enum GAFFilterType
+enum class GAFFilterType: uint32_t
 {
     GFT_DropShadow = 0,
     GFT_Blur = 1,
@@ -23,6 +23,16 @@ enum class GAFCharacterType: uint32_t
 	GCT_TEXTURE = 0,
 	GCT_TEXT_FIELD,
 	GCT_TIMELINE
+};
+
+enum class GAFActionType : uint32_t
+{
+	//0 - stop, 1 - play, 2 - gotoAndStop, 3 - gotoAndPlay, 4 - dispatchEvent
+	GAT_STOP = 0,
+	GAT_PLAY,
+	GAT_GOTO_AND_STOP,
+	GAT_GOTO_AND_PLAY,
+	GAT_DISPATCH_EVENT,
 };
 
 typedef std::tuple<uint32_t, GAFCharacterType>              AnimationObjectEx_t;

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_ANIMATED_OBJECT_H__
-#define __GAF_ANIMATED_OBJECT_H__
-
 #include "GAFAnimation.h"
 #include "GAFCollections.h"
 
@@ -82,9 +79,14 @@ public:
 
     void animatorDidPlayedFrame(GAFAnimator * anAnimator, int aFrameNo);
 
-    virtual void start();
-    virtual void stop();
-    virtual void processAnimation();
+    virtual void start(bool withSubObjects = false);
+    virtual void pauseAnimation(bool withSubObjects = false);
+    virtual void resumeAnimation(bool withSubObjects = false);
+    virtual void stop(bool withSubObjects = false);
+	virtual void processAnimation();
+	bool performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params);
+	bool performActionByObjectId(uint32_t id, GAFActionType action, std::vector<std::string>& params, const GAFAnimatedObject* parentObj);
+
     /// Takes control over subobject, which means that every frame control delegate will be notified to decide
     /// what to do with captured external object
     /// @note it supports only objects for now, DOES NOT SUPPORT MASKS
@@ -102,8 +104,9 @@ public:
 
     /// Returns subobject by it id
     GAFSprite * subObjectForInnerObjectId(unsigned int anInnerObjectId);
-    /// Returns object id by it name, defined in NamedParts
-    unsigned int objectIdByObjectName(const std::string& aName);
+	/// Returns sub animated object by it id
+	GAFAnimatedObject * subAnimatedObjectForInnerObjectId(unsigned int anInnerObjectId) const;
+    unsigned int objectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj);
 
     cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
 
@@ -126,5 +129,3 @@ public:
 
     void setFps(int value);
 }; // GAFAnimatedObject
-
-#endif // __GAF_ANIMATED_OBJECT_H__

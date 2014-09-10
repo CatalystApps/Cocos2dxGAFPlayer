@@ -1,37 +1,26 @@
 #pragma once
 
-#ifndef __GAF_ASSET_H__
-#define __GAF_ASSET_H__
-
 #include "GAFCollections.h"
 #include "GAFHeader.h"
 #include "GAFTimeline.h"
-#include "GAFAssetTextureManager.h"
 
 #include "GAFDelegates.h"
 
 class GAFTextureAtlas;
 class GAFAnimatedObject;
-class GAFAnimationSequence;
-class GAFAnimationFrame;
+class GAFAssetTextureManager;
 
 class GAFLoader;
 
 class GAFAsset : public cocos2d::Ref
 {
 private:
-    TextureAtlases_t        m_textureAtlases;
-    AnimationMasks_t        m_animationMasks;
-    AnimationObjects_t      m_animationObjects;
-    AnimationFrames_t       m_animationFrames;
-    AnimationSequences_t    m_animationSequences;
-    NamedParts_t            m_namedParts;
     GAFHeader               m_header;
 	Timelines_t				m_timelines;
     GAFTimeline*            m_rootTimeline;
 
     GAFTextureLoadDelegate* m_textureLoadDelegate;
-	GAFAssetTextureManager	m_textureManager;
+	GAFAssetTextureManager*	m_textureManager;
 
     unsigned int            m_sceneFps;
     unsigned int            m_sceneWidth;
@@ -39,7 +28,6 @@ private:
     cocos2d::Color4B        m_sceneColor;
 
 private:
-    float _usedAtlasContentScaleFactor;
     int _majorVersion;
     int _minorVersion;
 public:
@@ -49,11 +37,6 @@ public:
 
     bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
 
-	void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef);
-    void                        pushAnimationObjects(uint32_t objectId, uint32_t elementAtlasIdRef);
-    void                        pushAnimationFrame(GAFAnimationFrame* frame);
-    void                        pushAnimationSequence(const std::string nameId, int start, int end);
-    void                        pushNamedPart(uint32_t objectIdRef, const std::string& name);
 	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
 
     void                        setHeader(GAFHeader& h);
@@ -62,33 +45,15 @@ public:
     void                        setRootTimeline(GAFTimeline* tl);
     GAFTimeline*                getRootTimeline() const;
 
-	void						getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const;
-	const AnimationObjects_t&   getAnimationObjects() const;
-    const AnimationMasks_t&     getAnimationMasks() const;
-    const AnimationFrames_t&    getAnimationFrames() const;
-    const NamedParts_t&         getNamedParts() const;
 	const Timelines_t&			getTimelines() const;
     Timelines_t&                getTimelines();
-
-    /// get all of the sequences
-    const AnimationSequences_t& getAnimationSequences() const;
 
     static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
     static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate = NULL);
 
     GAFAsset();
     ~GAFAsset();
-    /// total number of frames in animation
-    size_t                      getAnimationFramesCount() const;
 
-    /// get GAFAnimationSequence by name specified in editor
-    const GAFAnimationSequence* getSequence(const std::string& name) const;
-
-    /// get GAFAnimationSequence by last frame number in sequence	
-    const GAFAnimationSequence* getSequenceByLastFrame(size_t frame) const;
-
-    /// get GAFAnimationSequence by first frame number in sequence	
-    const GAFAnimationSequence* getSequenceByFirstFrame(size_t frame) const;
     /// List of GAFAnimationFrame objects	
     static bool                 isAssetVersionPlayable(const char * version);
 
@@ -99,11 +64,11 @@ public:
     static float                desiredCsf();
     /// sets desired content scale factor
     static void                 setDesiredCsf(float csf);
-    /// used content scale factor		
-    float                       usedAtlasContentScaleFactor()const;
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
     
+	GAFAssetTextureManager* getTextureManager();
+
     const unsigned int getSceneFps() const;
     const unsigned int getSceneWidth() const;
     const unsigned int getSceneHeight() const;
@@ -113,6 +78,3 @@ public:
     void setSceneHeight(unsigned int);
     void setSceneColor(const cocos2d::Color4B&);
 };
-
-
-#endif // __GAF_ASSET_H__

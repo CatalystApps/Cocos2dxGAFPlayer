@@ -8,6 +8,7 @@
 #include "GAFSpriteWithAlpha.h"
 #include "GAFStencilMaskSprite.h"
 #include "GAFFilterData.h"
+#include "GAFAssetTextureManager.h"
 
 // Still is under development
 #define ENABLE_RUNTIME_FILTERS 1
@@ -84,7 +85,6 @@ m_timeDelta(0.f)
 GAFAnimatedObject::~GAFAnimatedObject()
 {
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-
     GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
 }
 
@@ -136,23 +136,32 @@ void GAFAnimatedObject::_constructObject()
     m_fps = m_asset->getSceneFps();
     m_extraFramesCounter = 0;
     _animationsSelectorScheduled = false;
-    
-	//AnimationObjects_t objsContainer;
-	//m_asset->getAnimationObjectsFromTimeline(objsContainer, *m_asset->getTimelines().at(0));
-    instantiateObject(m_timeline->getAnimationObjects(), m_timeline->getAnimationMasks());
 
+    instantiateObject(m_timeline->getAnimationObjects(), m_timeline->getAnimationMasks());
 }
 
-unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
+unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj)
 {
-    const NamedParts_t& np = m_asset->getNamedParts();
+    const NamedParts_t& np = m_timeline->getNamedParts();
 
     NamedParts_t::const_iterator it = np.find(aName);
 
     if (it != np.end())
     {
+		*parentObj = this;
         return it->second;
     }
+	else
+	{
+		for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; i++)
+		{
+			unsigned int res = i->second->objectIdByObjectName(aName, parentObj);
+			if (res != IDNONE)
+			{
+				return res;
+			}
+		}
+	}
 
     return IDNONE;
 }
@@ -176,8 +185,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             GAFAnimatedObject* newObject = GAFAnimatedObject::create(m_asset, tl->second);
             m_subAnimatedObjects[objectId] = newObject;
 			addChild(newObject);
-			newObject->setAnimationRunning(true);
-            newObject->retain();
+			newObject->start();
         }
         else if (charType == GAFCharacterType::GCT_TEXTURE)
         {
@@ -197,15 +205,17 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
             {
                 txElemet = elIt->second;
                 
-                if ((unsigned int)atlas->textures()->count() >= txElemet->atlasIdx + 1)
-                {
-                    cocos2d::Texture2D * texture = (cocos2d::Texture2D *)atlas->textures()->getObjectAtIndex(txElemet->atlasIdx);
-                    spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
-                }
-                else
-                {
-                    CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
-                }
+				GAFAssetTextureManager* txMgr = m_asset->getTextureManager();
+
+				cocos2d::Texture2D * texture = txMgr->getTextureById(txElemet->atlasIdx + 1);
+				if (texture)
+				{
+					spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
+				}
+				else
+				{
+					CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
+				}
             }
             
             if (spriteFrame && txElemet)
@@ -256,15 +266,17 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
         {
             txElemet = elIt->second;
 
-            if (atlas->textures()->count() >= txElemet->atlasIdx + 1)
-            {
-                cocos2d::Texture2D * texture = (cocos2d::Texture2D *)atlas->textures()->getObjectAtIndex(txElemet->atlasIdx);
-                spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
-            }
-            else
-            {
-                CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
-            }
+			GAFAssetTextureManager* txMgr = m_asset->getTextureManager();
+
+			cocos2d::Texture2D * texture = txMgr->getTextureById(txElemet->atlasIdx + 1);
+			if (texture)
+			{
+				spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
+			}
+			else
+			{
+				CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
+			}
 
             if (spriteFrame)
             {
@@ -307,7 +319,7 @@ bool GAFAnimatedObject::captureControlOverSubobject(unsigned int id, GAFAnimated
 
 bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAFAnimatedObjectControlFlags aControlFlags)
 {
-    unsigned int objectId = objectIdByObjectName(aName);
+    unsigned int objectId = objectIdByObjectName(aName, nullptr);
     if (IDNONE == objectId)
     {
         return false;
@@ -326,7 +338,7 @@ bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAF
 
 void GAFAnimatedObject::releaseControlOverSubobjectNamed(const char * aName)
 {
-    unsigned int objectId = objectIdByObjectName(aName);
+    unsigned int objectId = objectIdByObjectName(aName, nullptr);
     if (objectId != IDNONE)
     {
         CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(objectId);
@@ -361,9 +373,6 @@ void GAFAnimatedObject::setSubobjectsVisible(bool visible)
 
 void GAFAnimatedObject::processAnimations(float dt)
 {
-    if (!isAnimationRunning())
-        return;
-
     m_timeDelta += dt;
     double frameTime = 1.0 / m_fps;
     while (m_timeDelta >= frameTime)
@@ -427,7 +436,29 @@ GAFSprite * GAFAnimatedObject::subObjectForInnerObjectId(unsigned int anInnerObj
             return anim;
         }
     }
-    return NULL;
+
+	// TODO: add inner timelines to search
+    return nullptr;
+}
+
+GAFAnimatedObject * GAFAnimatedObject::subAnimatedObjectForInnerObjectId(unsigned int anInnerObjectId) const
+{
+	for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; ++i)
+	{
+		if (i->first == anInnerObjectId)
+		{
+			return i->second;
+		}
+		else
+		{
+			GAFAnimatedObject * res = i->second->subAnimatedObjectForInnerObjectId(anInnerObjectId);
+			if (res)
+			{
+				return res;
+			}
+		}
+	}
+	return nullptr;
 }
 
 const SubObjects_t& GAFAnimatedObject::getSubojects() const
@@ -440,20 +471,127 @@ const SubObjects_t& GAFAnimatedObject::getMasks() const
     return m_masks;
 }
 
-void GAFAnimatedObject::start()
+void GAFAnimatedObject::start(bool withSubObjects /*= false*/)
 {
     GAFAnimation::start();
 
     schedule(cocos2d::SEL_SCHEDULE(&GAFAnimatedObject::processAnimations));
     _animationsSelectorScheduled = true;
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->start(withSubObjects);
+        }
+    }
 }
 
-void GAFAnimatedObject::stop()
+void GAFAnimatedObject::pauseAnimation(bool withSubObjects /*= false*/)
+{
+    GAFAnimation::pauseAnimation();
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->pauseAnimation(withSubObjects);
+        }
+    }
+}
+
+void GAFAnimatedObject::resumeAnimation(bool withSubObjects /*= false*/)
+{
+    GAFAnimation::resumeAnimation();
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->resumeAnimation(withSubObjects);
+        }
+    }
+}
+
+void GAFAnimatedObject::stop(bool withSubObjects /*= false*/)
 {
     GAFAnimation::stop();
 
     unschedule(cocos2d::SEL_SCHEDULE(&GAFAnimatedObject::processAnimations));
     _animationsSelectorScheduled = false;
+
+    if (withSubObjects)
+    {
+        for each (auto objPair in m_subAnimatedObjects)
+        {
+            objPair.second->stop(withSubObjects);
+        }
+    }
+}
+
+bool GAFAnimatedObject::performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params)
+{
+	size_t offset = namedPart.find('.');
+	bool isComplexName = offset != std::string::npos; // F.e. "element2.button"
+
+	// get id
+	if (isComplexName)
+	{
+		std::string curName = namedPart.substr(0, offset);
+		std::string nextName = namedPart.substr(offset + 1);
+
+		GAFAnimatedObject * parentObj = nullptr;
+		uint32_t id = objectIdByObjectName(curName, &parentObj);
+		if (id != IDNONE)
+		{
+			GAFAnimatedObject * childObj = parentObj->subAnimatedObjectForInnerObjectId(id);
+
+			return childObj->performActionByObjectName(nextName, action, params);
+		}
+		return false;
+	}
+	else
+	{
+		GAFAnimatedObject * parentObj = nullptr;
+		uint32_t id = objectIdByObjectName(namedPart, &parentObj);
+
+		if (id != IDNONE)
+		{
+			return performActionByObjectId(id, action, params, parentObj);
+		}
+		return false;
+	}
+}
+
+bool GAFAnimatedObject::performActionByObjectId(uint32_t id, GAFActionType action, std::vector<std::string>& params, const GAFAnimatedObject * parentObj)
+{
+	GAFAnimatedObject * objRef = parentObj->subAnimatedObjectForInnerObjectId(id);
+	if (objRef)
+	{
+		switch (action)
+		{
+		case GAFActionType::GAT_GOTO_AND_STOP:
+			objRef->gotoAndStop(params[0]);
+			break;
+		case GAFActionType::GAT_STOP:
+			objRef->stop();
+			break;
+		case GAFActionType::GAT_GOTO_AND_PLAY:
+			objRef->gotoAndPlay(params[0]);
+			break;
+		case GAFActionType::GAT_PLAY:
+			objRef->start();
+			break;
+		case GAFActionType::GAT_DISPATCH_EVENT:
+			break;
+		default:
+			break;
+		}
+
+		return true;
+	}
+
+	return false;
 }
 
 int GAFAnimatedObject::numberOfGlobalFramesForOneAnimationFrame()
@@ -527,7 +665,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
     }
     
     m_visibleObjects.clear();
-    
+	
     const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
     {
         size_t statesCount = states.size();
@@ -551,7 +689,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 						GAFAnimatedObject* animatedObj = objIt->second;
 
 						cocos2d::AffineTransform stateTransform = state->affineTransform;
-						float csf = m_asset->usedAtlasContentScaleFactor();
+						float csf = m_timeline->usedAtlasContentScaleFactor();
 						stateTransform.tx *= csf;
 						stateTransform.ty *= csf;
 						cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
@@ -568,10 +706,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 
 						animatedObj->setLocalZOrder(state->zIndex);
 
-						if (animatedObj->isAnimationRunning())
-						{
-							animatedObj->step();
-						}
+						animatedObj->step();
 					}
 				}
 
@@ -591,22 +726,22 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                         filter->apply(subObject);
                     }
 
-                    if (!filter || filter->getType() != GFT_Blur)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
                     {
                         subObject->setBlurFilterData(NULL);
                     }
 
-                    if (!filter || filter->getType() != GFT_ColorMatrix)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_ColorMatrix)
                     {
                         subObject->setColorMarixFilterData(NULL);
                     }
 
-                    if (!filter || filter->getType() != GFT_Glow)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_Glow)
                     {
                         subObject->setGlowFilterData(NULL);
                     }
 
-                    if (!filter || filter->getType() != GFT_DropShadow)
+                    if (!filter || filter->getType() != GAFFilterType::GFT_DropShadow)
                     {
                         GAFDropShadowFilterData::reset(subObject);
                     }
@@ -626,11 +761,12 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     }
                     else
                     {
-                        if (subObject->getParent())
+						if (subObject->getParent())
                         {
                             out->removeChild(subObject, false);
                         }
-                        GAFStencilMaskSprite * mask = NULL;
+
+                        GAFStencilMaskSprite * mask = nullptr;
 
                         if (!m_masks.empty())
                         {
@@ -662,7 +798,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 						(subobjectCaptured && (controlFlags & kGAFAnimatedObjectControl_ApplyState)))
 					{
 						cocos2d::AffineTransform stateTransform = state->affineTransform;
-						float csf = m_asset->usedAtlasContentScaleFactor();
+						float csf = m_timeline->usedAtlasContentScaleFactor();
 						stateTransform.tx *= csf;
 						stateTransform.ty *= csf;
 						cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
@@ -674,21 +810,24 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 						subObject->setVisible(state->isVisible());
 						m_visibleObjects.push_back(subObject);
 
-						//subObject->setColorTransform(state->colorMults(), state->colorOffsets());
-						subObject->setColorTransform(
+						subObject->setColorTransform(state->colorMults(), state->colorOffsets());
+						
+						/*subObject->setColorTransform(
 							std::get<0>(m_parentColorTransforms),
 							std::get<1>(m_parentColorTransforms)
-							);
+							);*/
 					}
                 }
                 else
                 {
-                    GAFSprite * mask = NULL;
-                    if (!m_masks.empty())
+                    GAFSprite * mask = nullptr;
+                    
+                    SubObjects_t::iterator maskIt = m_masks.find(state->objectIdRef);
+                    if (maskIt != m_masks.end())
                     {
-                        mask = m_masks[state->objectIdRef];
+                        mask = maskIt->second;
                     }
-
+                    
                     if (mask)
                     {
                         mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
@@ -714,7 +853,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 
             if (sboIt != m_subObjects.end())
             {
-                const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
+                const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(sboIt->second);
 
                 CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(state->objectIdRef);
 

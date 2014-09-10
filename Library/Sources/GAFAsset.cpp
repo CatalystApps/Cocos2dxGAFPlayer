@@ -2,14 +2,11 @@
 #include "GAFAsset.h"
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
-#include "GAFAnimationFrame.h"
-#include "GAFSubobjectState.h"
-#include "GAFAnimationSequence.h"
 #include "GAFAnimatedObject.h"
+#include "GAFAssetTextureManager.h"
 
 #include "GAFLoader.h"
 
-static float _currentDeviceScale = 1.0f;
 static float  _desiredCsf = 1.f;
 
 float GAFAsset::desiredCsf()
@@ -47,15 +44,17 @@ GAFAsset::GAFAsset():
 m_textureLoadDelegate(nullptr),
 m_sceneFps(60),
 m_sceneWidth(0),
-m_sceneHeight(0)
+m_sceneHeight(0),
+m_rootTimeline(nullptr)
 {
+    m_textureManager = new GAFAssetTextureManager();
 }
 
 GAFAsset::~GAFAsset()
 {
-    GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
-    GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
-    CC_SAFE_RELEASE(m_rootTimeline);
+    GAF_RELEASE_MAP(Timelines_t, m_timelines);
+    //CC_SAFE_RELEASE(m_rootTimeline);
+    m_textureManager->release();
 }
 
 bool GAFAsset::isAssetVersionPlayable(const char * version)
@@ -128,29 +127,25 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
-	if (m_textureAtlases.empty() && m_timelines.empty())
+	if (m_timelines.empty())
     {
         return false;
     }
     if (isLoaded)
     {
-		size_t memory = 0;
 		for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
 		{
 			i->second->loadImages();
 
 			if (i->second->getTextureAtlas())
 			{
-				m_textureManager.appendInfoFromTextureAtlas(i->second->getTextureAtlas());
+				m_textureManager->appendInfoFromTextureAtlas(i->second->getTextureAtlas());
 				//i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
-				//memory += i->second->getTextureAtlas()->getMemoryConsumptionStat();
 			}
 		}
 
 		m_textureLoadDelegate = delegate;
-		m_textureManager.loadImages(fullfilePath, m_textureLoadDelegate);
-
-		memory++;
+		m_textureManager->loadImages(fullfilePath, m_textureLoadDelegate);
     }
 
     delete loader;
@@ -163,104 +158,11 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     return m_currentTextureAtlas;
 }*/
 
-size_t GAFAsset::getAnimationFramesCount() const
-{
-    return m_animationFrames.size();
-}
-
-const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
-{
-    AnimationSequences_t::const_iterator it = m_animationSequences.find(name);
-
-    if (it != m_animationSequences.end())
-    {
-        return &it->second;
-    }
-
-    return NULL;
-}
-
-const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) const
-{
-    if (m_animationSequences.empty())
-    {
-        return NULL;
-    }
-
-    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
-    {
-        if (i->second.endFrameNo == frame + 1)
-        {
-            return &i->second;
-        }
-    }
-
-    return NULL;
-}
-
-const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) const
-{
-    if (m_animationSequences.empty())
-    {
-        return NULL;
-    }
-
-    for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
-    {
-        if (i->second.startFrameNo == frame)
-        {
-            return &i->second;
-        }
-    }
-
-    return NULL;
-}
-void GAFAsset::pushAnimationMask(unsigned int objectId, unsigned int elementAtlasIdRef)
-{
-    m_animationMasks[objectId] = std::make_tuple(elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
-}
-
-void GAFAsset::pushAnimationObjects(unsigned int objectId, unsigned int elementAtlasIdRef)
-{
-    m_animationObjects[objectId] = std::make_tuple(elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
-}
-
-void GAFAsset::pushAnimationFrame(GAFAnimationFrame* frame)
-{
-    m_animationFrames.push_back(frame);
-}
-
-void GAFAsset::getAnimationObjectsFromTimeline(AnimationObjects_t& objectsContainer, const GAFTimeline& timeline) const
-{
-	AnimationObjects_t timelineObjects = timeline.getAnimationObjects();
-	for (AnimationObjects_t::const_iterator i = timelineObjects.begin(), e = timelineObjects.end(); i != e; ++i)
-	{
-		GAFCharacterType objType = std::get<1>(i->second);
-		switch (objType)
-		{
-            case GAFCharacterType::GCT_TEXTURE:
-                objectsContainer[i->first] = i->second;
-                break;
-            case GAFCharacterType::GCT_TEXT_FIELD:
-                break;
-            case GAFCharacterType::GCT_TIMELINE:
-			{
-				unsigned int timelineIdRef = std::get<0>(i->second);
-				Timelines_t::const_iterator elIt = m_timelines.find(timelineIdRef); // Search for atlas element by its xref
-				assert(elIt != m_timelines.end());
-				getAnimationObjectsFromTimeline(objectsContainer, *elIt->second);
-			}
-                break;
-		default:
-			break;
-		}
-	}
-}
-
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
 {
+    assert(!m_rootTimeline);
     m_rootTimeline = tl;
-    m_rootTimeline->retain();
+    //m_rootTimeline->retain();
 }
 
 GAFTimeline* GAFAsset::getRootTimeline() const
@@ -268,55 +170,10 @@ GAFTimeline* GAFAsset::getRootTimeline() const
     return m_rootTimeline;
 }
 
-const AnimationObjects_t& GAFAsset::getAnimationObjects() const
-{
-    return m_animationObjects;
-}
-
-const AnimationMasks_t& GAFAsset::getAnimationMasks() const
-{
-    return m_animationMasks;
-}
-
-const AnimationFrames_t& GAFAsset::getAnimationFrames() const
-{
-    return m_animationFrames;
-}
-
-void GAFAsset::pushAnimationSequence(const std::string nameId, int start, int end)
-{
-    GAFAnimationSequence seq;
-    seq.name = nameId;
-    seq.startFrameNo = start;
-    seq.endFrameNo = end;
-
-    m_animationSequences[nameId] = seq;
-}
-
-const AnimationSequences_t& GAFAsset::getAnimationSequences() const
-{
-    return m_animationSequences;
-}
-
-void GAFAsset::pushNamedPart(uint32_t objectIdRef, const std::string& name)
-{
-    m_namedParts[name] = objectIdRef;
-}
-
 void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)
 {
 	m_timelines[timelineIdRef] = t;
     t->retain();
-}
-
-const NamedParts_t& GAFAsset::getNamedParts() const
-{
-    return m_namedParts;
-}
-
-float GAFAsset::usedAtlasContentScaleFactor() const
-{
-    return _usedAtlasContentScaleFactor;
 }
 
 void GAFAsset::setHeader(GAFHeader& h)
@@ -327,6 +184,11 @@ void GAFAsset::setHeader(GAFHeader& h)
 void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
 {
     m_textureLoadDelegate = delegate;
+}
+
+GAFAssetTextureManager* GAFAsset::getTextureManager()
+{
+	return m_textureManager;
 }
 
 Timelines_t& GAFAsset::getTimelines()
