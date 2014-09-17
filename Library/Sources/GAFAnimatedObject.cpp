@@ -480,9 +480,9 @@ void GAFAnimatedObject::start(bool withSubObjects /*= false*/)
 
     if (withSubObjects)
     {
-        for each (auto objPair in m_subAnimatedObjects)
+        for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; ++i)
         {
-            objPair.second->start(withSubObjects);
+            i->second->start(withSubObjects);
         }
     }
 }
@@ -493,9 +493,9 @@ void GAFAnimatedObject::pauseAnimation(bool withSubObjects /*= false*/)
 
     if (withSubObjects)
     {
-        for each (auto objPair in m_subAnimatedObjects)
+        for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; ++i)
         {
-            objPair.second->pauseAnimation(withSubObjects);
+            i->second->pauseAnimation(withSubObjects);
         }
     }
 }
@@ -506,9 +506,9 @@ void GAFAnimatedObject::resumeAnimation(bool withSubObjects /*= false*/)
 
     if (withSubObjects)
     {
-        for each (auto objPair in m_subAnimatedObjects)
+        for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; ++i)
         {
-            objPair.second->resumeAnimation(withSubObjects);
+            i->second->resumeAnimation(withSubObjects);
         }
     }
 }
@@ -522,9 +522,9 @@ void GAFAnimatedObject::stop(bool withSubObjects /*= false*/)
 
     if (withSubObjects)
     {
-        for each (auto objPair in m_subAnimatedObjects)
+        for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; ++i)
         {
-            objPair.second->stop(withSubObjects);
+            i->second->stop(withSubObjects);
         }
     }
 }
