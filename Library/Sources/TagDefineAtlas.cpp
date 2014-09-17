@@ -13,6 +13,7 @@
 
 void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
+    (void)asset;
     GAFTextureAtlas* txAtlas = new GAFTextureAtlas();
 
     txAtlas->setScale(in->readFloat());
@@ -81,5 +82,5 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
         }
     }
 
-	timeline->pushTextureAtlas(txAtlas);
+    timeline->pushTextureAtlas(txAtlas);
 }

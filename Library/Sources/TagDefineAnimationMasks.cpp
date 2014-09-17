@@ -8,6 +8,7 @@
 
 void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
+    (void)asset;
     unsigned int count = in->readU32();
 
     for (unsigned int i = 0; i < count; ++i)
@@ -18,11 +19,11 @@ void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* asset, GAFTimeline* 
         if (in->getInput()->getHeader().getMajorVersion() >= 4)
         {
             unsigned short objType = in->readU16();
-			timeline->pushAnimationMask(objectId, elementAtlasIdRef, static_cast<GAFCharacterType>(objType));
+            timeline->pushAnimationMask(objectId, elementAtlasIdRef, static_cast<GAFCharacterType>(objType));
         }
-		else
-		{
-			timeline->pushAnimationMask(objectId, elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
-		}
+        else
+        {
+            timeline->pushAnimationMask(objectId, elementAtlasIdRef, GAFCharacterType::Texture);
+        }
     }
 }

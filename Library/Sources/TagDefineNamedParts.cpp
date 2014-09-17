@@ -7,6 +7,7 @@
 
 void TagDefineNamedParts::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
+    (void)asset;
     unsigned int count = in->readU32();
 
     for (unsigned int i = 0; i < count; ++i)

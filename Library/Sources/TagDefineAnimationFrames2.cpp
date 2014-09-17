@@ -23,11 +23,12 @@ TagDefineAnimationFrames2::~TagDefineAnimationFrames2()
 
 void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
+    (void)asset;
     unsigned int count = in->readU32();
 
-	assert(!timeline->getAnimationObjects().empty());
+    assert(!timeline->getAnimationObjects().empty());
 
-	for (AnimationObjects_t::const_iterator i = timeline->getAnimationObjects().begin(), e = timeline->getAnimationObjects().end(); i != e; ++i)
+    for (AnimationObjects_t::const_iterator i = timeline->getAnimationObjects().begin(), e = timeline->getAnimationObjects().end(); i != e; ++i)
     {
         unsigned int objectId = i->first;
         GAFSubobjectState *state = new GAFSubobjectState();
@@ -88,7 +89,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
                 paramsCount--;
             }
         }
-        
+
         if (in->getPosition() < in->getTagExpectedPosition())
             frameNumber = in->readU32();
 
@@ -99,7 +100,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
             frame->pushObjectState(it->second);
         }
 
-		timeline->pushAnimationFrame(frame);
+        timeline->pushAnimationFrame(frame);
     }
 }
 

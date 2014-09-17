@@ -25,27 +25,27 @@ private:
     unsigned int            m_sceneWidth = 0;
     unsigned int            m_sceneHeight = 0;
     cocos2d::Color4B        m_sceneColor;
-    
+
     uint32_t                m_framesCount;
-    
+
     std::string             m_linkageName;
-    
+
     GAFTextureAtlas*        m_currentTextureAtlas;
     GAFTextureLoadDelegate* m_textureLoadDelegate;
-	
-	float					m_usedAtlasContentScaleFactor;
-    
+
+    float                   m_usedAtlasContentScaleFactor;
+
     GAFTimeline*            m_parent = nullptr; // weak
 
     void                    _chooseTextureAtlas();
 public:
 
-	GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount);
+    GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount);
     virtual ~GAFTimeline();
 
     void                        pushTextureAtlas(GAFTextureAtlas* atlas);
-	void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
-	void                        pushAnimationObject(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
+    void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
+    void                        pushAnimationObject(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
     void                        pushNamedPart(uint32_t objectIdRef, const std::string& name);
@@ -54,14 +54,14 @@ public:
     void                        setSceneWidth(unsigned int);
     void                        setSceneHeight(unsigned int);
     void                        setSceneColor(const cocos2d::Color4B&);
-    
+
     void                        setLinkageName(const std::string& linkageName);
-    
-	const AnimationObjects_t&   getAnimationObjects() const;
+
+    const AnimationObjects_t&   getAnimationObjects() const;
     const AnimationMasks_t&     getAnimationMasks() const;
-	const AnimationFrames_t&	getAnimationFrames() const;
+    const AnimationFrames_t&	getAnimationFrames() const;
     const AnimationSequences_t& getAnimationSequences() const;
-	const NamedParts_t&			getNamedParts() const;
+    const NamedParts_t&			getNamedParts() const;
     uint32_t                    getFramesCount() const;
 
     /// get GAFAnimationSequence by name specified in editor
@@ -70,11 +70,11 @@ public:
     const GAFAnimationSequence* getSequenceByLastFrame(size_t frame) const;
     /// get GAFAnimationSequence by first frame number in sequence	
     const GAFAnimationSequence* getSequenceByFirstFrame(size_t frame) const;
-    
+
     GAFTimeline*                getParent() const;
-    
-	GAFTextureAtlas*			getTextureAtlas();
+
+    GAFTextureAtlas*			getTextureAtlas();
     void                        loadImages();
 
-	float						usedAtlasContentScaleFactor() const;
+    float						usedAtlasContentScaleFactor() const;
 };

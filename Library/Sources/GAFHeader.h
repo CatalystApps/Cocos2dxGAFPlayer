@@ -26,12 +26,12 @@ public:
     std::vector<float>          scaleValues;
     std::vector<float>          csfValues;
 
-    inline unsigned char getMajorVersion() const
+    inline uint16_t getMajorVersion() const
     {
         return version & 0x00FF;
     }
 
-    inline unsigned char getMinorVersion() const
+    inline uint16_t getMinorVersion() const
     {
         return version >> 1;
     }

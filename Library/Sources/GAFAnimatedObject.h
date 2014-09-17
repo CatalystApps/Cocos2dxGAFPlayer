@@ -36,11 +36,11 @@ private:
     SubAnimatedObjects_t                m_subAnimatedObjects;
     SubObjects_t                        m_subObjects;
     SubObjects_t                        m_masks;
-	Filters_t							m_parentFilters;
-	std::tuple<cocos2d::Vec4, cocos2d::Vec4> m_parentColorTransforms;
-    
+    Filters_t                           m_parentFilters;
+    std::tuple<cocos2d::Vec4, cocos2d::Vec4> m_parentColorTransforms;
+
     typedef std::list<GAFSprite*>       SubObjectsList_t;
-    
+
     SubObjectsList_t                    m_visibleObjects;
 
     int                                 m_stencilLayer;
@@ -69,7 +69,7 @@ public:
     void processAnimations(float dt);
     cocos2d::Vect pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, cocos2d::Vect aCenter, cocos2d::Vect anExternalPoint);
     void removeAllSubObjects();
-    
+
     void instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
 
     void setSubobjectsVisible(bool visible);
@@ -83,9 +83,9 @@ public:
     virtual void pauseAnimation(bool withSubObjects = false);
     virtual void resumeAnimation(bool withSubObjects = false);
     virtual void stop(bool withSubObjects = false);
-	virtual void processAnimation();
-	bool performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params);
-	bool performActionByObjectId(uint32_t id, GAFActionType action, std::vector<std::string>& params, const GAFAnimatedObject* parentObj);
+    virtual void processAnimation();
+    bool performActionByObjectName(const std::string& namedPart, GAFActionType action, const std::vector<std::string>& params);
+    bool performActionByObjectId(uint32_t id, GAFActionType action, const std::vector<std::string>& params, const GAFAnimatedObject* parentObj);
 
     /// Takes control over subobject, which means that every frame control delegate will be notified to decide
     /// what to do with captured external object
@@ -104,8 +104,8 @@ public:
 
     /// Returns subobject by it id
     GAFSprite * subObjectForInnerObjectId(unsigned int anInnerObjectId);
-	/// Returns sub animated object by it id
-	GAFAnimatedObject * subAnimatedObjectForInnerObjectId(unsigned int anInnerObjectId) const;
+    /// Returns sub animated object by it id
+    GAFAnimatedObject * subAnimatedObjectForInnerObjectId(unsigned int anInnerObjectId) const;
     unsigned int objectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj);
 
     cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);

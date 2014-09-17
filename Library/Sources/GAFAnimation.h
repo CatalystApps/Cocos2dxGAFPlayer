@@ -3,8 +3,6 @@
 #ifndef __GAF_ANIMATION__
 #define __GAF_ANIMATION__
 
-#define GAF_FIRST_FRAME_INDEX 0
-
 #include "GAFDelegates.h"
 
 class GAFAsset;
@@ -16,6 +14,10 @@ enum AnimSetSequenceHint
     ASSH_RESTART
 };
 
+enum
+{
+    GAF_FIRST_FRAME_INDEX = 0
+};
 
 class GAFAnimation
 {
@@ -36,18 +38,18 @@ public:
     void setLooped(bool looped);
     bool isReversed() const;
     void setReversed(bool reversed);
-    size_t totalFrameCount() const;
-    size_t currentFrameIndex() const;
+    uint32_t totalFrameCount() const;
+    uint32_t currentFrameIndex() const;
 
-    bool setFrame(int index);
+    bool setFrame(uint32_t index);
 
     /// Plays specified frame and then stops	
     bool gotoAndStop(const std::string& frameLabel);
-    bool gotoAndStop(int frameNumber);
+    bool gotoAndStop(uint32_t frameNumber);
 
     /// Plays animation from specified frame	
     bool gotoAndPlay(const std::string& frameLabel);
-    bool gotoAndPlay(int frameNumber);
+    bool gotoAndPlay(uint32_t frameNumber);
 
 
     int getStartFrame(const std::string& frameLabel);
@@ -74,7 +76,7 @@ protected:
 protected:
     GAFAsset * m_asset;
     GAFTimeline* m_timeline;
-    size_t _currentFrameIndex;
+    uint32_t m_currentFrameIndex;
 
     void    setAnimationRunning(bool value);
     bool    getIsRunning() const;
@@ -82,9 +84,9 @@ protected:
 private:
     GAFSequenceDelegate * _sequenceDelegate;
     GAFAnimationPlaybackDelegate* m_animationPlaybackDelegate;
-    size_t m_totalFrameCount;
-    size_t m_currentSequenceStart;
-    size_t m_currentSequenceEnd;
+    uint32_t m_totalFrameCount;
+    uint32_t m_currentSequenceStart;
+    uint32_t m_currentSequenceEnd;
     bool m_isRunning;
     bool m_isLooped;
     bool m_isReversed;

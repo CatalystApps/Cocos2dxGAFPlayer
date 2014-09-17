@@ -59,6 +59,7 @@ GAFAsset::~GAFAsset()
 
 bool GAFAsset::isAssetVersionPlayable(const char * version)
 {
+    (void)version;
     return true;
 }
 
