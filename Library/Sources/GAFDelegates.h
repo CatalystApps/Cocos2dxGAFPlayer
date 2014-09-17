@@ -13,8 +13,8 @@ public:
 class GAFAnimationPlaybackDelegate
 {
 public:
-    virtual void onAnimationFinishedPlayDelegate(GAFAnimation* animation) { }
-    virtual void onAnimationStartedNextLoopDelegate(GAFAnimation* animation) { }
+    virtual void onAnimationFinishedPlayDelegate(GAFAnimation* animation) { (void)animation; }
+    virtual void onAnimationStartedNextLoopDelegate(GAFAnimation* animation) { (void)animation; }
 };
 
 class GAFTextureLoadDelegate

@@ -9,6 +9,7 @@
 
 void TagDefineStage::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
+    (void)timeline;
     cocos2d::Color4B color;
     
     unsigned int fps = in->readU8();  // Scene FPS

@@ -4,6 +4,7 @@
 #include "GAFCollections.h"
 
 #include "GAFDelegates.h"
+#include "GAFSpriteID.h"
 
 class GAFAnimation;
 class GAFSprite;
@@ -36,11 +37,11 @@ private:
     SubAnimatedObjects_t                m_subAnimatedObjects;
     SubObjects_t                        m_subObjects;
     SubObjects_t                        m_masks;
-	Filters_t							m_parentFilters;
-	std::tuple<cocos2d::Vec4, cocos2d::Vec4> m_parentColorTransforms;
-    
+    Filters_t                           m_parentFilters;
+    std::tuple<cocos2d::Vec4, cocos2d::Vec4> m_parentColorTransforms;
+
     typedef std::list<GAFSprite*>       SubObjectsList_t;
-    
+
     SubObjectsList_t                    m_visibleObjects;
 
     int                                 m_stencilLayer;
@@ -60,6 +61,11 @@ private:
 
     void _updateStencilLayer(int newLayer);
     void _constructObject();
+
+    typedef std::vector<std::string> StringVector_t;
+
+    void _splitName(const std::string& name, StringVector_t &out) const;
+    GAFSpriteID _searchByNamedParts(StringVector_t::iterator begit, StringVector_t::iterator endit, GAFSpriteID& prev) const;
 public:
     ~GAFAnimatedObject();
     static GAFAnimatedObject * create(GAFAsset * anAsset, GAFTimeline* tl);
@@ -69,12 +75,12 @@ public:
     void processAnimations(float dt);
     cocos2d::Vect pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, cocos2d::Vect aCenter, cocos2d::Vect anExternalPoint);
     void removeAllSubObjects();
-    
+
     void instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
 
     void setSubobjectsVisible(bool visible);
 
-    const SubObjects_t& getSubojects() const;
+    const SubObjects_t& getSubObjects() const;
     const SubObjects_t& getMasks() const;
 
     void animatorDidPlayedFrame(GAFAnimator * anAnimator, int aFrameNo);
@@ -83,9 +89,9 @@ public:
     virtual void pauseAnimation(bool withSubObjects = false);
     virtual void resumeAnimation(bool withSubObjects = false);
     virtual void stop(bool withSubObjects = false);
-	virtual void processAnimation();
-	bool performActionByObjectName(std::string namedPart, GAFActionType action, std::vector<std::string>& params);
-	bool performActionByObjectId(uint32_t id, GAFActionType action, std::vector<std::string>& params, const GAFAnimatedObject* parentObj);
+    virtual void processAnimation();
+    bool performActionByObjectName(const std::string& namedPart, GAFActionType action, const std::vector<std::string>& params);
+    bool performActionByObjectId(uint32_t id, GAFActionType action, const std::vector<std::string>& params, const GAFAnimatedObject* parentObj);
 
     /// Takes control over subobject, which means that every frame control delegate will be notified to decide
     /// what to do with captured external object
@@ -102,11 +108,53 @@ public:
     void setControlDelegate(GAFAnimatedObjectControlDelegate * delegate);
     cocos2d::Rect realBoundingBoxForCurrentFrame();
 
-    /// Returns subobject by it id
+    /// Returns GAFSprite by its id
     GAFSprite * subObjectForInnerObjectId(unsigned int anInnerObjectId);
-	/// Returns sub animated object by it id
-	GAFAnimatedObject * subAnimatedObjectForInnerObjectId(unsigned int anInnerObjectId) const;
-    unsigned int objectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj);
+    /// Returns sub animated object by its id
+    GAFAnimatedObject * subAnimatedObjectForInnerObjectId(unsigned int anInnerObjectId) const;
+
+    uint32_t getObjectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj);
+
+    //////////////////////////////////////////////////////////////////////////
+    // Accessors
+
+    // Searches for an object by given string
+    // @param object name e.g. "head" or object path e.g. "knight.body.arm"
+    // @note it can slow down the real-time performance
+    // @returns instance of GAFSprite or null. Warning: the instance could be invalidated when the system catches EVENT_COME_TO_FOREGROUND event
+    GAFSprite* getSprite(const std::string& name) const;
+
+    // Searches for an object by given id
+    // @param object id
+    // @note it can slow down the real-time performance
+    // @returns instance of GAFSprite or null. Warning: the instance could be invalidated when the system catches EVENT_COME_TO_FOREGROUND event
+    GAFSprite* getSprite(uint32_t id) const;
+
+    // Searches for an object by given string
+    // @param object name e.g. "head" or object path e.g. "knight.body.arm"
+    // @note it can slow down the real-time performance
+    // @returns GAFSpriteID
+    GAFSpriteID   getSpriteId(const std::string& name) const;
+
+    // Searches for an animated object by given class name(linkage name)
+    // @note the root object has a name "rootTimeline"
+    // @param object name e.g. "Head"
+    // @returns instance of GAFAnimatedObject or null
+    GAFAnimatedObject* getSubObject(const std::string& className) const;
+
+    // Searches for an animated object by given class name(linkage name)
+    // @param object id
+    // @returns instance of GAFAnimatedObject or null
+    GAFAnimatedObject* getSubObject(uint32_t id) const;
+
+    // Searches for an animated object by given class name(linkage name)
+    // @note the root object has a name "rootTimeline"
+    // @param object name e.g. "Head"
+    // @returns object id
+    uint32_t getSubObjectId(const std::string& className) const;
+    //////////////////////////////////////////////////////////////////////////
+
+
 
     cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
 

@@ -187,7 +187,6 @@ unsigned char* GAFFile::_getData(const std::string& filename, const char* openMo
     unsigned char* ret = nullptr;
     outLen = 0;
     ssize_t size = 0;
-    const char* mode = nullptr;
 
 #ifdef ANDROID
     ret = cocos2d::FileUtilsAndroid::getInstance()->getFileData(filename, openMode, &size);

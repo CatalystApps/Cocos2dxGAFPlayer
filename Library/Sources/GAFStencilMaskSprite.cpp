@@ -138,10 +138,13 @@ void GAFStencilMaskSprite::endStencil()
 
 #if COCOS2D_VERSION < 0x00030200
 void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+{
 #else
 void GAFStencilMaskSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-#endif
 {
+    (void)flags;
+#endif
+
     // Prepare stencil
 #if USE_LAYERED_STENCIL
     m_stencilLayer = std::min(++m_stencilLayer, 255);

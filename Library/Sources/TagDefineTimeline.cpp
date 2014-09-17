@@ -12,7 +12,7 @@
 
 void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
-	unsigned int id = in->readU32();
+    unsigned int id = in->readU32();
     unsigned int framesCount = in->readU32();
     cocos2d::Rect aabb;
     cocos2d::Point pivot;
@@ -20,7 +20,7 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
     PrimitiveDeserializer::deserialize(in, &aabb);
     PrimitiveDeserializer::deserialize(in, &pivot);
 
-	GAFTimeline *tl = new GAFTimeline(timeline, id, aabb, pivot, framesCount);
+    GAFTimeline *tl = new GAFTimeline(timeline, id, aabb, pivot, framesCount);
 
     //////////////////////////////////////////////////////////////////////////
 
@@ -29,24 +29,25 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
     {
         std::string linkageName;
         in->readString(&linkageName);
+        tl->setLinkageName(linkageName);
     }
-	
-	m_loader->loadTags(in, asset, tl);
-    
+
+    m_loader->loadTags(in, asset, tl);
+
     if (id == 0)
     {
         asset->setRootTimeline(tl);
-		GAFHeader header = asset->getHeader();
-		header.pivot = pivot;
-		header.frameSize = aabb;
-		asset->setHeader(header);
+        GAFHeader header = asset->getHeader();
+        header.pivot = pivot;
+        header.frameSize = aabb;
+        asset->setHeader(header);
     }
-    
-	asset->pushTimeline(id, tl);
+
+    asset->pushTimeline(id, tl);
 }
 
-TagDefineTimeline::TagDefineTimeline(GAFLoader* loader):
+TagDefineTimeline::TagDefineTimeline(GAFLoader* loader) :
 m_loader(loader)
 {
-    
+
 }

@@ -140,7 +140,7 @@ cocos2d::__Array * GAFTextureAtlas::textures()
     if (!m_textures)
     {
         m_textures = cocos2d::__Array::createWithCapacity(m_atlasInfos.size());
-        for (int i = 0; i < m_atlasInfos.size(); ++i)
+        for (size_t i = 0; i < m_atlasInfos.size(); ++i)
         {
             cocos2d::Texture2D * texture = new cocos2d::Texture2D();
             cocos2d::Image * image = (cocos2d::Image*)m_images->getObjectAtIndex(i);

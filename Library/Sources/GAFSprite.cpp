@@ -118,6 +118,7 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 #endif
 {
+    (void)flags;
     if (m_isLocator)
     {
         return;
@@ -164,7 +165,7 @@ uint32_t GAFSprite::setUniforms()
         int glProgram = (int)getGLProgram()->getProgram();
         int intArray[4] = { glProgram, (int)getTexture()->getName(), (int)getBlendFunc().src, (int)getBlendFunc().dst };
 
-        uint32_t materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
+        materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
     }
     return materialID;
 }

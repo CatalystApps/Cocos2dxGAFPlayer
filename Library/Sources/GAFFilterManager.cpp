@@ -39,6 +39,7 @@ bool GAFFilterManager::init()
 
 void GAFFilterManager::update(float dt)
 {
+    (void)dt;
     //m_policy->update(dt);
 }
 
@@ -116,7 +117,7 @@ cocos2d::Texture2D* GAFFilterManager::renderGlowTexture(cocos2d::Sprite* sprite,
 
     BlendFunc pureBlend = { GL_ONE, GL_ZERO };
 
-    RenderTexture* outA = RenderTexture::create(rTextureSize.width, rTextureSize.height);
+    RenderTexture* outA = RenderTexture::create(static_cast<int>(rTextureSize.width), static_cast<int>(rTextureSize.height));
     // A
     // Draw desired sprite only
     CHECK_GL_ERROR_DEBUG();
@@ -209,7 +210,7 @@ cocos2d::Texture2D* GAFFilterManager::renderBlurTexture(cocos2d::Sprite* sprite,
 
     BlendFunc pureBlend = { GL_ONE, GL_ZERO };
 
-    RenderTexture* outA = RenderTexture::create(rTextureSize.width, rTextureSize.height);
+    RenderTexture* outA = RenderTexture::create(static_cast<int>(rTextureSize.width), static_cast<int>(rTextureSize.height));
     // A
     // Draw desired sprite only
     CHECK_GL_ERROR_DEBUG();
@@ -291,7 +292,7 @@ cocos2d::Texture2D* GAFFilterManager::renderShadowTexture(cocos2d::Sprite* sprit
 
     BlendFunc pureBlend = { GL_ONE, GL_ZERO };
 
-    RenderTexture* outA = RenderTexture::create(rTextureSize.width, rTextureSize.height);
+    RenderTexture* outA = RenderTexture::create(static_cast<int>(rTextureSize.width), static_cast<int>(rTextureSize.height));
     // A
     // Draw desired sprite only
     CHECK_GL_ERROR_DEBUG();

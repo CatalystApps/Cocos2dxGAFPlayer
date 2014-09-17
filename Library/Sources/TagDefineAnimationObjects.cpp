@@ -8,6 +8,7 @@
 
 void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
+    (void)asset;
     unsigned int count = in->readU32();
 
     for (unsigned int i = 0; i < count; ++i)
@@ -15,14 +16,14 @@ void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* asset, GAFTimeline
         unsigned int objectId = in->readU32();
         unsigned int elementAtlasIdRef = in->readU32();
 
-		if (in->getInput()->getHeader().getMajorVersion() >= 4)
+        if (in->getInput()->getHeader().getMajorVersion() >= 4)
         {
             unsigned short objType = in->readU16();
-			timeline->pushAnimationObject(objectId, elementAtlasIdRef, static_cast<GAFCharacterType>(objType));
+            timeline->pushAnimationObject(objectId, elementAtlasIdRef, static_cast<GAFCharacterType>(objType));
         }
-		else
-		{
-			timeline->pushAnimationObject(objectId, elementAtlasIdRef, GAFCharacterType::GCT_TEXTURE);
-		}
+        else
+        {
+            timeline->pushAnimationObject(objectId, elementAtlasIdRef, GAFCharacterType::Texture);
+        }
     }
 }

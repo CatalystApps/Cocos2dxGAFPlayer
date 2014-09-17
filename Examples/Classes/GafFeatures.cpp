@@ -272,6 +272,7 @@ bool GafFeatures::init()
     setupMenuItems();
     gray(NULL);
     
+    m_files.push_back("GAF4Test/GAF4Test.gaf");
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
@@ -581,6 +582,10 @@ void GafFeatures::addObjectsToScene()
         object->setSequenceDelegate(this);
         object->setFramePlayedDelegate(this);
         
+
+        GAFSpriteID testId = object->getSpriteId("YOU.KNIGHT.ROB_HEAD");
+        testId.getAnimatedObject()->gotoAndStop(4);
+
     }
 }
 
