@@ -142,7 +142,7 @@ void GAFAnimatedObject::_constructObject()
     instantiateObject(m_timeline->getAnimationObjects(), m_timeline->getAnimationMasks());
 }
 
-unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj)
+uint32_t GAFAnimatedObject::getObjectIdByObjectName(const std::string& aName, GAFAnimatedObject** parentObj)
 {
     const NamedParts_t& np = m_timeline->getNamedParts();
 
@@ -157,7 +157,7 @@ unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName, G
     {
         for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; i++)
         {
-            unsigned int res = i->second->objectIdByObjectName(aName, parentObj);
+            uint32_t res = i->second->getObjectIdByObjectName(aName, parentObj);
             if (res != IDNONE)
             {
                 return res;
@@ -184,7 +184,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
 
             Timelines_t::iterator tl = timelines.find(reference);
 
-            CCAssert(tl == timelines.end(), "Invalid object reference.");
+            CCAssert(tl != timelines.end(), "Invalid object reference.");
 
             GAFAnimatedObject* newObject = GAFAnimatedObject::create(m_asset, tl->second);
             m_subAnimatedObjects[objectId] = newObject;
@@ -322,7 +322,7 @@ bool GAFAnimatedObject::captureControlOverSubobject(unsigned int id, GAFAnimated
 
 bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAFAnimatedObjectControlFlags aControlFlags)
 {
-    unsigned int objectId = objectIdByObjectName(aName, nullptr);
+    unsigned int objectId = getObjectIdByObjectName(aName, nullptr);
     if (IDNONE == objectId)
     {
         return false;
@@ -341,7 +341,7 @@ bool GAFAnimatedObject::captureControlOverSubobjectNamed(const char * aName, GAF
 
 void GAFAnimatedObject::releaseControlOverSubobjectNamed(const char * aName)
 {
-    unsigned int objectId = objectIdByObjectName(aName, nullptr);
+    unsigned int objectId = getObjectIdByObjectName(aName, nullptr);
     if (objectId != IDNONE)
     {
         CaptureObjects_t::const_iterator cpoIt = m_capturedObjects.find(objectId);
@@ -464,7 +464,7 @@ GAFAnimatedObject * GAFAnimatedObject::subAnimatedObjectForInnerObjectId(unsigne
     return nullptr;
 }
 
-const SubObjects_t& GAFAnimatedObject::getSubojects() const
+const SubObjects_t& GAFAnimatedObject::getSubObjects() const
 {
     return m_subObjects;
 }
@@ -544,7 +544,7 @@ bool GAFAnimatedObject::performActionByObjectName(const std::string& namedPart, 
         std::string nextName = namedPart.substr(offset + 1);
 
         GAFAnimatedObject * parentObj = nullptr;
-        uint32_t id = objectIdByObjectName(curName, &parentObj);
+        uint32_t id = getObjectIdByObjectName(curName, &parentObj);
         if (id != IDNONE)
         {
             GAFAnimatedObject * childObj = parentObj->subAnimatedObjectForInnerObjectId(id);
@@ -556,7 +556,7 @@ bool GAFAnimatedObject::performActionByObjectName(const std::string& namedPart, 
     else
     {
         GAFAnimatedObject * parentObj = nullptr;
-        uint32_t id = objectIdByObjectName(namedPart, &parentObj);
+        uint32_t id = getObjectIdByObjectName(namedPart, &parentObj);
 
         if (id != IDNONE)
         {
@@ -995,3 +995,133 @@ void GAFAnimatedObject::setFps(int value)
     CCASSERT(value, "Error! Fps is set to zero.");
     m_fps = value;
 }
+
+GAFSprite* GAFAnimatedObject::getSprite(const std::string& name) const
+{
+    GAFSpriteID id = getSpriteId(name);
+    return id.getSprite();
+}
+
+GAFSprite* GAFAnimatedObject::getSprite(uint32_t id) const
+{
+    for (SubObjects_t::const_iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
+    {
+        GAFSprite* anim = i->second;
+        if (anim->objectIdRef == id)
+        {
+            return anim;
+        }
+    }
+
+    return nullptr;
+}
+
+GAFAnimatedObject* GAFAnimatedObject::getSubObject(uint32_t id) const
+{
+    SubAnimatedObjects_t::const_iterator it = m_subAnimatedObjects.find(id);
+    if (it != m_subAnimatedObjects.end())
+    {
+        return it->second;
+    }
+
+    return nullptr;
+}
+
+GAFSpriteID GAFAnimatedObject::_searchByNamedParts(StringVector_t::iterator begit, StringVector_t::iterator endit, GAFSpriteID& retval) const
+{
+    bool leave = false;
+
+    while (!leave)
+    {
+        for (SubAnimatedObjects_t::const_iterator i = retval.owner->m_subAnimatedObjects.begin(),
+            e = retval.owner->m_subAnimatedObjects.end(); i != e; i++)
+        {
+            GAFAnimatedObject* curObj = i->second;
+            retval = curObj->getSpriteId(*begit);
+
+            if (retval != GAFSpriteID::IDNONE)
+            {
+                ++begit;
+
+                if (begit == endit)
+                {
+                    leave = true;
+                    break;
+                }
+            }
+        }
+
+        if (retval == GAFSpriteID::IDNONE)
+        {
+            break;
+        }
+    }
+
+    
+
+    /*{
+    for (auto& elem : elems)
+    {
+    for (SubAnimatedObjects_t::const_iterator i = m_subAnimatedObjects.begin(), e = m_subAnimatedObjects.end(); i != e; i++)
+    {
+    GAFAnimatedObject* subObj = i->second;
+    retval = subObj->getSpriteId(elem);
+
+    if (retval != GAFSpriteID::IDNONE)
+    {
+    return retval;
+    }
+    }
+    }
+    }*/
+
+    return retval;
+}
+
+GAFSpriteID GAFAnimatedObject::getSpriteId(const std::string& name) const
+{
+    if (name.empty())
+    {
+        return GAFSpriteID::IDNONE;
+    }
+
+    GAFSpriteID retval = GAFSpriteID::IDNONE;
+
+    std::vector<std::string> elems;
+    _splitName(name, elems);
+
+    if (elems.empty())
+        return GAFSpriteID::IDNONE;
+
+    const NamedParts_t& np = m_timeline->getNamedParts();
+
+    NamedParts_t::const_iterator it = np.find(elems[0]);
+
+    if (it != np.end())
+    {
+        retval.owner = const_cast<GAFAnimatedObject*>(this);
+        retval.id = it->second;
+    }
+    else
+    {
+        return GAFSpriteID::IDNONE;
+    }
+
+    if (elems.size() > 1)
+    {
+        _searchByNamedParts(elems.begin() + 1, elems.end(), retval);
+    }
+
+    return retval;
+}
+
+void GAFAnimatedObject::_splitName(const std::string& name, StringVector_t &out) const
+{
+    std::stringstream ss(name);
+    std::string item;
+    while (std::getline(ss, item, '.'))
+    {
+        out.push_back(item);
+    }
+}
+

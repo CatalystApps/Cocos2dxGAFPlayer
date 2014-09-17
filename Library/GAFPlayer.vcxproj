@@ -29,6 +29,7 @@
     <ClCompile Include="Sources\GAFQuadCommand.cpp" />
     <ClCompile Include="Sources\GAFShaderManager.cpp" />
     <ClCompile Include="Sources\GAFSprite.cpp" />
+    <ClCompile Include="Sources\GAFSpriteID.cpp" />
     <ClCompile Include="Sources\GAFSpriteWithAlpha.cpp" />
     <ClCompile Include="Sources\GAFStencilMaskSprite.cpp" />
     <ClCompile Include="Sources\GAFStream.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="Sources\GAFQuadCommand.h" />
     <ClInclude Include="Sources\GAFShaderManager.h" />
     <ClInclude Include="Sources\GAFSprite.h" />
+    <ClInclude Include="Sources\GAFSpriteID.h" />
     <ClInclude Include="Sources\GAFSpriteWithAlpha.h" />
     <ClInclude Include="Sources\GAFStencilMaskSprite.h" />
     <ClInclude Include="Sources\GAFStream.h" />

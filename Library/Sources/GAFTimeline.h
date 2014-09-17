@@ -61,7 +61,7 @@ public:
     const AnimationMasks_t&     getAnimationMasks() const;
     const AnimationFrames_t&	getAnimationFrames() const;
     const AnimationSequences_t& getAnimationSequences() const;
-    const NamedParts_t&			getNamedParts() const;
+    const NamedParts_t&         getNamedParts() const;
     uint32_t                    getFramesCount() const;
 
     /// get GAFAnimationSequence by name specified in editor
@@ -73,8 +73,8 @@ public:
 
     GAFTimeline*                getParent() const;
 
-    GAFTextureAtlas*			getTextureAtlas();
+    GAFTextureAtlas*            getTextureAtlas();
     void                        loadImages();
 
-    float						usedAtlasContentScaleFactor() const;
+    float                       usedAtlasContentScaleFactor() const;
 };
