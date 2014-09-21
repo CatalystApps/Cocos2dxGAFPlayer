@@ -76,13 +76,11 @@ protected:
 
     /* Members */
 public:
-    unsigned int objectIdRef;
-
+    uint32_t objectIdRef;
 protected:
-    cocos2d::
-        AffineTransform     m_externalTransform;
-    cocos2d::CustomCommand  m_customCommand;
-    GAFQuadCommand          m_quadCommand;
+    cocos2d::AffineTransform    m_externalTransform;
+    cocos2d::CustomCommand      m_customCommand;
+    GAFQuadCommand              m_quadCommand;
 private:
 
     /**

@@ -13,6 +13,9 @@
     <Filter Include="Sources\GAFLoader\Tags">
       <UniqueIdentifier>{cac0bd0e-36a2-4d0f-b366-6b3b729b32b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GAFObjects">
+      <UniqueIdentifier>{d9f6a211-2a48-4b81-8155-40aa5298b276}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\GAFAnimatedObject.cpp">
@@ -34,9 +37,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Sources\GAFShaderManager.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\GAFSprite.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Sources\GAFSpriteWithAlpha.cpp">
@@ -114,6 +114,12 @@
     <ClCompile Include="Sources\GAFSpriteID.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GAFSprite.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFObject.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimatedObject.h">
@@ -137,9 +143,6 @@
     <ClInclude Include="Sources\GAFShaderManager.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\GAFSprite.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\GAFSpriteWithAlpha.h">
       <Filter>Sources</Filter>
     </ClInclude>
@@ -156,15 +159,6 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h">
-      <Filter>Sources\ShadersPrecompiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\ShadersPrecompiled\GaussianBlur.h">
-      <Filter>Sources\ShadersPrecompiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\ShadersPrecompiled\kGAFScrollLayerAlphaFilterProgramCacheKey.h">
-      <Filter>Sources\ShadersPrecompiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\ShadersPrecompiled\kGAFSpriteWithAlphaShaderProgramCache.h">
       <Filter>Sources\ShadersPrecompiled</Filter>
     </ClInclude>
     <ClInclude Include="GAFPrecompiled.h">
@@ -241,6 +235,18 @@
     </ClInclude>
     <ClInclude Include="Sources\GAFSpriteID.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFSprite.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFObject.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFMovieClip.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFMask.h">
+      <Filter>Sources\GAFObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
