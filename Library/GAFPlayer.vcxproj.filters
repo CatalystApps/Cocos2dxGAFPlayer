@@ -120,6 +120,12 @@
     <ClCompile Include="Sources\GAFObject.cpp">
       <Filter>Sources\GAFObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GAFMovieClip.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFMask.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimatedObject.h">

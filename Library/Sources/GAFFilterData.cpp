@@ -1,7 +1,7 @@
 #include "GAFPrecompiled.h"
 #include "GAFFilterData.h"
 
-#include "GAFSpriteWithAlpha.h"
+#include "GAFMovieClip.h"
 #include "GAFFilterManager.h"
 
 GAFBlurFilterData::GAFBlurFilterData():
@@ -10,7 +10,7 @@ GAFFilterData(GAFFilterType::GFT_Blur)
 
 }
 
-void GAFBlurFilterData::apply(GAFSpriteWithAlpha* subObject)
+void GAFBlurFilterData::apply(GAFMovieClip* subObject)
 {
     subObject->setBlurFilterData(this);
 }
@@ -21,7 +21,7 @@ GAFFilterData(GAFFilterType::GFT_ColorMatrix)
 
 }
 
-void GAFColorColorMatrixFilterData::apply(GAFSpriteWithAlpha* subObject)
+void GAFColorColorMatrixFilterData::apply(GAFMovieClip* subObject)
 {
     subObject->setColorMarixFilterData(this);
 }
@@ -32,7 +32,7 @@ GAFFilterData(GAFFilterType::GFT_Glow)
 
 }
 
-void GAFGlowFilterData::apply(GAFSpriteWithAlpha* subObject)
+void GAFGlowFilterData::apply(GAFMovieClip* subObject)
 {
     subObject->setGlowFilterData(this);
 }
@@ -45,7 +45,7 @@ GAFFilterData(GAFFilterType::GFT_DropShadow)
 
 const int kShadowObjectTag = 0xFAD0;
 
-void GAFDropShadowFilterData::apply(GAFSpriteWithAlpha* subObject)
+void GAFDropShadowFilterData::apply(GAFMovieClip* subObject)
 {
     cocos2d::Texture2D* texture = subObject->getInitialTexture();
     const cocos2d::Rect& texRect = subObject->getInitialTextureRect();
@@ -63,7 +63,7 @@ void GAFDropShadowFilterData::apply(GAFSpriteWithAlpha* subObject)
     subObject->addChild(shadowSprite, -1);
 }
 
-void GAFDropShadowFilterData::reset(GAFSpriteWithAlpha* subObject)
+void GAFDropShadowFilterData::reset(GAFMovieClip* subObject)
 {
     cocos2d::Node* prevShadowObject = subObject->getChildByTag(kShadowObjectTag);
 

@@ -5,25 +5,14 @@
 
 #define USE_LAYERED_STENCIL 0
 
-#if 1 // for manual comparsion
-static bool compare_stencil_sprites(const void* p1, const void* p2)
-{
-    GAFSprite* sp1 = (GAFSprite*)p1;
-    GAFSprite* sp2 = (GAFSprite*)p2;
-
-    return sp1->getLocalZOrder() < sp2->getLocalZOrder();
-}
-#endif
-
-typedef std::unordered_map<cocos2d::Node *, GAFMask*> Object2maskedContainer_t;
-
-static Object2maskedContainer_t object2maskedContainer;
-
 void GAFMask::_sortAllMaskedObjects()
 {
     if (m_isReorderMaskedObjectsDirty)
     {
-        std::sort(m_maskedObjects->begin(), m_maskedObjects->end(), &compare_stencil_sprites);
+        std::sort(m_maskedObjects->begin(), m_maskedObjects->end(), [](const GAFSprite* p1, const GAFSprite* p2)->bool
+        {
+            return p1->getLocalZOrder() < p2->getLocalZOrder();
+        });
 
         m_isReorderMaskedObjectsDirty = false;
     }
@@ -73,7 +62,7 @@ m_stencilLayer(stencilLayer),
 m_isReorderMaskedObjectsDirty(true),
 m_maskedObjects(nullptr)
 {
-
+    m_charType = GAFCharacterType::Texture;
 }
 
 GAFMask::~GAFMask()
@@ -266,9 +255,9 @@ void GAFMask::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, 
 #else
 
     m_customCommand.init(-FLT_MAX);
-    m_customCommand.func = CC_CALLBACK_0(GAFStencilMaskSprite::beginStencil, this, transform);
+    m_customCommand.func = CC_CALLBACK_0(GAFMask::beginStencil, this, transform);
     m_customCommand2.init(FLT_MAX);
-    m_customCommand2.func = CC_CALLBACK_0(GAFStencilMaskSprite::endStencil, this);
+    m_customCommand2.func = CC_CALLBACK_0(GAFMask::endStencil, this);
 
     renderer->addCommand(&m_customCommand);
     renderer->addCommand(&m_customCommand2);

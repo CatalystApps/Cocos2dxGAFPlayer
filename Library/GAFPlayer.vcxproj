@@ -26,6 +26,8 @@
     <ClCompile Include="Sources\GAFFilterData.cpp" />
     <ClCompile Include="Sources\GAFFilterManager.cpp" />
     <ClCompile Include="Sources\GAFLoader.cpp" />
+    <ClCompile Include="Sources\GAFMask.cpp" />
+    <ClCompile Include="Sources\GAFMovieClip.cpp" />
     <ClCompile Include="Sources\GAFObject.cpp" />
     <ClCompile Include="Sources\GAFQuadCommand.cpp" />
     <ClCompile Include="Sources\GAFShaderManager.cpp" />

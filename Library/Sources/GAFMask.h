@@ -11,6 +11,9 @@ namespace cocos2d
 
 class GAFMask : public GAFObject
 {
+    typedef std::unordered_map<cocos2d::Node *, GAFMask*> Object2maskedContainer_t;
+
+    static Object2maskedContainer_t object2maskedContainer;
 private:
     struct StencilState
     {
@@ -23,6 +26,7 @@ private:
         GLenum      currentStencilPassDepthFail;
         GLenum      currentStencilPassDepthPass;
     } m_stencilState;
+
 private:
     void                    _sortAllMaskedObjects();
     void                    _disableStencil();

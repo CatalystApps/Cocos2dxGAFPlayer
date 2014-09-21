@@ -11,18 +11,9 @@ class GAFObject : public GAFSprite
 {
 public:
 
-    struct DisplayListObjectInfo
-    {
-        GAFCharacterType charType;
-        uint32_t id;
-
-        bool operator<(uint32_t oid) const
-        {
-            return id < oid;
-        }
-    };
-
-    typedef std::unordered_map<DisplayListObjectInfo, GAFObject*> DisplayList_t;
+    typedef std::unordered_map<uint32_t, GAFObject*> DisplayList_t;
+    typedef std::list<GAFSprite*>                    SpriteList_t;
+    typedef std::tuple<cocos2d::Vec4, cocos2d::Vec4> ParentCTX_t;
 private:
     GAFSequenceDelegate_t                   m_sequenceDelegate;
     GAFAnimationFinishedPlayDelegate_t      m_animationFinishedPlayDelegate;
@@ -45,6 +36,7 @@ private:
 
 
     bool                                    m_animationsSelectorScheduled;
+
 private:
     void updateStencilLayer(int newLayer);
     void constructObject();
@@ -53,13 +45,21 @@ protected:
     GAFAsset*                               m_asset;
     GAFTimeline*                            m_timeline;
     DisplayList_t                           m_displayList;
-
+    DisplayList_t                           m_masksDList;
+    SpriteList_t                            m_visibleObjects;
+    GAFCharacterType                        m_charType;
     uint32_t                                m_currentFrame;
+    Filters_t                               m_parentFilters;
+    ParentCTX_t                             m_parentColorTransforms;
 
     void    processAnimation();
     void    setAnimationRunning(bool value);
-    bool    getIsAnimationRunning() const;
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
+
+    void    instantiateAnimatedObjects(const AnimationObjects_t &objs);
+    void    instantiateMasks(const AnimationMasks_t& masks);
+
+    void    encloseNewTimeline(uint32_t reference, uint32_t objId);
 
     GAFObject();
 
@@ -85,11 +85,12 @@ public:
 
     void        start();
     void        stop();
+    void        step();
     void        pauseAnimation();
     void        resumeAnimation();
 
     bool        isDone() const;
-    bool        isAnimationRunning() const;
+    bool        getIsAnimationRunning() const;
 
     bool        isLooped() const;
     void        setLooped(bool looped);

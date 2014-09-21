@@ -27,7 +27,7 @@ m_glowFilterData(nullptr),
 m_blurFilterData(nullptr),
 m_initialTexture(nullptr)
 {
-
+    m_charType = GAFCharacterType::Texture;
 }
 
 GAFMovieClip::~GAFMovieClip()
