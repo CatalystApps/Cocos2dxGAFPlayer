@@ -1,5 +1,6 @@
 #include "GAFPrecompiled.h"
 #include "GAFSprite.h"
+#include "GAFCollections.h"
 
 #include "TransformUtils.h"
 #include "../external/xxhash/xxhash.h"
@@ -14,6 +15,7 @@ USING_NS_CC;
 
 GAFSprite::GAFSprite()
 :
+objectIdRef(IDNONE),
 m_useSeparateBlendFunc(false),
 m_isLocator(false),
 m_blendEquation(-1),

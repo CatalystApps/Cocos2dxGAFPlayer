@@ -2,7 +2,7 @@
 
 #include <GAFAsset.h>
 #include <GAFTextureAtlas.h>
-#include <GAFAnimatedObject.h>
+#include <GAFObject.h>
 #include <GAFAssetTextureManager.h>
 #include <audio/include/SimpleAudioEngine.h>
 
@@ -319,7 +319,7 @@ void GafFeatures::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 
 void GafFeatures::nextSequence( cocos2d::Ref* )
 {
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    GAFObject *object = (GAFObject *)m_objects->getObjectAtIndex(0);
 
     m_currentSequence++;
 
@@ -336,7 +336,7 @@ void GafFeatures::nextSequence( cocos2d::Ref* )
 
 void GafFeatures::prevSequence( cocos2d::Ref* )
 {
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    GAFObject *object = (GAFObject *)m_objects->getObjectAtIndex(0);
 
     m_currentSequence--;
 
@@ -392,9 +392,9 @@ void GafFeatures::restart(cocos2d::Ref*)
         return;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
-    object->stop(true);
-    object->start(true);
+    GAFObject *object = (GAFObject *)m_objects->getObjectAtIndex(0);
+    //object->stop(true);
+    //object->start(true);
 }
 
 void GafFeatures::playpause(cocos2d::Ref*)
@@ -404,15 +404,15 @@ void GafFeatures::playpause(cocos2d::Ref*)
         return;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    GAFObject *object = (GAFObject *)m_objects->getObjectAtIndex(0);
 
-    if (object->isAnimationRunning())
+    if (object->getIsAnimationRunning())
     {
-        object->pauseAnimation(true);
+        object->pauseAnimation();
     }
     else
     {
-        object->resumeAnimation(true);
+        object->resumeAnimation();
     }
 }
 
@@ -423,8 +423,8 @@ int GafFeatures::maxFrameNumber()
         return -1;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
-    return object->totalFrameCount();	
+    GAFObject *object = (GAFObject *)m_objects->getObjectAtIndex(0);
+    return object->getTotalFrameCount();
 }
 
 void GafFeatures::setFrameNumber(int aFrameNumber)
@@ -434,7 +434,7 @@ void GafFeatures::setFrameNumber(int aFrameNumber)
         return;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    GAFObject *object = (GAFObject *)m_objects->getObjectAtIndex(0);
     object->setFrame(aFrameNumber);	
 }
 
@@ -445,8 +445,8 @@ int GafFeatures::frameNumber()
         return -1;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
-    return object->currentFrameIndex();
+    GAFObject *object = (GAFObject *)m_objects->getObjectAtIndex(0);
+    return object->getCurrentFrameIndex();
 }
 
 void GafFeatures::toggleReverse(cocos2d::Ref*)
@@ -455,7 +455,7 @@ void GafFeatures::toggleReverse(cocos2d::Ref*)
     {
         return;
     }
-    GAFAnimatedObject *obj = (GAFAnimatedObject *)m_objects->getLastObject();
+    GAFObject *obj = (GAFObject *)m_objects->getLastObject();
     obj->setReversed(!obj->isReversed());
 }
 
@@ -486,7 +486,7 @@ void GafFeatures::removeFromScene(int aCount)
 
     for (int i = 0; i < aCount; ++i)
     {
-        GAFAnimatedObject *obj = (GAFAnimatedObject *) m_objects->getLastObject();
+        GAFObject *obj = (GAFObject *) m_objects->getLastObject();
         removeChild(obj);
         m_objects->removeLastObject();
     }
@@ -494,10 +494,12 @@ void GafFeatures::removeFromScene(int aCount)
 
 void GafFeatures::addObjectsToScene()
 {
+    using namespace std::placeholders;
+    
     if (!m_asset)
     {
         StartCounter();
-        m_asset = GAFAsset::create(m_files[m_anim_index], this);
+        m_asset = GAFAsset::create(m_files[m_anim_index], nullptr);
         double loadingTime = GetCounter();
 
         cocos2d::log("Loading time [%f]\n", loadingTime);
@@ -529,7 +531,7 @@ void GafFeatures::addObjectsToScene()
 
     if (m_asset)
     {
-        GAFAnimatedObject *object = m_asset->createObject();
+        GAFObject *object = m_asset->createObject();
         
         object->setLocalZOrder(0);
         addChild(object);
@@ -579,22 +581,22 @@ void GafFeatures::addObjectsToScene()
         object->setLooped(true);
         object->start();
         
-        object->setSequenceDelegate(this);
-        object->setFramePlayedDelegate(this);
+       // object->setSequenceDelegate(std::bind(&GafFeatures::onFinishSequence, _1, _2));
+       // object->setFramePlayedDelegate(std::bind(&GafFeatures::onFramePlayed, _1, _2));
         
 
-        GAFSpriteID testId = object->getSpriteId("YOU.KNIGHT.ROB_HEAD");
-        testId.getAnimatedObject()->gotoAndStop(4);
+        //GAFSpriteID testId = object->getSpriteId("YOU.KNIGHT.ROB_HEAD");
+        //testId.getAnimatedObject()->gotoAndStop(4);
 
     }
 }
 
-void GafFeatures::onFinishSequence( GAFAnimatedObject * object, const std::string& sequenceName )
+void GafFeatures::onFinishSequence( GAFObject * object, const std::string& sequenceName )
 {
     //! This function will be triggered once a sequence completed
 }
 
-void GafFeatures::onFramePlayed(GAFAnimatedObject *object, int frame)
+void GafFeatures::onFramePlayed(GAFObject *object, int frame)
 {
     MusicEffects_t::const_iterator it = m_musicEffects.find(frame);
     

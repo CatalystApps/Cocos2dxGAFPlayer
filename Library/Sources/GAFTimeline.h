@@ -31,7 +31,7 @@ private:
     std::string             m_linkageName;
 
     GAFTextureAtlas*        m_currentTextureAtlas;
-    GAFTextureLoadDelegate* m_textureLoadDelegate;
+    GAFTextureLoadDelegate_t m_textureLoadDelegate;
 
     float                   m_usedAtlasContentScaleFactor;
 

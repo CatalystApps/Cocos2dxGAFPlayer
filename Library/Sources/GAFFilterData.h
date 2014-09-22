@@ -1,7 +1,7 @@
 #pragma once
 #include "GAFCollections.h"
 
-class GAFSpriteWithAlpha;
+class GAFMovieClip;
 
 class GAFFilterData
 {
@@ -19,7 +19,7 @@ public:
     GAFFilterData(GAFFilterType type) : m_type(type)
     {}
 
-    virtual void apply(GAFSpriteWithAlpha*){};
+    virtual void apply(GAFMovieClip*){};
 };
 
 class GAFBlurFilterData : public GAFFilterData
@@ -28,7 +28,7 @@ public:
     cocos2d::Size blurSize;
     GAFBlurFilterData();
 
-    virtual void apply(GAFSpriteWithAlpha*);
+    virtual void apply(GAFMovieClip*);
 };
 
 class GAFColorColorMatrixFilterData : public GAFFilterData
@@ -38,7 +38,7 @@ public:
     float matrix2[4];
     GAFColorColorMatrixFilterData();
 
-    virtual void apply(GAFSpriteWithAlpha*);
+    virtual void apply(GAFMovieClip*);
 };
 
 class GAFGlowFilterData : public GAFFilterData
@@ -51,7 +51,7 @@ public:
     bool        knockout;
 
     GAFGlowFilterData();
-    virtual void apply(GAFSpriteWithAlpha*);
+    virtual void apply(GAFMovieClip*);
 };
 
 class GAFDropShadowFilterData : public GAFFilterData
@@ -66,7 +66,7 @@ public:
     bool            knockout;
 
     GAFDropShadowFilterData();
-    virtual void apply(GAFSpriteWithAlpha*);
+    virtual void apply(GAFMovieClip*);
 
-    static void reset(GAFSpriteWithAlpha*);
+    static void reset(GAFMovieClip*);
 };

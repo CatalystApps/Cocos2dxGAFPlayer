@@ -7,7 +7,7 @@
 #include "GAFDelegates.h"
 
 class GAFTextureAtlas;
-class GAFAnimatedObject;
+class GAFObject;
 class GAFAssetTextureManager;
 
 class GAFLoader;
@@ -19,7 +19,7 @@ private:
 	Timelines_t				m_timelines;
     GAFTimeline*            m_rootTimeline;
 
-    GAFTextureLoadDelegate* m_textureLoadDelegate;
+    GAFTextureLoadDelegate_t m_textureLoadDelegate;
 	GAFAssetTextureManager*	m_textureManager;
 
     unsigned int            m_sceneFps;
@@ -33,9 +33,9 @@ private:
 public:
     /// Initializes asset with bGAF data
 
-    bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate = NULL);
+    bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate_t delegate);
 
-    bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
+    bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate);
 
 	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
 
@@ -48,8 +48,8 @@ public:
 	const Timelines_t&			getTimelines() const;
     Timelines_t&                getTimelines();
 
-    static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate = NULL);
-    static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate = NULL);
+    static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate);
+    static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate);
 
     GAFAsset();
     ~GAFAsset();
@@ -57,15 +57,15 @@ public:
     /// List of GAFAnimationFrame objects	
     static bool                 isAssetVersionPlayable(const char * version);
 
-    GAFAnimatedObject *         createObject();
-    GAFAnimatedObject *         createObjectAndRun(bool looped = false);
+    GAFObject*                  createObject();
+    GAFObject*                  createObjectAndRun(bool looped = false);
 
     /// desired content scale factor
     static float                desiredCsf();
     /// sets desired content scale factor
     static void                 setDesiredCsf(float csf);
 
-    void                        setTextureLoadDelegate(GAFTextureLoadDelegate* delegate);
+    void                        setTextureLoadDelegate(GAFTextureLoadDelegate_t delegate);
     
 	GAFAssetTextureManager* getTextureManager();
 

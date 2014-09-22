@@ -1,7 +1,8 @@
 #pragma once
 
+#include "GAFDelegates.h"
+
 class GAFTextureAtlasElement;
-class GAFTextureLoadDelegate;
 
 class GAFTextureAtlas
 {
@@ -44,7 +45,7 @@ public:
     void                    pushAtlasInfo(const AtlasInfo& ai);
     void                    pushElement(unsigned int idx, GAFTextureAtlasElement* el);
 
-    void                    loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate, cocos2d::ZipFile* bundle = nullptr);
+    void                    loadImages(const std::string& dir, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle = nullptr);
 
     inline bool     loaded() const
     {

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\cocos\2d\cocos2d.vcxproj">
+    <ProjectReference Include="..\..\..\cocos\2d\libcocos2d.vcxproj">
       <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\chipmunk\proj.win32\chipmunk.vcxproj">
