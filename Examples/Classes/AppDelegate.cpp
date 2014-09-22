@@ -26,6 +26,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     // initialize director
     std::vector<std::string> paths;
     paths.push_back("Resources");
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    paths.push_back("../Resources");
+#endif
 
     cocos2d::FileUtils::getInstance()->setSearchPaths(paths);
     cocos2d::Director *pDirector = cocos2d::Director::getInstance();
@@ -34,8 +37,11 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     if (!glView)
     {
+#if COCOS2D_VERSION < 0x00030300
         glView = cocos2d::GLView::createWithRect("GAF Animation sample", cocos2d::Rect(0, 0, 1024, 768));
-
+#else
+        glView = GLViewImpl::create("GAF Animation sample");
+#endif
         pDirector->setOpenGLView(glView);
     }
 

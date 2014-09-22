@@ -206,14 +206,16 @@ void GafFeatures::setupMenuItems()
                              }
                              ));
     
-    m_nextSequence = addButton("buttons/right_arrow@2x.png", "buttons/right_arrow_pressed@2x.png", cocos2d::Point(0.40f, 0.95f), std::bind(&GafFeatures::nextSequence, this, _1));
+    m_nextSequence = addButton("buttons/right_arrow@2x.png", "buttons/right_arrow_pressed@2x.png", cocos2d::Point(0.40f, 0.93f), std::bind(&GafFeatures::nextSequence, this, _1));
     
-    m_prevSequence = addButton("buttons/left_arrow@2x.png", "buttons/left_arrow_pressed@2x.png", cocos2d::Point(0.05f, 0.95f), std::bind(&GafFeatures::prevSequence, this, _1));
+    m_prevSequence = addButton("buttons/left_arrow@2x.png", "buttons/left_arrow_pressed@2x.png", cocos2d::Point(0.05f, 0.93f), std::bind(&GafFeatures::prevSequence, this, _1));
     
     
     
     m_playButton->retain();
     m_pauseButton->retain();
+    m_nextSequence->retain();
+    m_prevSequence->retain();
     
     m_playButton->setVisible(false);
     items.pushBack(m_pauseButton);
@@ -552,7 +554,7 @@ void GafFeatures::addObjectsToScene()
             for (AnimationSequences_t::const_iterator i = secDictionary.begin(), e = secDictionary.end(); i != e; ++i)
             {
                 const std::string& seqName = i->first;
-                std::string::size_type pos = seqName.find_first_of("__audio:");
+                std::string::size_type pos = seqName.find("__audio:");
                 if (pos != std::string::npos)
                 {
                     std::string effectName = seqName.substr(pos + 8) + ".wav";

@@ -6,7 +6,7 @@
 #include "GAFSubobjectState.h"
 #include "GAFAnimationSequence.h"
 #include "GAFAnimatedObject.h"
-
+#include "GAFShaderManager.h"
 #include "GAFLoader.h"
 
 static float _currentDeviceScale = 1.0f;
@@ -50,6 +50,7 @@ m_sceneFps(60),
 m_sceneWidth(0),
 m_sceneHeight(0)
 {
+    GAFShaderManager::Initialize();
 }
 
 GAFAsset::~GAFAsset()

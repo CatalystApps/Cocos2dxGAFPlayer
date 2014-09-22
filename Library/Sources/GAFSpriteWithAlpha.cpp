@@ -12,6 +12,11 @@
 
 USING_NS_CC;
 
+#ifndef GAF_ENABLE_NEW_UNIFORM_SETTER
+// Fast uniform setter is available since v3.2
+#define GAF_ENABLE_NEW_UNIFORM_SETTER COCOS2D_VERSION >= 0x00030200
+#endif
+
 #define CHECK_CTX_IDENTITY 0
 
 static int colorTransformMultLocation = -1;
@@ -78,17 +83,6 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
     
     if (!program || reset)
     {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT && !defined(_DEBUG))
-#include "ShadersPrecompiled/GAFPrecompiledShaders.h"
-        //program = cocos2d::GLProgram::addP;
-        program = cocos2d::GLProgram::createWithPrecompiledProgramByteArray(kGAFScrollLayerAlphaFilterProgramCacheKey, kGAFScrollLayerAlphaFilterProgramCacheKey);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-        program->updateUniforms();
-        CHECK_GL_ERROR_DEBUG();
-        cocos2d::GLProgramCache::getInstance()-> addGLProgram(program, kGAFSpriteWithAlphaShaderProgramCacheKey);
-#else
         const char* fragmentShader = nullptr;
         if (isCTXidt)
         {
@@ -125,7 +119,6 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
         }
 
         CHECK_GL_ERROR_DEBUG();
-#endif
         program->use();
         colorTransformMultLocation = glGetUniformLocation(program->getProgram(), "colorTransformMult");
         colorTransformOffsetLocation = glGetUniformLocation(program->getProgram(), "colorTransformOffsets");
@@ -169,9 +162,6 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
 
 uint32_t GAFSpriteWithAlpha::setUniforms()
 {
-#ifndef ENABLE_NEW_UNIFORM_SETTER
-#define ENABLE_NEW_UNIFORM_SETTER 0
-#endif
     struct Hash
     {
         int       program;
@@ -203,7 +193,7 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
 
     if (usingColorTransform)
     {
-#if ENABLE_NEW_UNIFORM_SETTER
+#if GAF_ENABLE_NEW_UNIFORM_SETTER
         state->setUniformVec4(colorTransformMultLocation, m_colorTransformMult);
         state->setUniformVec4(colorTransformOffsetLocation, m_colorTransformOffsets);
 #else
@@ -216,7 +206,7 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
     
     if (usingFragmentAlpha)
     {
-#if ENABLE_NEW_UNIFORM_SETTER
+#if GAF_ENABLE_NEW_UNIFORM_SETTER
         state->setUniformFloat(fragmentAlphaLocation, m_colorTransformMult.w);
 #else
         state->setUniformFloat("fragmentAlpha", m_colorTransformMult.w);
@@ -226,7 +216,7 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
 
     if (usingColorMatrix)
     {
-#if ENABLE_NEW_UNIFORM_SETTER
+#if GAF_ENABLE_NEW_UNIFORM_SETTER
         state->setUniformMat4(colorMatrixLocation, m_colorMatrixIdentity1);
         state->setUniformVec4(colorMatrixLocation2, m_colorMatrixIdentity2);
 #else
@@ -239,7 +229,7 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
 
     if (usingColorMatrixWithFilter)
     {
-#if ENABLE_NEW_UNIFORM_SETTER
+#if GAF_ENABLE_NEW_UNIFORM_SETTER
         state->setUniformMat4(colorMatrixLocation, Mat4(m_colorMatrixFilterData->matrix));
         state->setUniformVec4(colorMatrixLocation2, Vec4(m_colorMatrixFilterData->matrix2));
 #else
