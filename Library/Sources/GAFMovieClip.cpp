@@ -5,7 +5,6 @@
 
 #include "GAFSubobjectState.h"
 
-#include "GAFSpriteWithAlpha.h"
 #include "GAFFilterData.h"
 #include "GAFFilterManager.h"
 
@@ -242,7 +241,7 @@ cocos2d::GLProgram * GAFMovieClip::programForShader(bool reset /*= false*/)
         }
         else
         {
-            CCLOGERROR("Cannot load program for GAFSpriteWithAlpha.");
+            CCLOGERROR("Cannot load program for GAFMovieClip.");
             CC_SAFE_DELETE(program);
             return NULL;
         }

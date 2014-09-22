@@ -1,7 +1,6 @@
 #pragma once
 
 class GAFSprite;
-class GAFAnimation;
 class GAFObject;
 
 typedef std::function<void(GAFObject* object, const std::string& sequenceName)>    GAFSequenceDelegate_t;

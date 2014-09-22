@@ -2,8 +2,6 @@
 
 #include "GAFQuadCommand.h"
 
-class GAFStencilMaskSprite;
-
 typedef struct _gafBlendFuncSeparate
 {
     // source blend function

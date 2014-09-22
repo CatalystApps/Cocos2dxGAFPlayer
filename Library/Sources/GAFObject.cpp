@@ -135,6 +135,8 @@ void GAFObject::constructObject()
     m_fps = m_asset->getSceneFps();
 
     m_animationsSelectorScheduled = false;
+    
+    instantiateObject(m_timeline->getAnimationObjects(), m_timeline->getAnimationMasks());
 }
 
 void GAFObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
@@ -228,8 +230,11 @@ void GAFObject::encloseNewTimeline(uint32_t reference, uint32_t objId)
 
     GAFObject* newObject = GAFObject::create(m_asset, tl->second);
     m_displayList[objId] = newObject;
+    
+    newObject->setLocator(true);
+    
     newObject->retain();
-    addChild(newObject);
+    //addChild(newObject);
     newObject->start();
 }
 
@@ -321,7 +326,7 @@ void GAFObject::setAnimationRunning(bool value)
 
 bool GAFObject::getIsAnimationRunning() const
 {
-    return m_isRunning
+    return m_isRunning;
 }
 
 void GAFObject::setSequenceDelegate(GAFSequenceDelegate_t delegate)
@@ -351,6 +356,10 @@ void GAFObject::setControlDelegate(GAFAnimatedObjectControlDelegate_t delegate)
 
 void GAFObject::start()
 {
+    schedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
+
+    m_animationsSelectorScheduled = true;
+    
     if (!m_isRunning)
     {
         m_currentFrame = GAFFirstFrameIndex;
@@ -360,12 +369,32 @@ void GAFObject::start()
 
 void GAFObject::stop()
 {
+    unschedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
+    m_animationsSelectorScheduled = false;
+    
     if (m_isRunning)
     {
         m_currentFrame = GAFFirstFrameIndex;
         setAnimationRunning(false);
     }
 }
+
+void GAFObject::processAnimations(float dt)
+{
+    m_timeDelta += dt;
+    double frameTime = 1.0 / m_fps;
+    while (m_timeDelta >= frameTime)
+    {
+        m_timeDelta -= frameTime;
+        step();
+        
+        if (m_framePlayedDelegate)
+        {
+            m_framePlayedDelegate(this, m_currentFrame);
+        }
+    }
+}
+
 
 void GAFObject::pauseAnimation()
 {

@@ -5,13 +5,17 @@
 
 #define USE_LAYERED_STENCIL 0
 
+GAFMask::Object2maskedContainer_t GAFMask::object2maskedContainer;
+
 void GAFMask::_sortAllMaskedObjects()
 {
     if (m_isReorderMaskedObjectsDirty)
     {
-        std::sort(m_maskedObjects->begin(), m_maskedObjects->end(), [](const GAFSprite* p1, const GAFSprite* p2)->bool
+        std::sort(m_maskedObjects->begin(), m_maskedObjects->end(), [](const cocos2d::Ref* p1, const cocos2d::Ref* p2)->bool
         {
-            return p1->getLocalZOrder() < p2->getLocalZOrder();
+            const GAFSprite* spr1 = static_cast<const GAFSprite*>(p1);
+            const GAFSprite* spr2 = static_cast<const GAFSprite*>(p2);
+            return spr1->getLocalZOrder() < spr2->getLocalZOrder();
         });
 
         m_isReorderMaskedObjectsDirty = false;

@@ -5,7 +5,7 @@ class GAFAnimationFrame;
 class GAFSprite;
 class GAFFilterData;
 class GAFTimeline;
-class GAFAnimatedObject;
+class GAFObject;
 
 #include <unordered_map>
 #include "GAFAnimationSequence.h"
@@ -48,7 +48,6 @@ typedef std::vector<GAFAnimationFrame*>                     AnimationFrames_t;
 typedef std::unordered_map<uint32_t, GAFSprite*>            SubObjects_t;
 typedef std::vector<GAFFilterData*>                         Filters_t;
 typedef std::unordered_map<uint32_t, GAFTimeline*>          Timelines_t;
-typedef std::unordered_map<uint32_t, GAFAnimatedObject*>    SubAnimatedObjects_t;
 
 typedef std::unordered_map<uint32_t, int>                   CaptureObjects_t;      // Object id -> capture flags
 

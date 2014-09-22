@@ -2,7 +2,7 @@
 #include "GAFAsset.h"
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
-#include "GAFAnimatedObject.h"
+#include "GAFObject.h"
 #include "GAFAssetTextureManager.h"
 
 #include "GAFLoader.h"
@@ -19,19 +19,19 @@ void GAFAsset::setDesiredCsf(float csf)
     _desiredCsf = csf;
 }
 
-GAFAnimatedObject * GAFAsset::createObject()
+GAFObject * GAFAsset::createObject()
 {
     if (m_timelines.empty())
     {
         return nullptr;
     }
 
-    return GAFAnimatedObject::create(this, m_rootTimeline);
+    return GAFObject::create(this, m_rootTimeline);
 }
 
-GAFAnimatedObject * GAFAsset::createObjectAndRun(bool looped)
+GAFObject* GAFAsset::createObjectAndRun(bool looped)
 {
-    GAFAnimatedObject * res = createObject();
+    GAFObject* res = createObject();
     if (res)
     {
         res->setLooped(looped);
@@ -63,7 +63,7 @@ bool GAFAsset::isAssetVersionPlayable(const char * version)
     return true;
 }
 
-GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegate* delegate)
+GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate)
 {
     GAFAsset * ret = new GAFAsset();
     if (ret && ret->initWithGAFFile(gafFilePath, delegate))
@@ -76,7 +76,7 @@ GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegat
 }
 
 
-GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate /*= NULL*/)
+GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate /*= NULL*/)
 {
     GAFAsset * ret = new GAFAsset();
     if (ret && ret->initWithGAFBundle(zipfilePath, entryFile, delegate))
@@ -88,7 +88,7 @@ GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::
     return NULL;
 }
 
-bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate /*= NULL*/)
+bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate /*= NULL*/)
 {
     GAFLoader* loader = new GAFLoader();
 
@@ -120,7 +120,7 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     return isLoaded;
 }
 
-bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate* delegate)
+bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate_t delegate)
 {
     GAFLoader* loader = new GAFLoader();
 
@@ -182,7 +182,7 @@ void GAFAsset::setHeader(GAFHeader& h)
     m_header = h;
 }
 
-void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate* delegate)
+void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate_t delegate)
 {
     m_textureLoadDelegate = delegate;
 }

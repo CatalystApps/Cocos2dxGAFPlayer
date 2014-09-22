@@ -30,7 +30,7 @@ bool GAFTextureAtlas::compareAtlasesById(const AtlasInfo& ai1, const AtlasInfo& 
     return ai1.id < ai2.id;
 }
 
-void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate, cocos2d::ZipFile* bundle)
+void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate_t dlg, cocos2d::ZipFile* bundle)
 {
     std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), compareAtlasesById);
 
@@ -64,9 +64,9 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate*
             cocos2d::Image* image = new cocos2d::Image();
             std::string path = cocos2d::FileUtils::getInstance()->fullPathFromRelativeFile(source.c_str(), dir.c_str());
 
-            if (delegate)
+            if (dlg)
             {
-                delegate->onTexturePreLoad(path);
+                dlg(&path);
             }
 
             if (!bundle)

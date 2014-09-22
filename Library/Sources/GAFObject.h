@@ -53,6 +53,8 @@ protected:
     ParentCTX_t                             m_parentColorTransforms;
 
     void    processAnimation();
+    void    processAnimations(float dt);
+
     void    setAnimationRunning(bool value);
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
 
@@ -137,7 +139,7 @@ public:
 
     //////////////////////////////////////////////////////////////////////////
     // Accessors
-
+#if 0
     // Searches for an object by given string
     // @param object name e.g. "head" or object path e.g. "knight.body.arm"
     // @note it can slow down the real-time performance
@@ -159,13 +161,13 @@ public:
     // Searches for an animated object by given class name(linkage name)
     // @note the root object has a name "rootTimeline"
     // @param object name e.g. "Head"
-    // @returns instance of GAFAnimatedObject or null
-    GAFAnimatedObject* getSubObject(const std::string& className) const;
+    // @returns instance of GAFObject or null
+    GAFObject* getSubObject(const std::string& className) const;
 
     // Searches for an animated object by given class name(linkage name)
     // @param object id
-    // @returns instance of GAFAnimatedObject or null
-    GAFAnimatedObject* getSubObject(uint32_t id) const;
+    // @returns instance of GAFObject or null
+    GAFObject* getSubObject(uint32_t id) const;
 
     // Searches for an animated object by given class name(linkage name)
     // @note the root object has a name "rootTimeline"
@@ -173,7 +175,7 @@ public:
     // @returns object id
     uint32_t getSubObjectId(const std::string& className) const;
     //////////////////////////////////////////////////////////////////////////
-
+#endif
     void realizeFrame(cocos2d::Node* out, size_t frameIndex);
 
     //! 0 means all masked pixels will be marked as 1 and so on

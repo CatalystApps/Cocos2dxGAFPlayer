@@ -41,7 +41,7 @@ bool GAFAssetTextureManager::isAtlasInfoPresent(const GAFTextureAtlas::AtlasInfo
 	return false;
 }
 
-void GAFAssetTextureManager::loadImages(const std::string& dir, GAFTextureLoadDelegate* delegate, cocos2d::ZipFile* bundle)
+void GAFAssetTextureManager::loadImages(const std::string& dir, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle)
 {
 	std::stable_sort(m_atlasInfos.begin(), m_atlasInfos.end(), GAFTextureAtlas::compareAtlasesById);
 
@@ -75,7 +75,7 @@ void GAFAssetTextureManager::loadImages(const std::string& dir, GAFTextureLoadDe
 
 			if (delegate)
 			{
-				delegate->onTexturePreLoad(path);
+				delegate(&path);
 			}
 
 			if (!bundle)
