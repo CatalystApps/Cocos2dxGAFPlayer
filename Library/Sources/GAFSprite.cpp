@@ -19,7 +19,8 @@ objectIdRef(IDNONE),
 m_useSeparateBlendFunc(false),
 m_isLocator(false),
 m_blendEquation(-1),
-m_atlasScale(1.0f)
+m_atlasScale(1.0f),
+m_externalTransform(AffineTransform::IDENTITY)
 {
 
 }

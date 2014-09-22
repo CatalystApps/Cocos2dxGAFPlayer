@@ -13,12 +13,12 @@
 
 #define ENABLE_RUNTIME_FILTERS 1
 
-static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
+cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
 {
     cocos2d::AffineTransform transform = aTransform;
     transform.b = -transform.b;
     transform.c = -transform.c;
-    transform.ty = -transform.ty;
+    transform.ty = m_asset->getSceneHeight() - transform.ty;
     return transform;
 }
 
@@ -234,7 +234,7 @@ void GAFObject::encloseNewTimeline(uint32_t reference, uint32_t objId)
     newObject->setLocator(true);
     
     newObject->retain();
-    //addChild(newObject);
+    addChild(newObject);
     newObject->start();
 }
 

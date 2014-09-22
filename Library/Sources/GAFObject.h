@@ -9,6 +9,9 @@ class GAFTimeline;
 
 class GAFObject : public GAFSprite
 {
+private:
+    cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform);
+
 public:
 
     typedef std::unordered_map<uint32_t, GAFObject*> DisplayList_t;

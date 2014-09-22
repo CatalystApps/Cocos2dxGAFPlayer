@@ -2,8 +2,6 @@
 #include "GAFSpriteID.h"
 #include "GAFCollections.h"
 
-#include "GAFAnimatedObject.h"
-
 GAFSpriteID GAFSpriteID::IDNONE = { nullptr, ::IDNONE };
 
 bool GAFSpriteID::operator==(const GAFSpriteID& oth) const
@@ -23,7 +21,7 @@ GAFSprite* GAFSpriteID::getSprite() const
         return nullptr;
     }
 
-    return owner->getSprite(id);
+    return nullptr; //owner->getSprite(id);
 }
 
 GAFAnimatedObject* GAFSpriteID::getAnimatedObject() const
@@ -33,5 +31,5 @@ GAFAnimatedObject* GAFSpriteID::getAnimatedObject() const
         return nullptr;
     }
 
-    return owner->getSubObject(id);
+    return nullptr; //owner->getSubObject(id);
 }
