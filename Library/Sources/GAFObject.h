@@ -140,6 +140,8 @@ public:
 
     cocos2d::Rect getBoundingBoxForCurrentFrame();
 
+    virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
+
     //////////////////////////////////////////////////////////////////////////
     // Accessors
 #if 0

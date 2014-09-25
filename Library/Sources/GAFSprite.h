@@ -45,6 +45,8 @@ public:
     {
         m_isLocator = locator;
     }
+
+    inline float getAtlasScale() const { return m_atlasScale; }
     
 protected:
 
