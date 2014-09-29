@@ -538,6 +538,7 @@ void GafFeatures::addObjectsToScene()
         
         float scaleFactor = cocos2d::Director::getInstance()->getContentScaleFactor();
         object->setPosition(centerScreenPosition(m_asset, size / scaleFactor));
+        object->setLocator(true);
         
         m_objects->addObject(object);
         

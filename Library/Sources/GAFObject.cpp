@@ -11,14 +11,16 @@
 #include "GAFSubobjectState.h"
 #include "GAFFilterData.h"
 
+#include <math/TransformUtils.h>
+
 #define ENABLE_RUNTIME_FILTERS 1
 
-static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
+cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
 {
     cocos2d::AffineTransform transform = aTransform;
     transform.b = -transform.b;
     transform.c = -transform.c;
-    transform.ty = -transform.ty;
+    transform.ty = m_asset->getSceneHeight() - transform.ty;
     return transform;
 }
 
@@ -234,7 +236,7 @@ void GAFObject::encloseNewTimeline(uint32_t reference, uint32_t objId)
     newObject->setLocator(true);
     
     newObject->retain();
-    //addChild(newObject);
+    addChild(newObject);
     newObject->start();
 }
 
@@ -757,6 +759,29 @@ cocos2d::Rect GAFObject::getBoundingBoxForCurrentFrame()
     }
 
     return cocos2d::RectApplyTransform(result, getNodeToParentTransform());
+}
+
+cocos2d::Mat4 const& GAFObject::getNodeToParentTransform() const
+{
+    if (_transformDirty)
+    {
+        cocos2d::AffineTransform transform = getExternalTransform();
+        if (getAtlasScale() != 1.f)
+        {
+            transform = cocos2d::AffineTransformScale(transform, getAtlasScale(), getAtlasScale());
+        }
+
+        float posy = 0;
+        if (m_asset)
+        {
+            cocos2d::Rect framesize = m_asset->getHeader().frameSize;
+            posy = _position.y - framesize.size.height - framesize.getMinY();
+        }
+        cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, _position.x - _anchorPointInPoints.x, posy - _anchorPointInPoints.y), _transform.m);
+        _transformDirty = false;
+    }
+
+    return _transform;
 }
 
 void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
