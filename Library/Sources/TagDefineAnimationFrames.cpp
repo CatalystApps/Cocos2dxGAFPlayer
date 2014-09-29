@@ -12,14 +12,19 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+TagDefineAnimationFrames::~TagDefineAnimationFrames()
+{
+    for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
+    {
+        it->second->release();
+    }
+}
+
 void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
 {
     in->readU32(); // read count. Unused here
     
-    typedef std::map<unsigned int, GAFSubobjectState*> States_t;
-    States_t currentStates;
-
-    assert(!ctx->getAnimationObjects().empty());
+    if (ctx->getAnimationObjects().empty()) return;
 
     for (AnimationObjects_t::const_iterator i = ctx->getAnimationObjects().begin(), e = ctx->getAnimationObjects().end(); i != e; ++i)
     {
@@ -27,7 +32,7 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
         GAFSubobjectState *state = new GAFSubobjectState();
         state->initEmpty(objectId);
 
-        currentStates[objectId] = state;
+        m_currentStates[objectId] = state;
     }
 
     const unsigned short totalFrameCount = in->getInput()->getHeader().framesCount;
@@ -54,14 +59,14 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
             {
                 GAFSubobjectState* st = *it;
 
-                GAFSubobjectState* ps = currentStates[st->objectIdRef];
+                GAFSubobjectState* ps = m_currentStates[st->objectIdRef];
 
                 if (ps)
                 {
                     ps->release();
                 }
 
-                currentStates[st->objectIdRef] = st;
+                m_currentStates[st->objectIdRef] = st;
             }
 
             if (in->getPosition() < in->getTagExpectedPosition())
@@ -70,7 +75,7 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
 
         GAFAnimationFrame* frame = new GAFAnimationFrame();
 
-        for (States_t::iterator it = currentStates.begin(), ie = currentStates.end(); it != ie; ++it)
+        for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
         {
             frame->pushObjectState(it->second);
         }

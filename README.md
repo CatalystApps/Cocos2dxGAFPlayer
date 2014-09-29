@@ -6,6 +6,13 @@ Introduction
 
 GAF stands for Generic Animation Format. GAF is designed to store Flash animations in an open cross platform format for further playback in a multitude of game development frameworks and devices. GAF enables artists and animators to use Flash CS for creating complex animations and seamlessly use them with various game development frameworks.
 
+Supported Platforms
+-----------------------
+- Windows - Cocos2d-x v3.1.1, v3.2
+- iOS - Cocos2d-x v3.1.1, v3.2
+- Android - Cocos2d-x v3.1.1, v3.2
+- *Upcoming Windows Phone 8 in Cocos2d-x v3.3*
+
 Benefits
 -----------------------
 GAF Converter analyzes the bytecode of each SWF file and creates a GAF file which provides the following benefits:
@@ -16,3 +23,8 @@ GAF Converter analyzes the bytecode of each SWF file and creates a GAF file whic
 ###High performance. 
 **The GAF conversion process involves numerous optimizations to increase playback performance across all platforms and frameworks. Performance of GAF runtimes is much better than that of the Flash player.**
 
+HOWTO
+-----------------------
+For this folder: Just copy (or create symlink) to cocos2d-x/external/
+Compile
+Run

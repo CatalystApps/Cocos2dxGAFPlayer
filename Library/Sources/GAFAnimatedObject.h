@@ -40,7 +40,8 @@ private:
     SubObjects_t m_subObjects;
     SubObjects_t m_masks;
     
-    typedef std::list<GAFSprite*> SubObjectsList_t;
+    // No reason to have a list here. Vector will work faster.
+    typedef std::vector<GAFSprite*> SubObjectsList_t;
     
     SubObjectsList_t m_visibleObjects;
 
@@ -105,7 +106,7 @@ public:
 
     cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
 
-    void realizeFrame(cocos2d::Node* out, int frameIndex);
+    void realizeFrame(cocos2d::Node* out, size_t frameIndex);
 
     //! 0 means all masked pixels will be marked as 1 and so on
     void setStencilLayer(int newLayer);

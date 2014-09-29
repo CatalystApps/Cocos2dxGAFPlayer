@@ -1,6 +1,15 @@
 #include "GAFPrecompiled.h"
 #include "GAFShaderManager.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+namespace gps
+{
+#include "ShadersPrecompiled/GAFPrecompiledShaders.h"
+}
+#include "CCPrecompiledShaders.h"
+bool GAFShaderManager::s_initialized = false;
+#endif
+
 using std::string;
 
 #define STRINGIFY(A)  #A
@@ -31,4 +40,23 @@ const char* const GAFShaderManager::s_vertexShaders[] =
 void GAFShaderManager::handleEnterBackground()
 {
     // Stub yet
+}
+
+void GAFShaderManager::Initialize(bool force /*= false*/)
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    bool skip = !force && s_initialized;
+    if (!skip)
+    {
+        for (unsigned int i = 0; i < gps::s_numPrograms; ++i)
+        {
+            cocos2d::
+                CCPrecompiledShaders::getInstance()->addPrecompiledProgram(
+                    gps::s_programKeys[i],
+                    gps::s_programs[i],
+                    gps::s_programLengths[i]);
+        }
+        s_initialized = true;
+    }
+#endif
 }

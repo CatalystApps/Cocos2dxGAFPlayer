@@ -71,7 +71,7 @@ void GAFSprite::setExternaTransform(const cocos2d::AffineTransform& transform)
     }
 }
 
-cocos2d::AffineTransform GAFSprite::getExternalTransform() const
+const cocos2d::AffineTransform& GAFSprite::getExternalTransform() const
 {
     return m_externalTransform;
 }
@@ -80,14 +80,17 @@ const cocos2d::Mat4& GAFSprite::getNodeToParentTransform() const
 {
     if (_transformDirty)
     {
-        cocos2d::AffineTransform transform = getExternalTransform();
         if (m_atlasScale != 1.f)
         {
-            transform = cocos2d::AffineTransformScale(transform, m_atlasScale, m_atlasScale);
+            cocos2d::AffineTransform transform = cocos2d::AffineTransformScale(getExternalTransform(), m_atlasScale, m_atlasScale);
+            cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
+            _transformDirty = false;
         }
-
-        cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
-        _transformDirty = false;
+        else
+        {
+            cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(getExternalTransform(), -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
+            _transformDirty = false;
+        }
     }
 
     return _transform;
