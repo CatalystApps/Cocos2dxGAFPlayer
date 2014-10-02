@@ -7,8 +7,12 @@
 //
 
 #import "AppController.h"
-#import "CCEAGLView.h"
 #import "cocos2d.h"
+#if COCOS2D_VERSION < 0x00030200
+#import "CCEAGLView.h"
+#else
+#import "CCEAGLView-ios.h" // TODO: -ios suffix. Howto
+#endif
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
@@ -58,7 +62,11 @@ static AppDelegate s_sharedApplication;
     
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
     
+#if COCOS2D_VERSION < 0x00030200
     cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);
+#else
+    cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
+#endif
     cocos2d::Director::getInstance()->setOpenGLView(glview);
     
     cocos2d::CCApplication::getInstance()->run();
