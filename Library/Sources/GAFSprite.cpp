@@ -167,7 +167,7 @@ uint32_t GAFSprite::setUniforms()
         int glProgram = (int)getGLProgram()->getProgram();
         int intArray[4] = { glProgram, (int)getTexture()->getName(), (int)getBlendFunc().src, (int)getBlendFunc().dst };
 
-        uint32_t materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
+        materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
     }
     return materialID;
 }
