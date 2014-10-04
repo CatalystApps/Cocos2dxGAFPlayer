@@ -334,3 +334,15 @@ bool GAFMovieClip::isCTXIdentity() const
     }
     return true;
 }
+
+#if COCOS2D_VERSION < 0x00030200
+void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+{
+    GAFSprite::draw(renderer, transform, transformUpdated);
+#else
+void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+{
+#endif
+    GAFSprite::draw(renderer, transform, flags);
+
+}

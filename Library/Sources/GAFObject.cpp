@@ -20,7 +20,7 @@ cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFor
     cocos2d::AffineTransform transform = aTransform;
     transform.b = -transform.b;
     transform.c = -transform.c;
-    transform.ty = m_asset->getSceneHeight() - transform.ty;
+    transform.ty = - transform.ty;
     return transform;
 }
 
@@ -233,11 +233,15 @@ void GAFObject::encloseNewTimeline(uint32_t reference, uint32_t objId)
     GAFObject* newObject = GAFObject::create(m_asset, tl->second);
     m_displayList[objId] = newObject;
     
-    newObject->setLocator(true);
     
     newObject->retain();
     addChild(newObject);
-    newObject->start();
+
+    if (!newObject->getIsAnimationRunning())
+    {
+        newObject->m_currentFrame = GAFFirstFrameIndex;
+        newObject->setAnimationRunning(true);
+    }
 }
 
 void GAFObject::instantiateMasks(const AnimationMasks_t& masks)
@@ -324,6 +328,11 @@ void GAFObject::processAnimation()
 void GAFObject::setAnimationRunning(bool value)
 {
     m_isRunning = value;
+
+    for (auto pair : m_displayList)
+    {
+        pair.second->setAnimationRunning(value);
+    }
 }
 
 bool GAFObject::getIsAnimationRunning() const
@@ -397,7 +406,6 @@ void GAFObject::processAnimations(float dt)
     }
 }
 
-
 void GAFObject::pauseAnimation()
 {
     if (m_isRunning)
@@ -441,6 +449,11 @@ bool GAFObject::isLooped() const
 void GAFObject::setLooped(bool looped)
 {
     m_isLooped = looped;
+
+    for (auto pair : m_displayList)
+    {
+        pair.second->setLooped(looped);
+    }
 }
 
 bool GAFObject::isReversed() const
@@ -451,6 +464,11 @@ bool GAFObject::isReversed() const
 void GAFObject::setReversed(bool reversed)
 {
     m_isReversed = reversed;
+
+    for (auto pair : m_displayList)
+    {
+        pair.second->setLooped(reversed);
+    }
 }
 
 uint32_t GAFObject::getTotalFrameCount() const
@@ -534,7 +552,7 @@ uint32_t GAFObject::getEndFrame(const std::string& frameLabel)
 {
     if (!m_asset)
     {
-        return -1;
+        return IDNONE;
     }
     const GAFAnimationSequence * seq = m_timeline->getSequence(frameLabel);
     if (seq)
@@ -763,25 +781,10 @@ cocos2d::Rect GAFObject::getBoundingBoxForCurrentFrame()
 
 cocos2d::Mat4 const& GAFObject::getNodeToParentTransform() const
 {
-    if (_transformDirty)
-    {
-        cocos2d::AffineTransform transform = getExternalTransform();
-        if (getAtlasScale() != 1.f)
-        {
-            transform = cocos2d::AffineTransformScale(transform, getAtlasScale(), getAtlasScale());
-        }
-
-        float posy = 0;
-        if (m_asset)
-        {
-            cocos2d::Rect framesize = m_asset->getHeader().frameSize;
-            posy = _position.y - framesize.size.height - framesize.getMinY();
-        }
-        cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, _position.x - _anchorPointInPoints.x, posy - _anchorPointInPoints.y), _transform.m);
-        _transformDirty = false;
-    }
-
-    return _transform;
+    if (m_charType == GAFCharacterType::Timeline)
+        return cocos2d::Node::getNodeToParentTransform();
+    else
+        return GAFSprite::getNodeToParentTransform();
 }
 
 void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
@@ -831,6 +834,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     subObject->setLocalZOrder(state->zIndex);
 
                     subObject->step();
+
                 }
                 else if (subObject->m_charType == GAFCharacterType::Texture)
                 {

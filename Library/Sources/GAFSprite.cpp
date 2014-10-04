@@ -117,11 +117,13 @@ cocos2d::AffineTransform GAFSprite::getNodeToParentAffineTransform() const
 
 #if COCOS2D_VERSION < 0x00030200
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+{
+    (void)transformUpdated;
 #else
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-#endif
 {
     (void)flags;
+#endif
     if (m_isLocator)
     {
         return;

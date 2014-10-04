@@ -48,4 +48,10 @@ public:
     const cocos2d::Rect&   getInitialTextureRect() const;
 
     bool                   isCTXIdentity() const;
+
+#if COCOS2D_VERSION < 0x00030200
+    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
+#else
+    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
+#endif
 };

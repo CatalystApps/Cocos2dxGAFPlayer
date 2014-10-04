@@ -85,6 +85,18 @@ public:
     /// @note do not forget to call setControlDelegate(nullptr) before deleting your subscriber
     void setControlDelegate(GAFAnimatedObjectControlDelegate_t delegate);
 
+#if COCOS2D_VERSION < 0x00030200
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+    {
+        (void)transformUpdated
+#else
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+    {
+        (void)flags;
+#endif
+        (void)renderer;
+        (void)transform;
+    }
 public:
     // Playback accessing
 
