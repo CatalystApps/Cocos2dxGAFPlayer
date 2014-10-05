@@ -22,7 +22,7 @@ private:
     GAFAnimationFinishedPlayDelegate_t      m_animationFinishedPlayDelegate;
     GAFAnimationStartedNextLoopDelegate_t   m_animationStartedNextLoopDelegate;
     GAFFramePlayedDelegate_t                m_framePlayedDelegate;
-    GAFAnimatedObjectControlDelegate_t      m_controlDelegate;
+    GAFObjectControlDelegate_t              m_controlDelegate;
 
     uint32_t                                m_totalFrameCount;
     uint32_t                                m_currentSequenceStart;
@@ -83,7 +83,7 @@ public:
     void setFramePlayedDelegate(GAFFramePlayedDelegate_t delegate);
 
     /// @note do not forget to call setControlDelegate(nullptr) before deleting your subscriber
-    void setControlDelegate(GAFAnimatedObjectControlDelegate_t delegate);
+    void setControlDelegate(GAFObjectControlDelegate_t delegate);
 
 #if COCOS2D_VERSION < 0x00030200
     void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
@@ -156,13 +156,14 @@ public:
 
     //////////////////////////////////////////////////////////////////////////
     // Accessors
-#if 0
+
     // Searches for an object by given string
     // @param object name e.g. "head" or object path e.g. "knight.body.arm"
     // @note it can slow down the real-time performance
-    // @returns instance of GAFSprite or null. Warning: the instance could be invalidated when the system catches EVENT_COME_TO_FOREGROUND event
-    GAFSprite* getSprite(const std::string& name) const;
-
+    // @returns instance of GAFObject or null. Warning: the instance could be invalidated when the system catches EVENT_COME_TO_FOREGROUND event
+    GAFObject* getObjectByName(const std::string& name);
+    const GAFObject* getObjectByName(const std::string& name) const;
+#if 0
     // Searches for an object by given id
     // @param object id
     // @note it can slow down the real-time performance

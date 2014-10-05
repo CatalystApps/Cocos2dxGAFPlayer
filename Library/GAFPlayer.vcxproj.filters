@@ -105,9 +105,6 @@
     <ClCompile Include="Sources\GAFAssetTextureManager.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\GAFSpriteID.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\GAFSprite.cpp">
       <Filter>Sources\GAFObjects</Filter>
     </ClCompile>
@@ -225,9 +222,6 @@
       <Filter>Sources\GAFLoader\Tags</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFAssetTextureManager.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\GAFSpriteID.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFSprite.h">

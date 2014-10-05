@@ -360,7 +360,7 @@ void GAFObject::setFramePlayedDelegate(GAFFramePlayedDelegate_t delegate)
     m_framePlayedDelegate = delegate;
 }
 
-void GAFObject::setControlDelegate(GAFAnimatedObjectControlDelegate_t delegate)
+void GAFObject::setControlDelegate(GAFObjectControlDelegate_t delegate)
 {
     m_controlDelegate = delegate;
 }
@@ -612,7 +612,6 @@ void GAFObject::clearSequence()
 {
     m_currentSequenceStart = GAFFirstFrameIndex;
     m_currentSequenceEnd = m_totalFrameCount;
-
 }
 
 void GAFObject::step()
@@ -982,4 +981,66 @@ void GAFObject::setFps(uint32_t value)
 {
     CCASSERT(value, "Error! Fps is set to zero.");
     m_fps = value;
+}
+
+GAFObject* GAFObject::getObjectByName(const std::string& name)
+{
+    if (!name.empty())
+    {
+        std::stringstream ss(name);
+        std::string item;
+        typedef std::vector<std::string> StringVec_t;
+        StringVec_t elems;
+        while (std::getline(ss, item, '.'))
+        {
+            elems.push_back(item);
+        }
+
+        GAFObject* retval = nullptr;
+
+        if (!elems.empty())
+        {
+            const NamedParts_t& np = m_timeline->getNamedParts();
+            NamedParts_t::const_iterator it = np.find(elems[0]);
+
+            if (it != np.end())
+            {
+                retval = m_displayList[it->second];
+
+                if (elems.size() > 1)
+                {
+                    StringVec_t::iterator begIt = elems.begin() + 1;
+
+                    while (begIt != elems.end())
+                    {
+                        const NamedParts_t& np = retval->m_timeline->getNamedParts();
+                        NamedParts_t::const_iterator it = np.find(*begIt);
+                        if (it != np.end())
+                        {
+                            retval = retval->m_displayList[it->second];
+                        }
+                        else
+                        {
+                            // Sequence is incorrect
+                            //break;
+
+                            // It is better to return nil instead of the last found object in a chain
+                            return nullptr;
+                        }
+
+                        ++begIt;
+                    }
+                }
+
+                return retval;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+const GAFObject* GAFObject::getObjectByName(const std::string& name) const
+{
+    return const_cast<GAFObject*>(this)->getObjectByName(name);
 }
