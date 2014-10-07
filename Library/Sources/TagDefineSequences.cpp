@@ -4,6 +4,9 @@
 #include "GAFStream.h"
 #include "GAFAsset.h"
 
+namespace gaf
+{
+
 void TagDefineSequences::read(GAFStream* in, GAFAsset* ctx)
 {
     unsigned int count = in->readU32();
@@ -17,4 +20,6 @@ void TagDefineSequences::read(GAFStream* in, GAFAsset* ctx)
 
         ctx->pushAnimationSequence(id, start, end);
     }
+}
+
 }

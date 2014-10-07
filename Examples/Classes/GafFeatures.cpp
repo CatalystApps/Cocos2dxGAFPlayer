@@ -49,9 +49,9 @@ double GetCounter()
 #endif
 
 
-cocos2d::Point centerScreenPosition(GAFAsset* ast, const cocos2d::Size& screenSize)
+cocos2d::Point centerScreenPosition(gaf::GAFAsset* ast, const cocos2d::Size& screenSize)
 {
-    const GAFHeader& headInfo = ast->getHeader();
+    const gaf::GAFHeader& headInfo = ast->getHeader();
     
     return cocos2d::Point(-headInfo.frameSize.getMinX() + (screenSize.width - headInfo.frameSize.size.width) / 2,
                            headInfo.frameSize.getMinY() + (screenSize.height + headInfo.frameSize.size.height) / 2);
@@ -59,10 +59,10 @@ cocos2d::Point centerScreenPosition(GAFAsset* ast, const cocos2d::Size& screenSi
 
 GafFeatures::GafFeatures()
     :
-    m_asset(NULL),
-    m_objects(NULL),
+    m_asset(nullptr),
+    m_objects(nullptr),
     m_currentSequence(0)
-    , m_loadingTimeLabel(NULL)
+    , m_loadingTimeLabel(nullptr)
 {
     m_touchlistener = cocos2d::EventListenerTouchAllAtOnce::create();
 
@@ -267,7 +267,7 @@ cocos2d::MenuItemImage* GafFeatures::addButton(const std::string &buttonName, co
 bool GafFeatures::init()
 {
     setupMenuItems();
-    gray(NULL);
+    gray(nullptr);
     
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
@@ -315,7 +315,7 @@ void GafFeatures::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 
 void GafFeatures::nextSequence( cocos2d::Ref* )
 {
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    gaf::GAFAnimatedObject *object = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getObjectAtIndex(0));
 
     m_currentSequence++;
 
@@ -332,7 +332,7 @@ void GafFeatures::nextSequence( cocos2d::Ref* )
 
 void GafFeatures::prevSequence( cocos2d::Ref* )
 {
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    gaf::GAFAnimatedObject *object = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getObjectAtIndex(0));
 
     m_currentSequence--;
 
@@ -388,7 +388,7 @@ void GafFeatures::restart(cocos2d::Ref*)
         return;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    gaf::GAFAnimatedObject *object = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getObjectAtIndex(0));
     object->stop();
     object->start();
 }
@@ -400,7 +400,7 @@ void GafFeatures::playpause(cocos2d::Ref*)
         return;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    gaf::GAFAnimatedObject *object = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getObjectAtIndex(0));
 
     if (object->isAnimationRunning())
     {
@@ -419,7 +419,7 @@ int GafFeatures::maxFrameNumber()
         return -1;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    gaf::GAFAnimatedObject *object = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getObjectAtIndex(0));
     return object->totalFrameCount();	
 }
 
@@ -430,7 +430,7 @@ void GafFeatures::setFrameNumber(int aFrameNumber)
         return;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    gaf::GAFAnimatedObject *object = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getObjectAtIndex(0));
     object->setFrame(aFrameNumber);	
 }
 
@@ -441,7 +441,7 @@ int GafFeatures::frameNumber()
         return -1;
     }
 
-    GAFAnimatedObject *object = (GAFAnimatedObject *)m_objects->getObjectAtIndex(0);
+    gaf::GAFAnimatedObject *object = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getObjectAtIndex(0));
     return object->currentFrameIndex();
 }
 
@@ -451,7 +451,7 @@ void GafFeatures::toggleReverse(cocos2d::Ref*)
     {
         return;
     }
-    GAFAnimatedObject *obj = (GAFAnimatedObject *)m_objects->getLastObject();
+    gaf::GAFAnimatedObject *obj = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getLastObject());
     obj->setReversed(!obj->isReversed());
 }
 
@@ -482,7 +482,7 @@ void GafFeatures::removeFromScene(int aCount)
 
     for (int i = 0; i < aCount; ++i)
     {
-        GAFAnimatedObject *obj = (GAFAnimatedObject *) m_objects->getLastObject();
+        gaf::GAFAnimatedObject *obj = reinterpret_cast<gaf::GAFAnimatedObject *>(m_objects->getLastObject());
         removeChild(obj);
         m_objects->removeLastObject();
     }
@@ -493,7 +493,7 @@ void GafFeatures::addObjectsToScene()
     if (!m_asset)
     {
         StartCounter();
-        m_asset = GAFAsset::create(m_files[m_anim_index], this);
+        m_asset = gaf::GAFAsset::create(m_files[m_anim_index], this);
         double loadingTime = GetCounter();
 
         cocos2d::log("Loading time [%f]\n", loadingTime);
@@ -525,7 +525,7 @@ void GafFeatures::addObjectsToScene()
 
     if (m_asset)
     {
-        GAFAnimatedObject *object = m_asset->createObject();
+        gaf::GAFAnimatedObject *object = m_asset->createObject();
         
         object->setLocalZOrder(0);
         addChild(object);
@@ -546,10 +546,10 @@ void GafFeatures::addObjectsToScene()
 #endif
         m_musicEffects.clear();
         
-        const AnimationSequences_t& secDictionary = m_asset->getAnimationSequences();
+        const gaf::AnimationSequences_t& secDictionary = m_asset->getAnimationSequences();
         if (!secDictionary.empty())
         {
-            for (AnimationSequences_t::const_iterator i = secDictionary.begin(), e = secDictionary.end(); i != e; ++i)
+            for (gaf::AnimationSequences_t::const_iterator i = secDictionary.begin(), e = secDictionary.end(); i != e; ++i)
             {
                 const std::string& seqName = i->first;
                 std::string::size_type pos = seqName.find_first_of("__audio:");
@@ -581,12 +581,12 @@ void GafFeatures::addObjectsToScene()
     }
 }
 
-void GafFeatures::onFinishSequence( GAFAnimatedObject * object, const std::string& sequenceName )
+void GafFeatures::onFinishSequence(gaf::GAFAnimatedObject * object, const std::string& sequenceName )
 {
     //! This function will be triggered once a sequence completed
 }
 
-void GafFeatures::onFramePlayed(GAFAnimatedObject *object, int frame)
+void GafFeatures::onFramePlayed(gaf::GAFAnimatedObject *object, int frame)
 {
     MusicEffects_t::const_iterator it = m_musicEffects.find(frame);
     

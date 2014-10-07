@@ -12,6 +12,9 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+namespace gaf
+{
+
 void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
 {
     in->readU32(); // read count. Unused here
@@ -200,4 +203,6 @@ void TagDefineAnimationFrames::_translateColor(cocos2d::Color4F& out, const coco
     out.g = in.g / 255.f;
     out.r = in.b / 255.f;
     out.a = in.a / 255.f;
+}
+
 }

@@ -2,6 +2,9 @@
 
 #include "DefinitionTagBase.h"
 
+namespace gaf
+{
+
 class TagDefineAnimationMasks : public DefinitionTagBase
 {
 public:
@@ -9,3 +12,5 @@ public:
     virtual void read(GAFStream*, GAFAsset*);
 
 };
+
+}

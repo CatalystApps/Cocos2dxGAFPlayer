@@ -7,12 +7,15 @@
 #include "renderer/CCTextureCache.h"
 #endif
 
+namespace gaf
+{
+
 GAFTextureAtlas::GAFTextureAtlas()
 :
 m_scale(1.f),
 m_loaded(false),
-m_images(NULL),
-m_textures(NULL),
+m_images(nullptr),
+m_textures(nullptr),
 m_memoryConsumption(0)
 {
 }
@@ -187,4 +190,6 @@ const GAFTextureAtlas::Elements_t& GAFTextureAtlas::getElements() const
 uint32_t GAFTextureAtlas::getMemoryConsumptionStat() const
 {
     return m_memoryConsumption;
+}
+
 }

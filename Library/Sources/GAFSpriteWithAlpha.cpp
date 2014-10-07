@@ -14,6 +14,9 @@ USING_NS_CC;
 
 #define CHECK_CTX_IDENTITY 0
 
+namespace gaf
+{
+
 static int colorTransformMultLocation = -1;
 static int colorTransformOffsetLocation = -1;
 static int fragmentAlphaLocation = -1;
@@ -22,10 +25,10 @@ static int colorMatrixLocation2  = -1;
 
 GAFSpriteWithAlpha::GAFSpriteWithAlpha()
 :
-m_initialTexture(NULL),
-m_colorMatrixFilterData(NULL),
-m_glowFilterData(NULL),
-m_blurFilterData(NULL)
+m_initialTexture(nullptr),
+m_colorMatrixFilterData(nullptr),
+m_glowFilterData(nullptr),
+m_blurFilterData(nullptr)
 {
 }
 
@@ -359,3 +362,4 @@ void _GAFreloadAlphaShader()
 }
 #endif
 
+}

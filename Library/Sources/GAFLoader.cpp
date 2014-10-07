@@ -18,6 +18,9 @@
 #include "TagDefineAnimationFrames2.h"
 #include "TagDefineTimeline.h"
 
+namespace gaf
+{
+
 void GAFLoader::_readHeaderEnd(GAFHeader& header)
 {
     header.framesCount = m_stream->readU16();
@@ -71,7 +74,7 @@ void GAFLoader::_registerTagLoadersCommon()
 }
 
 GAFLoader::GAFLoader():
-m_stream(NULL)
+m_stream(nullptr)
 {
 }
 
@@ -197,4 +200,6 @@ const GAFHeader& GAFLoader::getHeader() const
 void GAFLoader::registerTagLoader(unsigned int idx, DefinitionTagBase* tagptr)
 {
     m_tagLoaders[static_cast<Tags::Enum>(idx)] = tagptr;
+}
+
 }

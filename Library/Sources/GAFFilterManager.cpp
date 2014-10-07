@@ -5,8 +5,11 @@
 
 #include "../external/xxhash/xxhash.h"
 
-using namespace cocos2d;
+USING_NS_CC;
 using namespace std;
+
+namespace gaf
+{
 
 static const int kGaussianKernelSize = 9;
 
@@ -427,4 +430,6 @@ GAFFilterManager* GAFFilterManager::getInstance()
         s_instance->init();
     }
     return s_instance;
+}
+
 }

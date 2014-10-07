@@ -4,6 +4,9 @@
 
 #define USE_LAYERED_STENCIL 0
 
+namespace gaf
+{
+
 #if 1 // for manual comparsion
 static bool compare_stencil_sprites(const void* p1, const void* p2)
 {
@@ -344,4 +347,6 @@ cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
 void GAFStencilMaskSprite::updateStencilLayer(int newLayer)
 {
     m_stencilLayer = newLayer;
+}
+
 }

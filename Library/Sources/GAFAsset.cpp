@@ -9,6 +9,9 @@
 
 #include "GAFLoader.h"
 
+namespace gaf
+{
+
 static float _currentDeviceScale = 1.0f;
 static float  _desiredCsf = 1.f;
 
@@ -26,7 +29,7 @@ GAFAnimatedObject * GAFAsset::createObject()
 {
     if (!m_currentTextureAtlas)
     {
-        return NULL;
+        return nullptr;
     }
 
     return GAFAnimatedObject::create(this);
@@ -44,8 +47,8 @@ GAFAnimatedObject * GAFAsset::createObjectAndRun(bool looped)
 }
 
 GAFAsset::GAFAsset():
-m_currentTextureAtlas(NULL),
-m_textureLoadDelegate(NULL),
+m_currentTextureAtlas(nullptr),
+m_textureLoadDelegate(nullptr),
 m_sceneFps(60),
 m_sceneWidth(0),
 m_sceneHeight(0)
@@ -72,7 +75,7 @@ GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegat
         return ret;
     }
     CC_SAFE_RELEASE(ret);
-    return NULL;
+    return nullptr;
 }
 
 
@@ -85,7 +88,7 @@ GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::
         return ret;
     }
     CC_SAFE_RELEASE(ret);
-    return NULL;
+    return nullptr;
 }
 
 bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate /*= NULL*/)
@@ -345,4 +348,6 @@ void GAFAsset::_chooseTextureAtlas()
     }
 
     _usedAtlasContentScaleFactor = atlasScale;
+}
+
 }

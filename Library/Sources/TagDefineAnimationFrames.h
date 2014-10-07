@@ -2,6 +2,9 @@
 
 #include "DefinitionTagBase.h"
 
+namespace gaf
+{
+
 class GAFSubobjectState;
 
 class TagDefineAnimationFrames : public DefinitionTagBase
@@ -16,3 +19,5 @@ public:
     virtual void read(GAFStream*, GAFAsset*);
 
 };
+
+}

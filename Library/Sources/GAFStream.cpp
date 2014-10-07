@@ -2,6 +2,9 @@
 #include "GAFStream.h"
 #include "GAFFile.h"
 
+namespace gaf
+{
+
 GAFStream::GAFStream(GAFFile* input):
 m_input(input),
 m_currentByte(0),
@@ -217,4 +220,6 @@ bool GAFStream::isEndOfStream() const
 float GAFStream::readFloat()
 {
     return m_input->readFloat();
+}
+
 }

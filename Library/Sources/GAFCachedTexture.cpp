@@ -1,7 +1,7 @@
 #include "GAFPrecompiled.h"
 #include "GAFCachedTexture.h"
 
-using namespace cocos2d;
+USING_NS_CC;
 using namespace std;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WP8
@@ -9,6 +9,9 @@ using namespace std;
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 using cocos2d::gettimeofday;
 #endif
+
+namespace gaf
+{
 
 cocos2d::Texture2D* GAFCachedTexture::operator *()
 {
@@ -59,4 +62,6 @@ GAFCachedTexture::GAFCachedTexture(const GAFCachedTexture& other)
 GAFCachedTexture::~GAFCachedTexture()
 {
     m_texture->release();
+}
+
 }

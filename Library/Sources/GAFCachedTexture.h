@@ -1,6 +1,9 @@
 #pragma once
 #include "GAFCollections.h"
 
+namespace gaf
+{
+
 class GAFCachedTexture
 {
 public:
@@ -23,3 +26,5 @@ private:
     unsigned int    m_timesUsed;
     size_t          m_memoryUsed;
 };
+
+}

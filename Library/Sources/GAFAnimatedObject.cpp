@@ -43,12 +43,15 @@ static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(
     return transform;
 }
 
+namespace gaf
+{
+
 GAFAnimatedObject::GAFAnimatedObject()
 :
-m_asset(NULL),
+m_asset(nullptr),
 m_stencilLayer(-1),
-m_framePlayedDelegate(NULL),
-m_controlDelegate(NULL),
+m_framePlayedDelegate(nullptr),
+m_controlDelegate(nullptr),
 m_extraFramesCounter(0),
 m_timeDelta(0.f)
 {
@@ -803,4 +806,6 @@ void GAFAnimatedObject::setFps(int value)
 {
     CCASSERT(value, "Error! Fps is set to zero.");
     m_fps = value;
+}
+
 }

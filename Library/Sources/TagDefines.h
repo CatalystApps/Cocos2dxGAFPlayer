@@ -1,5 +1,8 @@
 #pragma once
 
+namespace gaf
+{
+
 struct Tags
 {
     enum Enum
@@ -71,3 +74,5 @@ struct Tags
         }
     }
 };
+
+}

@@ -1,5 +1,8 @@
 #pragma once
 
+namespace gaf
+{
+
 class GAFShaderManager
 {
 public:
@@ -33,3 +36,5 @@ private:
     static const char* const s_vertexShaders[EVertexShader::SIZE];
 
 }; // GAFShaderManager
+
+}
