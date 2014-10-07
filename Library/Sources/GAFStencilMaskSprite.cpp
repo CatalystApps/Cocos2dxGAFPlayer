@@ -20,7 +20,7 @@ static bool compare_stencil_sprites(const void* p1, const void* p2)
 GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
 m_stencilLayer(stencilLayer),
-m_maskedObjects(NULL),
+m_maskedObjects(nullptr),
 m_isReorderMaskedObjectsDirty(true)
 {
 }
@@ -335,7 +335,7 @@ cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
         else
         {
             CCLOGERROR("Cannot load program for programShaderForMask.");
-            return NULL;
+            return nullptr;
         }
 #endif
     }

@@ -124,7 +124,7 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
         {
             CCLOGERROR("Cannot load program for GAFSpriteWithAlpha.");
             CC_SAFE_DELETE(program);
-            return NULL;
+            return nullptr;
         }
 
         CHECK_GL_ERROR_DEBUG();
@@ -149,7 +149,7 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
     }
     else
     {
-        cocos2d::Texture2D * resultTex = NULL;
+        cocos2d::Texture2D * resultTex = nullptr;
 
         if (m_blurFilterData)
         {

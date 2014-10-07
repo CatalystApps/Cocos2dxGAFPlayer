@@ -124,7 +124,7 @@ void GAFFile::readBytes(void* dst, unsigned int len)
 void GAFFile::close()
 {
     delete[] m_data;
-    m_data = NULL;
+    m_data = nullptr;
     m_dataLen = 0;
     m_dataPosition = 0;
 }

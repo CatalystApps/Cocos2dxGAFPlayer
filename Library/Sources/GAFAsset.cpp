@@ -170,14 +170,14 @@ const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
         return &it->second;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
-        return NULL;
+        return nullptr;
     }
 
     for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
@@ -188,14 +188,14 @@ const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) cons
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
-        return NULL;
+        return nullptr;
     }
 
     for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
@@ -206,7 +206,7 @@ const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) con
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)

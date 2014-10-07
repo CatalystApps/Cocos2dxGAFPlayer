@@ -16,7 +16,7 @@ namespace gaf
 cocos2d::Texture2D* GAFCachedTexture::operator *()
 {
     timeval now;
-    gettimeofday(&now, NULL);
+    gettimeofday(&now, nullptr);
     m_lastUsed = now.tv_sec * 1000 + now.tv_usec;
     ++m_timesUsed;
     return m_texture;
@@ -33,7 +33,7 @@ GAFCachedTexture::GAFCachedTexture(Texture2D* tex)
         static_cast<size_t>(tex->getContentSizeInPixels().width * tex->getContentSizeInPixels().height);
     m_texture->retain();
     timeval now;
-    gettimeofday(&now, NULL);
+    gettimeofday(&now, nullptr);
     m_created = now.tv_sec * 1000 + now.tv_usec;
     m_lastUsed = m_created;
 }
