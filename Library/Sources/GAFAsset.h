@@ -1,12 +1,12 @@
 #pragma once
 
-#ifndef __GAF_ASSET_H__
-#define __GAF_ASSET_H__
-
 #include "GAFCollections.h"
 #include "GAFHeader.h"
 
 #include "GAFDelegates.h"
+
+namespace gaf
+{
 
 class GAFTextureAtlas;
 class GAFAnimatedObject;
@@ -109,5 +109,4 @@ public:
     void setSceneColor(const cocos2d::Color4B&);
 };
 
-
-#endif // __GAF_ASSET_H__
+}

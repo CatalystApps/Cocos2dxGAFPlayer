@@ -1,12 +1,15 @@
 #pragma once
 
+#include <unordered_map>
+#include "GAFAnimationSequence.h"
+
+namespace gaf
+{
+
 class GAFTextureAtlas;
 class GAFAnimationFrame;
 class GAFSprite;
 class GAFFilterData;
-
-#include <unordered_map>
-#include "GAFAnimationSequence.h"
 
 enum GAFFilterType
 {
@@ -54,3 +57,5 @@ enum
 {
     IDNONE = UINT_MAX
 };
+
+}

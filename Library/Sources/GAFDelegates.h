@@ -1,5 +1,8 @@
 #pragma once
 
+namespace gaf
+{
+
 class GAFAnimatedObject;
 class GAFSprite;
 class GAFAnimation;
@@ -45,3 +48,5 @@ class GAFAnimatedObjectControlDelegate
 public:
     virtual void onFrameDisplayed(GAFAnimatedObject * object, const GAFSprite * subobject) = 0;
 };
+
+}

@@ -1,9 +1,9 @@
 #pragma once
 
-#ifndef __GAF_SPRITE_WITH_ALPHA__
-#define __GAF_SPRITE_WITH_ALPHA__
-
 #include "GAFSprite.h"
+
+namespace gaf
+{
 
 static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
 static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
@@ -53,4 +53,4 @@ protected:
 
 };
 
-#endif // __GAF_SPRITE_WITH_ALPHA__
+}

@@ -2,6 +2,9 @@
 
 #include "DefinitionTagBase.h"
 
+namespace gaf
+{
+
 class GAFLoader;
 
 class TagDefineTimeline : public DefinitionTagBase
@@ -15,3 +18,5 @@ public:
     virtual void read(GAFStream*, GAFAsset*);
 
 };
+
+}

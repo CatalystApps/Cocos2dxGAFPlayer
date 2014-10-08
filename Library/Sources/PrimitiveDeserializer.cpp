@@ -3,6 +3,9 @@
 
 #include "GAFStream.h"
 
+namespace gaf
+{
+
 void PrimitiveDeserializer::deserialize(GAFStream* in, cocos2d::Vect* out)
 {
     out->x = in->readFloat();
@@ -29,4 +32,6 @@ void PrimitiveDeserializer::deserialize(GAFStream* in, cocos2d::Size* out)
 void PrimitiveDeserializer::deserialize(GAFStream* in, cocos2d::Color4B* out)
 {
     in->readNBytesOfT(out, 4);
+}
+
 }

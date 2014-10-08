@@ -22,41 +22,45 @@ using std::string;
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
 
-const char * const GAFShaderManager::s_fragmentShaders[] =
+namespace gaf
 {
-    GaussianBlurFragmentShader_fs,
-    GlowFragmentShader_fs,
-    pcShader_masked_texture_fs,
-    pcShader_PositionTexture_alphaFilter_fs,
-    pcShader_PositionTextureAlpha_frag_fs,
-    pcShader_PositionTextureAlpha_frag_noCTX_fs
-};
 
-const char* const GAFShaderManager::s_vertexShaders[] =
-{
-    GaussianBlurVertexShader_vs
-};
-
-void GAFShaderManager::handleEnterBackground()
-{
-    // Stub yet
-}
-
-void GAFShaderManager::Initialize(bool force /*= false*/)
-{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-    bool skip = !force && s_initialized;
-    if (!skip)
+    const char * const GAFShaderManager::s_fragmentShaders[] =
     {
-        for (unsigned int i = 0; i < gps::s_numPrograms; ++i)
+        GaussianBlurFragmentShader_fs,
+        GlowFragmentShader_fs,
+        pcShader_masked_texture_fs,
+        pcShader_PositionTexture_alphaFilter_fs,
+        pcShader_PositionTextureAlpha_frag_fs,
+        pcShader_PositionTextureAlpha_frag_noCTX_fs
+    };
+
+    const char* const GAFShaderManager::s_vertexShaders[] =
+    {
+        GaussianBlurVertexShader_vs
+    };
+
+    void GAFShaderManager::handleEnterBackground()
+    {
+        // Stub yet
+    }
+
+    void GAFShaderManager::Initialize(bool force /*= false*/)
+    {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+        bool skip = !force && s_initialized;
+        if (!skip)
         {
-            cocos2d::
-                CCPrecompiledShaders::getInstance()->addPrecompiledProgram(
+            for (unsigned int i = 0; i < gps::s_numPrograms; ++i)
+            {
+                cocos2d::
+                    CCPrecompiledShaders::getInstance()->addPrecompiledProgram(
                     gps::s_programKeys[i],
                     gps::s_programs[i],
                     gps::s_programLengths[i]);
+            }
+            s_initialized = true;
         }
-        s_initialized = true;
-    }
 #endif
+    }
 }

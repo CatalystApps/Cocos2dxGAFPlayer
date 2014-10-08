@@ -12,6 +12,9 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+namespace gaf
+{
+
 TagDefineAnimationFrames::~TagDefineAnimationFrames()
 {
     for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
@@ -205,4 +208,6 @@ void TagDefineAnimationFrames::_translateColor(cocos2d::Color4F& out, const coco
     out.g = in.g / 255.f;
     out.r = in.b / 255.f;
     out.a = in.a / 255.f;
+}
+
 }

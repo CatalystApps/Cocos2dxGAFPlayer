@@ -3,6 +3,9 @@
 #include "GAFSubobjectState.h"
 #include "GAFTextureAtlas.h"
 
+namespace gaf
+{
+
 GAFAnimationFrame::GAFAnimationFrame()
 {
 
@@ -27,3 +30,4 @@ void GAFAnimationFrame::pushObjectState(GAFSubobjectState* state)
     state->addRef();
 }
 
+}

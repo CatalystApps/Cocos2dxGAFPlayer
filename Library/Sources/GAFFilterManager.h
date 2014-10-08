@@ -2,6 +2,9 @@
 #include "GAFCollections.h"
 #include "GAFCachedTexture.h"
 
+namespace gaf
+{
+
 class GAFSprite;
 class GAFBlurFilterData;
 class GAFGlowFilterData;
@@ -42,3 +45,5 @@ private:
     
     static size_t s_maxCacheSize;
 };
+
+}

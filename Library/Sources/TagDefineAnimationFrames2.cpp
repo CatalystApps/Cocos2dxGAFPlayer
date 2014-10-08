@@ -12,6 +12,8 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+namespace gaf
+{
 
 void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* ctx)
 {
@@ -209,4 +211,6 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
     }
 
     return state;
+}
+
 }

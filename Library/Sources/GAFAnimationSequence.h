@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef __GAF_ANIMATION_SEQUENCE_H__
-#define __GAF_ANIMATION_SEQUENCE_H__
+namespace gaf
+{
 
 class GAFAnimationSequence
 {
@@ -15,4 +15,4 @@ public:
     }
 };
 
-#endif // __GAF_ANIMATION_SEQUENCE_H__
+}

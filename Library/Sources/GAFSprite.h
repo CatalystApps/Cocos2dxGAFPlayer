@@ -2,6 +2,9 @@
 
 #include "GAFQuadCommand.h"
 
+namespace gaf
+{
+
 class GAFStencilMaskSprite;
 
 typedef struct _gafBlendFuncSeparate
@@ -99,3 +102,5 @@ private:
     bool                    m_useSeparateBlendFunc;
     GLint                   m_blendEquation;
 };
+
+}

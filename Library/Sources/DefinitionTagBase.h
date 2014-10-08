@@ -1,5 +1,8 @@
 #pragma once
 
+namespace gaf
+{
+
 class GAFStream;
 class GAFAsset;
 
@@ -10,3 +13,5 @@ public:
 
     virtual void read(GAFStream*, GAFAsset*) = 0;
 };
+
+}
