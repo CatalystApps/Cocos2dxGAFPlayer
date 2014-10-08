@@ -1,5 +1,8 @@
 #pragma once
 
+namespace gaf
+{
+
 class GAFShaderManager
 {
 public:
@@ -38,3 +41,5 @@ private:
     static bool s_initialized;
 #endif
 }; // GAFShaderManager
+
+}

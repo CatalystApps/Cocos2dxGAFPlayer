@@ -2,6 +2,9 @@
 
 #include "GAFHeader.h"
 
+namespace gaf
+{
+
 class GAFFile
 {
 private:
@@ -44,3 +47,5 @@ public:
     unsigned int         getPosition() const;
     void                 rewind(unsigned int newPos);
 };
+
+}

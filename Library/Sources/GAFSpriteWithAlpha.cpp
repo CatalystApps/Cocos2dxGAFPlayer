@@ -19,6 +19,9 @@ USING_NS_CC;
 
 #define CHECK_CTX_IDENTITY 0
 
+namespace gaf
+{
+
 static int colorTransformMultLocation = -1;
 static int colorTransformOffsetLocation = -1;
 static int fragmentAlphaLocation = -1;
@@ -27,10 +30,10 @@ static int colorMatrixLocation2  = -1;
 
 GAFSpriteWithAlpha::GAFSpriteWithAlpha()
 :
-m_initialTexture(NULL),
-m_colorMatrixFilterData(NULL),
-m_glowFilterData(NULL),
-m_blurFilterData(NULL)
+m_initialTexture(nullptr),
+m_colorMatrixFilterData(nullptr),
+m_glowFilterData(nullptr),
+m_blurFilterData(nullptr)
 {
 }
 
@@ -115,7 +118,7 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
         {
             CCLOGERROR("Cannot load program for GAFSpriteWithAlpha.");
             CC_SAFE_DELETE(program);
-            return NULL;
+            return nullptr;
         }
 
         CHECK_GL_ERROR_DEBUG();
@@ -139,7 +142,7 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
     }
     else
     {
-        cocos2d::Texture2D * resultTex = NULL;
+        cocos2d::Texture2D * resultTex = nullptr;
 
         if (m_blurFilterData)
         {
@@ -349,3 +352,4 @@ void _GAFreloadAlphaShader()
 }
 #endif
 
+}

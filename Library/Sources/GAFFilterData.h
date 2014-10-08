@@ -1,6 +1,9 @@
 #pragma once
 #include "GAFCollections.h"
 
+namespace gaf
+{
+
 class GAFSpriteWithAlpha;
 
 class GAFFilterData
@@ -70,3 +73,5 @@ public:
 
     static void reset(GAFSpriteWithAlpha*);
 };
+
+}

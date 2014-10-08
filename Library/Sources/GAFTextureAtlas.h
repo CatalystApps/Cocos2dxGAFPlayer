@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef __GAF_TEXTURE_ATLAS___
-#define __GAF_TEXTURE_ATLAS___
+namespace gaf
+{
 
 class GAFTextureAtlasElement;
 class GAFTextureLoadDelegate;
@@ -70,4 +70,4 @@ public:
     uint32_t     getMemoryConsumptionStat() const;
 };
 
-#endif // __GAF_TEXTURE_ATLAS___
+}

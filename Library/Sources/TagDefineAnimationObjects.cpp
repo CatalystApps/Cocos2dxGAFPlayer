@@ -5,6 +5,9 @@
 #include "GAFStream.h"
 #include "GAFAsset.h"
 
+namespace gaf
+{
+
 void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* ctx)
 {
     unsigned int count = in->readU32();
@@ -21,4 +24,6 @@ void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* ctx)
             /*unsigned short objType = */in->readU16();
         }
     }
+}
+
 }

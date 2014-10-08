@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef __GAF_TEXTURE_ATLAS_ELEMENT__
-#define __GAF_TEXTURE_ATLAS_ELEMENT__
+namespace gaf
+{
 
 class GAFTextureAtlasElement
 {
@@ -19,4 +19,4 @@ public:
     GAFTextureAtlasElement();
 }; // GAFTextureAtlasElement
 
-#endif // __GAF_TEXTURE_ATLAS_ELEMENT__
+}

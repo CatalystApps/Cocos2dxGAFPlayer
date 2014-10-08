@@ -4,6 +4,9 @@
 #include "GAFSpriteWithAlpha.h"
 #include "GAFFilterManager.h"
 
+namespace gaf
+{
+
 GAFBlurFilterData::GAFBlurFilterData():
 GAFFilterData(GFT_Blur)
 {
@@ -71,4 +74,6 @@ void GAFDropShadowFilterData::reset(GAFSpriteWithAlpha* subObject)
     {
         subObject->removeChild(prevShadowObject, true);
     }
+}
+
 }

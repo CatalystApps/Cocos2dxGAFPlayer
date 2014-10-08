@@ -2,6 +2,9 @@
 
 #include "TagDefines.h"
 
+namespace gaf
+{
+
 class GAFAsset;
 
 class GAFStream;
@@ -46,3 +49,5 @@ public:
 
     void                 loadTags(GAFStream* in, GAFAsset* context);
 };
+
+}

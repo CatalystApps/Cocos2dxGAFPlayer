@@ -8,6 +8,8 @@
 #include "GAFHeader.h"
 #include "PrimitiveDeserializer.h"
 
+namespace gaf
+{
 
 void TagDefineTimeline::read(GAFStream* in, GAFAsset* ctx)
 {
@@ -40,4 +42,6 @@ TagDefineTimeline::TagDefineTimeline(GAFLoader* loader):
 m_loader(loader)
 {
     
+}
+
 }

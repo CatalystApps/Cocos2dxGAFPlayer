@@ -2,6 +2,9 @@
 
 #include "TagDefines.h"
 
+namespace gaf
+{
+
 class GAFFile;
 
 class GAFStream
@@ -57,3 +60,5 @@ public:
 
     bool                 isEndOfStream() const;
 };
+
+}

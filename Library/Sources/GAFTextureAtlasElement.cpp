@@ -1,6 +1,9 @@
 #include "GAFPrecompiled.h"
 #include "GAFTextureAtlasElement.h"
 
+namespace gaf
+{
+
 GAFTextureAtlasElement::GAFTextureAtlasElement()
 {
 
@@ -9,4 +12,6 @@ GAFTextureAtlasElement::GAFTextureAtlasElement()
 bool GAFTextureAtlasElement::init()
 {
     return true;
+}
+
 }

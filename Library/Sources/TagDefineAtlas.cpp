@@ -10,6 +10,9 @@
 #include "GAFTextureAtlasElement.h"
 #include "PrimitiveDeserializer.h"
 
+namespace gaf
+{
+
 void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
 {
     GAFTextureAtlas* txAtlas = new GAFTextureAtlas();
@@ -81,4 +84,6 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
     }
 
     ctx->pushTextureAtlas(txAtlas);
+}
+
 }

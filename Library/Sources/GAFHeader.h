@@ -1,5 +1,8 @@
 #pragma once
 
+namespace gaf
+{
+
 class GAFHeader
 {
 public:
@@ -36,3 +39,5 @@ public:
         return version >> 1;
     }
 };
+
+}

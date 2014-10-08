@@ -5,6 +5,9 @@
 
 #include "GAFCollections.h"
 
+namespace gaf
+{
+
 GAFSubobjectState::GAFSubobjectState()
 :
 objectIdRef(IDNONE),
@@ -57,4 +60,6 @@ void GAFSubobjectState::release()
     {
         delete this;
     }
+}
+
 }

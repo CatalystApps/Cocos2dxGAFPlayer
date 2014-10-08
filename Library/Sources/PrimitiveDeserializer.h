@@ -1,5 +1,8 @@
 #pragma once
 
+namespace gaf
+{
+
 class GAFStream;
 
 class PrimitiveDeserializer
@@ -11,3 +14,5 @@ public:
     static void deserialize(GAFStream* in, cocos2d::Size* out);
     static void deserialize(GAFStream* in, cocos2d::Color4B* out);
 };
+
+}

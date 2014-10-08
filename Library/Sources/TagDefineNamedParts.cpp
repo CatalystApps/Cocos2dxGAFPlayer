@@ -4,6 +4,9 @@
 #include "GAFAsset.h"
 #include "GAFStream.h"
 
+namespace gaf
+{
+
 void TagDefineNamedParts::read(GAFStream* in, GAFAsset* ctx)
 {
     unsigned int count = in->readU32();
@@ -16,4 +19,6 @@ void TagDefineNamedParts::read(GAFStream* in, GAFAsset* ctx)
 
         ctx->pushNamedPart(objectIdRef, name);
     }
+}
+
 }
