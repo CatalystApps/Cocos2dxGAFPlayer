@@ -96,7 +96,7 @@ int WINAPI WinMain(__in HINSTANCE hInstance,
     AppDelegate app;
     CCEGLView* eglView = CCEGLView::sharedOpenGLView();
     eglView->setViewName("GAF Animation sample");
-    eglView->setFrameSize(1920, 1080);
+    eglView->setFrameSize(1024, 768);
 
     return CCApplication::sharedApplication()->run();
 }
