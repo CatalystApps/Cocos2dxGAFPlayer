@@ -4,6 +4,8 @@
 #include "GAFSpriteWithAlpha.h"
 #include "GAFTextureEffectsConverter.h"
 
+using namespace cocos2d;
+
 GAFBlurFilterData::GAFBlurFilterData():
 GAFFilterData(GFT_Blur)
 {

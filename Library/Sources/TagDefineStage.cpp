@@ -6,6 +6,8 @@
 #include "GAFHeader.h"
 #include "PrimitiveDeserializer.h"
 
+using namespace cocos2d;
+
 void TagDefineStage::read(GAFStream* in, GAFAsset* ctx)
 {
     ccColor4B color;

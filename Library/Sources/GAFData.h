@@ -3,7 +3,6 @@
 #ifndef __GAF_DATA_H__
 #define __GAF_DATA_H__
 
-using namespace cocos2d;
 
     /**
     @class GAFData
@@ -12,7 +11,7 @@ using namespace cocos2d;
     By default it does NOT own data!!!
     */
 
-class GAFData : public CCObject
+class GAFData : public cocos2d::CCObject
 {
 public:
     inline GAFData()

@@ -8,17 +8,15 @@ namespace cocos2d
     class CCDictionary;
 }
 
-using namespace cocos2d;
-
-class GAFActionObject : public CCObject
+class GAFActionObject : public cocos2d::CCObject
 {
 public:
-    std::string name; // TODO : think what is it better than CCString
-    CCPoint     pivotPoint;
-    CCRect      bounds;
+    std::string         name; // TODO : think what is it better than CCString
+    cocos2d::CCPoint    pivotPoint;
+    cocos2d::CCRect     bounds;
 
-    static GAFActionObject * create(CCDictionary * aDictionary);
-    bool initWithDictionary(CCDictionary * aDictionary);
+    static GAFActionObject * create(cocos2d::CCDictionary * aDictionary);
+    bool initWithDictionary(cocos2d::CCDictionary * aDictionary);
 protected:
     GAFActionObject();
 

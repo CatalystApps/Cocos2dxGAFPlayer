@@ -12,6 +12,8 @@
     #endif
 #endif
 
+using namespace cocos2d;
+
 void GAFFile::_readHeaderBegin(GAFHeader& out)
 {
     readBytes(&out.compression, 4);

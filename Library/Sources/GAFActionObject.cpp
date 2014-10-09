@@ -1,6 +1,8 @@
 #include "GAFPrecompiled.h"
 #include "GAFActionObject.h"
 
+using namespace cocos2d;
+
 static const char * kNameKey = "name";
 static const char * kXKey = "x";
 static const char * kYKey = "y";

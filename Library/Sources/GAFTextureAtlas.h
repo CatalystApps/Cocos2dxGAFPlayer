@@ -10,7 +10,6 @@ namespace cocos2d
     class CCArray;
     class CCTexture2D;
 }
-using namespace cocos2d;
 
 class GAFTextureAtlasElement;
 class GAFTextureLoadDelegate;
@@ -39,13 +38,13 @@ public:
     GAFTextureAtlas();
 private:
 
-    float           m_scale;
-    AtlasInfos_t    m_atlasInfos;
-    Elements_t      m_elements;
+    float               m_scale;
+    AtlasInfos_t        m_atlasInfos;
+    Elements_t          m_elements;
 
-    bool            m_loaded;
-    CCArray*        m_images;
-    CCArray*        m_textures;
+    bool                m_loaded;
+    cocos2d::CCArray*   m_images;
+    cocos2d::CCArray*   m_textures;
 public:
     ~GAFTextureAtlas();
 
@@ -59,11 +58,11 @@ public:
     void                    setScale(float val);
     float                   getScale() const;
 
-    CCImage     *           image();
-    CCArray     *           images();
+    cocos2d::CCImage     *  image();
+    cocos2d::CCArray     *  images();
 
-    CCTexture2D *           texture();
-    CCArray     *           textures();
+    cocos2d::CCTexture2D *   texture();
+    cocos2d::CCArray     *   textures();
 
     const Elements_t&       getElements() const;
 };

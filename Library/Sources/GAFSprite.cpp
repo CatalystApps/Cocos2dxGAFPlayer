@@ -8,6 +8,8 @@
 #endif
 #include "GAFSpriteWithAlpha.h"
 
+using namespace cocos2d;
+
 GAFSprite::GAFSprite()
 :
 _useSeparateBlendFunc(false),

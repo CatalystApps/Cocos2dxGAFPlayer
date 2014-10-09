@@ -13,6 +13,8 @@
 
 #include "GAFLoader.h"
 
+using namespace cocos2d;
+
 static float _currentDeviceScale = 1.0f;
 static float  _desiredCsf = 1.f;
 

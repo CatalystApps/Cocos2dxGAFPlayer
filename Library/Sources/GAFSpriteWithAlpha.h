@@ -22,16 +22,16 @@ private:
     GAFGlowFilterData*             m_glowFilterData;
     GAFBlurFilterData*             m_blurFilterData;
 
-    CCTexture2D * m_initialTexture;
-    CCRect        m_initialTextureRect;
+    cocos2d::CCTexture2D * m_initialTexture;
+    cocos2d::CCRect        m_initialTextureRect;
 
 public:
     GAFSpriteWithAlpha();
     ~GAFSpriteWithAlpha();
     virtual void setUniformsForFragmentShader();
-    virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
+    virtual bool initWithTexture(cocos2d::CCTexture2D *pTexture, const cocos2d::CCRect& rect, bool rotated);
 
-    CCGLProgram * programForShader();
+    cocos2d::CCGLProgram * programForShader();
 
     void setColorTransform(const GLfloat * mults, const GLfloat * offsets);
     const GLfloat * getColorTransform() const;
@@ -42,8 +42,8 @@ public:
     void setGlowFilterData(GAFGlowFilterData* data);
     void setBlurFilterData(GAFBlurFilterData* data);
 
-    CCTexture2D*    getInitialTexture() const;
-    const CCRect&   getInitialTextureRect() const;
+    cocos2d::CCTexture2D*    getInitialTexture() const;
+    const cocos2d::CCRect&   getInitialTextureRect() const;
     
     bool            isCTXIdentity() const;
 

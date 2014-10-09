@@ -3,6 +3,8 @@
 #include "GAFSubobjectState.h"
 #include "GAFTextureAtlas.h"
 
+using namespace cocos2d;
+
 GAFAnimationFrame::GAFAnimationFrame()
 {
 

@@ -10,6 +10,8 @@
 #include "GAFTextureAtlasElement.h"
 #include "PrimitiveDeserializer.h"
 
+using namespace cocos2d;
+
 void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
 {
     GAFTextureAtlas* txAtlas = new GAFTextureAtlas();

@@ -9,6 +9,8 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFFilterData.h"
 
+using namespace cocos2d;
+
 // Detect whether it is Visual Studio 2010 or lower
 #if defined(_MSC_VER) && _MSC_VER < 1700 
 // If so, implement roundf manually

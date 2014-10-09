@@ -10,6 +10,8 @@
 
 #include "GAFShaderManager.h"
 
+using namespace cocos2d;
+
 static int colorTransformLocation = -1;
 static int fragmentAlphaLocation = -1;
 static int colorMatrixLocation   = -1;

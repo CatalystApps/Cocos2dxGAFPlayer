@@ -9,7 +9,7 @@ class TagDefineAnimationFrames : public DefinitionTagBase
 private:
     GAFSubobjectState* extractState(GAFStream* in);
 
-    void _translateColor(ccColor4F& out, const ccColor4B& in);
+    void _translateColor(cocos2d::ccColor4F& out, const cocos2d::ccColor4B& in);
 
 public:
 

@@ -12,6 +12,7 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+using namespace cocos2d;
 
 void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* ctx)
 {

@@ -5,6 +5,8 @@
 
 #include "GAFCollections.h"
 
+using namespace cocos2d;
+
 GAFSubobjectState::GAFSubobjectState()
 :
 objectIdRef(IDNONE),

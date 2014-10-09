@@ -5,6 +5,8 @@
 #include "GAFSpriteWithAlpha.h"
 #include "GAFStencilMaskSprite.h"
 
+using namespace cocos2d;
+
 GAFShaderManager* GAFShaderManager::m_instance = NULL;
 
 CCGLProgram * GAFShaderManager::createWithFragmentFilename(const char * vertexSource, const char * fragmentFilename, CCGLProgram * p)

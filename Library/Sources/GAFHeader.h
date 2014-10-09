@@ -18,9 +18,9 @@ public:
     unsigned int    fileLenght;
 
     // Version 3
-    unsigned short  framesCount;
-    CCRect          frameSize;
-    CCPoint         pivot;
+    unsigned short   framesCount;
+    cocos2d::CCRect  frameSize;
+    cocos2d::CCPoint pivot;
 
     // Version 4
     std::vector<float>          scaleValues;

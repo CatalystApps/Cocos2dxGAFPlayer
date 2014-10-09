@@ -10,8 +10,6 @@ namespace cocos2d
     class CCDictionary;
 }
 
-using namespace cocos2d;
-
 enum GAFColorTransformIndex
 {
     GAFCTI_R,
@@ -35,7 +33,7 @@ public:
     unsigned int maskObjectIdRef;
 
     int zIndex;
-    CCAffineTransform affineTransform;
+    cocos2d::CCAffineTransform affineTransform;
 
     bool initEmpty(unsigned int objectIdRef);
 

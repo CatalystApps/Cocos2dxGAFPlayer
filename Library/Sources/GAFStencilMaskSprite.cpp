@@ -2,6 +2,8 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFShaderManager.h"
 
+using namespace cocos2d;
+
 static const char * kPCStencilMaskAlphaFilterFragmentShaderFilename = "Shaders/pcShader_PositionTexture_alphaFilter.fs";
 
 #define USE_LAYERED_STENCIL 1

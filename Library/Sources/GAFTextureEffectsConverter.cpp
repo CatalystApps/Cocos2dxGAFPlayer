@@ -4,6 +4,8 @@
 
 #include "GAFFilterData.h"
 
+using namespace cocos2d;
+
 const int kGaussianKernelSize = 9;
 
 GAFTextureEffectsConverter::GAFTextureEffectsConverter()

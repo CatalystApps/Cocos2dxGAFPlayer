@@ -4,6 +4,8 @@
 #include "GAFAsset.h"
 #include "GAFAnimatedObject.h"
 
+using namespace cocos2d;
+
 GAFAnimation::GAFAnimation()
 :
 _asset(NULL),

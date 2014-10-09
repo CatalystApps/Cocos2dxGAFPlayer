@@ -8,6 +8,7 @@
 #include "GAFHeader.h"
 #include "PrimitiveDeserializer.h"
 
+using namespace cocos2d;
 
 void TagDefineTimeline::read(GAFStream* in, GAFAsset* ctx)
 {

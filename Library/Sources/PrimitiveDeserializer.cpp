@@ -3,6 +3,8 @@
 
 #include "GAFStream.h"
 
+using namespace cocos2d;
+
 void PrimitiveDeserializer::deserialize(GAFStream* in, CCPoint* out)
 {
     out->x = in->readFloat();

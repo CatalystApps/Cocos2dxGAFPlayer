@@ -20,23 +20,23 @@ typedef struct _gafBlendFuncSeparate
 ///	This is utility class used by GAF playback. It does not perform rendering or use OpenGL.
 /// Instead, it references backend object via GAFSprite::getExternalPointer.
 
-class GAFSprite : public CCSprite
+class GAFSprite : public cocos2d::CCSprite
 {
 public:
     GAFSprite();
-    void setExternaTransform(const CCAffineTransform& transform);
-    void setChildTransform(const CCAffineTransform& transform);
+    void setExternaTransform(const cocos2d::CCAffineTransform& transform);
+    void setChildTransform(const cocos2d::CCAffineTransform& transform);
 
     unsigned int objectIdRef;
 
     virtual void draw();
     virtual void setUniformsForFragmentShader();
 
-    inline const CCAffineTransform &childTransform() const
+    inline const cocos2d::CCAffineTransform &childTransform() const
     {
         return _childTransform;
     }
-    const CCAffineTransform& getExternalTransform() const
+    const cocos2d::CCAffineTransform& getExternalTransform() const
     {
         return _externalTransform;
     }
@@ -45,12 +45,12 @@ public:
         _isLocator = locator;
     }
     void setAtlasScale(float scale);
-    CCAffineTransform nodeToParentTransform(void);
-    void setTexture(CCTexture2D *texture);
-    bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
+    cocos2d::CCAffineTransform nodeToParentTransform(void);
+    void setTexture(cocos2d::CCTexture2D *texture);
+    bool initWithTexture(cocos2d::CCTexture2D *pTexture, const cocos2d::CCRect& rect, bool rotated);
 protected:
-    CCAffineTransform _externalTransform;
-    CCAffineTransform _childTransform;
+    cocos2d::CCAffineTransform _externalTransform;
+    cocos2d::CCAffineTransform _childTransform;
     void invalidateTransformCache();
 private:
     gafBlendFuncSeparate _blendFuncSeparate;

@@ -8,6 +8,8 @@
 #include "textures/CCTextureCache.h"
 #endif
 
+using namespace cocos2d;
+
 GAFTextureAtlas::GAFTextureAtlas()
 :
 m_loaded(false),

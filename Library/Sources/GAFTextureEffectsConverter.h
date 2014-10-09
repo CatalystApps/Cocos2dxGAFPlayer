@@ -10,25 +10,23 @@ namespace cocos2d
     class CCGLProgram;
 }
 
-using namespace cocos2d;
-
 class GAFGlowFilterData;
 class GAFDropShadowFilterData;
 
-class GAFTextureEffectsConverter : public CCObject
+class GAFTextureEffectsConverter : public cocos2d::CCObject
 {
 public:
     GAFTextureEffectsConverter();
     ~GAFTextureEffectsConverter();
     static GAFTextureEffectsConverter * sharedConverter();
 
-    CCRenderTexture * gaussianBlurredTextureFromTexture(CCTexture2D * aTexture, const CCRect& rect, float aBlurRadiusX, float aBlurRadiusY);
-    static CCGLProgram * programForBlurShaderWithName(const char * aShaderName, const char * aVertexShaderFile, const char * aFragmentShaderFile);
+    cocos2d::CCRenderTexture * gaussianBlurredTextureFromTexture(cocos2d::CCTexture2D * aTexture, const cocos2d::CCRect& rect, float aBlurRadiusX, float aBlurRadiusY);
+    static cocos2d::CCGLProgram * programForBlurShaderWithName(const char * aShaderName, const char * aVertexShaderFile, const char * aFragmentShaderFile);
 
-    static CCGLProgram * programForGlowShaderWithName(const char * aShaderName, const char * aVertexShaderFile, const char * aFragmentShaderFile);
-    CCRenderTexture * glowTextureFromTexture(CCTexture2D * aTexture, const CCRect& rect, GAFGlowFilterData* data);
+    static cocos2d::CCGLProgram * programForGlowShaderWithName(const char * aShaderName, const char * aVertexShaderFile, const char * aFragmentShaderFile);
+    cocos2d::CCRenderTexture * glowTextureFromTexture(cocos2d::CCTexture2D * aTexture, const cocos2d::CCRect& rect, GAFGlowFilterData* data);
 
-    CCRenderTexture*  dropShadowTextureFromTexture(CCTexture2D * aTexture, const CCRect& rect, GAFDropShadowFilterData* data);
+    cocos2d::CCRenderTexture*  dropShadowTextureFromTexture(cocos2d::CCTexture2D * aTexture, const cocos2d::CCRect& rect, GAFDropShadowFilterData* data);
 };
 
 

@@ -12,6 +12,8 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+using namespace cocos2d;
+
 void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* ctx)
 {
     in->readU32(); // read count. Unused here
