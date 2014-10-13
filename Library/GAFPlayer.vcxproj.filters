@@ -149,15 +149,6 @@
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h">
       <Filter>Sources\ShadersPrecompiled</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\ShadersPrecompiled\GaussianBlur.h">
-      <Filter>Sources\ShadersPrecompiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\ShadersPrecompiled\kGAFScrollLayerAlphaFilterProgramCacheKey.h">
-      <Filter>Sources\ShadersPrecompiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\ShadersPrecompiled\kGAFSpriteWithAlphaShaderProgramCache.h">
-      <Filter>Sources\ShadersPrecompiled</Filter>
-    </ClInclude>
     <ClInclude Include="GAFPrecompiled.h">
       <Filter>Sources</Filter>
     </ClInclude>

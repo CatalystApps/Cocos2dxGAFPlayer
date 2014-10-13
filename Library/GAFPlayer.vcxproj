@@ -82,9 +82,6 @@
     <ClInclude Include="Sources\GAFTextureAtlasElement.h" />
     <ClInclude Include="Sources\PrimitiveDeserializer.h" />
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h" />
-    <ClInclude Include="Sources\ShadersPrecompiled\GaussianBlur.h" />
-    <ClInclude Include="Sources\ShadersPrecompiled\kGAFScrollLayerAlphaFilterProgramCacheKey.h" />
-    <ClInclude Include="Sources\ShadersPrecompiled\kGAFSpriteWithAlphaShaderProgramCache.h" />
     <ClInclude Include="Sources\TagDefineAnimationFrames.h" />
     <ClInclude Include="Sources\TagDefineAnimationFrames2.h" />
     <ClInclude Include="Sources\TagDefineAnimationMasks.h" />
