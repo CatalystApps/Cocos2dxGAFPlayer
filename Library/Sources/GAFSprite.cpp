@@ -22,7 +22,9 @@ m_blendEquation(-1),
 m_atlasScale(1.0f),
 m_externalTransform(AffineTransform::IDENTITY)
 {
-
+#if COCOS2D_VERSION < 0x00030300
+    _batchNode = nullptr; // this will fix a bug in cocos2dx 3.2 tag
+#endif
 }
 
 bool GAFSprite::initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)
