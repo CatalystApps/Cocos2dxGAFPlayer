@@ -51,6 +51,7 @@
   <ItemGroup>
     <ClInclude Include="GAFPrecompiled.h" />
     <ClInclude Include="Sources\DefinitionTagBase.h" />
+    <ClInclude Include="Sources\GAF.h" />
     <ClInclude Include="Sources\GAFAssetTextureManager.h" />
     <ClInclude Include="Sources\GAFCachedTexture.h" />
     <ClInclude Include="Sources\GAFCollections.h" />

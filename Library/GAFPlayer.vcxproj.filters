@@ -236,5 +236,8 @@
     <ClInclude Include="Sources\GAFMask.h">
       <Filter>Sources\GAFObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\GAF.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,12 +2,12 @@
 #define __GafFeatures_SCENE_H__
 
 #include "cocos2d.h"
+#include "GAF.h"
 
 #include <string>
 #include <vector>
 #include <unordered_map>
 
-#include "GAFDelegates.h"
 
 class GAFObject;
 class GAFAsset;

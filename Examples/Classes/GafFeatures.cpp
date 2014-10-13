@@ -1,9 +1,5 @@
 #include "GafFeatures.h"
 
-#include <GAFAsset.h>
-#include <GAFTextureAtlas.h>
-#include <GAFObject.h>
-#include <GAFAssetTextureManager.h>
 #include <audio/include/SimpleAudioEngine.h>
 
 #include <iostream>
