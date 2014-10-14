@@ -847,10 +847,14 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 
                     GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
 
-                    m_parentFilters.insert(m_parentFilters.end(), filters.begin(), filters.end());
-                    if (!m_parentFilters.empty())
+                    Filters_t filtersUnion;
+                    filtersUnion.insert(filtersUnion.end(), m_parentFilters.begin(), m_parentFilters.end());
+                    filtersUnion.insert(filtersUnion.end(), filters.begin(), filters.end());
+
+                    //m_parentFilters.insert(m_parentFilters.end(), filters.begin(), filters.end());
+                    if (!filtersUnion.empty())
                     {
-                        filter = m_parentFilters[0];
+                        filter = filtersUnion[0];// m_parentFilters[0];
                         filter->apply(mc);
                     }
 
