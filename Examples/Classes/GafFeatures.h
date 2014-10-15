@@ -11,7 +11,9 @@
 
 #include "GAFDelegates.h"
 
-class gaf::GAFAnimatedObject;
+namespace gaf{
+class GAFAnimatedObject;
+}
 
 class GafFeatures : public cocos2d::Layer, public gaf::GAFSequenceDelegate, public gaf::GAFTextureLoadDelegate, public gaf::GAFFramePlayedDelegate
 {

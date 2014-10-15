@@ -21,7 +21,21 @@ USING_NS_CC;
 
 namespace gaf
 {
-
+    struct GAFSpriteWithAlphaHash
+    {
+        int       program;
+        uint32_t  texture;
+        BlendFunc blend;
+        cocos2d::Vec4   a;
+        cocos2d::Vec4   b;
+        float   c;
+        Mat4    d;
+        Vec4    e;
+        Mat4    f;
+        Vec4    g;
+        
+    };
+    
 static int colorTransformMultLocation = -1;
 static int colorTransformOffsetLocation = -1;
 static int fragmentAlphaLocation = -1;
@@ -102,8 +116,6 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
             program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
             program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
             program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-            //program->link();
-            //program->updateUniforms();
             CHECK_GL_ERROR_DEBUG();
             if (isCTXidt)
             {
@@ -123,11 +135,17 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
 
         CHECK_GL_ERROR_DEBUG();
         program->use();
-        colorTransformMultLocation = glGetUniformLocation(program->getProgram(), "colorTransformMult");
-        colorTransformOffsetLocation = glGetUniformLocation(program->getProgram(), "colorTransformOffsets");
-        colorMatrixLocation = glGetUniformLocation(program->getProgram(), "colorMatrix");
-        colorMatrixLocation2 = glGetUniformLocation(program->getProgram(), "colorMatrix2");
-        fragmentAlphaLocation = glGetUniformLocation(program->getProgram(), "fragmentAlpha");
+        if(isCTXidt)
+        {
+            fragmentAlphaLocation = glGetUniformLocation(program->getProgram(), "fragmentAlpha");
+        }
+        else
+        {
+            colorTransformMultLocation = glGetUniformLocation(program->getProgram(), "colorTransformMult");
+            colorTransformOffsetLocation = glGetUniformLocation(program->getProgram(), "colorTransformOffsets");
+            colorMatrixLocation = glGetUniformLocation(program->getProgram(), "colorMatrix");
+            colorMatrixLocation2 = glGetUniformLocation(program->getProgram(), "colorMatrix2");
+        }
     }
     return program;
 }
@@ -165,49 +183,24 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
 
 uint32_t GAFSpriteWithAlpha::setUniforms()
 {
-    struct Hash
-    {
-        int       program;
-        uint32_t  texture;
-        BlendFunc blend;
-        decltype(m_colorTransformMult)      a;
-        decltype(m_colorTransformOffsets)   b;
-        decltype(m_colorTransformMult.w)    c;
-        Mat4    d;
-        Vec4    e;
-        Mat4    f;
-        Vec4    g;
-    };
+#if CHECK_CTX_IDENTITY
+    const bool isCTXidt = isCTXIdentity();
+#else
+    const bool isCTXidt = false;
+#endif
+
 
     GLProgramState* state = getGLProgramState();
-
-    Hash hash;
-    memset(&hash, 0, sizeof(Hash));
-
+    
+    GAFSpriteWithAlphaHash hash;
+    memset(&hash, 0, sizeof(GAFSpriteWithAlphaHash));
+    
     hash.program = getGLProgram()->getProgram();
     hash.texture = _texture->getName();
     hash.blend = _blendFunc;
-    
-    bool usingColorTransform = (colorTransformMultLocation > -1) && (colorTransformOffsetLocation > -1);
-    bool usingFragmentAlpha = (!usingColorTransform) && (fragmentAlphaLocation > -1);
-    bool usingColorMatrix = (colorMatrixLocation > -1 && colorMatrixLocation2 > -1);
-    bool usingColorMatrixWithFilter = usingColorMatrix && m_colorMatrixFilterData;
-    usingColorMatrix = usingColorMatrix && !m_colorMatrixFilterData;
 
-    if (usingColorTransform)
-    {
-#if GAF_ENABLE_NEW_UNIFORM_SETTER
-        state->setUniformVec4(colorTransformMultLocation, m_colorTransformMult);
-        state->setUniformVec4(colorTransformOffsetLocation, m_colorTransformOffsets);
-#else
-        state->setUniformVec4("colorTransformMult", m_colorTransformMult);
-        state->setUniformVec4("colorTransformOffsets", m_colorTransformOffsets);
-#endif
-        hash.a = m_colorTransformMult;
-        hash.b = m_colorTransformOffsets;
-    }
     
-    if (usingFragmentAlpha)
+    if(isCTXidt)
     {
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
         state->setUniformFloat(fragmentAlphaLocation, m_colorTransformMult.w);
@@ -215,35 +208,56 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
         state->setUniformFloat("fragmentAlpha", m_colorTransformMult.w);
 #endif
         hash.c = m_colorTransformMult.w;
+        return -1;//XXH32((void*)&hash, sizeof(GAFSpriteWithAlphaHash), 0);
     }
-
-    if (usingColorMatrix)
+    else
     {
-#if GAF_ENABLE_NEW_UNIFORM_SETTER
-        state->setUniformMat4(colorMatrixLocation, m_colorMatrixIdentity1);
-        state->setUniformVec4(colorMatrixLocation2, m_colorMatrixIdentity2);
-#else
-        state->setUniformMat4("colorMatrix", m_colorMatrixIdentity1);
-        state->setUniformVec4("colorMatrix2", m_colorMatrixIdentity2);
-#endif
-        hash.d = m_colorMatrixIdentity1;
-        hash.e = m_colorMatrixIdentity2;
-    }
+        
+        bool usingColorTransform = (colorTransformMultLocation > -1) && (colorTransformOffsetLocation > -1);
+        bool usingColorMatrix = (colorMatrixLocation > -1 && colorMatrixLocation2 > -1);
+        bool usingColorMatrixWithFilter = usingColorMatrix && m_colorMatrixFilterData;
+        usingColorMatrix = usingColorMatrix && !m_colorMatrixFilterData;
 
-    if (usingColorMatrixWithFilter)
-    {
+        if (usingColorTransform)
+        {
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
-        state->setUniformMat4(colorMatrixLocation, Mat4(m_colorMatrixFilterData->matrix));
-        state->setUniformVec4(colorMatrixLocation2, Vec4(m_colorMatrixFilterData->matrix2));
+            state->setUniformVec4(colorTransformMultLocation, m_colorTransformMult);
+            state->setUniformVec4(colorTransformOffsetLocation, m_colorTransformOffsets);
 #else
-        state->setUniformMat4("colorMatrix", Mat4(m_colorMatrixFilterData->matrix));
-        state->setUniformVec4("colorMatrix2", Vec4(m_colorMatrixFilterData->matrix2));
+            state->setUniformVec4("colorTransformMult", m_colorTransformMult);
+            state->setUniformVec4("colorTransformOffsets", m_colorTransformOffsets);
 #endif
-        hash.f = Mat4(m_colorMatrixFilterData->matrix);
-        hash.g = Vec4(m_colorMatrixFilterData->matrix2);
-    }
+            hash.a = m_colorTransformMult;
+            hash.b = m_colorTransformOffsets;
+        }
 
-    return XXH32((void*)&hash, sizeof(Hash), 0);
+        if (usingColorMatrix)
+        {
+#if GAF_ENABLE_NEW_UNIFORM_SETTER
+            state->setUniformMat4(colorMatrixLocation, m_colorMatrixIdentity1);
+            state->setUniformVec4(colorMatrixLocation2, m_colorMatrixIdentity2);
+#else
+            state->setUniformMat4("colorMatrix", m_colorMatrixIdentity1);
+            state->setUniformVec4("colorMatrix2", m_colorMatrixIdentity2);
+#endif
+            hash.d = m_colorMatrixIdentity1;
+            hash.e = m_colorMatrixIdentity2;
+        }
+
+        if (usingColorMatrixWithFilter)
+        {
+#if GAF_ENABLE_NEW_UNIFORM_SETTER
+            state->setUniformMat4(colorMatrixLocation, Mat4(m_colorMatrixFilterData->matrix));
+            state->setUniformVec4(colorMatrixLocation2, Vec4(m_colorMatrixFilterData->matrix2));
+#else
+            state->setUniformMat4("colorMatrix", Mat4(m_colorMatrixFilterData->matrix));
+            state->setUniformVec4("colorMatrix2", Vec4(m_colorMatrixFilterData->matrix2));
+#endif
+            hash.f = Mat4(m_colorMatrixFilterData->matrix);
+            hash.g = Vec4(m_colorMatrixFilterData->matrix2);
+        }
+        return XXH32((void*)&hash, sizeof(GAFSpriteWithAlphaHash), 0);
+    }
 }
 
 void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat * offsets)
@@ -252,7 +266,9 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat 
     m_colorTransformOffsets = Vec4(offsets);
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
-    setShaderProgram(programForShader());
+    _glProgramState->setGLProgram(programForShader());
+//    setGLProgramState(GLProgramState::create(programForShader()));
+    //setShaderProgram(programForShader());
 #endif
 }
 
@@ -263,7 +279,10 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * colorTransform)
 
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
-    setShaderProgram(programForShader());
+    _glProgramState->setGLProgram(programForShader());
+
+    //setGLProgramState(GLProgramState::create(programForShader()));
+    //setShaderProgram(programForShader());
 #endif
 }
 
