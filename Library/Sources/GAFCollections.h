@@ -23,7 +23,8 @@ typedef std::vector<GAFTextureAtlas*>               TextureAtlases_t;
 typedef std::map<unsigned int, unsigned int>        AnimationMasks_t;      // Object id -> Element Atlas Id
 typedef std::map<unsigned int, unsigned int>        AnimationObjects_t;    // Object id -> Element Atlas Id
 typedef std::vector<GAFAnimationFrame*>             AnimationFrames_t;
-typedef std::unordered_map<unsigned int, GAFSprite*> SubObjects_t;
+//typedef std::unordered_map<unsigned int, GAFSprite*> SubObjects_t;
+typedef std::vector<GAFSprite*> SubObjects_t;
 typedef std::vector<GAFFilterData*>                 Filters_t;
 
 typedef std::unordered_map<unsigned int, int>       CaptureObjects_t;      // Object id -> capture flags
@@ -40,6 +41,12 @@ i->second->release(); \
 #define GAF_SAFE_RELEASE_ARRAY(__type, __instance)\
 for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\
 (*i)->release(); \
+} __instance.clear();
+
+#define GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(__type, __instance)\
+for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\
+    if (*i) \
+        (*i)->release(); \
 } __instance.clear();
 
 #define GAF_RELEASE_ARRAY(__type, __instance)\
