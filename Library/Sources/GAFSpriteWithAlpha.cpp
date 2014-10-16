@@ -17,7 +17,7 @@ USING_NS_CC;
 #define GAF_ENABLE_NEW_UNIFORM_SETTER COCOS2D_VERSION >= 0x00030200
 #endif
 
-#define CHECK_CTX_IDENTITY 0
+#define CHECK_CTX_IDENTITY 1
 
 namespace gaf
 {
@@ -219,12 +219,9 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
         state->setUniformFloat("fragmentAlpha", m_colorTransformMult.w);
 #endif
         hash.c = m_colorTransformMult.w;
-        return -1;//XXH32((void*)&hash, sizeof(GAFSpriteWithAlphaHash), 0);
     }
     else
     {
-        
-
         {
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
             state->setUniformVec4(
@@ -273,8 +270,8 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
             hash.d = Mat4(m_colorMatrixFilterData->matrix);
             hash.e = Vec4(m_colorMatrixFilterData->matrix2);
         }
-        return XXH32((void*)&hash, sizeof(GAFSpriteWithAlphaHash), 0);
     }
+    return XXH32((void*)&hash, sizeof(GAFSpriteWithAlphaHash), 0);
 }
 
 void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat * offsets)
