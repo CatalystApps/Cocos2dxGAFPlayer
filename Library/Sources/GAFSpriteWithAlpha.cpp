@@ -282,6 +282,7 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat 
     m_colorTransformMult = Vec4(mults);
     m_colorTransformOffsets = Vec4(offsets);
     _setBlendingFunc();
+    m_ctxDirty = true;
 #if CHECK_CTX_IDENTITY
     if (isCTXIdentity())
     {
@@ -298,8 +299,8 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * colorTransform)
 {
     m_colorTransformMult = Vec4(colorTransform);
     m_colorTransformOffsets = Vec4(&colorTransform[4]);
-
     _setBlendingFunc();
+    m_ctxDirty = true;
 #if CHECK_CTX_IDENTITY
     if (isCTXIdentity())
     {
@@ -353,17 +354,16 @@ const cocos2d::Rect& GAFSpriteWithAlpha::getInitialTextureRect() const
 void GAFSpriteWithAlpha::updateCtx()
 {
     m_ctxDirty = false;
-    if (m_colorTransformMult != cocos2d::Vec4::ONE)
+    bool newCtx;
+    if ((m_colorTransformMult != cocos2d::Vec4::ONE) || (m_colorTransformOffsets != cocos2d::Vec4::ZERO))
     {
-        m_hasCtx = true;
-        return;
+        newCtx = true;
     }
-    if (m_colorTransformOffsets != cocos2d::Vec4::ZERO)
+    else
     {
-        m_hasCtx = true;
-        return;
+        newCtx = false;
     }
-    m_hasCtx = false;
+    m_hasCtx = newCtx;
 }
 
 bool GAFSpriteWithAlpha::isCTXIdentity()
