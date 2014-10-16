@@ -66,10 +66,15 @@ bool GAFSpriteWithAlpha::initWithTexture(cocos2d::Texture2D *pTexture, const coc
 
         m_programBase = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::Alpha));
         m_programBase->retain();
+#if CHECK_CTX_IDENTITY
         m_programNoCtx = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaNoCtx));
         m_programNoCtx->retain();
-
+#endif
+#if CHECK_CTX_IDENTITY
         _glProgramState = m_programNoCtx;
+#else
+        _glProgramState = m_programBase;
+#endif
         return true;
     }
     else
