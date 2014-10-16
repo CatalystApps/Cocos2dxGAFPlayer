@@ -27,7 +27,11 @@ private:
     GAFBlurFilterData*              m_blurFilterData;
     cocos2d::Texture2D *            m_initialTexture;
     cocos2d::Rect                   m_initialTextureRect;
-    
+    cocos2d::GLProgramState*        m_programBase;
+    cocos2d::GLProgramState*        m_programNoCtx;
+    mutable bool                    m_hasCtx;
+    mutable bool                    m_ctxDirty;
+
 public:
     GAFSpriteWithAlpha();
     ~GAFSpriteWithAlpha();
@@ -45,7 +49,8 @@ public:
     cocos2d::Texture2D*    getInitialTexture() const;
     const cocos2d::Rect&   getInitialTextureRect() const;
 
-    bool            isCTXIdentity() const;
+    bool            isCTXIdentity();
+    void            updateCtx();
 
 protected:
     void updateTextureWithEffects();

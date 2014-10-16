@@ -30,30 +30,27 @@ namespace gaf
         cocos2d::Vec4   b;
         float   c;
         Mat4    d;
-        Vec4    e;
-        Mat4    f;
-        Vec4    g;
-        
+        Vec4    e;        
     };
     
-static int colorTransformMultLocation = -1;
-static int colorTransformOffsetLocation = -1;
-static int fragmentAlphaLocation = -1;
-static int colorMatrixLocation   = -1;
-static int colorMatrixLocation2  = -1;
-
 GAFSpriteWithAlpha::GAFSpriteWithAlpha()
 :
 m_initialTexture(nullptr),
 m_colorMatrixFilterData(nullptr),
 m_glowFilterData(nullptr),
-m_blurFilterData(nullptr)
+m_blurFilterData(nullptr),
+m_programBase(nullptr),
+m_programNoCtx(nullptr),
+m_hasCtx(false)
 {
 }
 
 GAFSpriteWithAlpha::~GAFSpriteWithAlpha()
 {
     CC_SAFE_RELEASE(m_initialTexture);
+    CC_SAFE_RELEASE(m_programBase);
+    CC_SAFE_RELEASE(m_programNoCtx);
+
 }
 
 bool GAFSpriteWithAlpha::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated)
@@ -66,7 +63,13 @@ bool GAFSpriteWithAlpha::initWithTexture(cocos2d::Texture2D *pTexture, const coc
         m_colorTransformMult = cocos2d::Vec4::ONE;
         m_colorTransformOffsets = cocos2d::Vec4::ZERO;
         _setBlendingFunc();
-        setGLProgramState(GLProgramState::create(programForShader()));
+
+        m_programBase = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::Alpha));
+        m_programBase->retain();
+        m_programNoCtx = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaNoCtx));
+        m_programNoCtx->retain();
+
+        _glProgramState = m_programNoCtx;
         return true;
     }
     else
@@ -134,7 +137,7 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
         }
 
         CHECK_GL_ERROR_DEBUG();
-        program->use();
+        program->use();/*
         if(isCTXidt)
         {
             fragmentAlphaLocation = glGetUniformLocation(program->getProgram(), "fragmentAlpha");
@@ -145,7 +148,7 @@ cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
             colorTransformOffsetLocation = glGetUniformLocation(program->getProgram(), "colorTransformOffsets");
             colorMatrixLocation = glGetUniformLocation(program->getProgram(), "colorMatrix");
             colorMatrixLocation2 = glGetUniformLocation(program->getProgram(), "colorMatrix2");
-        }
+        }*/
     }
     return program;
 }
@@ -203,7 +206,9 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
     if(isCTXidt)
     {
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
-        state->setUniformFloat(fragmentAlphaLocation, m_colorTransformMult.w);
+        state->setUniformFloat(
+            GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::Alpha),
+            m_colorTransformMult.w);
 #else
         state->setUniformFloat("fragmentAlpha", m_colorTransformMult.w);
 #endif
@@ -213,16 +218,15 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
     else
     {
         
-        bool usingColorTransform = (colorTransformMultLocation > -1) && (colorTransformOffsetLocation > -1);
-        bool usingColorMatrix = (colorMatrixLocation > -1 && colorMatrixLocation2 > -1);
-        bool usingColorMatrixWithFilter = usingColorMatrix && m_colorMatrixFilterData;
-        usingColorMatrix = usingColorMatrix && !m_colorMatrixFilterData;
 
-        if (usingColorTransform)
         {
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
-            state->setUniformVec4(colorTransformMultLocation, m_colorTransformMult);
-            state->setUniformVec4(colorTransformOffsetLocation, m_colorTransformOffsets);
+            state->setUniformVec4(
+                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorTransformMult),
+                m_colorTransformMult);
+            state->setUniformVec4(
+                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorTransformOffset),
+                m_colorTransformOffsets);
 #else
             state->setUniformVec4("colorTransformMult", m_colorTransformMult);
             state->setUniformVec4("colorTransformOffsets", m_colorTransformOffsets);
@@ -231,11 +235,15 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
             hash.b = m_colorTransformOffsets;
         }
 
-        if (usingColorMatrix)
+        if (!m_colorMatrixFilterData)
         {
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
-            state->setUniformMat4(colorMatrixLocation, m_colorMatrixIdentity1);
-            state->setUniformVec4(colorMatrixLocation2, m_colorMatrixIdentity2);
+            state->setUniformMat4(
+                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixBody),
+                m_colorMatrixIdentity1);
+            state->setUniformVec4(
+                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixAppendix), 
+                m_colorMatrixIdentity2);
 #else
             state->setUniformMat4("colorMatrix", m_colorMatrixIdentity1);
             state->setUniformVec4("colorMatrix2", m_colorMatrixIdentity2);
@@ -243,18 +251,21 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
             hash.d = m_colorMatrixIdentity1;
             hash.e = m_colorMatrixIdentity2;
         }
-
-        if (usingColorMatrixWithFilter)
+        else
         {
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
-            state->setUniformMat4(colorMatrixLocation, Mat4(m_colorMatrixFilterData->matrix));
-            state->setUniformVec4(colorMatrixLocation2, Vec4(m_colorMatrixFilterData->matrix2));
+            state->setUniformMat4(
+                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixBody), 
+                Mat4(m_colorMatrixFilterData->matrix));
+            state->setUniformVec4(
+                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixAppendix), 
+                Vec4(m_colorMatrixFilterData->matrix2));
 #else
             state->setUniformMat4("colorMatrix", Mat4(m_colorMatrixFilterData->matrix));
             state->setUniformVec4("colorMatrix2", Vec4(m_colorMatrixFilterData->matrix2));
 #endif
-            hash.f = Mat4(m_colorMatrixFilterData->matrix);
-            hash.g = Vec4(m_colorMatrixFilterData->matrix2);
+            hash.d = Mat4(m_colorMatrixFilterData->matrix);
+            hash.e = Vec4(m_colorMatrixFilterData->matrix2);
         }
         return XXH32((void*)&hash, sizeof(GAFSpriteWithAlphaHash), 0);
     }
@@ -266,9 +277,14 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat 
     m_colorTransformOffsets = Vec4(offsets);
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
-    _glProgramState->setGLProgram(programForShader());
-//    setGLProgramState(GLProgramState::create(programForShader()));
-    //setShaderProgram(programForShader());
+    if (isCTXIdentity())
+    {
+        _glProgramState = m_programNoCtx;
+    }
+    else
+    {
+        _glProgramState = m_programBase;
+    }
 #endif
 }
 
@@ -279,10 +295,14 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * colorTransform)
 
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
-    _glProgramState->setGLProgram(programForShader());
-
-    //setGLProgramState(GLProgramState::create(programForShader()));
-    //setShaderProgram(programForShader());
+    if (isCTXIdentity())
+    {
+        _glProgramState = m_programNoCtx;
+    }
+    else
+    {
+        _glProgramState = m_programBase;
+    }
 #endif
 }
 
@@ -324,17 +344,28 @@ const cocos2d::Rect& GAFSpriteWithAlpha::getInitialTextureRect() const
     return m_initialTextureRect;
 }
 
-bool GAFSpriteWithAlpha::isCTXIdentity() const
+void GAFSpriteWithAlpha::updateCtx()
 {
+    m_ctxDirty = false;
     if (m_colorTransformMult != cocos2d::Vec4::ONE)
     {
-        return false;
+        m_hasCtx = true;
+        return;
     }
     if (m_colorTransformOffsets != cocos2d::Vec4::ZERO)
     {
-        return false;
+        m_hasCtx = true;
+        return;
     }
-    return true;
+    m_hasCtx = false;
+}
+
+bool GAFSpriteWithAlpha::isCTXIdentity()
+{
+    if (m_ctxDirty)
+        updateCtx();
+
+    return !m_hasCtx;
 }
 
 #if 0 // CC_ENABLE_CACHE_TEXTURE_DATA
