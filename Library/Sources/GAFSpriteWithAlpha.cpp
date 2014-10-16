@@ -48,6 +48,7 @@ m_hasCtx(false)
 GAFSpriteWithAlpha::~GAFSpriteWithAlpha()
 {
     CC_SAFE_RELEASE(m_initialTexture);
+    _glProgramState = nullptr; // Should be treated here as weak pointer
     CC_SAFE_RELEASE(m_programBase);
     CC_SAFE_RELEASE(m_programNoCtx);
 
