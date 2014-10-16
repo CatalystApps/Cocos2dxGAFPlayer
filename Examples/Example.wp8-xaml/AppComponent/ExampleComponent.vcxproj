@@ -208,9 +208,6 @@
     <ProjectReference Include="..\..\..\..\..\external\Box2D\proj.wp8\Box2D.vcxproj">
       <Project>{c55734a3-702c-4fa1-b950-32c8e169302f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\external\chipmunk\proj.wp8\chipmunk.vcxproj">
-      <Project>{ba568a33-98f9-4d2a-bfff-c065adcb447a}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Library\proj.wp8\GAFPlayer.vcxproj">
       <Project>{ba4c3d1b-4852-489f-bac4-889e0bbe36d9}</Project>
     </ProjectReference>
