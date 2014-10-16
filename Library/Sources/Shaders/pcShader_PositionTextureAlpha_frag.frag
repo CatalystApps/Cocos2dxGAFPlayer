@@ -29,9 +29,9 @@ void main()
 
 	vec4 ctxColor = texColor * colorTransformMult + colorTransformOffsets;
 	vec4 adjustColor = colorMatrix * ctxColor + colorMatrix2;
-	
+    adjustColor *= v_fragmentColor;
     texColor = vec4(adjustColor.rgb * adjustColor.a, adjustColor.a);
     
-    gl_FragColor = texColor * v_fragmentColor;
+    gl_FragColor = texColor;
 }
 );

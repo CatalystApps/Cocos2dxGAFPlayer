@@ -84,81 +84,6 @@ bool GAFSpriteWithAlpha::initWithTexture(cocos2d::Texture2D *pTexture, const coc
     }
 }
 
-cocos2d::GLProgram * GAFSpriteWithAlpha::programForShader(bool reset)
-{
-#if CHECK_CTX_IDENTITY
-    const bool isCTXidt = isCTXIdentity();
-#else
-    const bool isCTXidt = false;
-#endif
-
-    cocos2d::GLProgram* program = nullptr;
-    if (isCTXidt)
-    {
-        program = cocos2d::GLProgramCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCache_noCTX);
-    }
-    else
-    {
-        program = cocos2d::GLProgramCache::getInstance()->getGLProgram(kGAFSpriteWithAlphaShaderProgramCacheKey);
-    }
-
-    if (program && reset)
-    {
-        program->reset();
-    }
-    
-    if (!program || reset)
-    {
-        const char* fragmentShader = nullptr;
-        if (isCTXidt)
-        {
-            fragmentShader = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::AlphaNoCtx);
-        }
-        else
-        {
-            fragmentShader = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::Alpha);
-        }
-        program = cocos2d::GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, fragmentShader);
-
-        if (program)
-        {
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-            CHECK_GL_ERROR_DEBUG();
-            if (isCTXidt)
-            {
-                cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFSpriteWithAlphaShaderProgramCache_noCTX);
-            }
-            else
-            {
-                cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFSpriteWithAlphaShaderProgramCacheKey);
-            }
-        }
-        else
-        {
-            CCLOGERROR("Cannot load program for GAFSpriteWithAlpha.");
-            CC_SAFE_DELETE(program);
-            return nullptr;
-        }
-
-        CHECK_GL_ERROR_DEBUG();
-        program->use();/*
-        if(isCTXidt)
-        {
-            fragmentAlphaLocation = glGetUniformLocation(program->getProgram(), "fragmentAlpha");
-        }
-        else
-        {
-            colorTransformMultLocation = glGetUniformLocation(program->getProgram(), "colorTransformMult");
-            colorTransformOffsetLocation = glGetUniformLocation(program->getProgram(), "colorTransformOffsets");
-            colorMatrixLocation = glGetUniformLocation(program->getProgram(), "colorMatrix");
-            colorMatrixLocation2 = glGetUniformLocation(program->getProgram(), "colorMatrix2");
-        }*/
-    }
-    return program;
-}
-
 void GAFSpriteWithAlpha::updateTextureWithEffects()
 {
     if (!m_blurFilterData && !m_glowFilterData)
@@ -192,6 +117,12 @@ void GAFSpriteWithAlpha::updateTextureWithEffects()
 
 uint32_t GAFSpriteWithAlpha::setUniforms()
 {
+#if GAF_ENABLE_NEW_UNIFORM_SETTER
+#define getUniformId(x) GAFShaderManager::getUniformLocation(x)
+#else
+#define getUniformId(x) GAFShaderManager::getUniformName(x)
+#endif
+    
 #if CHECK_CTX_IDENTITY
     const bool isCTXidt = isCTXIdentity();
 #else
@@ -211,64 +142,47 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
     
     if(isCTXidt)
     {
-#if GAF_ENABLE_NEW_UNIFORM_SETTER
-        state->setUniformFloat(
-            GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::Alpha),
-            m_colorTransformMult.w);
-#else
-        state->setUniformFloat("fragmentAlpha", m_colorTransformMult.w);
-#endif
+
+        
         hash.c = m_colorTransformMult.w;
+        state->setUniformFloat(
+            getUniformId(GAFShaderManager::EUniforms::Alpha),
+            m_colorTransformMult.w);
     }
     else
     {
         {
-#if GAF_ENABLE_NEW_UNIFORM_SETTER
-            state->setUniformVec4(
-                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorTransformMult),
-                m_colorTransformMult);
-            state->setUniformVec4(
-                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorTransformOffset),
-                m_colorTransformOffsets);
-#else
-            state->setUniformVec4("colorTransformMult", m_colorTransformMult);
-            state->setUniformVec4("colorTransformOffsets", m_colorTransformOffsets);
-#endif
             hash.a = m_colorTransformMult;
             hash.b = m_colorTransformOffsets;
+            state->setUniformVec4(
+                getUniformId(GAFShaderManager::EUniforms::ColorTransformMult),
+                m_colorTransformMult);
+            state->setUniformVec4(
+                getUniformId(GAFShaderManager::EUniforms::ColorTransformOffset),
+                m_colorTransformOffsets);
         }
 
         if (!m_colorMatrixFilterData)
         {
-#if GAF_ENABLE_NEW_UNIFORM_SETTER
-            state->setUniformMat4(
-                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixBody),
-                m_colorMatrixIdentity1);
-            state->setUniformVec4(
-                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixAppendix), 
-                m_colorMatrixIdentity2);
-#else
-            state->setUniformMat4("colorMatrix", m_colorMatrixIdentity1);
-            state->setUniformVec4("colorMatrix2", m_colorMatrixIdentity2);
-#endif
             hash.d = m_colorMatrixIdentity1;
             hash.e = m_colorMatrixIdentity2;
+            state->setUniformMat4(
+                getUniformId(GAFShaderManager::EUniforms::ColorMatrixBody),
+                m_colorMatrixIdentity1);
+            state->setUniformVec4(
+                getUniformId(GAFShaderManager::EUniforms::ColorMatrixAppendix),
+                m_colorMatrixIdentity2);
         }
         else
         {
-#if GAF_ENABLE_NEW_UNIFORM_SETTER
-            state->setUniformMat4(
-                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixBody), 
-                Mat4(m_colorMatrixFilterData->matrix));
-            state->setUniformVec4(
-                GAFShaderManager::getUniformLocation(GAFShaderManager::EUniforms::ColorMatrixAppendix), 
-                Vec4(m_colorMatrixFilterData->matrix2));
-#else
-            state->setUniformMat4("colorMatrix", Mat4(m_colorMatrixFilterData->matrix));
-            state->setUniformVec4("colorMatrix2", Vec4(m_colorMatrixFilterData->matrix2));
-#endif
             hash.d = Mat4(m_colorMatrixFilterData->matrix);
             hash.e = Vec4(m_colorMatrixFilterData->matrix2);
+            state->setUniformMat4(
+                getUniformId(GAFShaderManager::EUniforms::ColorMatrixBody),
+                Mat4(m_colorMatrixFilterData->matrix));
+            state->setUniformVec4(
+                getUniformId(GAFShaderManager::EUniforms::ColorMatrixAppendix),
+                Vec4(m_colorMatrixFilterData->matrix2));
         }
     }
     return XXH32((void*)&hash, sizeof(GAFSpriteWithAlphaHash), 0);

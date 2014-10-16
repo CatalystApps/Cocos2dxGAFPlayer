@@ -37,8 +37,6 @@ public:
     ~GAFSpriteWithAlpha();
     virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
 
-    cocos2d::GLProgram * programForShader(bool reset = false);
-
     void setColorTransform(const GLfloat * mults, const GLfloat * offsets);
     void setColorTransform(const GLfloat * colorTransform);
 

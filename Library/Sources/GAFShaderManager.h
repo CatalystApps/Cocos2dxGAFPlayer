@@ -63,6 +63,7 @@ public:
 
     static inline cocos2d::GLProgram* getProgram(EPrograms::Name n) { return s_programs[n]; }
     static inline GLint getUniformLocation(EUniforms::Name n) { return s_uniformLocations[n]; }
+    static inline const char* getUniformName(EUniforms::Name n) { return s_uniformNames[n]; }
 
     static void Initialize(bool force = false);
 
