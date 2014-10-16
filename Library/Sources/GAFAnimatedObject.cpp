@@ -89,9 +89,8 @@ GAFAnimatedObject::~GAFAnimatedObject()
 {
     CC_SAFE_RELEASE(m_asset);
 
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_masks);
 }
 
 GAFAnimatedObject * GAFAnimatedObject::create(GAFAsset * anAsset)
@@ -142,8 +141,8 @@ void GAFAnimatedObject::_constructObject()
     
     setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
     
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
+	GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_masks);
     
     _FPSType = kGAFAnimationFPSType_60;
     m_fps = m_asset->getSceneFps();
@@ -170,6 +169,14 @@ unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
 
 void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
 {
+    if (objs.size() > 0)
+    {
+        m_subObjects.resize(objs.rbegin()->first + 1);
+    }
+    if (masks.size() > 0)
+    {
+        m_masks.resize(masks.rbegin()->first + 1);
+    }
     for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
         GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
@@ -332,19 +339,29 @@ void GAFAnimatedObject::removeAllSubObjects()
 {
     for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* sprite = i->second;
+        if (!*i)
+        {
+            continue;
+        }
+
+        GAFSprite* sprite = *i;
         sprite->setVisible(false);
         sprite->removeFromParentAndCleanup(true);
     }
 
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
 }
 
 void GAFAnimatedObject::setSubobjectsVisible(bool visible)
 {
     for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* sprite = i->second;
+        if (!*i)
+        {
+            continue;
+        }
+
+        GAFSprite* sprite = *i;
         sprite->setVisible(visible);
     }
 }
@@ -409,15 +426,12 @@ cocos2d::Vect GAFAnimatedObject::pupilCoordinatesWithXSemiaxis(float anXSemiaxis
 
 GAFSprite * GAFAnimatedObject::subObjectForInnerObjectId(unsigned int anInnerObjectId)
 {
-    for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
+    if (anInnerObjectId >= m_subObjects.size()) // early exit
     {
-        GAFSprite* anim = i->second;
-        if (anim->objectIdRef == anInnerObjectId)
-        {
-            return anim;
-        }
+        return nullptr;
     }
-    return nullptr;
+
+    return m_subObjects[anInnerObjectId];
 }
 
 const SubObjects_t& GAFAnimatedObject::getSubojects() const
@@ -531,12 +545,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                 {
                 GAFSpriteWithAlpha *subObject = nullptr;
 
-                    SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
-
-                    if (sboIt != m_subObjects.end())
-                    {
-                        subObject = static_cast<GAFSpriteWithAlpha*>(sboIt->second);
-                    }
+                    subObject = static_cast<GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
 
                     if (subObject)
                     {
@@ -641,7 +650,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     }
                     else
                     {
-                    GAFSprite * mask = nullptr;
+                        GAFSprite * mask = nullptr;
                         if (!m_masks.empty())
                         {
                             mask = m_masks[state->objectIdRef];
@@ -668,9 +677,6 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
             {
                 const GAFSubobjectState *state = states[i];
 
-                SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
-
-                if (sboIt != m_subObjects.end())
                 {
                     const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
 
@@ -682,10 +688,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                         m_controlDelegate->onFrameDisplayed(this, subObject);
                     }
                 }
-                else
-                {
-                    // Masks cannot be captured right now
-                }
+
             }
         }
     }
@@ -752,7 +755,12 @@ cocos2d::Rect GAFAnimatedObject::realBoundingBoxForCurrentFrame()
 
     for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* anim = i->second;
+        if (!*i)
+        {
+            continue;
+        }
+
+        GAFSprite* anim = *i;
         if (anim->isVisible())
         {
             cocos2d::Rect bb = anim->getBoundingBox();
@@ -797,7 +805,12 @@ void GAFAnimatedObject::_updateStencilLayer(int newLayer)
 
     for (SubObjects_t::iterator it = m_masks.begin(), e = m_masks.end(); it != e; ++it)
     {
-        GAFStencilMaskSprite* mask = static_cast<GAFStencilMaskSprite*>(it->second);
+        if (!*it)
+        {
+            continue;
+        }
+
+        GAFStencilMaskSprite* mask = static_cast<GAFStencilMaskSprite*>(*it);
         mask->updateStencilLayer(newLayer);
     }
 }
