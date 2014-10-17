@@ -71,7 +71,7 @@ void GAFLoader::_registerTagLoadersCommon()
 }
 
 GAFLoader::GAFLoader():
-m_stream(NULL)
+m_stream(nullptr)
 {
 }
 

@@ -44,8 +44,8 @@ GAFAnimatedObject * GAFAsset::createObjectAndRun(bool looped)
 }
 
 GAFAsset::GAFAsset():
-m_currentTextureAtlas(NULL),
-m_textureLoadDelegate(NULL),
+m_currentTextureAtlas(nullptr),
+m_textureLoadDelegate(nullptr),
 m_sceneFps(60),
 m_sceneWidth(0),
 m_sceneHeight(0)
@@ -73,7 +73,7 @@ GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegat
         return ret;
     }
     CC_SAFE_RELEASE(ret);
-    return NULL;
+    return nullptr;
 }
 
 
@@ -86,7 +86,7 @@ GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::
         return ret;
     }
     CC_SAFE_RELEASE(ret);
-    return NULL;
+    return nullptr;
 }
 
 bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate* delegate /*= NULL*/)
@@ -168,14 +168,14 @@ const GAFAnimationSequence* GAFAsset::getSequence(const std::string& name) const
         return &it->second;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
-        return NULL;
+        return nullptr;
     }
 
     for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
@@ -186,14 +186,14 @@ const GAFAnimationSequence * GAFAsset::getSequenceByLastFrame(size_t frame) cons
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) const
 {
     if (m_animationSequences.empty())
     {
-        return NULL;
+        return nullptr;
     }
 
     for (AnimationSequences_t::const_iterator i = m_animationSequences.begin(), e = m_animationSequences.end(); i != e; ++i)
@@ -204,7 +204,7 @@ const GAFAnimationSequence * GAFAsset::getSequenceByFirstFrame(size_t frame) con
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)

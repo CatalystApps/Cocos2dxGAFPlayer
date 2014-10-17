@@ -6,10 +6,10 @@
 
 GAFAnimation::GAFAnimation()
 :
-m_asset(NULL),
+m_asset(nullptr),
 _currentFrameIndex(GAF_FIRST_FRAME_INDEX),
-_sequenceDelegate(NULL),
-m_animationPlaybackDelegate(NULL),
+_sequenceDelegate(nullptr),
+m_animationPlaybackDelegate(nullptr),
 m_totalFrameCount(0),
 m_isRunning(false),
 m_isReversed(false),

@@ -1,15 +1,11 @@
-#ifndef __GafFeatures_SCENE_H__
-#define __GafFeatures_SCENE_H__
+#pragma once
 
 #include "cocos2d.h"
+#include "GAF.h"
 
 #include <string>
 #include <vector>
 #include <unordered_map>
-
-#include "GAFAnimation.h"
-
-#include "GAFDelegates.h"
 
 class GAFAnimatedObject;
 
@@ -84,5 +80,3 @@ public:
     
     virtual void onFramePlayed(GAFAnimatedObject * object, int frame) override;
 };
-
-#endif // __GafFeatures_SCENE_H__
