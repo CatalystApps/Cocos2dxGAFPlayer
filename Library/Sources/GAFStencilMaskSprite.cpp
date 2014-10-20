@@ -305,6 +305,7 @@ void GAFStencilMaskSprite::removeMaskedObject(cocos2d::Node * anObject)
 
 cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
 {
+    //return GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaFilter);
     cocos2d::GLProgram *program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFStencilMaskAlphaFilterProgramCacheKey);
 
     if (!program)

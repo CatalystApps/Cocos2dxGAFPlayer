@@ -124,9 +124,9 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
 #endif
     
 #if CHECK_CTX_IDENTITY
-    const bool isCTXidt = isCTXIdentity();
+    const bool ctx = hasCtx();
 #else
-    const bool isCTXidt = false;
+    const bool ctx = false;
 #endif
 
 
@@ -140,10 +140,8 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
     hash.blend = _blendFunc;
 
     
-    if(isCTXidt)
-    {
-
-        
+    if (!ctx)
+    {        
         hash.c = m_colorTransformMult.w;
         state->setUniformFloat(
             getUniformId(GAFShaderManager::EUniforms::Alpha),
@@ -194,16 +192,6 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * mults, const GLfloat 
     m_colorTransformOffsets = Vec4(offsets);
     _setBlendingFunc();
     m_ctxDirty = true;
-#if CHECK_CTX_IDENTITY
-    if (isCTXIdentity())
-    {
-        _glProgramState = m_programNoCtx;
-    }
-    else
-    {
-        _glProgramState = m_programBase;
-    }
-#endif
 }
 
 void GAFSpriteWithAlpha::setColorTransform(const GLfloat * colorTransform)
@@ -212,16 +200,6 @@ void GAFSpriteWithAlpha::setColorTransform(const GLfloat * colorTransform)
     m_colorTransformOffsets = Vec4(&colorTransform[4]);
     _setBlendingFunc();
     m_ctxDirty = true;
-#if CHECK_CTX_IDENTITY
-    if (isCTXIdentity())
-    {
-        _glProgramState = m_programNoCtx;
-    }
-    else
-    {
-        _glProgramState = m_programBase;
-    }
-#endif
 }
 
 void GAFSpriteWithAlpha::_setBlendingFunc()
@@ -265,58 +243,24 @@ const cocos2d::Rect& GAFSpriteWithAlpha::getInitialTextureRect() const
 void GAFSpriteWithAlpha::updateCtx()
 {
     m_ctxDirty = false;
-    bool newCtx;
     if ((m_colorTransformMult != cocos2d::Vec4::ONE) || (m_colorTransformOffsets != cocos2d::Vec4::ZERO))
     {
-        newCtx = true;
+        _glProgramState = m_programBase;
+        m_hasCtx = true;
     }
     else
     {
-        newCtx = false;
+        _glProgramState = m_programNoCtx;
+        m_hasCtx = false;
     }
-    m_hasCtx = newCtx;
 }
 
-bool GAFSpriteWithAlpha::isCTXIdentity()
+bool GAFSpriteWithAlpha::hasCtx()
 {
     if (m_ctxDirty)
         updateCtx();
 
-    return !m_hasCtx;
+    return _glProgramState == m_programBase;
 }
-
-#if 0 // CC_ENABLE_CACHE_TEXTURE_DATA
-void _GAFreloadAlphaShader()
-{
-    cocos2d::GLProgram * program = cocos2d::ShaderCache::getInstance()->getProgram(kGAFSpriteWithAlphaShaderProgramCacheKey);
-
-    if (!program)
-    {
-        return;
-    }
-    program->reset();
-    program = GAFShaderManager::createWithFragmentFilename(ccPositionTextureColor_vert, kAlphaFragmentShaderFilename, program);
-    if (program)
-    {
-        program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
-        program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
-        program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
-        program->link();
-        program->updateUniforms();
-        CHECK_GL_ERROR_DEBUG();
-        program->use();
-        _colorTrasformLocation = (GLuint)glGetUniformLocation(program->getProgram(), "colorTransform");
-        if (_colorTrasformLocation <= 0)
-        {
-            CCAssert(false, "Can not RELOAD GAFSpriteWithAlpha");
-        }
-        CCLOGERROR("GAFSpriteWithAlpha RELOADED");
-    }
-    else
-    {
-        CCAssert(false, "Can not RELOAD GAFSpriteWithAlpha");
-    }
-}
-#endif
 
 }

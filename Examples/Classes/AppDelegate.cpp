@@ -81,7 +81,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     cocos2d::Director::getInstance()->stopAnimation();
-    gaf::GAFShaderManager::handleEnterBackground();
 }
 
 void AppDelegate::applicationWillEnterForeground()

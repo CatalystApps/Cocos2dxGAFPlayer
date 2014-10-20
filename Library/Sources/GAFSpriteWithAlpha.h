@@ -47,7 +47,7 @@ public:
     cocos2d::Texture2D*    getInitialTexture() const;
     const cocos2d::Rect&   getInitialTextureRect() const;
 
-    bool            isCTXIdentity();
+    bool            hasCtx();
     void            updateCtx();
 
 protected:

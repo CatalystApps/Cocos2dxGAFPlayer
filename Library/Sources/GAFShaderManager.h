@@ -6,7 +6,7 @@ namespace gaf
 class GAFShaderManager
 {
 public:
-    static void handleEnterBackground();
+    static void renderRecreate(cocos2d::EventCustom*);
 
     struct EFragmentShader {
         enum Name {
