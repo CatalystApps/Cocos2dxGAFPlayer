@@ -58,8 +58,14 @@ m_timeDelta(0.f)
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     
     static bool invalidateGLPrograms = false;
+
+#if COCOS2D_VERSION < 0x00030200
+    const std::string eventName = EVENT_COME_TO_FOREGROUND;
+#else
+    const std::string eventName = EVENT_RENDERER_RECREATED;
+#endif
     
-    auto listenerFG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_FOREGROUND, [this](cocos2d::EventCustom* event)
+    auto listenerFG = cocos2d::EventListenerCustom::create(eventName, [this](cocos2d::EventCustom* event)
     {
         if (invalidateGLPrograms)
         {
@@ -143,6 +149,7 @@ void GAFAnimatedObject::_constructObject()
     
 	GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_masks);
+    m_visibleObjects.clear();
     
     _FPSType = kGAFAnimationFPSType_60;
     m_fps = m_asset->getSceneFps();
