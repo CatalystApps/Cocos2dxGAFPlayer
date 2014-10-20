@@ -154,7 +154,7 @@ namespace PhoneDirect3DXamlAppInterop
         }
 
         // events called by the Cocos2d-x C++ engine to be handled by C#
-        public void OnCocos2dEvent(Cocos2dEvent theEvent, String text)
+        public void OnCocos2dEvent(Cocos2dEvent theEvent)
         {
             Dispatcher.BeginInvoke(() =>
             {

@@ -163,7 +163,11 @@ void GAFSprite::setAtlasScale(float scale)
 
 uint32_t GAFSprite::setUniforms()
 {
+#if 1//COCOS2D_VERSION < 0x00030300
     uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
+#else
+    uint32_t materialID = Renderer::MATERIAL_ID_DO_NOT_BATCH;
+#endif
 
     if (_glProgramState->getUniformCount() == 0)
     {
