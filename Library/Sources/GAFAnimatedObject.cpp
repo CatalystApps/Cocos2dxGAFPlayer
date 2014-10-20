@@ -149,6 +149,7 @@ void GAFAnimatedObject::_constructObject()
     
 	GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_masks);
+    m_visibleObjects.clear();
     
     _FPSType = kGAFAnimationFPSType_60;
     m_fps = m_asset->getSceneFps();
