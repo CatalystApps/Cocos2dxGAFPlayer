@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_ANIMATION_FRAME__
-#define __GAF_ANIMATION_FRAME__
-
 class GAFTextureAtlas;
 class GAFSubobjectState;
 
@@ -19,5 +16,3 @@ public:
 
     void    pushObjectState(GAFSubobjectState*);
 };
-
-#endif // __GAF_ANIMATION_FRAME__

@@ -17,8 +17,8 @@ GAFTextureAtlas::GAFTextureAtlas()
 :
 m_scale(1.f),
 m_loaded(false),
-m_images(NULL),
-m_textures(NULL),
+m_images(nullptr),
+m_textures(nullptr),
 m_memoryConsumption(0)
 {
 }

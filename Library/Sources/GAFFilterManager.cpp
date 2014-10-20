@@ -5,7 +5,7 @@
 
 #include "../external/xxhash/xxhash.h"
 
-using namespace cocos2d;
+USING_NS_CC;
 using namespace std;
 
 static const int kGaussianKernelSize = 9;

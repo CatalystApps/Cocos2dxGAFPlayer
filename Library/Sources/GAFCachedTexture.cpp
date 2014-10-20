@@ -1,7 +1,7 @@
 #include "GAFPrecompiled.h"
 #include "GAFCachedTexture.h"
 
-using namespace cocos2d;
+USING_NS_CC;
 using namespace std;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WP8
@@ -13,7 +13,7 @@ using cocos2d::gettimeofday;
 cocos2d::Texture2D* GAFCachedTexture::operator *()
 {
     timeval now;
-    gettimeofday(&now, NULL);
+    gettimeofday(&now, nullptr);
     m_lastUsed = now.tv_sec * 1000 + now.tv_usec;
     ++m_timesUsed;
     return m_texture;
@@ -40,7 +40,7 @@ GAFCachedTexture::GAFCachedTexture(Texture2D* tex)
         static_cast<size_t>(tex->getContentSizeInPixels().width * tex->getContentSizeInPixels().height);
     CC_SAFE_RETAIN(m_texture);
     timeval now;
-    gettimeofday(&now, NULL);
+    gettimeofday(&now, nullptr);
     m_created = now.tv_sec * 1000 + now.tv_usec;
     m_lastUsed = m_created;
 }

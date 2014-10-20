@@ -167,7 +167,7 @@ uint32_t GAFSprite::setUniforms()
         int glProgram = (int)getGLProgram()->getProgram();
         int intArray[4] = { glProgram, (int)getTexture()->getName(), (int)getBlendFunc().src, (int)getBlendFunc().dst };
 
-        uint32_t materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
+        materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
     }
     return materialID;
 }
@@ -228,7 +228,7 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
 
     CHECK_GL_ERROR_DEBUG();
 
-    using namespace cocos2d;
+    USING_NS_CC;
     //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
     //CC_INCREMENT_GL_DRAWS(1);
 }

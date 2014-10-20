@@ -45,10 +45,10 @@ static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(
 
 GAFAnimatedObject::GAFAnimatedObject()
 :
-m_asset(NULL),
+m_asset(nullptr),
 m_stencilLayer(-1),
-m_framePlayedDelegate(NULL),
-m_controlDelegate(NULL),
+m_framePlayedDelegate(nullptr),
+m_controlDelegate(nullptr),
 m_extraFramesCounter(0),
 m_timeDelta(0.f)
 {
@@ -86,9 +86,8 @@ GAFAnimatedObject::~GAFAnimatedObject()
 {
     CC_SAFE_RELEASE(m_asset);
 
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_masks);
 }
 
 GAFAnimatedObject * GAFAnimatedObject::create(GAFAsset * anAsset)
@@ -100,7 +99,7 @@ GAFAnimatedObject * GAFAnimatedObject::create(GAFAsset * anAsset)
         return ret;
     }
     CC_SAFE_RELEASE(ret);
-    return NULL;
+    return nullptr;
 }
 
 GAFAnimatedObject * GAFAnimatedObject::createAndRun(const std::string& gafPath, bool looped)
@@ -139,8 +138,8 @@ void GAFAnimatedObject::_constructObject()
     
     setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
     
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_masks);
+	GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_masks);
     
     _FPSType = kGAFAnimationFPSType_60;
     m_fps = m_asset->getSceneFps();
@@ -167,11 +166,19 @@ unsigned int GAFAnimatedObject::objectIdByObjectName(const std::string& aName)
 
 void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
 {
+    if (objs.size() > 0)
+    {
+        m_subObjects.resize(objs.rbegin()->first + 1);
+    }
+    if (masks.size() > 0)
+    {
+        m_masks.resize(masks.rbegin()->first + 1);
+    }
     for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
         GAFTextureAtlas* atlas = m_asset->getTextureAtlas();
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
-        cocos2d::SpriteFrame * spriteFrame = NULL;
+        cocos2d::SpriteFrame * spriteFrame = nullptr;
 
         unsigned int atlasElementIdRef = i->second;
 
@@ -179,7 +186,7 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
 
         assert(elIt != elementsMap.end());
 
-        const GAFTextureAtlasElement* txElemet = NULL;
+        const GAFTextureAtlasElement* txElemet = nullptr;
 
         if (elIt != elementsMap.end())
         {
@@ -236,8 +243,8 @@ void GAFAnimatedObject::instantiateObject(const AnimationObjects_t& objs, const 
 
         assert(elIt != elementsMap.end());
 
-        const GAFTextureAtlasElement* txElemet = NULL;
-        cocos2d::SpriteFrame * spriteFrame = NULL;
+        const GAFTextureAtlasElement* txElemet = nullptr;
+        cocos2d::SpriteFrame * spriteFrame = nullptr;
 
         if (elIt != elementsMap.end())
         {
@@ -329,19 +336,29 @@ void GAFAnimatedObject::removeAllSubObjects()
 {
     for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* sprite = i->second;
+        if (!*i)
+        {
+            continue;
+        }
+
+        GAFSprite* sprite = *i;
         sprite->setVisible(false);
         sprite->removeFromParentAndCleanup(true);
     }
 
-    GAF_SAFE_RELEASE_MAP(SubObjects_t, m_subObjects);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
 }
 
 void GAFAnimatedObject::setSubobjectsVisible(bool visible)
 {
     for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* sprite = i->second;
+        if (!*i)
+        {
+            continue;
+        }
+
+        GAFSprite* sprite = *i;
         sprite->setVisible(visible);
     }
 }
@@ -406,15 +423,12 @@ cocos2d::Vect GAFAnimatedObject::pupilCoordinatesWithXSemiaxis(float anXSemiaxis
 
 GAFSprite * GAFAnimatedObject::subObjectForInnerObjectId(unsigned int anInnerObjectId)
 {
-    for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
+    if (anInnerObjectId >= m_subObjects.size()) // early exit
     {
-        GAFSprite* anim = i->second;
-        if (anim->objectIdRef == anInnerObjectId)
-        {
-            return anim;
-        }
+        return nullptr;
     }
-    return NULL;
+
+    return m_subObjects[anInnerObjectId];
 }
 
 const SubObjects_t& GAFAnimatedObject::getSubojects() const
@@ -463,7 +477,7 @@ cocos2d::Sprite* GAFAnimatedObject::renderCurrentFrameToTexture(bool usePOTTextu
 
     if (frameRect.size.width == 0.f || frameRect.size.height == 0.f)
     {
-        return NULL;
+        return nullptr;
     }
 
     cocos2d::Vect originalPos = getPosition();
@@ -526,14 +540,9 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
             {
                 const GAFSubobjectState *state = states[i];
                 {
-                    GAFSpriteWithAlpha *subObject = NULL;
+                GAFSpriteWithAlpha *subObject = nullptr;
 
-                    SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
-
-                    if (sboIt != m_subObjects.end())
-                    {
-                        subObject = static_cast<GAFSpriteWithAlpha*>(sboIt->second);
-                    }
+                    subObject = static_cast<GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
 
                     if (subObject)
                     {
@@ -542,7 +551,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 #if ENABLE_RUNTIME_FILTERS
                         // Validate sprite type (w/ or w/o filter)
                         const Filters_t& filters = state->getFilters();
-                        GAFFilterData* filter = NULL;
+                    GAFFilterData* filter = nullptr;
 
                         if (!filters.empty())
                         {
@@ -552,17 +561,17 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 
                         if (!filter || filter->getType() != GFT_Blur)
                         {
-                            subObject->setBlurFilterData(NULL);
+                        subObject->setBlurFilterData(nullptr);
                         }
 
                         if (!filter || filter->getType() != GFT_ColorMatrix)
                         {
-                            subObject->setColorMarixFilterData(NULL);
+                        subObject->setColorMarixFilterData(nullptr);
                         }
 
                         if (!filter || filter->getType() != GFT_Glow)
                         {
-                            subObject->setGlowFilterData(NULL);
+                        subObject->setGlowFilterData(nullptr);
                         }
 
                         if (!filter || filter->getType() != GFT_DropShadow)
@@ -589,7 +598,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                             {
                                 out->removeChild(subObject, false);
                             }
-                            GAFStencilMaskSprite * mask = NULL;
+                        GAFStencilMaskSprite * mask = nullptr;
 
                             if (!m_masks.empty())
                             {
@@ -638,7 +647,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     }
                     else
                     {
-                        GAFSprite * mask = NULL;
+                        GAFSprite * mask = nullptr;
                         if (!m_masks.empty())
                         {
                             mask = m_masks[state->objectIdRef];
@@ -665,9 +674,6 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
             {
                 const GAFSubobjectState *state = states[i];
 
-                SubObjects_t::iterator sboIt = m_subObjects.find(state->objectIdRef);
-
-                if (sboIt != m_subObjects.end())
                 {
                     const GAFSpriteWithAlpha *subObject = static_cast<const GAFSpriteWithAlpha*>(m_subObjects[state->objectIdRef]);
 
@@ -679,10 +685,7 @@ void GAFAnimatedObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                         m_controlDelegate->onFrameDisplayed(this, subObject);
                     }
                 }
-                else
-                {
-                    // Masks cannot be captured right now
-                }
+
             }
         }
     }
@@ -749,7 +752,12 @@ cocos2d::Rect GAFAnimatedObject::realBoundingBoxForCurrentFrame()
 
     for (SubObjects_t::iterator i = m_subObjects.begin(), e = m_subObjects.end(); i != e; ++i)
     {
-        GAFSprite* anim = i->second;
+        if (!*i)
+        {
+            continue;
+        }
+
+        GAFSprite* anim = *i;
         if (anim->isVisible())
         {
             cocos2d::Rect bb = anim->getBoundingBox();
@@ -794,7 +802,12 @@ void GAFAnimatedObject::_updateStencilLayer(int newLayer)
 
     for (SubObjects_t::iterator it = m_masks.begin(), e = m_masks.end(); it != e; ++it)
     {
-        GAFStencilMaskSprite* mask = static_cast<GAFStencilMaskSprite*>(it->second);
+        if (!*it)
+        {
+            continue;
+        }
+
+        GAFStencilMaskSprite* mask = static_cast<GAFStencilMaskSprite*>(*it);
         mask->updateStencilLayer(newLayer);
     }
 }

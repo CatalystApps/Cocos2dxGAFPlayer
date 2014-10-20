@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __GAF_ANIMATION_SEQUENCE_H__
-#define __GAF_ANIMATION_SEQUENCE_H__
-
 class GAFAnimationSequence
 {
 public:
@@ -14,5 +11,3 @@ public:
         return endFrameNo - startFrameNo;
     }
 };
-
-#endif // __GAF_ANIMATION_SEQUENCE_H__
