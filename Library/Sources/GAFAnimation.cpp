@@ -4,9 +4,7 @@
 #include "GAFAsset.h"
 #include "GAFAnimatedObject.h"
 
-namespace gaf
-{
-
+NS_GAF_BEGIN
 GAFAnimation::GAFAnimation()
 :
 m_asset(nullptr),
@@ -381,4 +379,4 @@ void GAFAnimation::setAnimationPlaybackDelegate(GAFAnimationPlaybackDelegate* de
     m_animationPlaybackDelegate = delegate;
 }
 
-}
+NS_GAF_END

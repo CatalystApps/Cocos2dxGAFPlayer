@@ -1,7 +1,8 @@
 #pragma once
 
-namespace gaf
-{
+#include "GAFMacros.h"
+
+NS_GAF_BEGIN
 
 class GAFStream;
 
@@ -15,4 +16,4 @@ public:
     static void deserialize(GAFStream* in, cocos2d::Color4B* out);
 };
 
-}
+NS_GAF_END

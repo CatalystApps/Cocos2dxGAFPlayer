@@ -11,6 +11,7 @@
 
 static int const kGlobalFPS = 60;
 USING_NS_CC;
+USING_NS_GAF;
 
 AppDelegate::AppDelegate()
 {
@@ -81,7 +82,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     cocos2d::Director::getInstance()->stopAnimation();
-    gaf::GAFShaderManager::handleEnterBackground();
+    GAFShaderManager::handleEnterBackground();
 }
 
 void AppDelegate::applicationWillEnterForeground()

@@ -1,7 +1,8 @@
 #pragma once
 
-namespace gaf
-{
+#include "GAFMacros.h"
+
+NS_GAF_BEGIN
 
 struct Tags
 {
@@ -75,4 +76,4 @@ struct Tags
     }
 };
 
-}
+NS_GAF_END

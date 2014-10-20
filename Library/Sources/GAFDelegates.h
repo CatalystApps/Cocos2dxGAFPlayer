@@ -1,7 +1,8 @@
 #pragma once
 
-namespace gaf
-{
+#include "GAFMacros.h"
+
+NS_GAF_BEGIN
 
 class GAFAnimatedObject;
 class GAFSprite;
@@ -49,4 +50,4 @@ public:
     virtual void onFrameDisplayed(GAFAnimatedObject * object, const GAFSprite * subobject) = 0;
 };
 
-}
+NS_GAF_END

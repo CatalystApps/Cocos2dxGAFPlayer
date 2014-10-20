@@ -71,6 +71,7 @@
     <ClInclude Include="Sources\GAFAsset.h" />
     <ClInclude Include="Sources\GAFFilterData.h" />
     <ClInclude Include="Sources\GAFLoader.h" />
+    <ClInclude Include="Sources\GAFMacros.h" />
     <ClInclude Include="Sources\GAFQuadCommand.h" />
     <ClInclude Include="Sources\GAFShaderManager.h" />
     <ClInclude Include="Sources\GAFSprite.h" />

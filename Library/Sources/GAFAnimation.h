@@ -4,8 +4,7 @@
 
 #include "GAFDelegates.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFAsset;
 
@@ -88,4 +87,4 @@ private:
     bool m_isReversed;
 };
 
-}
+NS_GAF_END

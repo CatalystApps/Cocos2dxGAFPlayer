@@ -1,7 +1,8 @@
 #pragma once
 
-namespace gaf
-{
+#include "GAFMacros.h"
+
+NS_GAF_BEGIN
 
 class GAFShaderManager
 {
@@ -77,4 +78,4 @@ private:
     static bool s_initialized;
 }; // GAFShaderManager
 
-}
+NS_GAF_END

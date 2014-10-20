@@ -2,8 +2,7 @@
 
 #include "DefinitionTagBase.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class TagDefineNamedParts : public DefinitionTagBase
 {
@@ -13,4 +12,4 @@ public:
 
 };
 
-}
+NS_GAF_END

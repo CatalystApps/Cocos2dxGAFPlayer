@@ -4,8 +4,7 @@
 #include "GAFAsset.h"
 #include "GAFStream.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 void TagDefineNamedParts::read(GAFStream* in, GAFAsset* ctx)
 {
@@ -21,4 +20,4 @@ void TagDefineNamedParts::read(GAFStream* in, GAFAsset* ctx)
     }
 }
 
-}
+NS_GAF_END

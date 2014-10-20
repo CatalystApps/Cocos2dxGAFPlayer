@@ -1,12 +1,12 @@
 #pragma once
 
+#include "GAFMacros.h"
 #include "GAFCollections.h"
 #include "GAFHeader.h"
 
 #include "GAFDelegates.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFTextureAtlas;
 class GAFAnimatedObject;
@@ -109,4 +109,4 @@ public:
     void setSceneColor(const cocos2d::Color4B&);
 };
 
-}
+NS_GAF_END

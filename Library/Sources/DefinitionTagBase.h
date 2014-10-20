@@ -1,7 +1,8 @@
 #pragma once
 
-namespace gaf
-{
+#include "GAFMacros.h"
+
+NS_GAF_BEGIN
 
 class GAFStream;
 class GAFAsset;
@@ -14,4 +15,4 @@ public:
     virtual void read(GAFStream*, GAFAsset*) = 0;
 };
 
-}
+NS_GAF_END

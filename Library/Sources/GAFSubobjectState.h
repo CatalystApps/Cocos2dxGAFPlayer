@@ -2,8 +2,7 @@
 
 #include "GAFCollections.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 enum GAFColorTransformIndex
 {
@@ -70,4 +69,4 @@ public:
 
 }; // GAFSubobjectState
 
-}
+NS_GAF_END

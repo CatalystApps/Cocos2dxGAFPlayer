@@ -1,7 +1,8 @@
 #pragma once
 
-namespace gaf
-{
+#include "GAFMacros.h"
+
+NS_GAF_BEGIN
 
 class GAFAnimationSequence
 {
@@ -15,4 +16,4 @@ public:
     }
 };
 
-}
+NS_GAF_END

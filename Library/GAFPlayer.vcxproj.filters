@@ -215,5 +215,8 @@
     <ClInclude Include="Sources\TagDefineTimeline.h">
       <Filter>Sources\GAFLoader\Tags</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\GAFMacros.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,8 +4,7 @@
 #include "GAFSpriteWithAlpha.h"
 #include "GAFFilterManager.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 GAFBlurFilterData::GAFBlurFilterData():
 GAFFilterData(GFT_Blur)
@@ -76,4 +75,4 @@ void GAFDropShadowFilterData::reset(GAFSpriteWithAlpha* subObject)
     }
 }
 
-}
+NS_GAF_END

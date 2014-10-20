@@ -4,8 +4,7 @@
 
 #define USE_LAYERED_STENCIL 0
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 #if 1 // for manual comparsion
 static bool compare_stencil_sprites(const void* p1, const void* p2)
@@ -338,4 +337,4 @@ void GAFStencilMaskSprite::updateStencilLayer(int newLayer)
     m_stencilLayer = newLayer;
 }
 
-}
+NS_GAF_END

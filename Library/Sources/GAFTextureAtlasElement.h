@@ -1,7 +1,8 @@
 #pragma once
 
-namespace gaf
-{
+#include "GAFMacros.h"
+
+NS_GAF_BEGIN
 
 class GAFTextureAtlasElement
 {
@@ -19,4 +20,4 @@ public:
     GAFTextureAtlasElement();
 }; // GAFTextureAtlasElement
 
-}
+NS_GAF_END

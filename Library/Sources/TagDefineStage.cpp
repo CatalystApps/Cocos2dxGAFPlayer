@@ -6,8 +6,7 @@
 #include "GAFHeader.h"
 #include "PrimitiveDeserializer.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 void TagDefineStage::read(GAFStream* in, GAFAsset* ctx)
 {
@@ -24,4 +23,4 @@ void TagDefineStage::read(GAFStream* in, GAFAsset* ctx)
     ctx->setSceneHeight(height);
 }
 
-}
+NS_GAF_END

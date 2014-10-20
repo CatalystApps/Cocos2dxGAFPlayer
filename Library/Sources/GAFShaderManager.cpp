@@ -12,8 +12,6 @@ namespace gps
 using std::string;
 using namespace cocos2d;
 
-#define STRINGIFY(A)  #A
-
 #include "Shaders/GaussianBlurFragmentShader.frag"
 #include "Shaders/GaussianBlurVertexShader.vert"
 #include "Shaders/GlowFragmentShader.frag"
@@ -22,8 +20,8 @@ using namespace cocos2d;
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
 
-namespace gaf
-{
+NS_GAF_BEGIN
+
     bool GAFShaderManager::s_initialized = false;
 
     const char * const GAFShaderManager::s_fragmentShaders[] =
@@ -122,4 +120,4 @@ namespace gaf
             s_initialized = true;
         }
     }
-}
+NS_GAF_END

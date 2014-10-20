@@ -1,8 +1,7 @@
 #pragma once
 #include "GAFCollections.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFCachedTexture
 {
@@ -27,4 +26,4 @@ private:
     size_t          m_memoryUsed;
 };
 
-}
+NS_GAF_END

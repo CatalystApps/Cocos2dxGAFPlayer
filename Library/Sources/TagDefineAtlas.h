@@ -2,8 +2,7 @@
 
 #include "DefinitionTagBase.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class TagDefineAtlas : public DefinitionTagBase
 {
@@ -12,4 +11,4 @@ public:
     virtual void read(GAFStream*, GAFAsset*);
 };
 
-}
+NS_GAF_END

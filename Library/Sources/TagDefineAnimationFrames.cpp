@@ -12,8 +12,7 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 TagDefineAnimationFrames::~TagDefineAnimationFrames()
 {
@@ -210,4 +209,4 @@ void TagDefineAnimationFrames::_translateColor(cocos2d::Color4F& out, const coco
     out.a = in.a / 255.f;
 }
 
-}
+NS_GAF_END

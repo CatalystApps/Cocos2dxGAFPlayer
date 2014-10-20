@@ -1,8 +1,7 @@
 #pragma once
 #include "GAFCollections.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFSpriteWithAlpha;
 
@@ -74,4 +73,4 @@ public:
     static void reset(GAFSpriteWithAlpha*);
 };
 
-}
+NS_GAF_END

@@ -9,8 +9,7 @@
 #include "GAFShaderManager.h"
 #include "GAFLoader.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 static float _currentDeviceScale = 1.0f;
 static float  _desiredCsf = 1.f;
@@ -351,4 +350,4 @@ void GAFAsset::_chooseTextureAtlas()
     _usedAtlasContentScaleFactor = atlasScale;
 }
 
-}
+NS_GAF_END

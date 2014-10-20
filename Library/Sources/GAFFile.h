@@ -2,8 +2,7 @@
 
 #include "GAFHeader.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFFile
 {
@@ -48,4 +47,4 @@ public:
     void                 rewind(unsigned int newPos);
 };
 
-}
+NS_GAF_END

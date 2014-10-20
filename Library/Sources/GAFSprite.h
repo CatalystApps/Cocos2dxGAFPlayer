@@ -2,8 +2,7 @@
 
 #include "GAFQuadCommand.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFStencilMaskSprite;
 
@@ -103,4 +102,4 @@ private:
     GLint                   m_blendEquation;
 };
 
-}
+NS_GAF_END

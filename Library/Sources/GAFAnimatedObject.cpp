@@ -43,8 +43,7 @@ static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(
     return transform;
 }
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 GAFAnimatedObject::GAFAnimatedObject()
 :
@@ -55,7 +54,7 @@ m_controlDelegate(nullptr),
 m_extraFramesCounter(0),
 m_timeDelta(0.f)
 {
-#if CC_ENABLE_CACHE_TEXTURE_DATA
+#if 1//CC_ENABLE_CACHE_TEXTURE_DATA
     
     static bool invalidateGLPrograms = false;
     
@@ -826,4 +825,4 @@ void GAFAnimatedObject::setFps(int value)
     m_fps = value;
 }
 
-}
+NS_GAF_END

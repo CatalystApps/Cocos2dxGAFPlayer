@@ -19,8 +19,8 @@ USING_NS_CC;
 
 #define CHECK_CTX_IDENTITY 1
 
-namespace gaf
-{
+NS_GAF_BEGIN
+
     struct GAFSpriteWithAlphaHash
     {
         int       program;
@@ -319,4 +319,4 @@ void _GAFreloadAlphaShader()
 }
 #endif
 
-}
+NS_GAF_END
