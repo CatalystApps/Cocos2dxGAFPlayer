@@ -80,11 +80,8 @@ NS_GAF_BEGIN
 
     void GAFShaderManager::Initialize(bool force /*= false*/)
     {
-        CCLOG("GAFShaderManager::Initialize");
-
         if (!s_initialized)
         {
-            CCLOG("GAFShaderManager::Initialize inside");
 #if COCOS2D_VERSION < 0x00030200
             const std::string eventName = EVENT_COME_TO_FOREGROUND;
 #else
@@ -95,6 +92,7 @@ NS_GAF_BEGIN
 
         bool skip = !force && s_initialized;
         bool reinit = force && s_initialized;
+
         if (!skip)
         {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
