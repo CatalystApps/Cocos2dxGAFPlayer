@@ -11,6 +11,7 @@
 
 static int const kGlobalFPS = 60;
 USING_NS_CC;
+USING_NS_GAF;
 
 AppDelegate::AppDelegate()
 {

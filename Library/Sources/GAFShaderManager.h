@@ -1,5 +1,7 @@
 #pragma once
 
+NS_GAF_BEGIN
+
 class GAFShaderManager
 {
 public:
@@ -33,3 +35,5 @@ private:
     static const char* const s_vertexShaders[EVertexShader::SIZE];
 
 }; // GAFShaderManager
+
+NS_GAF_END

@@ -2,6 +2,8 @@
 
 #include "GAFQuadCommand.h"
 
+NS_GAF_BEGIN
+
 typedef struct _gafBlendFuncSeparate
 {
     // source blend function
@@ -97,3 +99,5 @@ private:
     bool                    m_useSeparateBlendFunc;
     GLint                   m_blendEquation;
 };
+
+NS_GAF_END

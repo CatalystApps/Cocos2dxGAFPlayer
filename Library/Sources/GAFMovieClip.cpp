@@ -13,6 +13,8 @@
 
 #define CHECK_CTX_IDENTITY 0
 
+NS_GAF_BEGIN
+
 static int colorTransformMultLocation = -1;
 static int colorTransformOffsetLocation = -1;
 static int fragmentAlphaLocation = -1;
@@ -346,3 +348,5 @@ void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transf
     GAFSprite::draw(renderer, transform, flags);
 
 }
+
+NS_GAF_END

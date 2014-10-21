@@ -2,12 +2,14 @@
 
 #include "GAFSprite.h"
 
-static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
-
 namespace cocos2d
 {
     class __Array;
 }
+
+NS_GAF_BEGIN
+
+static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
 
 class GAFStencilMaskSprite : public GAFSprite
 {
@@ -56,3 +58,5 @@ private:
     cocos2d::CustomCommand  m_customCommand2;
     cocos2d::__Array*       m_maskedObjects;
 };
+
+NS_GAF_END

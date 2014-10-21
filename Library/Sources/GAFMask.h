@@ -2,12 +2,9 @@
 
 #include "GAFObject.h"
 
-static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
+NS_GAF_BEGIN
 
-namespace cocos2d
-{
-    class __Array;
-}
+static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
 
 class GAFMask : public GAFObject
 {
@@ -59,3 +56,5 @@ public:
     void updateStencilLayer(int newLayer);
 
 };
+
+NS_GAF_END

@@ -2,6 +2,8 @@
 
 #include "TagDefines.h"
 
+NS_GAF_BEGIN
+
 class GAFAsset;
 class GAFTimeline;
 
@@ -47,3 +49,5 @@ public:
 
     void                 loadTags(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline);
 };
+
+NS_GAF_END

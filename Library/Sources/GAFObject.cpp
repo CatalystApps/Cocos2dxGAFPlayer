@@ -15,6 +15,8 @@
 
 #define ENABLE_RUNTIME_FILTERS 1
 
+NS_GAF_BEGIN
+
 cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
 {
     cocos2d::AffineTransform transform = aTransform;
@@ -1048,3 +1050,5 @@ const GAFObject* GAFObject::getObjectByName(const std::string& name) const
 {
     return const_cast<GAFObject*>(this)->getObjectByName(name);
 }
+
+NS_GAF_END

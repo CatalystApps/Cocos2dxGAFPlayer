@@ -5,6 +5,8 @@
 
 #include "GAFDelegates.h"
 
+NS_GAF_BEGIN
+
 class GAFTextureAtlas;
 
 class GAFTimeline : public cocos2d::Ref
@@ -78,3 +80,5 @@ public:
 
     float                       usedAtlasContentScaleFactor() const;
 };
+
+NS_GAF_END

@@ -6,6 +6,8 @@
 #include "GAFAsset.h"
 #include "GAFTimeline.h"
 
+NS_GAF_BEGIN
+
 void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     (void)asset;
@@ -27,3 +29,5 @@ void TagDefineAnimationMasks::read(GAFStream* in, GAFAsset* asset, GAFTimeline* 
         }
     }
 }
+
+NS_GAF_END

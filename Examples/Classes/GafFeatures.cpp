@@ -56,10 +56,10 @@ cocos2d::Point centerScreenPosition(GAFAsset* ast, const cocos2d::Size& screenSi
 
 GafFeatures::GafFeatures()
     :
-    m_asset(NULL),
-    m_objects(NULL),
-    m_currentSequence(0)
-    , m_loadingTimeLabel(NULL)
+    m_asset(nullptr),
+    m_objects(nullptr),
+    m_currentSequence(0),
+	m_loadingTimeLabel(nullptr)
 {
     m_touchlistener = cocos2d::EventListenerTouchAllAtOnce::create();
 
@@ -266,7 +266,7 @@ cocos2d::MenuItemImage* GafFeatures::addButton(const std::string &buttonName, co
 bool GafFeatures::init()
 {
     setupMenuItems();
-    gray(NULL);
+    gray(nullptr);
     
     m_files.push_back("GAF4Test/GAF4Test.gaf");
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
@@ -581,10 +581,6 @@ void GafFeatures::addObjectsToScene()
        // object->setSequenceDelegate(std::bind(&GafFeatures::onFinishSequence, _1, _2));
        // object->setFramePlayedDelegate(std::bind(&GafFeatures::onFramePlayed, _1, _2));
         
-
-        //GAFSpriteID testId = object->getSpriteId("YOU.KNIGHT.ROB_HEAD");
-        //testId.getAnimatedObject()->gotoAndStop(4);
-
     }
 }
 

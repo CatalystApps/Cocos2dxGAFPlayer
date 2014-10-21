@@ -7,6 +7,8 @@
 
 #include "GAFLoader.h"
 
+NS_GAF_BEGIN
+
 static float  _desiredCsf = 1.f;
 
 float GAFAsset::desiredCsf()
@@ -246,3 +248,5 @@ void GAFAsset::setSceneColor(const cocos2d::Color4B& value)
 {
     m_sceneColor = value;
 }
+
+NS_GAF_END

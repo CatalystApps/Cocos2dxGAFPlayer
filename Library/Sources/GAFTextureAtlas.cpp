@@ -7,12 +7,14 @@
 #include "renderer/CCTextureCache.h"
 #endif
 
+NS_GAF_BEGIN
+
 GAFTextureAtlas::GAFTextureAtlas()
 :
 m_scale(1.f),
 m_loaded(false),
-m_images(NULL),
-m_textures(NULL),
+m_images(nullptr),
+m_textures(nullptr),
 m_memoryConsumption(0)
 {
 }
@@ -193,3 +195,5 @@ uint32_t GAFTextureAtlas::getMemoryConsumptionStat() const
 {
     return m_memoryConsumption;
 }
+
+NS_GAF_END

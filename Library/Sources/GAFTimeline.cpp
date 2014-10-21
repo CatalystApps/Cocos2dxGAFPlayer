@@ -3,6 +3,8 @@
 #include "GAFTextureAtlas.h"
 #include "GAFAnimationFrame.h"
 
+NS_GAF_BEGIN
+
 GAFTimeline::GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount):
 m_id(id)
 , m_aabb(aabb)
@@ -207,3 +209,4 @@ float GAFTimeline::usedAtlasContentScaleFactor() const
 	return m_usedAtlasContentScaleFactor;
 }
 
+NS_GAF_END

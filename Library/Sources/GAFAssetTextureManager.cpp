@@ -3,6 +3,8 @@
 #include "GAFAssetTextureManager.h"
 #include "GAFAsset.h"
 
+NS_GAF_BEGIN
+
 GAFAssetTextureManager::GAFAssetTextureManager():
 m_memoryConsumption(0)
 {
@@ -143,3 +145,5 @@ uint32_t GAFAssetTextureManager::getMemoryConsumptionStat() const
 {
 	return m_memoryConsumption;
 }
+
+NS_GAF_END

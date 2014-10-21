@@ -13,6 +13,8 @@
 #include "GAFAnimationFrame.h"
 #include "GAFFilterData.h"
 
+NS_GAF_BEGIN
+
 TagDefineAnimationFrames2::~TagDefineAnimationFrames2()
 {
     for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
@@ -218,3 +220,5 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
 
     return state;
 }
+
+NS_GAF_END

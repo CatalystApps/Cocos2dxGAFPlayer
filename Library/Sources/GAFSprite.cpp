@@ -13,6 +13,8 @@ USING_NS_CC;
 #define RENDER_IN_SUBPIXEL(__A__) ( (int)(__A__))
 #endif
 
+NS_GAF_BEGIN
+
 GAFSprite::GAFSprite()
 :
 objectIdRef(IDNONE),
@@ -233,7 +235,9 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
 
     CHECK_GL_ERROR_DEBUG();
 
-    using namespace cocos2d;
+    USING_NS_CC;
     //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
     //CC_INCREMENT_GL_DRAWS(1);
 }
+
+NS_GAF_END

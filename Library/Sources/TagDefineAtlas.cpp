@@ -11,6 +11,8 @@
 #include "GAFTextureAtlasElement.h"
 #include "PrimitiveDeserializer.h"
 
+NS_GAF_BEGIN
+
 void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     (void)asset;
@@ -84,3 +86,5 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 
     timeline->pushTextureAtlas(txAtlas);
 }
+
+NS_GAF_END

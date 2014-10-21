@@ -1,14 +1,16 @@
 #pragma once
 
+#include <unordered_map>
+#include "GAFAnimationSequence.h"
+
+NS_GAF_BEGIN
+
 class GAFTextureAtlas;
 class GAFAnimationFrame;
 class GAFSprite;
 class GAFFilterData;
 class GAFTimeline;
 class GAFObject;
-
-#include <unordered_map>
-#include "GAFAnimationSequence.h"
 
 enum class GAFFilterType : uint32_t
 {
@@ -54,25 +56,8 @@ typedef std::unordered_map<uint32_t, int>                   CaptureObjects_t;   
 typedef std::unordered_map<std::string, GAFAnimationSequence>         AnimationSequences_t;
 typedef std::unordered_map<std::string, uint32_t>                     NamedParts_t;
 
-#define GAF_SAFE_RELEASE_MAP(__type, __instance)\
-    for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\
-    i->second->release(); \
-    } __instance.clear();
-
-#define GAF_SAFE_RELEASE_ARRAY(__type, __instance)\
-    for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\
-    (*i)->release(); \
-    } __instance.clear();
-
-#define GAF_RELEASE_ARRAY(__type, __instance)\
-    for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\
-    delete *i; \
-    } __instance.clear();
-
-#define GAF_RELEASE_MAP(__type, __instance)\
-    for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\
-    delete i->second; \
-    } __instance.clear();
 
 
 static const uint32_t IDNONE = UINT_MAX;
+
+NS_GAF_END

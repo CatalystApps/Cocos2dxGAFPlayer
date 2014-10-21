@@ -4,6 +4,8 @@
 #include "GAFSprite.h"
 #include "GAFCollections.h"
 
+NS_GAF_BEGIN
+
 class GAFAsset;
 class GAFTimeline;
 
@@ -212,3 +214,5 @@ public:
 
     void setFps(uint32_t value);
 };
+
+NS_GAF_END

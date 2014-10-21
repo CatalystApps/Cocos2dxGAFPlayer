@@ -1,6 +1,8 @@
 #pragma once
 #include "GAFCollections.h"
 
+NS_GAF_BEGIN
+
 class GAFCachedTexture
 {
 public:
@@ -23,3 +25,5 @@ private:
     unsigned int    m_timesUsed;
     size_t          m_memoryUsed;
 };
+
+NS_GAF_END

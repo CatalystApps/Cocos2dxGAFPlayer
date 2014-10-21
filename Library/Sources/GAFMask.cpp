@@ -5,6 +5,8 @@
 
 #define USE_LAYERED_STENCIL 0
 
+NS_GAF_BEGIN
+
 GAFMask::Object2maskedContainer_t GAFMask::object2maskedContainer;
 
 void GAFMask::_sortAllMaskedObjects()
@@ -341,3 +343,5 @@ void GAFMask::updateStencilLayer(int newLayer)
 {
     m_stencilLayer = newLayer;
 }
+
+NS_GAF_END

@@ -2,6 +2,8 @@
 
 #include "GAFSprite.h"
 
+NS_GAF_BEGIN
+
 static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
 static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
 
@@ -50,3 +52,5 @@ protected:
     virtual uint32_t setUniforms() override;
 
 };
+
+NS_GAF_END

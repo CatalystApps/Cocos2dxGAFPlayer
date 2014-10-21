@@ -7,6 +7,8 @@
 #include "GAFTimeline.h"
 #include "PrimitiveDeserializer.h"
 
+NS_GAF_BEGIN
+
 void TagDefineStage::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     (void)timeline;
@@ -22,3 +24,5 @@ void TagDefineStage::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 	asset->setSceneWidth(width);
 	asset->setSceneHeight(height);
 }
+
+NS_GAF_END

@@ -13,6 +13,8 @@ using std::string;
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
 
+NS_GAF_BEGIN
+
 const char * const GAFShaderManager::s_fragmentShaders[] =
 {
     GaussianBlurFragmentShader_fs,
@@ -32,3 +34,4 @@ void GAFShaderManager::handleEnterBackground()
 {
     // Stub yet
 }
+NS_GAF_END
