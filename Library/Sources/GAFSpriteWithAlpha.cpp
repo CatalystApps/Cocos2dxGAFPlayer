@@ -14,17 +14,17 @@ USING_NS_CC;
 
 NS_GAF_BEGIN
 
-    struct GAFSpriteWithAlphaHash
-    {
-        int       program;
-        uint32_t  texture;
-        BlendFunc blend;
-        cocos2d::Vec4   a;
-        cocos2d::Vec4   b;
-        float   c;
-        Mat4    d;
-        Vec4    e;        
-    };
+struct GAFSpriteWithAlphaHash
+{
+    int       program;
+    uint32_t  texture;
+    BlendFunc blend;
+    cocos2d::Vec4   a;
+    cocos2d::Vec4   b;
+    float   c;
+    Mat4    d;
+    Vec4    e;        
+};
     
 GAFSpriteWithAlpha::GAFSpriteWithAlpha()
 :

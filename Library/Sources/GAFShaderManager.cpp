@@ -10,7 +10,7 @@ namespace gps
 #endif
 
 using std::string;
-using namespace cocos2d;
+USING_NS_CC;
 
 #define STRINGIFY(A)  #A
 

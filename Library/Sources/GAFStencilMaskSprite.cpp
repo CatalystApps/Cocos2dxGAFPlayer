@@ -35,7 +35,7 @@ bool GAFStencilMaskSprite::initWithTexture(cocos2d::Texture2D *pTexture, const c
     CC_SAFE_RELEASE(m_maskedObjects);
     m_maskedObjects = cocos2d::__Array::create();
     m_maskedObjects->retain();
-    setGLProgram(programShaderForMask());
+    setGLProgram(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaFilter));
     return true;
 }
 
@@ -300,37 +300,6 @@ void GAFStencilMaskSprite::removeMaskedObject(cocos2d::Node * anObject)
         m_maskedObjects->removeObject(anObject);
         m_isReorderMaskedObjectsDirty = true;
     }
-}
-
-cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
-{
-    //return GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaFilter);
-    cocos2d::GLProgram *program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFStencilMaskAlphaFilterProgramCacheKey);
-
-    if (!program)
-    {
-        const char* frag = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::AlphaFilter);
-        program = cocos2d::GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, frag);
-        if (program)
-        {
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-
-            program->link();
-            program->updateUniforms();
-            CHECK_GL_ERROR_DEBUG();
-            cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
-        }
-        else
-        {
-            CCLOGERROR("Cannot load program for programShaderForMask.");
-            return nullptr;
-        }
-    }
-
-    program->use();
-    return program;
 }
 
 void GAFStencilMaskSprite::updateStencilLayer(int newLayer)

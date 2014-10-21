@@ -9,7 +9,6 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFFilterData.h"
 
-// Still is under development
 #define ENABLE_RUNTIME_FILTERS 1
 
 // Detect whether it is Visual Studio 2010 or lower
@@ -54,40 +53,6 @@ m_controlDelegate(nullptr),
 m_extraFramesCounter(0),
 m_timeDelta(0.f)
 {
-#if CC_ENABLE_CACHE_TEXTURE_DATA
-    
-    static bool invalidateGLPrograms = false;
-
-#if COCOS2D_VERSION < 0x00030200
-    const std::string eventName = EVENT_COME_TO_FOREGROUND;
-#else
-    const std::string eventName = EVENT_RENDERER_RECREATED;
-#endif
-    
-    auto listenerFG = cocos2d::EventListenerCustom::create(eventName, [this](cocos2d::EventCustom* event)
-    {
-        if (invalidateGLPrograms)
-        {
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCache_noCTX);
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCacheKey);
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFStencilMaskAlphaFilterProgramCacheKey);
-        
-            invalidateGLPrograms = false;
-        }
-        
-        this->removeAllChildrenWithCleanup(true);
-        this->_constructObject();
-    });
-    
-    auto listenerBG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_BACKGROUND, [this](cocos2d::EventCustom* event)
-    {
-        invalidateGLPrograms = true;
-    });
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerFG, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerBG, this);
-
-#endif
 }
 
 GAFAnimatedObject::~GAFAnimatedObject()

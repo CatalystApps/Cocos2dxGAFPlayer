@@ -234,7 +234,7 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
 
     CHECK_GL_ERROR_DEBUG();
 
-    USING_NS_CC;
+    //USING_NS_CC;
     //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
     //CC_INCREMENT_GL_DRAWS(1);
 }

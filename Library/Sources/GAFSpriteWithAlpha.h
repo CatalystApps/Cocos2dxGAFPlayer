@@ -4,9 +4,6 @@
 
 NS_GAF_BEGIN
 
-static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
-static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
-
 class GAFColorColorMatrixFilterData;
 class GAFGlowFilterData;
 class GAFBlurFilterData;
