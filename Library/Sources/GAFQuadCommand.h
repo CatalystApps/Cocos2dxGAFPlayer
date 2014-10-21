@@ -1,7 +1,5 @@
 #pragma once
 
-#include "GAFMacros.h"
-
 NS_GAF_BEGIN
 
 /** Command used to render one or more Quads */

@@ -218,5 +218,8 @@
     <ClInclude Include="Sources\GAFMacros.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\GAF.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

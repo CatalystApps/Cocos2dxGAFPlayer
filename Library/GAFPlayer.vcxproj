@@ -58,6 +58,7 @@
   <ItemGroup>
     <ClInclude Include="GAFPrecompiled.h" />
     <ClInclude Include="Sources\DefinitionTagBase.h" />
+    <ClInclude Include="Sources\GAF.h" />
     <ClInclude Include="Sources\GAFCachedTexture.h" />
     <ClInclude Include="Sources\GAFCollections.h" />
     <ClInclude Include="Sources\GAFDelegates.h" />
@@ -152,7 +153,7 @@
       <PrecompiledHeaderFile>GAFPrecompiled.h</PrecompiledHeaderFile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(ProjectDir)/Classes;$(ProjectDir);../../../cocos/2d/;../../../cocos/platform/win32/;../../../cocos/;../../win32-specific/gles/include/OGLES/;../../glfw3/include/win32/;../../win32-specific/zlib/include/;../../../cocos/math/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/Sources;$(ProjectDir);../../../cocos/2d/;../../../cocos/platform/win32/;../../../cocos/;../../win32-specific/gles/include/OGLES/;../../glfw3/include/win32/;../../win32-specific/zlib/include/;../../../cocos/math/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GAFMacros.h"
 #include "GAFCollections.h"
 #include "GAFHeader.h"
 

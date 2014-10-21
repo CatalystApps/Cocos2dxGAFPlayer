@@ -7,9 +7,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "GAFAnimation.h"
-
-#include "GAFDelegates.h"
+#include "GAF.h"
 
 NS_GAF_BEGIN
 class GAFAnimatedObject;
