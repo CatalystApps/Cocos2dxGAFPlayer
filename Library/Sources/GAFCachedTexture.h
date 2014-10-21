@@ -8,7 +8,7 @@ class GAFCachedTexture
 public:
     cocos2d::Texture2D* operator *();
     const GAFCachedTexture& operator =(const GAFCachedTexture&);
-    GAFCachedTexture(){}
+    GAFCachedTexture();
     GAFCachedTexture(cocos2d::Texture2D* tex);
     GAFCachedTexture(const GAFCachedTexture& other);
     ~GAFCachedTexture();

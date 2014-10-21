@@ -27,7 +27,7 @@ void TagDefineAnimationFrames::read(GAFStream* in, GAFAsset* asset, GAFTimeline*
     (void)asset;
     in->readU32(); // read count. Unused here
 
-    assert(!timeline->getAnimationObjects().empty());
+    if (timeline->getAnimationObjects().empty()) return;
 
     for (AnimationObjects_t::const_iterator i = timeline->getAnimationObjects().begin(), e = timeline->getAnimationObjects().end(); i != e; ++i)
     {

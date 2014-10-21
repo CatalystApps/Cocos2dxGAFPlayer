@@ -4,6 +4,7 @@
 #include "GAFTextureAtlasElement.h"
 #include "GAFObject.h"
 #include "GAFAssetTextureManager.h"
+#include "GAFShaderManager.h"
 
 #include "GAFLoader.h"
 
@@ -50,6 +51,7 @@ m_sceneHeight(0),
 m_rootTimeline(nullptr)
 {
     m_textureManager = new GAFAssetTextureManager();
+    GAFShaderManager::Initialize();
 }
 
 GAFAsset::~GAFAsset()
@@ -74,7 +76,7 @@ GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegat
         return ret;
     }
     CC_SAFE_RELEASE(ret);
-    return NULL;
+    return nullptr;
 }
 
 
@@ -87,7 +89,7 @@ GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::
         return ret;
     }
     CC_SAFE_RELEASE(ret);
-    return NULL;
+    return nullptr;
 }
 
 bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate /*= NULL*/)
