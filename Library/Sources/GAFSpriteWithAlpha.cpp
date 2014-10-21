@@ -12,13 +12,6 @@
 
 USING_NS_CC;
 
-#ifndef GAF_ENABLE_NEW_UNIFORM_SETTER
-// Fast uniform setter is available since v3.2
-#define GAF_ENABLE_NEW_UNIFORM_SETTER COCOS2D_VERSION >= 0x00030200
-#endif
-
-#define CHECK_CTX_IDENTITY 1
-
 NS_GAF_BEGIN
 
     struct GAFSpriteWithAlphaHash

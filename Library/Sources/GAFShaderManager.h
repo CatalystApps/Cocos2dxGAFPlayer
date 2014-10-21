@@ -50,6 +50,12 @@ public:
 
             Alpha,
 
+            BlurTexelOffsetX,
+            BlurTexelOffsetY,
+
+            GlowTexelOffsetX,
+            GlowTexelOffsetY,
+            GlowColor,
 
 
             SIZE
