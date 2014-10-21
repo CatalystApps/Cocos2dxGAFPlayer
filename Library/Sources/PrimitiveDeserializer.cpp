@@ -3,8 +3,7 @@
 
 #include "GAFStream.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 void PrimitiveDeserializer::deserialize(GAFStream* in, cocos2d::Vect* out)
 {
@@ -34,4 +33,4 @@ void PrimitiveDeserializer::deserialize(GAFStream* in, cocos2d::Color4B* out)
     in->readNBytesOfT(out, 4);
 }
 
-}
+NS_GAF_END

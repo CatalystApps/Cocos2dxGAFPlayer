@@ -7,8 +7,7 @@ namespace cocos2d
     class __Array;
 }
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
 
@@ -60,4 +59,4 @@ private:
     cocos2d::__Array*       m_maskedObjects;
 };
 
-}
+NS_GAF_END

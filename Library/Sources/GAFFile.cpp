@@ -12,8 +12,7 @@
     #include "platform/android/CCFileUtilsAndroid.h"
 #endif
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 void GAFFile::_readHeaderBegin(GAFHeader& out)
 {
@@ -276,4 +275,4 @@ bool GAFFile::_processOpen()
     return true;
 }
 
-}
+NS_GAF_END

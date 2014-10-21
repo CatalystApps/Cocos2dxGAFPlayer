@@ -1,7 +1,6 @@
 #pragma once
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFHeader
 {
@@ -40,4 +39,4 @@ public:
     }
 };
 
-}
+NS_GAF_END

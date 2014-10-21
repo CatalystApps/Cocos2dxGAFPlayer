@@ -43,8 +43,7 @@ static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(
     return transform;
 }
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 GAFAnimatedObject::GAFAnimatedObject()
 :
@@ -833,4 +832,4 @@ void GAFAnimatedObject::setFps(int value)
     m_fps = value;
 }
 
-}
+NS_GAF_END

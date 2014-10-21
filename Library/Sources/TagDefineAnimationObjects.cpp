@@ -5,8 +5,7 @@
 #include "GAFStream.h"
 #include "GAFAsset.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* ctx)
 {
@@ -26,4 +25,4 @@ void TagDefineAnimationObjects::read(GAFStream* in, GAFAsset* ctx)
     }
 }
 
-}
+NS_GAF_END

@@ -1,7 +1,6 @@
 #pragma once
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 struct Tags
 {
@@ -75,4 +74,4 @@ struct Tags
     }
 };
 
-}
+NS_GAF_END

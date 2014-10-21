@@ -1,7 +1,6 @@
 #pragma once
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFAnimationSequence
 {
@@ -15,4 +14,4 @@ public:
     }
 };
 
-}
+NS_GAF_END

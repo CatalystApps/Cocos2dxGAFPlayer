@@ -8,8 +8,7 @@
 USING_NS_CC;
 using namespace std;
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 static const int kGaussianKernelSize = 9;
 
@@ -432,4 +431,4 @@ GAFFilterManager* GAFFilterManager::getInstance()
     return s_instance;
 }
 
-}
+NS_GAF_END

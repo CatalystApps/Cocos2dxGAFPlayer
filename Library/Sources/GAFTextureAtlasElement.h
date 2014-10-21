@@ -1,7 +1,6 @@
 #pragma once
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFTextureAtlasElement
 {
@@ -19,4 +18,4 @@ public:
     GAFTextureAtlasElement();
 }; // GAFTextureAtlasElement
 
-}
+NS_GAF_END

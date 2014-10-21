@@ -2,8 +2,7 @@
 
 #include "DefinitionTagBase.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFSubobjectState;
 
@@ -17,4 +16,4 @@ public:
 
 };
 
-}
+NS_GAF_END

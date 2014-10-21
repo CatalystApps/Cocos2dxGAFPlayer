@@ -4,8 +4,7 @@
 #include "GAFStream.h"
 #include "GAFAsset.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 void TagDefineSequences::read(GAFStream* in, GAFAsset* ctx)
 {
@@ -22,4 +21,4 @@ void TagDefineSequences::read(GAFStream* in, GAFAsset* ctx)
     }
 }
 
-}
+NS_GAF_END

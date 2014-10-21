@@ -18,8 +18,7 @@
 #include "TagDefineAnimationFrames2.h"
 #include "TagDefineTimeline.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 void GAFLoader::_readHeaderEnd(GAFHeader& header)
 {
@@ -202,4 +201,4 @@ void GAFLoader::registerTagLoader(unsigned int idx, DefinitionTagBase* tagptr)
     m_tagLoaders[static_cast<Tags::Enum>(idx)] = tagptr;
 }
 
-}
+NS_GAF_END

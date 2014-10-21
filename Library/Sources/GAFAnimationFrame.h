@@ -1,7 +1,6 @@
 #pragma once
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFTextureAtlas;
 class GAFSubobjectState;
@@ -20,4 +19,4 @@ public:
     void    pushObjectState(GAFSubobjectState*);
 };
 
-}
+NS_GAF_END

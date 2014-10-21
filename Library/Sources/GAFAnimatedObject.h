@@ -5,8 +5,7 @@
 
 #include "GAFDelegates.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFAnimation;
 class GAFSprite;
@@ -126,4 +125,4 @@ public:
     void setFps(int value);
 }; // GAFAnimatedObject
 
-}
+NS_GAF_END

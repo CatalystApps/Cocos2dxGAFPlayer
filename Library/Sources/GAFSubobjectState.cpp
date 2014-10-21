@@ -5,8 +5,7 @@
 
 #include "GAFCollections.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 GAFSubobjectState::GAFSubobjectState()
 :
@@ -62,4 +61,4 @@ void GAFSubobjectState::release()
     }
 }
 
-}
+NS_GAF_END

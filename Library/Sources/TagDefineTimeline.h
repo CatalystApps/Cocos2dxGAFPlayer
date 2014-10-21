@@ -2,8 +2,7 @@
 
 #include "DefinitionTagBase.h"
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 class GAFLoader;
 
@@ -19,4 +18,4 @@ public:
 
 };
 
-}
+NS_GAF_END

@@ -7,22 +7,22 @@
 #include <vector>
 #include <unordered_map>
 
-#include "GAFAnimation.h"
+#include "GAF.h"
 
-#include "GAFDelegates.h"
-
-namespace gaf{
+NS_GAF_BEGIN
 class GAFAnimatedObject;
-}
+NS_GAF_END
 
-class GafFeatures : public cocos2d::Layer, public gaf::GAFSequenceDelegate, public gaf::GAFTextureLoadDelegate, public gaf::GAFFramePlayedDelegate
+USING_NS_GAF;
+
+class GafFeatures : public cocos2d::Layer, public GAFSequenceDelegate, public GAFTextureLoadDelegate, public GAFFramePlayedDelegate
 {
 private:
 
     typedef std::vector<std::string> StringVector_t;
     typedef std::unordered_map<int, std::string> MusicEffects_t;
     
-    gaf::GAFAsset*                m_asset;
+    GAFAsset*                m_asset;
     cocos2d::__Array*        m_objects;
     StringVector_t           m_files;
     int                      m_anim_index;
@@ -80,11 +80,11 @@ public:
     void nextSequence(cocos2d::Ref*);
     void prevSequence(cocos2d::Ref*);
 
-    virtual void onFinishSequence(gaf::GAFAnimatedObject * object, const std::string& sequenceName);
+    virtual void onFinishSequence(GAFAnimatedObject * object, const std::string& sequenceName);
 
     virtual void onTexturePreLoad(std::string& path);
     
-    virtual void onFramePlayed(gaf::GAFAnimatedObject * object, int frame) override;
+    virtual void onFramePlayed(GAFAnimatedObject * object, int frame) override;
 };
 
 #endif // __GafFeatures_SCENE_H__

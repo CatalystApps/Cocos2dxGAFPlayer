@@ -19,8 +19,8 @@ USING_NS_CC;
 
 #define CHECK_CTX_IDENTITY 1
 
-namespace gaf
-{
+NS_GAF_BEGIN
+
     struct GAFSpriteWithAlphaHash
     {
         int       program;
@@ -263,4 +263,4 @@ bool GAFSpriteWithAlpha::hasCtx()
     return _glProgramState == m_programBase;
 }
 
-}
+NS_GAF_END

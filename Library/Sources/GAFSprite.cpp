@@ -12,8 +12,7 @@ USING_NS_CC;
 #define RENDER_IN_SUBPIXEL(__A__) ( (int)(__A__))
 #endif
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 GAFSprite::GAFSprite()
 :
@@ -240,4 +239,4 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
     //CC_INCREMENT_GL_DRAWS(1);
 }
 
-}
+NS_GAF_END

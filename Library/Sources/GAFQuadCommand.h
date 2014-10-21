@@ -1,7 +1,6 @@
 #pragma once
 
-namespace gaf
-{
+NS_GAF_BEGIN
 
 /** Command used to render one or more Quads */
 class GAFQuadCommand : public cocos2d::QuadCommand
@@ -14,4 +13,4 @@ public:
         const cocos2d::Mat4& mv, uint32_t materialId);
 };
 
-}
+NS_GAF_END

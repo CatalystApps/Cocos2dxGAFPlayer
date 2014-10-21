@@ -22,8 +22,8 @@ using namespace cocos2d;
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
 
-namespace gaf
-{
+NS_GAF_BEGIN
+
     bool GAFShaderManager::s_initialized = false;
 
     const char * const GAFShaderManager::s_fragmentShaders[] =
@@ -200,5 +200,4 @@ namespace gaf
             s_initialized = true;
         }
     }
-
-}
+NS_GAF_END
