@@ -25,7 +25,6 @@ private:
     cocos2d::Rect                   m_initialTextureRect;
     cocos2d::GLProgramState*        m_programBase;
     cocos2d::GLProgramState*        m_programNoCtx;
-    mutable bool                    m_hasCtx;
     mutable bool                    m_ctxDirty;
 
 public:
