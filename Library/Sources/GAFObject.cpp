@@ -46,7 +46,13 @@ m_animationsSelectorScheduled(false)
 
     static bool invalidateGLPrograms = false;
 
-    auto listenerFG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_FOREGROUND, [this](cocos2d::EventCustom* event)
+#if COCOS2D_VERSION < 0x00030200
+    const std::string eventName = EVENT_COME_TO_FOREGROUND;
+#else
+    const std::string eventName = EVENT_RENDERER_RECREATED;
+#endif
+
+    auto listenerFG = cocos2d::EventListenerCustom::create(eventName, [this](cocos2d::EventCustom* event)
     {
         (void)event;
         if (invalidateGLPrograms)
