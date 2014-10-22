@@ -17,6 +17,3 @@
 #include <cocos2d.h>
 
 #include "GAFMacros.h"
-
-#define ENABLE_GAF_MANUAL_PREMULTIPLY 1
-

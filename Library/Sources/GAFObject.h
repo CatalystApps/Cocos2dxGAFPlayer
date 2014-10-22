@@ -17,7 +17,7 @@ private:
 public:
 
     typedef std::unordered_map<uint32_t, GAFObject*> DisplayList_t;
-    typedef std::list<GAFSprite*>                    SpriteList_t;
+    typedef std::vector<GAFSprite*>                    SpriteList_t;
     typedef std::tuple<cocos2d::Vec4, cocos2d::Vec4> ParentCTX_t;
 private:
     GAFSequenceDelegate_t                   m_sequenceDelegate;
