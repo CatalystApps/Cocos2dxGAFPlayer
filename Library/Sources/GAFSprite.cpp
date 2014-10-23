@@ -157,14 +157,15 @@ void GAFSprite::setAtlasScale(float scale)
 
 uint32_t GAFSprite::setUniforms()
 {
-    uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
+    //uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
+    uint32_t materialID = 0;
 
     if (_glProgramState->getUniformCount() == 0)
     {
         int glProgram = (int)getGLProgram()->getProgram();
         int intArray[4] = { glProgram, (int)getTexture()->getName(), (int)getBlendFunc().src, (int)getBlendFunc().dst };
 
-        uint32_t materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
+        materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
     }
     return materialID;
 }

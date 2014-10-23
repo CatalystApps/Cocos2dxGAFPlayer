@@ -1,7 +1,5 @@
 #include "AppDelegate.h"
 
-#include "cocos2d.h"
-
 #include "GafFeatures.h"
 
 #include <vector>
@@ -34,7 +32,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     if (!glView)
     {
-        glView = cocos2d::GLView::createWithRect("GAF Animation sample", cocos2d::Rect(0, 0, 1024, 768));
+        glView = cocos2d::GLViewImpl::createWithRect("GAF Animation sample", cocos2d::Rect(0, 0, 1024, 768));
 
         pDirector->setOpenGLView(glView);
     }

@@ -9,7 +9,7 @@
 #endif
 
 #ifdef ANDROID
-    #include "platform/android/CCFileUtilsAndroid.h"
+    #include "platform/android/CCFileUtils-Android.h"
 #endif
 
 void GAFFile::_readHeaderBegin(GAFHeader& out)
