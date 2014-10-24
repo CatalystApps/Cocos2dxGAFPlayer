@@ -61,7 +61,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../../cocos2d-x/cocos;$(ProjectDir)../../../cocos2d-x/cocos/math;$(ProjectDir)../../../cocos2d-x/external/winrt-specific/angle/include;$(ProjectDir)../../../cocos2d-x/cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../cocos2d-x/external/wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <CompileAs>CompileAsCpp</CompileAs>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
@@ -213,6 +213,11 @@
       <IsWinMDFile>true</IsWinMDFile>
       <Private>false</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\cocos2d-x\cocos\2d\libcocos2d_wp8.vcxproj">
+      <Project>{7c5dbc42-27f6-4978-aabc-02ba77e2a7f0}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsPhone\v$(TargetPlatformVersion)\Microsoft.Cpp.WindowsPhone.$(TargetPlatformVersion).targets" />

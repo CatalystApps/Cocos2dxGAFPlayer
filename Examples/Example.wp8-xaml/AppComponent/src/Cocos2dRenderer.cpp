@@ -26,7 +26,7 @@ THE SOFTWARE.
 #include "Cocos2dRenderer.h"
 #include "cocos2d.h"
 #include "CCApplication.h"
-#include "CCGLView.h"
+#include "CCGLViewImpl-wp8.h"
 #include "AppDelegate.h"
 #include <ppltasks.h>
 
@@ -56,11 +56,11 @@ void Cocos2dRenderer::CreateGLResources()
         GLViewImpl* glview = GLViewImpl::create("Test Cpp");
 	    glview->Create(m_eglDisplay, m_eglContext, m_eglSurface, m_renderTargetSize.Width, m_renderTargetSize.Height,m_orientation);
         director->setOpenGLView(glview);
-        CCApplication::getInstance()->run();
         glview->SetXamlEventDelegate(m_delegate);
         glview->SetXamlMessageBoxDelegate(m_messageBoxDelegate);
         glview->SetXamlEditBoxDelegate(m_editBoxDelegate);
-   }
+        CCApplication::getInstance()->run();
+    }
     else
     {
         cocos2d::GL::invalidateStateCache();
@@ -71,7 +71,7 @@ void Cocos2dRenderer::CreateGLResources()
         director->getEventDispatcher()->dispatchEvent(&recreatedEvent);
         cocos2d::Application::getInstance()->applicationWillEnterForeground();
         director->setGLDefaultValues();
-  }
+    }
 
     m_loadingComplete = true;
 }
@@ -181,7 +181,12 @@ void Cocos2dRenderer::SetXamlEditBoxDelegate(PhoneDirect3DXamlAppComponent::Coco
     }
 }
 
-
-
-
-
+void Cocos2dRenderer::SetXamlOpenURLDelegate(PhoneDirect3DXamlAppComponent::Cocos2dOpenURLDelegate^ delegate)
+{
+    m_openURLDelegate = delegate;
+    Application* app = Application::getInstance();
+    if (app)
+    {
+        app->SetXamlOpenURLDelegate(delegate);
+    }
+}
