@@ -160,7 +160,7 @@ void GAFSprite::setAtlasScale(float scale)
 
 uint32_t GAFSprite::setUniforms()
 {
-    uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
+    uint32_t materialID = Renderer::MATERIAL_ID_DO_NOT_BATCH;
 
     if (_glProgramState->getUniformCount() == 0)
     {
