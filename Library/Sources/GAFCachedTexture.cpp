@@ -10,6 +10,8 @@ using namespace std;
 using cocos2d::gettimeofday;
 #endif
 
+NS_GAF_BEGIN
+
 cocos2d::Texture2D* GAFCachedTexture::operator *()
 {
     timeval now;
@@ -74,3 +76,5 @@ GAFCachedTexture::~GAFCachedTexture()
 {
     CC_SAFE_RELEASE(m_texture);
 }
+
+NS_GAF_END

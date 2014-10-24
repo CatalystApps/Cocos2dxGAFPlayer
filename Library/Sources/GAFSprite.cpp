@@ -12,6 +12,8 @@ USING_NS_CC;
 #define RENDER_IN_SUBPIXEL(__A__) ( (int)(__A__))
 #endif
 
+NS_GAF_BEGIN
+
 GAFSprite::GAFSprite()
 :
 m_useSeparateBlendFunc(false),
@@ -126,6 +128,7 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
         return;
     }
 
+    getGLProgramState()->apply(Mat4::IDENTITY);
     uint32_t id = setUniforms();
 
     if (m_useSeparateBlendFunc || (m_blendEquation != -1))
@@ -232,7 +235,9 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
 
     CHECK_GL_ERROR_DEBUG();
 
-    USING_NS_CC;
+    //USING_NS_CC;
     //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
     //CC_INCREMENT_GL_DRAWS(1);
 }
+
+NS_GAF_END

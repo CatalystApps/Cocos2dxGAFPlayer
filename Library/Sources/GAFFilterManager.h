@@ -2,6 +2,8 @@
 #include "GAFCollections.h"
 #include "GAFCachedTexture.h"
 
+NS_GAF_BEGIN
+
 class GAFSprite;
 class GAFBlurFilterData;
 class GAFGlowFilterData;
@@ -42,3 +44,5 @@ private:
     
     static size_t s_maxCacheSize;
 };
+
+NS_GAF_END

@@ -4,9 +4,10 @@
 #error Header "cocos2d.h" must be included
 #elif COCOS2D_VERSION < 0x00030101
 #error Current version of Cocos2d-x is lower than minimal required v3.1.1\
-    For lower versions please use branch `release` from here https://github.com/CatalystApps/Cocos2dxGAFPlayer
+        For lower versions please use branch `release` from here https://github.com/CatalystApps/Cocos2dxGAFPlayer
 #else
 
+#include "GAFMacros.h"
 #include "GAFAnimatedObject.h"
 #include "GAFAnimation.h"
 #include "GAFAnimationFrame.h"

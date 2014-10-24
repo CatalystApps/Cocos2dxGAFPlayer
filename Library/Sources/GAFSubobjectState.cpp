@@ -5,6 +5,8 @@
 
 #include "GAFCollections.h"
 
+NS_GAF_BEGIN
+
 GAFSubobjectState::GAFSubobjectState()
 :
 objectIdRef(IDNONE),
@@ -58,3 +60,5 @@ void GAFSubobjectState::release()
         delete this;
     }
 }
+
+NS_GAF_END

@@ -2,6 +2,8 @@
 
 #include "TagDefines.h"
 
+NS_GAF_BEGIN
+
 class GAFFile;
 
 class GAFStream
@@ -57,3 +59,5 @@ public:
 
     bool                 isEndOfStream() const;
 };
+
+NS_GAF_END

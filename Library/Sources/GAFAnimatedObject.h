@@ -1,12 +1,11 @@
 #pragma once
 
-#ifndef __GAF_ANIMATED_OBJECT_H__
-#define __GAF_ANIMATED_OBJECT_H__
-
 #include "GAFAnimation.h"
 #include "GAFCollections.h"
 
 #include "GAFDelegates.h"
+
+NS_GAF_BEGIN
 
 class GAFAnimation;
 class GAFSprite;
@@ -126,4 +125,4 @@ public:
     void setFps(int value);
 }; // GAFAnimatedObject
 
-#endif // __GAF_ANIMATED_OBJECT_H__
+NS_GAF_END

@@ -3,6 +3,8 @@
 
 USING_NS_CC;
 
+NS_GAF_BEGIN
+
 GAFQuadCommand::GAFQuadCommand()
 {}
 
@@ -22,3 +24,4 @@ void GAFQuadCommand::init(float globalOrder, GLuint textureID, GLProgramState* g
     }
 }
 
+NS_GAF_END

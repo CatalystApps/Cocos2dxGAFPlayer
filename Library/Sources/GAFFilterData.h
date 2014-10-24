@@ -1,6 +1,8 @@
 #pragma once
 #include "GAFCollections.h"
 
+NS_GAF_BEGIN
+
 class GAFSpriteWithAlpha;
 
 class GAFFilterData
@@ -70,3 +72,5 @@ public:
 
     static void reset(GAFSpriteWithAlpha*);
 };
+
+NS_GAF_END

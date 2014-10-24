@@ -1,5 +1,6 @@
 #pragma once
 
+NS_GAF_BEGIN
 
 class GAFTextureAtlasElement;
 class GAFTextureLoadDelegate;
@@ -68,3 +69,4 @@ public:
     uint32_t     getMemoryConsumptionStat() const;
 };
 
+NS_GAF_END

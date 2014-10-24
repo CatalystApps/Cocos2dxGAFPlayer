@@ -15,3 +15,4 @@
 #include <algorithm>
 
 #include <cocos2d.h>
+#include "GAFMacros.h"

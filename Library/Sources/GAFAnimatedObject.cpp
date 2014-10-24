@@ -9,7 +9,6 @@
 #include "GAFStencilMaskSprite.h"
 #include "GAFFilterData.h"
 
-// Still is under development
 #define ENABLE_RUNTIME_FILTERS 1
 
 // Detect whether it is Visual Studio 2010 or lower
@@ -43,6 +42,8 @@ static cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(
     return transform;
 }
 
+NS_GAF_BEGIN
+
 GAFAnimatedObject::GAFAnimatedObject()
 :
 m_asset(nullptr),
@@ -52,34 +53,6 @@ m_controlDelegate(nullptr),
 m_extraFramesCounter(0),
 m_timeDelta(0.f)
 {
-#if CC_ENABLE_CACHE_TEXTURE_DATA
-    
-    static bool invalidateGLPrograms = false;
-    
-    auto listenerFG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_FOREGROUND, [this](cocos2d::EventCustom* event)
-    {
-        if (invalidateGLPrograms)
-        {
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCache_noCTX);
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCacheKey);
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFStencilMaskAlphaFilterProgramCacheKey);
-        
-            invalidateGLPrograms = false;
-        }
-        
-        this->removeAllChildrenWithCleanup(true);
-        this->_constructObject();
-    });
-    
-    auto listenerBG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_BACKGROUND, [this](cocos2d::EventCustom* event)
-    {
-        invalidateGLPrograms = true;
-    });
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerFG, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerBG, this);
-
-#endif
 }
 
 GAFAnimatedObject::~GAFAnimatedObject()
@@ -140,6 +113,7 @@ void GAFAnimatedObject::_constructObject()
     
 	GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_subObjects);
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(SubObjects_t, m_masks);
+    m_visibleObjects.clear();
     
     _FPSType = kGAFAnimationFPSType_60;
     m_fps = m_asset->getSceneFps();
@@ -822,3 +796,5 @@ void GAFAnimatedObject::setFps(int value)
     CCASSERT(value, "Error! Fps is set to zero.");
     m_fps = value;
 }
+
+NS_GAF_END

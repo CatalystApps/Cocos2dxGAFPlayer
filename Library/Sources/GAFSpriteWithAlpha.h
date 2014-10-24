@@ -2,8 +2,7 @@
 
 #include "GAFSprite.h"
 
-static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
-static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
+NS_GAF_BEGIN
 
 class GAFColorColorMatrixFilterData;
 class GAFGlowFilterData;
@@ -44,7 +43,7 @@ public:
     cocos2d::Texture2D*    getInitialTexture() const;
     const cocos2d::Rect&   getInitialTextureRect() const;
 
-    bool            isCTXIdentity();
+    bool            hasCtx();
     void            updateCtx();
 
 protected:
@@ -52,3 +51,5 @@ protected:
     virtual uint32_t setUniforms() override;
 
 };
+
+NS_GAF_END

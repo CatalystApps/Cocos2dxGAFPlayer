@@ -10,6 +10,8 @@
 #include "GAFTextureAtlasElement.h"
 #include "PrimitiveDeserializer.h"
 
+NS_GAF_BEGIN
+
 void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
 {
     GAFTextureAtlas* txAtlas = new GAFTextureAtlas();
@@ -82,3 +84,5 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* ctx)
 
     ctx->pushTextureAtlas(txAtlas);
 }
+
+NS_GAF_END

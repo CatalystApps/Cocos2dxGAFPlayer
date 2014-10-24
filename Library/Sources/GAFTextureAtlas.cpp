@@ -7,6 +7,8 @@
 #include "renderer/CCTextureCache.h"
 #endif
 
+NS_GAF_BEGIN
+
 #if COCOS2D_VERSION <= 0x00030101
 #define ENABLE_GAF_MANUAL_PREMULTIPLY 1
 #else
@@ -194,3 +196,5 @@ uint32_t GAFTextureAtlas::getMemoryConsumptionStat() const
 {
     return m_memoryConsumption;
 }
+
+NS_GAF_END

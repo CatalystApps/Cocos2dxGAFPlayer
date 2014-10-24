@@ -1,5 +1,7 @@
 #pragma once
 
+NS_GAF_BEGIN
+
 class GAFAnimatedObject;
 class GAFSprite;
 class GAFAnimation;
@@ -45,3 +47,5 @@ class GAFAnimatedObjectControlDelegate
 public:
     virtual void onFrameDisplayed(GAFAnimatedObject * object, const GAFSprite * subobject) = 0;
 };
+
+NS_GAF_END

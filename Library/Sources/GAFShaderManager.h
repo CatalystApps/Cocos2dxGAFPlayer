@@ -1,9 +1,11 @@
 #pragma once
 
+NS_GAF_BEGIN
+
 class GAFShaderManager
 {
 public:
-    static void handleEnterBackground();
+    static void renderRecreate(cocos2d::EventCustom*);
 
     struct EFragmentShader {
         enum Name {
@@ -48,6 +50,12 @@ public:
 
             Alpha,
 
+            BlurTexelOffsetX,
+            BlurTexelOffsetY,
+
+            GlowTexelOffsetX,
+            GlowTexelOffsetY,
+            GlowColor,
 
 
             SIZE
@@ -73,3 +81,5 @@ private:
 
     static bool s_initialized;
 }; // GAFShaderManager
+
+NS_GAF_END

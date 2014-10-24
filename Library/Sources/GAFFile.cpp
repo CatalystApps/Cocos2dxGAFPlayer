@@ -9,8 +9,10 @@
 #endif
 
 #ifdef ANDROID
-    #include "platform/android/CCFileUtils-Android.h"
+    #include "platform/android/CCFileUtilsAndroid.h"
 #endif
+
+NS_GAF_BEGIN
 
 void GAFFile::_readHeaderBegin(GAFHeader& out)
 {
@@ -272,3 +274,5 @@ bool GAFFile::_processOpen()
 
     return true;
 }
+
+NS_GAF_END

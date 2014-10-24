@@ -2,6 +2,8 @@
 
 #include "TagDefines.h"
 
+NS_GAF_BEGIN
+
 class GAFAsset;
 
 class GAFStream;
@@ -46,3 +48,5 @@ public:
 
     void                 loadTags(GAFStream* in, GAFAsset* context);
 };
+
+NS_GAF_END

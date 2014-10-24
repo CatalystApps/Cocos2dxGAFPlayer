@@ -6,6 +6,8 @@
 #include "GAFHeader.h"
 #include "PrimitiveDeserializer.h"
 
+NS_GAF_BEGIN
+
 void TagDefineStage::read(GAFStream* in, GAFAsset* ctx)
 {
     cocos2d::Color4B color;
@@ -20,3 +22,5 @@ void TagDefineStage::read(GAFStream* in, GAFAsset* ctx)
     ctx->setSceneWidth(width);
     ctx->setSceneHeight(height);
 }
+
+NS_GAF_END

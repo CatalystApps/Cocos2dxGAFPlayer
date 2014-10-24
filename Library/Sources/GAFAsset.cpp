@@ -9,6 +9,8 @@
 #include "GAFShaderManager.h"
 #include "GAFLoader.h"
 
+NS_GAF_BEGIN
+
 static float _currentDeviceScale = 1.0f;
 static float  _desiredCsf = 1.f;
 
@@ -26,7 +28,7 @@ GAFAnimatedObject * GAFAsset::createObject()
 {
     if (!m_currentTextureAtlas)
     {
-        return NULL;
+        return nullptr;
     }
 
     return GAFAnimatedObject::create(this);
@@ -347,3 +349,5 @@ void GAFAsset::_chooseTextureAtlas()
 
     _usedAtlasContentScaleFactor = atlasScale;
 }
+
+NS_GAF_END

@@ -1,5 +1,7 @@
 #pragma once
 
+NS_GAF_BEGIN
+
 class GAFAnimationSequence
 {
 public:
@@ -11,3 +13,5 @@ public:
         return endFrameNo - startFrameNo;
     }
 };
+
+NS_GAF_END

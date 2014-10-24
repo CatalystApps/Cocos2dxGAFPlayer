@@ -4,6 +4,8 @@
 
 #include "GAFDelegates.h"
 
+NS_GAF_BEGIN
+
 class GAFAsset;
 
 enum AnimSetSequenceHint
@@ -84,3 +86,5 @@ private:
     bool m_isLooped;
     bool m_isReversed;
 };
+
+NS_GAF_END

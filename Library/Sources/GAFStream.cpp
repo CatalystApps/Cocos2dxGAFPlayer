@@ -2,6 +2,8 @@
 #include "GAFStream.h"
 #include "GAFFile.h"
 
+NS_GAF_BEGIN
+
 GAFStream::GAFStream(GAFFile* input):
 m_input(input),
 m_currentByte(0),
@@ -218,3 +220,5 @@ float GAFStream::readFloat()
 {
     return m_input->readFloat();
 }
+
+NS_GAF_END
