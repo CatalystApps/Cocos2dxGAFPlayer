@@ -10,7 +10,7 @@ namespace gps
 #endif
 
 using std::string;
-using namespace cocos2d;
+USING_NS_CC;
 
 #define STRINGIFY(A)  #A
 
@@ -130,7 +130,6 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                program->use();
                 s_uniformLocations[EUniforms::ColorTransformMult] =     glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::ColorTransformMult]);
                 s_uniformLocations[EUniforms::ColorTransformOffset] =   glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::ColorTransformOffset]);
                 s_uniformLocations[EUniforms::ColorMatrixBody] =        glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::ColorMatrixBody]);
@@ -163,7 +162,6 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                program->use();
                 s_uniformLocations[EUniforms::Alpha] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::Alpha]);
 
             }
@@ -193,7 +191,6 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                program->use();
                 
             }
             
@@ -223,7 +220,6 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                program->use();
                 s_uniformLocations[EUniforms::BlurTexelOffsetX] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::BlurTexelOffsetX]);
                 s_uniformLocations[EUniforms::BlurTexelOffsetY] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::BlurTexelOffsetY]);
             }
@@ -254,7 +250,6 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                program->use();
                 s_uniformLocations[EUniforms::GlowTexelOffsetX] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowTexelOffsetX]);
                 s_uniformLocations[EUniforms::GlowTexelOffsetX] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowTexelOffsetX]);
                 s_uniformLocations[EUniforms::GlowColor] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowColor]);

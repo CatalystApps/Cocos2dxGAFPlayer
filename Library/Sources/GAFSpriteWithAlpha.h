@@ -4,9 +4,6 @@
 
 NS_GAF_BEGIN
 
-static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
-static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
-
 class GAFColorColorMatrixFilterData;
 class GAFGlowFilterData;
 class GAFBlurFilterData;
@@ -28,7 +25,6 @@ private:
     cocos2d::Rect                   m_initialTextureRect;
     cocos2d::GLProgramState*        m_programBase;
     cocos2d::GLProgramState*        m_programNoCtx;
-    mutable bool                    m_hasCtx;
     mutable bool                    m_ctxDirty;
 
 public:

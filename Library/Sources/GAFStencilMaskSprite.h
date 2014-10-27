@@ -30,7 +30,6 @@ public:
     GAFStencilMaskSprite(int stencilLayer);
     ~GAFStencilMaskSprite();
     virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
-    static cocos2d::GLProgram * programShaderForMask();
 
 #if COCOS2D_VERSION < 0x00030200
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
