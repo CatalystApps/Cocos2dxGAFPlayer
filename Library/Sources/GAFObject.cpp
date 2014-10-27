@@ -103,7 +103,7 @@ void GAFObject::constructObject()
 
     setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
 
-    GAF_SAFE_RELEASE_MAP(DisplayList_t, m_displayList);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(DisplayList_t, m_displayList);
 
     m_fps = m_asset->getSceneFps();
 
@@ -120,6 +120,17 @@ void GAFObject::instantiateObject(const AnimationObjects_t& objs, const Animatio
 
 void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs)
 {
+    uint32_t maxIdx = 0;
+    for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
+    {
+        if (it->first > maxIdx)
+        {
+            maxIdx = it->first;
+        }
+    }
+
+    m_displayList.resize(maxIdx + 1);
+
     for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
         GAFCharacterType charType = std::get<1>(i->second);
@@ -217,6 +228,17 @@ void GAFObject::encloseNewTimeline(uint32_t reference, uint32_t objId)
 
 void GAFObject::instantiateMasks(const AnimationMasks_t& masks)
 {
+    uint32_t maxIdx = 0;
+    for (AnimationMasks_t::const_iterator it = masks.begin(), e = masks.end(); it != e; ++it)
+    {
+        if (it->first > maxIdx)
+        {
+            maxIdx = it->first;
+        }
+    }
+
+    m_masksDList.resize(maxIdx + 1);
+
     for (AnimationMasks_t::const_iterator i = masks.begin(), e = masks.end(); i != e; ++i)
     {
         GAFCharacterType charType = std::get<1>(i->second);
@@ -286,7 +308,12 @@ void GAFObject::updateStencilLayer(int newLayer)
 
     for (DisplayList_t::iterator it = m_masksDList.begin(), e = m_masksDList.end(); it != e; ++it)
     {
-        GAFMask* mask = static_cast<GAFMask*>(it->second);
+        if (*it == nullptr)
+        {
+            continue;
+        }
+
+        GAFMask* mask = static_cast<GAFMask*>(*it);
         mask->updateStencilLayer(newLayer);
     }
 }
@@ -300,9 +327,13 @@ void GAFObject::setAnimationRunning(bool value)
 {
     m_isRunning = value;
 
-    for (auto pair : m_displayList)
+    for (auto obj : m_displayList)
     {
-        pair.second->setAnimationRunning(value);
+        if (obj == nullptr)
+        {
+            continue;
+        }
+        obj->setAnimationRunning(value);
     }
 }
 
@@ -421,9 +452,13 @@ void GAFObject::setLooped(bool looped)
 {
     m_isLooped = looped;
 
-    for (auto pair : m_displayList)
+    for (auto obj : m_displayList)
     {
-        pair.second->setLooped(looped);
+        if (obj == nullptr)
+        {
+            continue;
+        }
+        obj->setLooped(looped);
     }
 }
 
@@ -436,9 +471,13 @@ void GAFObject::setReversed(bool reversed)
 {
     m_isReversed = reversed;
 
-    for (auto pair : m_displayList)
+    for (auto obj : m_displayList)
     {
-        pair.second->setLooped(reversed);
+        if (obj == nullptr)
+        {
+            continue;
+        }
+        obj->setLooped(reversed);
     }
 }
 
@@ -735,11 +774,16 @@ cocos2d::Rect GAFObject::getBoundingBoxForCurrentFrame()
 
     for (DisplayList_t::iterator i = m_displayList.begin(), e = m_displayList.end(); i != e; ++i)
     {
-        GAFSprite* anim = i->second;
+        if (*i == nullptr)
+        {
+            continue;
+        }
+
+        GAFSprite* anim = *i;
         if (anim->isVisible())
         {
             cocos2d::Rect bb = anim->getBoundingBox();
-            if (i == m_displayList.begin())
+            if (i == m_displayList.begin()) // TODO: !!!
                 result = bb;
             else
                 result = GAFCCRectUnion(result, bb);
@@ -776,14 +820,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 
         for (const GAFSubobjectState* state : states)
         {
-            GAFObject* subObject = nullptr;
+            GAFObject* subObject = m_displayList[state->objectIdRef];
 
-            DisplayList_t::iterator dlIt = m_displayList.find(state->objectIdRef);
-
-            if (dlIt != m_displayList.end())
+            if (subObject != nullptr)
             {
-                subObject = dlIt->second;
-
                 if (subObject->m_charType == GAFCharacterType::Timeline)
                 {
                     cocos2d::AffineTransform stateTransform = state->affineTransform;
@@ -898,16 +938,12 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     mc->setColorTransform(state->colorMults(), state->colorOffsets());
                 }
             }
-            else
+            else if (m_masksDList.size() > state->objectIdRef)
             {
                 // TODO: mask-timeline
-                GAFObject* mask = nullptr;
-
-                DisplayList_t::iterator maskIt = m_masksDList.find(state->objectIdRef);
-                if (maskIt != m_masksDList.end())
+                GAFObject* mask = m_masksDList[state->objectIdRef];
+                if (mask != nullptr)
                 {
-                    mask = maskIt->second;
-
                     mask->setExternaTransform(GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform));
 
                     if (mask->getLocalZOrder() != state->zIndex)
