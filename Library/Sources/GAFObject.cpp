@@ -42,43 +42,6 @@ m_timeline(nullptr),
 m_currentFrame(GAFFirstFrameIndex),
 m_animationsSelectorScheduled(false)
 {
-#if CC_ENABLE_CACHE_TEXTURE_DATA
-
-    static bool invalidateGLPrograms = false;
-
-#if COCOS2D_VERSION < 0x00030200
-    const std::string eventName = EVENT_COME_TO_FOREGROUND;
-#else
-    const std::string eventName = EVENT_RENDERER_RECREATED;
-#endif
-
-    auto listenerFG = cocos2d::EventListenerCustom::create(eventName, [this](cocos2d::EventCustom* event)
-    {
-        (void)event;
-        if (invalidateGLPrograms)
-        {
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCache_noCTX);
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFSpriteWithAlphaShaderProgramCacheKey);
-            cocos2d::ShaderCache::getInstance()->addGLProgram(nullptr, kGAFStencilMaskAlphaFilterProgramCacheKey);
-
-            invalidateGLPrograms = false;
-        }
-
-        this->removeAllChildrenWithCleanup(true);
-        this->_constructObject();
-    });
-
-    auto listenerBG = cocos2d::EventListenerCustom::create(EVENT_COME_TO_BACKGROUND, [this](cocos2d::EventCustom* event)
-    {
-        (void)event;
-        invalidateGLPrograms = true;
-    });
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerFG, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerBG, this);
-
-#endif
-
     m_charType = GAFCharacterType::Timeline;
 }
 
