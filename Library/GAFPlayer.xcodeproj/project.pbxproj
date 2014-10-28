@@ -38,6 +38,38 @@
 		1AB33DBE1949BA57006B92A0 /* GAFQuadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */; };
 		39869DB219532453004628D9 /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DAE19532453004628D9 /* TagDefineAnimationFrames2.cpp */; };
 		39869DB319532453004628D9 /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DB019532453004628D9 /* TagDefineTimeline.cpp */; };
+		5225179C19FE1104003FFE4C /* GAFPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A95AE921948600500AE1F30 /* GAFPrecompiled.cpp */; };
+		5225179D19FE1104003FFE4C /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DAE19532453004628D9 /* TagDefineAnimationFrames2.cpp */; };
+		5225179E19FE1104003FFE4C /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DB019532453004628D9 /* TagDefineTimeline.cpp */; };
+		5225179F19FE1104003FFE4C /* TagDefineAnimationFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF3D192E00C800631FE9 /* TagDefineAnimationFrames.cpp */; };
+		522517A019FE1104003FFE4C /* TagDefineAnimationMasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF3F192E00C800631FE9 /* TagDefineAnimationMasks.cpp */; };
+		522517A119FE1104003FFE4C /* TagDefineAnimationObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF41192E00C800631FE9 /* TagDefineAnimationObjects.cpp */; };
+		522517A219FE1104003FFE4C /* TagDefineAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF43192E00C800631FE9 /* TagDefineAtlas.cpp */; };
+		522517A319FE1104003FFE4C /* TagDefineNamedParts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF45192E00C800631FE9 /* TagDefineNamedParts.cpp */; };
+		522517A419FE1104003FFE4C /* TagDefineSequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF48192E00C800631FE9 /* TagDefineSequences.cpp */; };
+		522517A519FE1104003FFE4C /* TagDefineStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF4A192E00C800631FE9 /* TagDefineStage.cpp */; };
+		522517A619FE1104003FFE4C /* GAFStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF2B192E00C800631FE9 /* GAFStream.cpp */; };
+		522517A719FE1104003FFE4C /* GAFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF1F192E00C800631FE9 /* GAFLoader.cpp */; };
+		522517A819FE1104003FFE4C /* PrimitiveDeserializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF36192E00C800631FE9 /* PrimitiveDeserializer.cpp */; };
+		522517A919FE1104003FFE4C /* GAFFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF1A192E00C800631FE9 /* GAFFile.cpp */; };
+		522517AA19FE1104003FFE4C /* GAFCachedTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A95AE25193F29EB00AE1F30 /* GAFCachedTexture.cpp */; };
+		522517AB19FE1104003FFE4C /* GAFFilterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB30521193CE3BF0012C01D /* GAFFilterManager.cpp */; };
+		522517AC19FE1104003FFE4C /* GAFAnimatedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF0E192E00C800631FE9 /* GAFAnimatedObject.cpp */; };
+		522517AD19FE1104003FFE4C /* GAFAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF10192E00C800631FE9 /* GAFAnimation.cpp */; };
+		522517AE19FE1104003FFE4C /* GAFAnimationFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF12192E00C800631FE9 /* GAFAnimationFrame.cpp */; };
+		522517AF19FE1104003FFE4C /* GAFAnimationSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF14192E00C800631FE9 /* GAFAnimationSequence.cpp */; };
+		522517B019FE1104003FFE4C /* GAFAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF16192E00C800631FE9 /* GAFAsset.cpp */; };
+		522517B119FE1104003FFE4C /* GAFFilterData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF1C192E00C800631FE9 /* GAFFilterData.cpp */; };
+		522517B219FE1104003FFE4C /* GAFShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF23192E00C800631FE9 /* GAFShaderManager.cpp */; };
+		522517B319FE1104003FFE4C /* GAFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF25192E00C800631FE9 /* GAFSprite.cpp */; };
+		522517B419FE1104003FFE4C /* GAFSpriteWithAlpha.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF27192E00C800631FE9 /* GAFSpriteWithAlpha.cpp */; };
+		522517B519FE1104003FFE4C /* GAFStencilMaskSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF29192E00C800631FE9 /* GAFStencilMaskSprite.cpp */; };
+		522517B619FE1104003FFE4C /* GAFSubobjectState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF2D192E00C800631FE9 /* GAFSubobjectState.cpp */; };
+		522517B719FE1104003FFE4C /* GAFTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF2F192E00C800631FE9 /* GAFTextureAtlas.cpp */; };
+		522517B819FE1104003FFE4C /* GAFTextureAtlasElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FBF31192E00C800631FE9 /* GAFTextureAtlasElement.cpp */; };
+		522517B919FE114B003FFE4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2FBEC3192DEF8700631FE9 /* Foundation.framework */; };
+		522517BE19FE1733003FFE4C /* GAFMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 522517BD19FE1733003FFE4C /* GAFMacros.h */; };
+		5225185019FE2DA9003FFE4C /* GAFQuadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -127,6 +159,8 @@
 		39869DAF19532453004628D9 /* TagDefineAnimationFrames2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineAnimationFrames2.h; sourceTree = "<group>"; };
 		39869DB019532453004628D9 /* TagDefineTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineTimeline.cpp; sourceTree = "<group>"; };
 		39869DB119532453004628D9 /* TagDefineTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineTimeline.h; sourceTree = "<group>"; };
+		5225178519FDF990003FFE4C /* libgafplayer Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgafplayer Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		522517BD19FE1733003FFE4C /* GAFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +169,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A2FBEC4192DEF8700631FE9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5225178219FDF990003FFE4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				522517B919FE114B003FFE4C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				1A2FBEC1192DEF8700631FE9 /* libgafplayer.a */,
+				5225178519FDF990003FFE4C /* libgafplayer Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +215,7 @@
 		1A2FBF0B192E00C800631FE9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				522517BD19FE1733003FFE4C /* GAFMacros.h */,
 				1AB33DBC1949BA57006B92A0 /* GAFQuadCommand.cpp */,
 				1AB33DBD1949BA57006B92A0 /* GAFQuadCommand.h */,
 				1A95AE921948600500AE1F30 /* GAFPrecompiled.cpp */,
@@ -271,6 +315,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		5225178319FDF990003FFE4C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				522517BE19FE1733003FFE4C /* GAFMacros.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		1A2FBEC0192DEF8700631FE9 /* gafplayer */ = {
 			isa = PBXNativeTarget;
@@ -289,6 +344,23 @@
 			productReference = 1A2FBEC1192DEF8700631FE9 /* libgafplayer.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		5225178419FDF990003FFE4C /* gafplayer Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5225179A19FDF990003FFE4C /* Build configuration list for PBXNativeTarget "gafplayer Mac" */;
+			buildPhases = (
+				5225178119FDF990003FFE4C /* Sources */,
+				5225178219FDF990003FFE4C /* Frameworks */,
+				5225178319FDF990003FFE4C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "gafplayer Mac";
+			productName = "gafplayer Mac";
+			productReference = 5225178519FDF990003FFE4C /* libgafplayer Mac.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -296,6 +368,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					5225178419FDF990003FFE4C = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
 			};
 			buildConfigurationList = 1A2FBE51192DECE200631FE9 /* Build configuration list for PBXProject "GAFPlayer" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -310,6 +387,7 @@
 			projectRoot = "";
 			targets = (
 				1A2FBEC0192DEF8700631FE9 /* gafplayer */,
+				5225178419FDF990003FFE4C /* gafplayer Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -352,6 +430,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5225178119FDF990003FFE4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5225185019FE2DA9003FFE4C /* GAFQuadCommand.cpp in Sources */,
+				5225179C19FE1104003FFE4C /* GAFPrecompiled.cpp in Sources */,
+				5225179D19FE1104003FFE4C /* TagDefineAnimationFrames2.cpp in Sources */,
+				5225179E19FE1104003FFE4C /* TagDefineTimeline.cpp in Sources */,
+				5225179F19FE1104003FFE4C /* TagDefineAnimationFrames.cpp in Sources */,
+				522517A019FE1104003FFE4C /* TagDefineAnimationMasks.cpp in Sources */,
+				522517A119FE1104003FFE4C /* TagDefineAnimationObjects.cpp in Sources */,
+				522517A219FE1104003FFE4C /* TagDefineAtlas.cpp in Sources */,
+				522517A319FE1104003FFE4C /* TagDefineNamedParts.cpp in Sources */,
+				522517A419FE1104003FFE4C /* TagDefineSequences.cpp in Sources */,
+				522517A519FE1104003FFE4C /* TagDefineStage.cpp in Sources */,
+				522517A619FE1104003FFE4C /* GAFStream.cpp in Sources */,
+				522517A719FE1104003FFE4C /* GAFLoader.cpp in Sources */,
+				522517A819FE1104003FFE4C /* PrimitiveDeserializer.cpp in Sources */,
+				522517A919FE1104003FFE4C /* GAFFile.cpp in Sources */,
+				522517AA19FE1104003FFE4C /* GAFCachedTexture.cpp in Sources */,
+				522517AB19FE1104003FFE4C /* GAFFilterManager.cpp in Sources */,
+				522517AC19FE1104003FFE4C /* GAFAnimatedObject.cpp in Sources */,
+				522517AD19FE1104003FFE4C /* GAFAnimation.cpp in Sources */,
+				522517AE19FE1104003FFE4C /* GAFAnimationFrame.cpp in Sources */,
+				522517AF19FE1104003FFE4C /* GAFAnimationSequence.cpp in Sources */,
+				522517B019FE1104003FFE4C /* GAFAsset.cpp in Sources */,
+				522517B119FE1104003FFE4C /* GAFFilterData.cpp in Sources */,
+				522517B219FE1104003FFE4C /* GAFShaderManager.cpp in Sources */,
+				522517B319FE1104003FFE4C /* GAFSprite.cpp in Sources */,
+				522517B419FE1104003FFE4C /* GAFSpriteWithAlpha.cpp in Sources */,
+				522517B519FE1104003FFE4C /* GAFStencilMaskSprite.cpp in Sources */,
+				522517B619FE1104003FFE4C /* GAFSubobjectState.cpp in Sources */,
+				522517B719FE1104003FFE4C /* GAFTextureAtlas.cpp in Sources */,
+				522517B819FE1104003FFE4C /* GAFTextureAtlasElement.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -382,6 +497,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/gafplayer.dst;
@@ -440,6 +556,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/gafplayer.dst;
@@ -478,6 +595,126 @@
 			};
 			name = Release;
 		};
+		5225179619FDF990003FFE4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				APPLY_RULES_IN_COPY_FILES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CC_TARGET_OS_MAC,
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/..",
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2d-x\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/platform/mac\"",
+					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+				);
+				INFOPLIST_OUTPUT_FORMAT = binary;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PLIST_FILE_OUTPUT_FORMAT = binary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRINGS_FILE_OUTPUT_ENCODING = binary;
+			};
+			name = Debug;
+		};
+		5225179719FDF990003FFE4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				APPLY_RULES_IN_COPY_FILES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = CC_TARGET_OS_MAC;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/..",
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2d-x\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/platform/mac\"",
+					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+				);
+				INFOPLIST_OUTPUT_FORMAT = binary;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PLIST_FILE_OUTPUT_FORMAT = binary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRINGS_FILE_OUTPUT_ENCODING = binary;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -495,6 +732,15 @@
 			buildConfigurations = (
 				1A2FBEE2192DEF8800631FE9 /* Debug */,
 				1A2FBEE3192DEF8800631FE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5225179A19FDF990003FFE4C /* Build configuration list for PBXNativeTarget "gafplayer Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5225179619FDF990003FFE4C /* Debug */,
+				5225179719FDF990003FFE4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
