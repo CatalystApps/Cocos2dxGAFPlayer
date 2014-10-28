@@ -10,6 +10,9 @@
 
 #include "../external/xxhash/xxhash.h"
 
+
+#define CHECK_CTX_IDENTITY 0
+
 NS_GAF_BEGIN
 
 static int colorTransformMultLocation = -1;
@@ -263,7 +266,7 @@ void GAFMovieClip::setColorTransform(const cocos2d::Vec4 &mults, const cocos2d::
     m_colorTransformOffsets = offsets;
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
-    setGLProgram(programForShader());
+    setShaderProgram(programForShader());
 #endif
 }
 
@@ -273,7 +276,7 @@ void GAFMovieClip::setColorTransform(const GLfloat * mults, const GLfloat * offs
     m_colorTransformOffsets = cocos2d::Vec4(offsets);
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
-    setGLProgram(programForShader());
+    setShaderProgram(programForShader());
 #endif
 }
 
@@ -284,7 +287,7 @@ void GAFMovieClip::setColorTransform(const GLfloat * colorTransform)
 
     _setBlendingFunc();
 #if CHECK_CTX_IDENTITY
-    setGLProgram(programForShader());
+    setShaderProgram(programForShader());
 #endif
 }
 

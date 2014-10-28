@@ -772,6 +772,7 @@ cocos2d::Rect GAFObject::getBoundingBoxForCurrentFrame()
 {
     cocos2d::Rect result = cocos2d::Rect::ZERO;
 
+    bool isFirstObj = true;
     for (DisplayList_t::iterator i = m_displayList.begin(), e = m_displayList.end(); i != e; ++i)
     {
         if (*i == nullptr)
@@ -783,11 +784,13 @@ cocos2d::Rect GAFObject::getBoundingBoxForCurrentFrame()
         if (anim->isVisible())
         {
             cocos2d::Rect bb = anim->getBoundingBox();
-            if (i == m_displayList.begin()) // TODO: !!!
+            if (isFirstObj)
                 result = bb;
             else
                 result = GAFCCRectUnion(result, bb);
         }
+
+        isFirstObj = false;
     }
 
     return cocos2d::RectApplyTransform(result, getNodeToParentTransform());
@@ -862,21 +865,20 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     filtersUnion.insert(filtersUnion.end(), m_parentFilters.begin(), m_parentFilters.end());
                     filtersUnion.insert(filtersUnion.end(), filters.begin(), filters.end());
 
-                    //m_parentFilters.insert(m_parentFilters.end(), filters.begin(), filters.end());
                     if (!filtersUnion.empty())
                     {
-                        filter = filtersUnion[0];// m_parentFilters[0];
+                        filter = filtersUnion[0];
                         filter->apply(mc);
                     }
 
                     if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
                     {
-                        mc->setBlurFilterData(NULL);
+                        mc->setBlurFilterData(nullptr);
                     }
 
                     if (!filter || filter->getType() != GAFFilterType::GFT_ColorMatrix)
                     {
-                        mc->setColorMarixFilterData(NULL);
+                        mc->setColorMarixFilterData(nullptr);
                     }
 
                     if (!filter || filter->getType() != GAFFilterType::GFT_Glow)
