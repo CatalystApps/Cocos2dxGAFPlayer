@@ -6,6 +6,8 @@
 
 #include "GAFDelegates.h"
 
+NS_GAF_BEGIN
+
 class GAFTextureAtlas;
 class GAFObject;
 class GAFAssetTextureManager;
@@ -78,3 +80,5 @@ public:
     void setSceneHeight(unsigned int);
     void setSceneColor(const cocos2d::Color4B&);
 };
+
+NS_GAF_END

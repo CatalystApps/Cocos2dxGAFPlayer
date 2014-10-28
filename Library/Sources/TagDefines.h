@@ -1,5 +1,7 @@
 #pragma once
 
+NS_GAF_BEGIN
+
 struct Tags
 {
     enum Enum
@@ -71,3 +73,5 @@ struct Tags
         }
     }
 };
+
+NS_GAF_END

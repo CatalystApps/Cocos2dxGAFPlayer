@@ -57,10 +57,17 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WP8;_LIB;_DEBUG;COCOS2D_DEBUG=1;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/Zm200;/clr</AdditionalOptions>
+      <CompileAsWinRT>true</CompileAsWinRT>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -69,10 +76,16 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WP8;NOMINMAX;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
+      <AdditionalOptions>/Zm200</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,6 +105,7 @@
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zm200;/clr</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,10 +120,11 @@
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <CompileAsWinRT>true</CompileAsWinRT>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <AdditionalOptions>/Zm200</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

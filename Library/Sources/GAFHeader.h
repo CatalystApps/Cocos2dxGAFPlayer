@@ -1,5 +1,7 @@
 #pragma once
 
+NS_GAF_BEGIN
+
 class GAFHeader
 {
 public:
@@ -36,3 +38,5 @@ public:
         return version >> 1;
     }
 };
+
+NS_GAF_END

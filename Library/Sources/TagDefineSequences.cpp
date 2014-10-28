@@ -5,6 +5,8 @@
 #include "GAFAsset.h"
 #include "GAFTimeline.h"
 
+NS_GAF_BEGIN
+
 void TagDefineSequences::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     (void)asset;
@@ -20,3 +22,5 @@ void TagDefineSequences::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timel
         timeline->pushAnimationSequence(id, start, end);
     }
 }
+
+NS_GAF_END

@@ -2,6 +2,8 @@
 
 #include "GAFQuadCommand.h"
 
+NS_GAF_BEGIN
+
 typedef struct _gafBlendFuncSeparate
 {
     // source blend function
@@ -29,7 +31,7 @@ public:
 
     void setTexture(cocos2d::Texture2D *texture);
     void setExternaTransform(const cocos2d::AffineTransform& transform);
-    cocos2d::AffineTransform getExternalTransform() const;
+    const cocos2d::AffineTransform& getExternalTransform() const;
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
     cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
@@ -97,3 +99,5 @@ private:
     bool                    m_useSeparateBlendFunc;
     GLint                   m_blendEquation;
 };
+
+NS_GAF_END

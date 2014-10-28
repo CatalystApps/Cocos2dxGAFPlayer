@@ -11,6 +11,7 @@
 
 static int const kGlobalFPS = 60;
 USING_NS_CC;
+USING_NS_GAF;
 
 AppDelegate::AppDelegate()
 {
@@ -26,6 +27,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     // initialize director
     std::vector<std::string> paths;
     paths.push_back("Resources");
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    paths.push_back("../Resources");
+#endif
 
     cocos2d::FileUtils::getInstance()->setSearchPaths(paths);
     cocos2d::Director *pDirector = cocos2d::Director::getInstance();
@@ -77,8 +81,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 }
 void AppDelegate::applicationDidEnterBackground()
 {
-    cocos2d::Director::getInstance()->stopAnimation();
-    GAFShaderManager::handleEnterBackground();
+    Director::getInstance()->stopAnimation();
 }
 
 void AppDelegate::applicationWillEnterForeground()

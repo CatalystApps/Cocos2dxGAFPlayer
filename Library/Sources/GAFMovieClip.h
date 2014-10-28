@@ -2,6 +2,8 @@
 
 #include "GAFObject.h"
 
+NS_GAF_BEGIN
+
 static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
 static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
 
@@ -55,3 +57,5 @@ public:
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
 #endif
 };
+
+NS_GAF_END

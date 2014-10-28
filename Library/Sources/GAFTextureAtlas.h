@@ -2,6 +2,8 @@
 
 #include "GAFDelegates.h"
 
+NS_GAF_BEGIN
+
 class GAFTextureAtlasElement;
 
 class GAFTextureAtlas
@@ -70,3 +72,5 @@ public:
     //! after calling getMemoryConsumptionStat you will need x2 a given number: RAM + VRAM
     uint32_t     getMemoryConsumptionStat() const;
 };
+
+NS_GAF_END

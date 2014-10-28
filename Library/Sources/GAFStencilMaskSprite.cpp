@@ -4,6 +4,8 @@
 
 #define USE_LAYERED_STENCIL 0
 
+NS_GAF_BEGIN
+
 #if 1 // for manual comparsion
 static bool compare_stencil_sprites(const void* p1, const void* p2)
 {
@@ -17,7 +19,7 @@ static bool compare_stencil_sprites(const void* p1, const void* p2)
 GAFStencilMaskSprite::GAFStencilMaskSprite(int stencilLayer)
 :
 m_stencilLayer(stencilLayer),
-m_maskedObjects(NULL),
+m_maskedObjects(nullptr),
 m_isReorderMaskedObjectsDirty(true)
 {
 }
@@ -33,7 +35,7 @@ bool GAFStencilMaskSprite::initWithTexture(cocos2d::Texture2D *pTexture, const c
     CC_SAFE_RELEASE(m_maskedObjects);
     m_maskedObjects = cocos2d::__Array::create();
     m_maskedObjects->retain();
-    setGLProgram(programShaderForMask());
+    setGLProgram(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaFilter));
     return true;
 }
 
@@ -303,48 +305,9 @@ void GAFStencilMaskSprite::removeMaskedObject(cocos2d::Node * anObject)
     }
 }
 
-cocos2d::GLProgram * GAFStencilMaskSprite::programShaderForMask()
-{
-    cocos2d::GLProgram *program = cocos2d::ShaderCache::getInstance()->getGLProgram(kGAFStencilMaskAlphaFilterProgramCacheKey);
-
-    if (!program)
-    {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT && !defined(_DEBUG))
-#include "ShadersPrecompiled/GAFPrecompiledShaders.h"
-        program = cocos2d::GLProgram::createWithPrecompiledProgramByteArray(kGAFScrollLayerAlphaFilterProgramCacheKey, kGAFScrollLayerAlphaFilterProgramCacheKey);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-        program->addAttribute(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-        program->updateUniforms();
-        CHECK_GL_ERROR_DEBUG();
-        cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
-#else
-        const char* frag = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::AlphaFilter);
-        program = cocos2d::GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, frag);
-        if (program)
-        {
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-            program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-
-            program->link();
-            program->updateUniforms();
-            CHECK_GL_ERROR_DEBUG();
-            cocos2d::ShaderCache::getInstance()->addGLProgram(program, kGAFStencilMaskAlphaFilterProgramCacheKey);
-        }
-        else
-        {
-            CCLOGERROR("Cannot load program for programShaderForMask.");
-            return NULL;
-        }
-#endif
-    }
-
-    program->use();
-    return program;
-}
-
 void GAFStencilMaskSprite::updateStencilLayer(int newLayer)
 {
     m_stencilLayer = newLayer;
 }
+
+NS_GAF_END

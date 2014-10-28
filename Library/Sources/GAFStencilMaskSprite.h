@@ -2,12 +2,14 @@
 
 #include "GAFSprite.h"
 
-static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
-
 namespace cocos2d
 {
     class __Array;
 }
+
+NS_GAF_BEGIN
+
+static const char* kGAFStencilMaskAlphaFilterProgramCacheKey = "kGAFStencilMaskAlphaFilterProgramCacheKey";
 
 class GAFStencilMaskSprite : public GAFSprite
 {
@@ -28,7 +30,6 @@ public:
     GAFStencilMaskSprite(int stencilLayer);
     ~GAFStencilMaskSprite();
     virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
-    static cocos2d::GLProgram * programShaderForMask();
 
 #if COCOS2D_VERSION < 0x00030200
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
@@ -56,3 +57,5 @@ private:
     cocos2d::CustomCommand  m_customCommand2;
     cocos2d::__Array*       m_maskedObjects;
 };
+
+NS_GAF_END

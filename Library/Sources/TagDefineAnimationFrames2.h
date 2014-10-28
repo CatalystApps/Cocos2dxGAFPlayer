@@ -2,6 +2,8 @@
 
 #include "DefinitionTagBase.h"
 
+NS_GAF_BEGIN
+
 class GAFSubobjectState;
 
 class TagDefineAnimationFrames2 : public DefinitionTagBase
@@ -18,3 +20,5 @@ public:
     virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
 
 };
+
+NS_GAF_END

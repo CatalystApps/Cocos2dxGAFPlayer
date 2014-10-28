@@ -1,12 +1,14 @@
 #pragma once
 #include "GAFCollections.h"
 
+NS_GAF_BEGIN
+
 class GAFCachedTexture
 {
 public:
     cocos2d::Texture2D* operator *();
     const GAFCachedTexture& operator =(const GAFCachedTexture&);
-    GAFCachedTexture(){}
+    GAFCachedTexture();
     GAFCachedTexture(cocos2d::Texture2D* tex);
     GAFCachedTexture(const GAFCachedTexture& other);
     ~GAFCachedTexture();
@@ -23,3 +25,5 @@ private:
     unsigned int    m_timesUsed;
     size_t          m_memoryUsed;
 };
+
+NS_GAF_END

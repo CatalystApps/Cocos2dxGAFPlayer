@@ -2,8 +2,7 @@
 
 #include "GAFSprite.h"
 
-static const char * kGAFSpriteWithAlphaShaderProgramCache_noCTX = "kGAFSpriteWithAlphaShaderProgramCache_noCTX";
-static const char * kGAFSpriteWithAlphaShaderProgramCacheKey = "kGAFSpriteWithAlphaShaderProgramCache";
+NS_GAF_BEGIN
 
 class GAFColorColorMatrixFilterData;
 class GAFGlowFilterData;
@@ -24,15 +23,15 @@ private:
     GAFBlurFilterData*              m_blurFilterData;
     cocos2d::Texture2D *            m_initialTexture;
     cocos2d::Rect                   m_initialTextureRect;
-    
+    cocos2d::GLProgramState*        m_programBase;
+    cocos2d::GLProgramState*        m_programNoCtx;
+    mutable bool                    m_ctxDirty;
+
 public:
     GAFSpriteWithAlpha();
     ~GAFSpriteWithAlpha();
     virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
 
-    cocos2d::GLProgram * programForShader(bool reset = false);
-
-	void setColorTransform(const cocos2d::Vec4 &mults, const cocos2d::Vec4 &offsets);
     void setColorTransform(const GLfloat * mults, const GLfloat * offsets);
     void setColorTransform(const GLfloat * colorTransform);
 
@@ -43,10 +42,13 @@ public:
     cocos2d::Texture2D*    getInitialTexture() const;
     const cocos2d::Rect&   getInitialTextureRect() const;
 
-    bool            isCTXIdentity() const;
+    bool            hasCtx();
+    void            updateCtx();
 
 protected:
     void updateTextureWithEffects();
     virtual uint32_t setUniforms() override;
 
 };
+
+NS_GAF_END

@@ -1,5 +1,7 @@
 #pragma once
 
+NS_GAF_BEGIN
+
 class GAFStream;
 class GAFAsset;
 class GAFTimeline;
@@ -11,3 +13,5 @@ public:
 
     virtual void read(GAFStream*, GAFAsset*, GAFTimeline*) = 0;
 };
+
+NS_GAF_END

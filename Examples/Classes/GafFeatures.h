@@ -9,8 +9,12 @@
 #include <unordered_map>
 
 
+NS_GAF_BEGIN
 class GAFObject;
 class GAFAsset;
+NS_GAF_END
+
+USING_NS_GAF;
 
 class GafFeatures : public cocos2d::Layer
 {

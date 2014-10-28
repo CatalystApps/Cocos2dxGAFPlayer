@@ -7,6 +7,7 @@
     For lower versions please use branch `release` from here https://github.com/CatalystApps/Cocos2dxGAFPlayer
 #else
 
+#include "GAFMacros.h"
 #include "GAFAsset.h"
 #include "GAFTextureAtlas.h"
 #include "GAFObject.h"

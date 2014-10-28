@@ -2,6 +2,8 @@
 
 #include "GAFTextureAtlas.h"
 
+NS_GAF_BEGIN
+
 class GAFAssetTextureManager : public cocos2d::Ref
 {
 public:
@@ -26,3 +28,5 @@ private:
 
 	uint32_t m_memoryConsumption;
 };
+
+NS_GAF_END

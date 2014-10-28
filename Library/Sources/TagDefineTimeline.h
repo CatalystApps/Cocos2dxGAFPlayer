@@ -2,6 +2,8 @@
 
 #include "DefinitionTagBase.h"
 
+NS_GAF_BEGIN
+
 class GAFLoader;
 
 class TagDefineTimeline : public DefinitionTagBase
@@ -15,3 +17,5 @@ public:
     virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
 
 };
+
+NS_GAF_END

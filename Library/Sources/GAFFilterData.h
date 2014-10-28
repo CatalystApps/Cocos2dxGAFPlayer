@@ -1,6 +1,8 @@
 #pragma once
 #include "GAFCollections.h"
 
+NS_GAF_BEGIN
+
 class GAFMovieClip;
 
 class GAFFilterData
@@ -70,3 +72,5 @@ public:
 
     static void reset(GAFMovieClip*);
 };
+
+NS_GAF_END

@@ -2,6 +2,8 @@
 
 #include "GAFHeader.h"
 
+NS_GAF_BEGIN
+
 class GAFFile
 {
 private:
@@ -44,3 +46,5 @@ public:
     unsigned int         getPosition() const;
     void                 rewind(unsigned int newPos);
 };
+
+NS_GAF_END

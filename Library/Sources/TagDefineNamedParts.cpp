@@ -5,6 +5,8 @@
 #include "GAFStream.h"
 #include "GAFTimeline.h"
 
+NS_GAF_BEGIN
+
 void TagDefineNamedParts::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     (void)asset;
@@ -19,3 +21,5 @@ void TagDefineNamedParts::read(GAFStream* in, GAFAsset* asset, GAFTimeline* time
         timeline->pushNamedPart(objectIdRef, name);
     }
 }
+
+NS_GAF_END

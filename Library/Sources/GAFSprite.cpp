@@ -13,6 +13,8 @@ USING_NS_CC;
 #define RENDER_IN_SUBPIXEL(__A__) ( (int)(__A__))
 #endif
 
+NS_GAF_BEGIN
+
 GAFSprite::GAFSprite()
 :
 objectIdRef(IDNONE),
@@ -76,7 +78,7 @@ void GAFSprite::setExternaTransform(const cocos2d::AffineTransform& transform)
     }
 }
 
-cocos2d::AffineTransform GAFSprite::getExternalTransform() const
+const cocos2d::AffineTransform& GAFSprite::getExternalTransform() const
 {
     return m_externalTransform;
 }
@@ -85,13 +87,15 @@ const cocos2d::Mat4& GAFSprite::getNodeToParentTransform() const
 {
     if (_transformDirty)
     {
-        cocos2d::AffineTransform transform = getExternalTransform();
         if (m_atlasScale != 1.f)
         {
-            transform = cocos2d::AffineTransformScale(transform, m_atlasScale, m_atlasScale);
+            cocos2d::AffineTransform transform = cocos2d::AffineTransformScale(getExternalTransform(), m_atlasScale, m_atlasScale);
+            cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
         }
-
-        cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(transform, -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
+        else
+        {
+            cocos2d::CGAffineToGL(cocos2d::AffineTransformTranslate(getExternalTransform(), -_anchorPointInPoints.x, -_anchorPointInPoints.y), _transform.m);
+        }
         _transformDirty = false;
     }
 
@@ -131,6 +135,7 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
         return;
     }
 
+    getGLProgramState()->apply(Mat4::IDENTITY);
     uint32_t id = setUniforms();
 
     if (m_useSeparateBlendFunc || (m_blendEquation != -1))
@@ -233,7 +238,9 @@ void GAFSprite::customDraw(cocos2d::Mat4& transform)
 
     CHECK_GL_ERROR_DEBUG();
 
-    using namespace cocos2d;
+    //USING_NS_CC;
     //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
     //CC_INCREMENT_GL_DRAWS(1);
 }
+
+NS_GAF_END

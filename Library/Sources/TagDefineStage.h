@@ -2,6 +2,8 @@
 
 #include "DefinitionTagBase.h"
 
+NS_GAF_BEGIN
+
 class TagDefineStage : public DefinitionTagBase
 {
 public:
@@ -9,3 +11,5 @@ public:
     virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
 
 };
+
+NS_GAF_END

@@ -12,6 +12,8 @@
     #include "platform/android/CCFileUtilsAndroid.h"
 #endif
 
+NS_GAF_BEGIN
+
 void GAFFile::_readHeaderBegin(GAFHeader& out)
 {
     readBytes(&out.compression, 4);
@@ -20,7 +22,7 @@ void GAFFile::_readHeaderBegin(GAFHeader& out)
 }
 
 GAFFile::GAFFile() : 
-m_data(NULL)
+m_data(nullptr)
 {
 
 }
@@ -121,7 +123,7 @@ void GAFFile::readBytes(void* dst, unsigned int len)
 void GAFFile::close()
 {
     delete[] m_data;
-    m_data = NULL;
+    m_data = nullptr;
     m_dataLen = 0;
     m_dataPosition = 0;
 }
@@ -187,6 +189,7 @@ unsigned char* GAFFile::_getData(const std::string& filename, const char* openMo
     unsigned char* ret = nullptr;
     outLen = 0;
     ssize_t size = 0;
+    const char* mode = nullptr;
 
 #ifdef ANDROID
     ret = cocos2d::FileUtilsAndroid::getInstance()->getFileData(filename, openMode, &size);
@@ -271,3 +274,5 @@ bool GAFFile::_processOpen()
 
     return true;
 }
+
+NS_GAF_END
