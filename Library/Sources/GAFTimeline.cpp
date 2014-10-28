@@ -5,7 +5,7 @@
 
 NS_GAF_BEGIN
 
-GAFTimeline::GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount):
+GAFTimeline::GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount) :
 m_id(id)
 , m_aabb(aabb)
 , m_pivot(pivot)
@@ -88,7 +88,7 @@ const AnimationMasks_t& GAFTimeline::getAnimationMasks() const
 
 const AnimationFrames_t& GAFTimeline::getAnimationFrames() const
 {
-	return m_animationFrames;
+    return m_animationFrames;
 }
 
 const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
@@ -98,7 +98,7 @@ const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
 
 const NamedParts_t& GAFTimeline::getNamedParts() const
 {
-	return m_namedParts;
+    return m_namedParts;
 }
 
 const GAFAnimationSequence* GAFTimeline::getSequence(const std::string& name) const
@@ -151,7 +151,7 @@ const GAFAnimationSequence * GAFTimeline::getSequenceByFirstFrame(size_t frame) 
 
 GAFTextureAtlas* GAFTimeline::getTextureAtlas()
 {
-	return m_currentTextureAtlas;
+    return m_currentTextureAtlas;
 }
 
 void GAFTimeline::setLinkageName(const std::string &linkageName)
@@ -171,25 +171,25 @@ GAFTimeline* GAFTimeline::getParent() const
 
 void GAFTimeline::loadImages()
 {
-	if (m_textureAtlases.empty())
-	{
-		m_currentTextureAtlas = nullptr;
-		return;
-	}
+    if (m_textureAtlases.empty())
+    {
+        m_currentTextureAtlas = nullptr;
+        return;
+    }
     _chooseTextureAtlas();
-    
+
 }
 
 void GAFTimeline::_chooseTextureAtlas()
 {
     float atlasScale = m_textureAtlases[0]->getScale();
-    
+
     m_currentTextureAtlas = m_textureAtlases[0];
-    
+
     const size_t count = m_textureAtlases.size();
-    
-	//TODO: check
-	float _currentDeviceScale = 1.f;
+
+    //TODO: check
+    float _currentDeviceScale = 1.f;
 
     for (size_t i = 1; i < count; ++i)
     {
@@ -200,13 +200,13 @@ void GAFTimeline::_chooseTextureAtlas()
             atlasScale = as;
         }
     }
-    
+
     m_usedAtlasContentScaleFactor = atlasScale;
 }
 
 float GAFTimeline::usedAtlasContentScaleFactor() const
 {
-	return m_usedAtlasContentScaleFactor;
+    return m_usedAtlasContentScaleFactor;
 }
 
 NS_GAF_END
