@@ -8,7 +8,6 @@ LOCAL_MODULE_FILENAME := libgafplayer
 
 LOCAL_SRC_FILES := \
 Library/Sources/GAFActionObject.cpp \
-Library/Sources/GAFAnimatedObject.cpp \
 Library/Sources/GAFAnimation.cpp \
 Library/Sources/GAFAnimationFrame.cpp \
 Library/Sources/GAFAnimationSequence.cpp \
