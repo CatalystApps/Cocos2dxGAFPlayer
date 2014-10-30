@@ -18,6 +18,7 @@
 #include "TagDefineStage.h"
 #include "TagDefineAnimationFrames2.h"
 #include "TagDefineTimeline.h"
+#include "TagDefineTextField.h"
 
 NS_GAF_BEGIN
 
@@ -63,6 +64,7 @@ void GAFLoader::_registerTagLoadersV4()
     m_tagLoaders[Tags::TagDefineAnimationObjects2] = new TagDefineAnimationObjects();
     m_tagLoaders[Tags::TagDefineAnimationMasks2] = new TagDefineAnimationMasks();
     m_tagLoaders[Tags::TagDefineAtlas2] = new TagDefineAtlas();
+    m_tagLoaders[Tags::TagDefineTextFields] = new TagDefineTextField();
     m_tagLoaders[Tags::TagDefineTimeline] = new TagDefineTimeline(this);
 }
 

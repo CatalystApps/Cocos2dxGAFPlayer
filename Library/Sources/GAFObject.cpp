@@ -10,6 +10,7 @@
 #include "GAFAnimationFrame.h"
 #include "GAFSubobjectState.h"
 #include "GAFFilterData.h"
+#include "GAFTextField.h"
 
 #include <math/TransformUtils.h>
 
@@ -197,6 +198,16 @@ void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs)
             {
                 assert(false);
                 CCLOGERROR("Cannot add subnode with AtlasElementRef: %d, not found in atlas(es). Ignoring.", atlasElementIdRef);
+            }
+        }
+        else if (charType == GAFCharacterType::TextField)
+        {
+            TextsData_t::const_iterator it = m_timeline->getTextsData().find(reference);
+            if (it != m_timeline->getTextsData().end())
+            {
+                GAFTextField *tf = new GAFTextField();
+                tf->initWithTextData(it->second);
+                m_displayList[objectId] = tf;
             }
         }
     }
@@ -938,6 +949,17 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     m_visibleObjects.push_back(subObject);
 
                     mc->setColorTransform(state->colorMults(), state->colorOffsets());
+                }
+                else if (subObject->m_charType == GAFCharacterType::TextField)
+                {
+                    GAFTextField *tf = static_cast<GAFTextField*>(subObject);
+
+                    if (subObject->getParent())
+                    {
+                        out->removeChild(subObject, false);
+                    }
+
+                    addChild(tf);
                 }
             }
             else if (m_masksDList.size() > state->objectIdRef)

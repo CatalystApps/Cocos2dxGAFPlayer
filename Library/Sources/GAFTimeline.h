@@ -18,6 +18,7 @@ private:
     AnimationFrames_t       m_animationFrames;
     AnimationSequences_t    m_animationSequences;
     NamedParts_t            m_namedParts;
+    TextsData_t             m_textsData;
 
     uint32_t                m_id;
     cocos2d::Rect           m_aabb;
@@ -51,6 +52,7 @@ public:
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
     void                        pushAnimationSequence(const std::string nameId, int start, int end);
     void                        pushNamedPart(uint32_t objectIdRef, const std::string& name);
+    void                        pushTextData(uint32_t objectIdRef, GAFTextData* textField);
 
     void                        setSceneFps(unsigned int);
     void                        setSceneWidth(unsigned int);
@@ -64,6 +66,7 @@ public:
     const AnimationFrames_t&	getAnimationFrames() const;
     const AnimationSequences_t& getAnimationSequences() const;
     const NamedParts_t&         getNamedParts() const;
+    const TextsData_t&          getTextsData() const;
     uint32_t                    getFramesCount() const;
 
     /// get GAFAnimationSequence by name specified in editor
