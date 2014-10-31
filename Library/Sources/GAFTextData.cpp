@@ -16,6 +16,7 @@ cocos2d::TextHAlignment GAFTextData::TextFormat::getTextAlignForCocos() const
     default:
         CCAssert(false, "Not Implemented");
     }
+    return cocos2d::TextHAlignment::LEFT;
 }
 
 NS_GAF_END
