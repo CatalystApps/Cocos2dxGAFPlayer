@@ -31,6 +31,7 @@ enum class GAFCharacterType : uint32_t
 enum class GAFActionType : uint32_t
 {
     //0 - stop, 1 - play, 2 - gotoAndStop, 3 - gotoAndPlay, 4 - dispatchEvent
+    None = -1,
     Stop = 0,
     Play,
     GotoAndStop,

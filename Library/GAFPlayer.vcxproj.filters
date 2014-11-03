@@ -126,6 +126,9 @@
     <ClCompile Include="Sources\GAFTextData.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GAFTimelineAction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimationFrame.h">
@@ -258,6 +261,9 @@
       <Filter>Sources\GAFObjects</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFTextData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTimelineAction.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

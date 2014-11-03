@@ -75,32 +75,44 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
             }
         }
 
-
-
-        if (hasActions)
-        {
-            // STUB
-            GAFActionType type = static_cast<GAFActionType>(in->readU32());
-            unsigned int paramsCount = in->readU32();
-
-            while (paramsCount)
-            {
-                std::string paramValue;
-                in->readString(&paramValue);
-
-                paramsCount--;
-            }
-        }
-
-        if (in->getPosition() < in->getTagExpectedPosition())
-            frameNumber = in->readU32();
-
         GAFAnimationFrame* frame = new GAFAnimationFrame();
 
         for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
         {
             frame->pushObjectState(it->second);
         }
+
+        if (hasActions)
+        {   
+            uint32_t actionsCount = in->readU32();
+            for (uint32_t actionIdx = 0; actionIdx < actionsCount; actionIdx++)
+            {
+                GAFTimelineAction action;
+
+                GAFActionType type = static_cast<GAFActionType>(in->readU32());
+                std::vector<std::string> params;
+
+                if (type != GAFActionType::Stop && type != GAFActionType::Play)
+                {
+                    unsigned int paramsCount = in->readU32();
+                    while (paramsCount)
+                    {
+                        std::string paramValue;
+                        in->readString(&paramValue);
+
+                        params.push_back(paramValue);
+
+                        paramsCount--;
+                    }
+                }
+
+                action.setAction(type, params);
+                frame->pushTimelineAction(action);
+            }
+        }
+
+        if (in->getPosition() < in->getTagExpectedPosition())
+            frameNumber = in->readU32();
 
         timeline->pushAnimationFrame(frame);
     }

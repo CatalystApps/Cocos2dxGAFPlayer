@@ -39,6 +39,7 @@
     <ClCompile Include="Sources\GAFTextureAtlas.cpp" />
     <ClCompile Include="Sources\GAFTextureAtlasElement.cpp" />
     <ClCompile Include="Sources\GAFTimeline.cpp" />
+    <ClCompile Include="Sources\GAFTimelineAction.cpp" />
     <ClCompile Include="Sources\PrimitiveDeserializer.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationFrames.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationFrames2.cpp" />
@@ -83,6 +84,7 @@
     <ClInclude Include="Sources\GAFTextureAtlasElement.h" />
     <ClInclude Include="Sources\GAFTimeline.h" />
     <ClInclude Include="Sources\GAFMovieClip.h" />
+    <ClInclude Include="Sources\GAFTimelineAction.h" />
     <ClInclude Include="Sources\PrimitiveDeserializer.h" />
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h" />
     <ClInclude Include="Sources\TagDefineAnimationFrames.h" />
