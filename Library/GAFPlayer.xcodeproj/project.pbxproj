@@ -42,6 +42,7 @@
 		B6AC347F1A03CBE5008BDF89 /* GAFTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AC347D1A03CBE5008BDF89 /* GAFTextField.cpp */; };
 		B6AC34821A03CBF0008BDF89 /* GAFTextData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AC34801A03CBF0008BDF89 /* GAFTextData.cpp */; };
 		B6AC34851A03CBF9008BDF89 /* TagDefineTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AC34831A03CBF9008BDF89 /* TagDefineTextField.cpp */; };
+		B6F8586B1A07D5A40022310D /* GAFTimelineAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6F858691A07D5A40022310D /* GAFTimelineAction.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -138,6 +139,8 @@
 		B6AC34811A03CBF0008BDF89 /* GAFTextData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFTextData.h; sourceTree = "<group>"; };
 		B6AC34831A03CBF9008BDF89 /* TagDefineTextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineTextField.cpp; sourceTree = "<group>"; };
 		B6AC34841A03CBF9008BDF89 /* TagDefineTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineTextField.h; sourceTree = "<group>"; };
+		B6F858691A07D5A40022310D /* GAFTimelineAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFTimelineAction.cpp; sourceTree = "<group>"; };
+		B6F8586A1A07D5A40022310D /* GAFTimelineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFTimelineAction.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 		1A2FBF0B192E00C800631FE9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B6F858691A07D5A40022310D /* GAFTimelineAction.cpp */,
+				B6F8586A1A07D5A40022310D /* GAFTimelineAction.h */,
 				B6AC34801A03CBF0008BDF89 /* GAFTextData.cpp */,
 				B6AC34811A03CBF0008BDF89 /* GAFTextData.h */,
 				290E5CA419CF5A4F007A072D /* GAFObject */,
@@ -366,6 +371,7 @@
 				B6AC34821A03CBF0008BDF89 /* GAFTextData.cpp in Sources */,
 				B6AC34851A03CBF9008BDF89 /* TagDefineTextField.cpp in Sources */,
 				1A2FBF50192E00C800631FE9 /* GAFAsset.cpp in Sources */,
+				B6F8586B1A07D5A40022310D /* GAFTimelineAction.cpp in Sources */,
 				1A2FBF56192E00C800631FE9 /* GAFSprite.cpp in Sources */,
 				39869DB219532453004628D9 /* TagDefineAnimationFrames2.cpp in Sources */,
 				1AB30523193CE3BF0012C01D /* GAFFilterManager.cpp in Sources */,
