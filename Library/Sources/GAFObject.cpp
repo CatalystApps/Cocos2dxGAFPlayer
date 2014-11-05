@@ -992,7 +992,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
             case GAFActionType::GotoAndStop: 
                 gotoAndStop(action.getParams()[0]);
                 break;
-            case GAFActionType::GotoAndPlay: break;
+            case GAFActionType::GotoAndPlay:
                 gotoAndPlay(action.getParams()[0]);
             case GAFActionType::DispatchEvent: break;
 
