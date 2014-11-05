@@ -33,9 +33,12 @@ GAFActionType GAFTimelineAction::getType()
     return m_type;
 }
 
-ActionParams_t const& GAFTimelineAction::getParams()
+const std::string GAFTimelineAction::getParam(ParameterIndex idx)
 {
-    return m_params;
+	if (m_params.size() <= idx)
+		return "";
+
+    return m_params[idx];
 }
 
 NS_GAF_END
