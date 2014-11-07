@@ -116,6 +116,12 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
 
         timeline->pushAnimationFrame(frame);
     }
+
+    for (States_t::iterator it = m_currentStates.begin(), ie = m_currentStates.end(); it != ie; ++it)
+    {
+        it->second->release();
+    }
+    m_currentStates.clear();
 }
 
 GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)

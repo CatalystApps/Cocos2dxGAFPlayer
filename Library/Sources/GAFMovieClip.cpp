@@ -51,7 +51,7 @@ void GAFMovieClip::updateTextureWithEffects()
     }
     else
     {
-        cocos2d::Texture2D * resultTex = NULL;
+        cocos2d::Texture2D * resultTex = nullptr;
 
         if (m_blurFilterData)
         {

@@ -44,6 +44,8 @@ m_currentFrame(GAFFirstFrameIndex),
 m_animationsSelectorScheduled(false)
 {
     m_charType = GAFCharacterType::Timeline;
+	m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
+	m_parentColorTransforms[1] = cocos2d::Vec4::ZERO;
 }
 
 GAFObject::~GAFObject()
@@ -115,22 +117,29 @@ void GAFObject::constructObject()
 
 void GAFObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
 {
-    instantiateAnimatedObjects(objs);
+	uint32_t maxIdx = 0;
+	for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
+	{
+		if (it->first > maxIdx)
+		{
+			maxIdx = it->first;
+		}
+	}
+	for (AnimationMasks_t::const_iterator it = masks.begin(), e = masks.end(); it != e; ++it)
+	{
+		if (it->first > maxIdx)
+		{
+			maxIdx = it->first;
+		}
+	}
+
+    instantiateAnimatedObjects(objs, maxIdx);
     instantiateMasks(masks);
 }
 
-void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs)
+void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs, int max)
 {
-    uint32_t maxIdx = 0;
-    for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
-    {
-        if (it->first > maxIdx)
-        {
-            maxIdx = it->first;
-        }
-    }
-
-    m_displayList.resize(maxIdx + 1);
+	m_displayList.resize(max + 1);
 
     for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
@@ -850,10 +859,13 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     const Filters_t& filters = state->getFilters();
                     subObject->m_parentFilters.insert(subObject->m_parentFilters.end(), filters.begin(), filters.end());
 
-                    subObject->m_parentColorTransforms = std::make_tuple(
-                        cocos2d::Vec4(state->colorMults()),
-                        cocos2d::Vec4(state->colorOffsets())
-                        );
+                    const float* cm = state->colorMults();
+                    subObject->m_parentColorTransforms[0] = cocos2d::Vec4(
+                        m_parentColorTransforms[0].x * cm[0],
+                        m_parentColorTransforms[0].y * cm[1],
+                        m_parentColorTransforms[0].z * cm[2],
+                        m_parentColorTransforms[0].w * cm[3]);
+                    subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
 
                     subObject->setLocalZOrder(state->zIndex);
 
@@ -948,7 +960,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     subObject->setVisible(state->isVisible());
                     m_visibleObjects.push_back(subObject);
 
-                    mc->setColorTransform(state->colorMults(), state->colorOffsets());
+                    cocos2d::Vec4 cm = cocos2d::Vec4(state->colorMults());
+                    mc->setColorTransform(
+                        cocos2d::Vec4(cm.x * m_parentColorTransforms[0].x, cm.y * m_parentColorTransforms[0].y, cm.z * m_parentColorTransforms[0].z, cm.w * m_parentColorTransforms[0].w),
+                        cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1]);
                 }
                 else if (subObject->m_charType == GAFCharacterType::TextField)
                 {

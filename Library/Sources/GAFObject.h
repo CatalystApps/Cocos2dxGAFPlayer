@@ -18,7 +18,6 @@ public:
 
     typedef std::vector<GAFObject*> DisplayList_t;
     typedef std::vector<GAFSprite*> SpriteList_t;
-    typedef std::tuple<cocos2d::Vec4, cocos2d::Vec4> ParentCTX_t;
 private:
     GAFSequenceDelegate_t                   m_sequenceDelegate;
     GAFAnimationFinishedPlayDelegate_t      m_animationFinishedPlayDelegate;
@@ -55,7 +54,7 @@ protected:
     GAFCharacterType                        m_charType;
     uint32_t                                m_currentFrame;
     Filters_t                               m_parentFilters;
-    ParentCTX_t                             m_parentColorTransforms;
+    cocos2d::Vec4                           m_parentColorTransforms[2];
 
     void    processAnimation();
     void    processAnimations(float dt);
@@ -63,7 +62,7 @@ protected:
     void    setAnimationRunning(bool value);
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
 
-    void    instantiateAnimatedObjects(const AnimationObjects_t &objs);
+    void    instantiateAnimatedObjects(const AnimationObjects_t &objs, int max);
     void    instantiateMasks(const AnimationMasks_t& masks);
 
     void    encloseNewTimeline(uint32_t reference, uint32_t objId);
