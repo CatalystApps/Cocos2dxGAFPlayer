@@ -827,6 +827,10 @@ cocos2d::Mat4 const& GAFObject::getNodeToParentTransform() const
 void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 {
     const AnimationFrames_t& animationFrames = m_timeline->getAnimationFrames();
+    if (m_parentColorTransforms[0].x < std::numeric_limits<float>::epsilon())
+    {
+        return;
+    }
 
     if (animationFrames.size() > frameIndex)
     {
@@ -961,9 +965,20 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     m_visibleObjects.push_back(subObject);
 
                     cocos2d::Vec4 cm = cocos2d::Vec4(state->colorMults());
-                    mc->setColorTransform(
-                        cocos2d::Vec4(cm.x * m_parentColorTransforms[0].x, cm.y * m_parentColorTransforms[0].y, cm.z * m_parentColorTransforms[0].z, cm.w * m_parentColorTransforms[0].w),
-                        cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1]);
+                    float colorMults[4] = { 
+                        state->colorMults()[0] * m_parentColorTransforms[0].x,
+                        state->colorMults()[1] * m_parentColorTransforms[0].y,
+                        state->colorMults()[2] * m_parentColorTransforms[0].z,
+                        state->colorMults()[3] * m_parentColorTransforms[0].w
+                    };
+                    float colorOffsets[4] = {
+                        state->colorOffsets()[0] * m_parentColorTransforms[1].x,
+                        state->colorOffsets()[1] * m_parentColorTransforms[1].y,
+                        state->colorOffsets()[2] * m_parentColorTransforms[1].z,
+                        state->colorOffsets()[3] * m_parentColorTransforms[1].w
+                    };
+                    
+                    mc->setColorTransform(colorMults, colorOffsets);
                 }
                 else if (subObject->m_charType == GAFCharacterType::TextField)
                 {
