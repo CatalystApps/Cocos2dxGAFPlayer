@@ -10,6 +10,7 @@ class GAFAnimationFrame;
 class GAFSprite;
 class GAFFilterData;
 class GAFTimeline;
+class GAFTextData;
 class GAFObject;
 
 enum class GAFFilterType : uint32_t
@@ -27,9 +28,10 @@ enum class GAFCharacterType : uint32_t
     Timeline
 };
 
-enum class GAFActionType : uint32_t
+enum class GAFActionType : int32_t
 {
     //0 - stop, 1 - play, 2 - gotoAndStop, 3 - gotoAndPlay, 4 - dispatchEvent
+    None = -1,
     Stop = 0,
     Play,
     GotoAndStop,
@@ -50,6 +52,7 @@ typedef std::vector<GAFAnimationFrame*>                     AnimationFrames_t;
 
 typedef std::vector<GAFFilterData*>                         Filters_t;
 typedef std::unordered_map<uint32_t, GAFTimeline*>          Timelines_t;
+typedef std::unordered_map<uint32_t, GAFTextData*>          TextsData_t;
 
 typedef std::unordered_map<uint32_t, int>                   CaptureObjects_t;      // Object id -> capture flags
 

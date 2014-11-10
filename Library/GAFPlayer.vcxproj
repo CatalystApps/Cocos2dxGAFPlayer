@@ -30,13 +30,15 @@
     <ClCompile Include="Sources\GAFQuadCommand.cpp" />
     <ClCompile Include="Sources\GAFShaderManager.cpp" />
     <ClCompile Include="Sources\GAFSprite.cpp" />
-    <ClCompile Include="Sources\GAFSpriteWithAlpha.cpp" />
     <ClCompile Include="Sources\GAFStencilMaskSprite.cpp" />
     <ClCompile Include="Sources\GAFStream.cpp" />
     <ClCompile Include="Sources\GAFSubobjectState.cpp" />
+    <ClCompile Include="Sources\GAFTextData.cpp" />
+    <ClCompile Include="Sources\GAFTextField.cpp" />
     <ClCompile Include="Sources\GAFTextureAtlas.cpp" />
     <ClCompile Include="Sources\GAFTextureAtlasElement.cpp" />
     <ClCompile Include="Sources\GAFTimeline.cpp" />
+    <ClCompile Include="Sources\GAFTimelineAction.cpp" />
     <ClCompile Include="Sources\PrimitiveDeserializer.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationFrames.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationFrames2.cpp" />
@@ -46,6 +48,7 @@
     <ClCompile Include="Sources\TagDefineNamedParts.cpp" />
     <ClCompile Include="Sources\TagDefineSequences.cpp" />
     <ClCompile Include="Sources\TagDefineStage.cpp" />
+    <ClCompile Include="Sources\TagDefineTextField.cpp" />
     <ClCompile Include="Sources\TagDefineTimeline.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -70,14 +73,16 @@
     <ClInclude Include="Sources\GAFQuadCommand.h" />
     <ClInclude Include="Sources\GAFShaderManager.h" />
     <ClInclude Include="Sources\GAFSprite.h" />
-    <ClInclude Include="Sources\GAFSpriteWithAlpha.h" />
     <ClInclude Include="Sources\GAFStencilMaskSprite.h" />
     <ClInclude Include="Sources\GAFStream.h" />
     <ClInclude Include="Sources\GAFSubobjectState.h" />
+    <ClInclude Include="Sources\GAFTextData.h" />
+    <ClInclude Include="Sources\GAFTextField.h" />
     <ClInclude Include="Sources\GAFTextureAtlas.h" />
     <ClInclude Include="Sources\GAFTextureAtlasElement.h" />
     <ClInclude Include="Sources\GAFTimeline.h" />
     <ClInclude Include="Sources\GAFMovieClip.h" />
+    <ClInclude Include="Sources\GAFTimelineAction.h" />
     <ClInclude Include="Sources\PrimitiveDeserializer.h" />
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h" />
     <ClInclude Include="Sources\TagDefineAnimationFrames.h" />
@@ -89,6 +94,7 @@
     <ClInclude Include="Sources\TagDefines.h" />
     <ClInclude Include="Sources\TagDefineSequences.h" />
     <ClInclude Include="Sources\TagDefineStage.h" />
+    <ClInclude Include="Sources\TagDefineTextField.h" />
     <ClInclude Include="Sources\TagDefineTimeline.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -2,6 +2,7 @@
 #include "GAFTimeline.h"
 #include "GAFTextureAtlas.h"
 #include "GAFAnimationFrame.h"
+#include "GAFTextData.h"
 
 NS_GAF_BEGIN
 
@@ -19,6 +20,7 @@ GAFTimeline::~GAFTimeline()
 {
     GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
+    GAF_RELEASE_MAP(TextsData_t, m_textsData);
 }
 
 void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
@@ -54,6 +56,11 @@ void GAFTimeline::pushAnimationSequence(const std::string nameId, int start, int
 void GAFTimeline::pushNamedPart(unsigned int objectIdRef, const std::string& name)
 {
     m_namedParts[name] = objectIdRef;
+}
+
+void GAFTimeline::pushTextData(uint32_t objectIdRef, GAFTextData* textField)
+{
+    m_textsData[objectIdRef] = textField;
 }
 
 void GAFTimeline::setSceneFps(unsigned int v)
@@ -98,7 +105,12 @@ const AnimationSequences_t& GAFTimeline::getAnimationSequences() const
 
 const NamedParts_t& GAFTimeline::getNamedParts() const
 {
-    return m_namedParts;
+	return m_namedParts;
+}
+
+TextsData_t const& GAFTimeline::getTextsData() const
+{
+    return m_textsData;
 }
 
 const GAFAnimationSequence* GAFTimeline::getSequence(const std::string& name) const

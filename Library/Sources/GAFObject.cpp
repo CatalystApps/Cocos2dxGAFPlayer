@@ -10,6 +10,7 @@
 #include "GAFAnimationFrame.h"
 #include "GAFSubobjectState.h"
 #include "GAFFilterData.h"
+#include "GAFTextField.h"
 
 #include <math/TransformUtils.h>
 
@@ -43,6 +44,8 @@ m_currentFrame(GAFFirstFrameIndex),
 m_animationsSelectorScheduled(false)
 {
     m_charType = GAFCharacterType::Timeline;
+	m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
+	m_parentColorTransforms[1] = cocos2d::Vec4::ZERO;
 }
 
 GAFObject::~GAFObject()
@@ -114,22 +117,29 @@ void GAFObject::constructObject()
 
 void GAFObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
 {
-    instantiateAnimatedObjects(objs);
+	uint32_t maxIdx = 0;
+	for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
+	{
+		if (it->first > maxIdx)
+		{
+			maxIdx = it->first;
+		}
+	}
+	for (AnimationMasks_t::const_iterator it = masks.begin(), e = masks.end(); it != e; ++it)
+	{
+		if (it->first > maxIdx)
+		{
+			maxIdx = it->first;
+		}
+	}
+
+    instantiateAnimatedObjects(objs, maxIdx);
     instantiateMasks(masks);
 }
 
-void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs)
+void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs, int max)
 {
-    uint32_t maxIdx = 0;
-    for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
-    {
-        if (it->first > maxIdx)
-        {
-            maxIdx = it->first;
-        }
-    }
-
-    m_displayList.resize(maxIdx + 1);
+	m_displayList.resize(max + 1);
 
     for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
     {
@@ -197,6 +207,16 @@ void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs)
             {
                 assert(false);
                 CCLOGERROR("Cannot add subnode with AtlasElementRef: %d, not found in atlas(es). Ignoring.", atlasElementIdRef);
+            }
+        }
+        else if (charType == GAFCharacterType::TextField)
+        {
+            TextsData_t::const_iterator it = m_timeline->getTextsData().find(reference);
+            if (it != m_timeline->getTextsData().end())
+            {
+                GAFTextField *tf = new GAFTextField();
+                tf->initWithTextData(it->second);
+                m_displayList[objectId] = tf;
             }
         }
     }
@@ -807,6 +827,10 @@ cocos2d::Mat4 const& GAFObject::getNodeToParentTransform() const
 void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
 {
     const AnimationFrames_t& animationFrames = m_timeline->getAnimationFrames();
+    if (m_parentColorTransforms[0].x < std::numeric_limits<float>::epsilon())
+    {
+        return;
+    }
 
     if (animationFrames.size() > frameIndex)
     {
@@ -839,10 +863,13 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     const Filters_t& filters = state->getFilters();
                     subObject->m_parentFilters.insert(subObject->m_parentFilters.end(), filters.begin(), filters.end());
 
-                    subObject->m_parentColorTransforms = std::make_tuple(
-                        cocos2d::Vec4(state->colorMults()),
-                        cocos2d::Vec4(state->colorOffsets())
-                        );
+                    const float* cm = state->colorMults();
+                    subObject->m_parentColorTransforms[0] = cocos2d::Vec4(
+                        m_parentColorTransforms[0].x * cm[0],
+                        m_parentColorTransforms[0].y * cm[1],
+                        m_parentColorTransforms[0].z * cm[2],
+                        m_parentColorTransforms[0].w * cm[3]);
+                    subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
 
                     subObject->setLocalZOrder(state->zIndex);
 
@@ -937,7 +964,32 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                     subObject->setVisible(state->isVisible());
                     m_visibleObjects.push_back(subObject);
 
-                    mc->setColorTransform(state->colorMults(), state->colorOffsets());
+                    cocos2d::Vec4 cm = cocos2d::Vec4(state->colorMults());
+                    float colorMults[4] = { 
+                        state->colorMults()[0] * m_parentColorTransforms[0].x,
+                        state->colorMults()[1] * m_parentColorTransforms[0].y,
+                        state->colorMults()[2] * m_parentColorTransforms[0].z,
+                        state->colorMults()[3] * m_parentColorTransforms[0].w
+                    };
+                    float colorOffsets[4] = {
+                        state->colorOffsets()[0] * m_parentColorTransforms[1].x,
+                        state->colorOffsets()[1] * m_parentColorTransforms[1].y,
+                        state->colorOffsets()[2] * m_parentColorTransforms[1].z,
+                        state->colorOffsets()[3] * m_parentColorTransforms[1].w
+                    };
+                    
+                    mc->setColorTransform(colorMults, colorOffsets);
+                }
+                else if (subObject->m_charType == GAFCharacterType::TextField)
+                {
+                    GAFTextField *tf = static_cast<GAFTextField*>(subObject);
+
+                    if (subObject->getParent())
+                    {
+                        out->removeChild(subObject, false);
+                    }
+
+                    addChild(tf);
                 }
             }
             else if (m_masksDList.size() > state->objectIdRef)
@@ -956,7 +1008,31 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
             }
         }
 
+        GAFAnimationFrame::TimelineActions_t timelineActions = currentFrame->getTimelineActions();
+        for (GAFTimelineAction action : timelineActions)
+        {
+            switch (action.getType())
+            {
+            case GAFActionType::Stop:
+                stop();
+                break;
+            case GAFActionType::Play:
+                start();
+                break;
+            case GAFActionType::GotoAndStop: 
+                gotoAndStop(action.getParam(GAFTimelineAction::PI_FRAME));
+                break;
+            case GAFActionType::GotoAndPlay:
+				gotoAndPlay(action.getParam(GAFTimelineAction::PI_FRAME));
+            case GAFActionType::DispatchEvent:
+				_eventDispatcher->dispatchCustomEvent(action.getParam(GAFTimelineAction::PI_EVENT_TYPE), &action);
+				break;
 
+            case GAFActionType::None:
+            default:
+                break;
+            }
+        }
     }
 
 

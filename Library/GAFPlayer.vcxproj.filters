@@ -33,9 +33,6 @@
     <ClCompile Include="Sources\GAFShaderManager.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\GAFSpriteWithAlpha.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\GAFStencilMaskSprite.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -117,6 +114,18 @@
     <ClCompile Include="Sources\GAFMask.cpp">
       <Filter>Sources\GAFObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\TagDefineTextField.cpp">
+      <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFTextField.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFTextData.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GAFTimelineAction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimationFrame.h">
@@ -132,9 +141,6 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFShaderManager.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\GAFSpriteWithAlpha.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFStencilMaskSprite.h">
@@ -240,6 +246,18 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFMacros.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\TagDefineTextField.h">
+      <Filter>Sources\GAFLoader\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTextField.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTextData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFTimelineAction.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

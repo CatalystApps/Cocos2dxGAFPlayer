@@ -7,8 +7,11 @@ LOCAL_MODULE := gafplayer_static
 LOCAL_MODULE_FILENAME := libgafplayer
 
 LOCAL_SRC_FILES := GAFPrecompiled.cpp \
-Sources/GAFAnimatedObject.cpp \
-Sources/GAFAnimation.cpp \
+Sources/GAFObject.cpp \
+Sources/GAFMovieClip.cpp \
+Sources/GAFMask.cpp \
+Sources/GAFAssetTextureManager.cpp \
+Sources/GAFTimeline.cpp \
 Sources/GAFAnimationFrame.cpp \
 Sources/GAFAnimationSequence.cpp \
 Sources/GAFAsset.cpp \
