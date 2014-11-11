@@ -1082,10 +1082,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                         state->colorMults()[3] * m_parentColorTransforms[0].w
                     };
                     float colorOffsets[4] = {
-                        state->colorOffsets()[0] * m_parentColorTransforms[1].x,
-                        state->colorOffsets()[1] * m_parentColorTransforms[1].y,
-                        state->colorOffsets()[2] * m_parentColorTransforms[1].z,
-                        state->colorOffsets()[3] * m_parentColorTransforms[1].w
+                        state->colorOffsets()[0] + m_parentColorTransforms[1].x,
+                        state->colorOffsets()[1] + m_parentColorTransforms[1].y,
+                        state->colorOffsets()[2] + m_parentColorTransforms[1].z,
+                        state->colorOffsets()[3] + m_parentColorTransforms[1].w
                     };
 
                     mc->setColorTransform(colorMults, colorOffsets);
