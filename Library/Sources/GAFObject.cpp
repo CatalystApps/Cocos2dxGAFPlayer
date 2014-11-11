@@ -677,14 +677,14 @@ uint32_t GAFObject::getTotalFrameCount() const
 
 uint32_t GAFObject::getCurrentFrameIndex() const
 {
-    return m_currentFrame;
+    return m_showingFrame;
 }
 
 bool GAFObject::setFrame(uint32_t index)
 {
     if (index < m_totalFrameCount)
     {
-        m_currentFrame = index;
+        m_showingFrame = m_currentFrame = index;
         processAnimation();
         return true;
     }
@@ -815,6 +815,7 @@ void GAFObject::clearSequence()
 
 void GAFObject::step()
 {
+    m_showingFrame = m_currentFrame;
     if (!m_isReversed)
     {
         if (m_currentFrame < m_currentSequenceStart)
@@ -859,7 +860,7 @@ void GAFObject::step()
 
         if (getIsAnimationRunning())
         {
-            ++m_currentFrame;
+            m_showingFrame = m_currentFrame++;
         }
     }
     else
@@ -907,7 +908,7 @@ void GAFObject::step()
 
         if (getIsAnimationRunning())
         {
-            --m_currentFrame;
+            m_showingFrame = m_currentFrame--;
         }
     }
 }

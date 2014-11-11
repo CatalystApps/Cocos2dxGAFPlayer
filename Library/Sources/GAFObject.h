@@ -53,6 +53,7 @@ protected:
     GAFCharacterType                        m_charType;
     GAFObjectType                           m_objectType;
     uint32_t                                m_currentFrame;
+    uint32_t                                m_showingFrame; // Frame number that is valid from the beginning of realize frame
     uint32_t                                m_userDataFrame;
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
