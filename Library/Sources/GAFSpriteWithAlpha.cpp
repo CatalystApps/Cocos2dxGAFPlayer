@@ -34,7 +34,7 @@ m_glowFilterData(nullptr),
 m_blurFilterData(nullptr),
 m_programBase(nullptr),
 m_programNoCtx(nullptr),
-m_hasCtx(false)
+m_ctxDirty(false)
 {
     m_type = GAFSprite::ESpriteType::Sprite;
 }
@@ -240,12 +240,10 @@ void GAFSpriteWithAlpha::updateCtx()
     if (!m_colorTransformOffsets.isZero() || m_colorMatrixFilterData)
     {
         _glProgramState = m_programBase;
-        m_hasCtx = true;
     }
     else
     {
         _glProgramState = m_programNoCtx;
-        m_hasCtx = false;
     }
 }
 
