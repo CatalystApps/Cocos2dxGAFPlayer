@@ -50,7 +50,9 @@ m_animationsSelectorScheduled(false)
 
 GAFObject::~GAFObject()
 {
-
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(DisplayList_t, m_displayList);
+    GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(DisplayList_t, m_masksDList);
+    CC_SAFE_RELEASE(m_asset);
 }
 
 GAFObject * GAFObject::create(GAFAsset * anAsset, GAFTimeline* timeline)
