@@ -68,7 +68,7 @@ void GAFSprite::setTexture(cocos2d::Texture2D *texture)
     }
 }
 
-void GAFSprite::setExternaTransform(const cocos2d::AffineTransform& transform)
+void GAFSprite::setExternalTransform(const cocos2d::AffineTransform& transform)
 {
     if (!cocos2d::AffineTransformEqualToTransform(getExternalTransform(), transform))
     {
@@ -136,6 +136,10 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
         return;
     }
 
+    _insideBounds = (flags & FLAGS_TRANSFORM_DIRTY) ? renderer->checkVisibility(transform, _contentSize) : _insideBounds;
+    if (!_insideBounds)
+        return;
+
     getGLProgramState()->apply(Mat4::IDENTITY);
     uint32_t id = setUniforms();
 
@@ -171,8 +175,11 @@ void GAFSprite::setAtlasScale(float scale)
 
 uint32_t GAFSprite::setUniforms()
 {
+#if COCOS2D_VERSION < 0x00030300
     uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
-
+#else
+    uint32_t materialID = Renderer::MATERIAL_ID_DO_NOT_BATCH;
+#endif
     if (_glProgramState->getUniformCount() == 0)
     {
         int glProgram = (int)getGLProgram()->getProgram();

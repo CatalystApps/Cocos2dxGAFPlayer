@@ -18,80 +18,19 @@
 
 NS_GAF_BEGIN
 
-class SeparatingContainer : public cocos2d::Node
+template<typename C, typename T>
+void eraseUserData(T objects)
 {
-public:
-    CREATE_FUNC(SeparatingContainer);
-    virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &parentTransform, uint32_t parentFlags) override
+    for (auto i : objects)
     {
-        if (!getParent() || !_visible)
+        if (i)
         {
-            return;
+            void* d = i->getUserData();
+            if (d)
+                delete reinterpret_cast<C*>(d);
         }
-        CCASSERT(dynamic_cast<GAFObject*>(getParent()), "Error! Parent of `SeparatingContainer` class should only be a `GAFObject`");
-        uint32_t currentFrameIndex = static_cast<GAFObject*>(getParent())->getCurrentFrameIndex() + 1;
-
-        uint32_t flags = processParentFlags(parentTransform, parentFlags);
-
-        // IMPORTANT:
-        // To ease the migration to v3.0, we still support the Mat4 stack,
-        // but it is deprecated and your code should not rely on it
-        cocos2d::Director* director = cocos2d::Director::getInstance();
-        director->pushMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
-        director->loadMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, _modelViewTransform);
-
-        int i = 0;
-
-        if (!_children.empty())
-        {
-            sortAllChildren();
-            // draw children zOrder < 0
-            for (; i < _children.size(); i++)
-            {
-                auto node = _children.at(i);
-
-                if (node && node->getLocalZOrder() < 0)
-                {
-                    if (node->getUserData()) // If has frame number
-                    {
-                        const uint32_t nodeFrame = *reinterpret_cast<uint32_t*>(node->getUserData());
-                        if (currentFrameIndex == nodeFrame)
-                            node->visit(renderer, _modelViewTransform, flags);
-                    }
-                    else
-                    {
-                        node->visit(renderer, _modelViewTransform, flags);
-                    }
-                }
-                else
-                    break;
-            }
-            // self draw
-            this->draw(renderer, _modelViewTransform, flags);
-
-            for (auto it = _children.cbegin() + i; it != _children.cend(); ++it)
-            {
-                if ((*it)->getUserData()) // If has frame number
-                {
-                    const uint32_t nodeFrame = *reinterpret_cast<uint32_t*>((*it)->getUserData());
-                    if (currentFrameIndex == nodeFrame)
-                        (*it)->visit(renderer, _modelViewTransform, flags);
-                }
-                else
-                {
-                    (*it)->visit(renderer, _modelViewTransform, flags);
-                }
-            }
-        }
-        else
-        {
-            this->draw(renderer, _modelViewTransform, flags);
-        }
-
-        director->popMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     }
-};
-
+}
 
 cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
 {
@@ -103,7 +42,8 @@ cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFor
 }
 
 
-GAFObject::GAFObject():
+GAFObject::GAFObject() :
+m_timelineParentObject(nullptr),
 m_container(nullptr),
 m_totalFrameCount(0),
 m_currentSequenceStart(0),
@@ -117,28 +57,14 @@ m_asset(nullptr),
 m_timeline(nullptr),
 m_currentFrame(GAFFirstFrameIndex),
 m_showingFrame(GAFFirstFrameIndex),
-m_userDataFrame(0),
+m_lastVisibleInFrame(0),
 m_objectType(GAFObjectType::None),
 m_animationsSelectorScheduled(false)
 {
     m_charType = GAFCharacterType::Timeline;
 	m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
 	m_parentColorTransforms[1] = cocos2d::Vec4::ZERO;
-    setUserData(reinterpret_cast<void*>(&m_userDataFrame));
-}
-
-template<typename C, typename T>
-void eraseUserData(T objects)
-{
-    for (auto i : objects)
-    {
-        if (i)
-        {
-            void* d = i->getUserData();
-            if (d)
-                delete reinterpret_cast<C*>(d);
-        }
-    }
+    setUserData(reinterpret_cast<void*>(&m_lastVisibleInFrame));
 }
 
 GAFObject::~GAFObject()
@@ -186,7 +112,7 @@ bool GAFObject::init(GAFAsset * anAnimationData, GAFTimeline* timeline)
         m_timeline = timeline;
         CC_SAFE_RETAIN(m_timeline);
     }
-    m_container = SeparatingContainer::create();
+    m_container = cocos2d::Node::create();
     addChild(m_container);
     m_container->setContentSize(getContentSize());
 
@@ -272,7 +198,8 @@ GAFObject* GAFObject::_instantiateObject(uint32_t id, GAFCharacterType type, uin
             result->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });
         }
     }
-
+    if (result)
+        result->setTimelineParentObject(this);
     return result;
 }
 
@@ -1058,8 +985,8 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     m_parentColorTransforms[0].w * cm[3]);
                 subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
 
-                subObject->setLocalZOrder(state->zIndex);
-
+                rearrangeSubobject(this, subObject, state->zIndex, frameIndex, true);
+                
                 subObject->step();
 
             }
@@ -1142,7 +1069,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                 stateTransform.tx *= csf;
                 stateTransform.ty *= csf;
                 cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
-                subObject->setExternaTransform(t);
+                subObject->setExternalTransform(t);
 
                 if (subObject->m_objectType == GAFObjectType::MovieClip)
                 {
@@ -1279,6 +1206,26 @@ GAFObject* GAFObject::getObjectByName(const std::string& name)
 const GAFObject* GAFObject::getObjectByName(const std::string& name) const
 {
     return const_cast<GAFObject*>(this)->getObjectByName(name);
+}
+
+bool GAFObject::isVisibleInCurrentFrame() const
+{
+    // If sprite is a part of timeline object - check it for visibility in current frame
+    if (m_timelineParentObject && (m_timelineParentObject->getCurrentFrameIndex() + 1 != m_lastVisibleInFrame))
+        return false;
+    return true;
+}
+
+#if COCOS2D_VERSION < 0x00030200
+void GAFObject::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
+#else
+void GAFObject::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+#endif
+{
+    if (isVisibleInCurrentFrame())
+    {
+        GAFSprite::visit(renderer, transform, flags);
+    }
 }
 
 NS_GAF_END

@@ -45,6 +45,7 @@ private:
     GAFObject* _instantiateObject(uint32_t id, GAFCharacterType type, uint32_t reference, bool isMask);
 
 protected:
+    GAFObject*                              m_timelineParentObject;
     GAFAsset*                               m_asset;
     GAFTimeline*                            m_timeline;
     DisplayList_t                           m_displayList;
@@ -54,9 +55,11 @@ protected:
     GAFObjectType                           m_objectType;
     uint32_t                                m_currentFrame;
     uint32_t                                m_showingFrame; // Frame number that is valid from the beginning of realize frame
-    uint32_t                                m_userDataFrame;
+    uint32_t                                m_lastVisibleInFrame; // Last frame that object was visible in
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
+
+    void    setTimelineParentObject(GAFObject* obj) { m_timelineParentObject = obj; }
 
     void    processAnimation();
     void    processAnimations(float dt);
@@ -89,9 +92,15 @@ public:
     void setControlDelegate(GAFObjectControlDelegate_t delegate);
 
 #if COCOS2D_VERSION < 0x00030200
-    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
+    void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags) override;
 #else
-    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+    void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
+#endif
+
+#if COCOS2D_VERSION < 0x00030200
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags) override
+#else
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override
 #endif
     {
         (void)flags;
@@ -150,6 +159,8 @@ public:
     bool init(GAFAsset * anAnimationData, GAFTimeline* timeline);
 
     bool hasSequences() const;
+
+    bool isVisibleInCurrentFrame() const;
 
     cocos2d::Rect getBoundingBoxForCurrentFrame();
 

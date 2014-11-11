@@ -30,7 +30,7 @@ public:
     bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
 
     void setTexture(cocos2d::Texture2D *texture);
-    void setExternaTransform(const cocos2d::AffineTransform& transform);
+    void setExternalTransform(const cocos2d::AffineTransform& transform);
     const cocos2d::AffineTransform& getExternalTransform() const;
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;

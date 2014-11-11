@@ -41,6 +41,7 @@ void GAFMask::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform,
 void GAFMask::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 #endif
 {
+    // Clipping node works well only with cocos sprite for now.
     return Sprite::visit(renderer, transform, flags);
 }
 

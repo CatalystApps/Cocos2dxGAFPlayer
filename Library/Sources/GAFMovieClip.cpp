@@ -36,6 +36,7 @@ m_programBase(nullptr),
 m_programNoCtx(nullptr),
 m_ctxDirty(false)
 {
+    m_objectType = GAFObjectType::MovieClip;
     m_charType = GAFCharacterType::Texture;
 }
 
