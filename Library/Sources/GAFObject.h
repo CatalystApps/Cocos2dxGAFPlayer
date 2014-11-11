@@ -17,13 +17,15 @@ private:
 public:
 
     typedef std::vector<GAFObject*> DisplayList_t;
-    typedef std::vector<GAFSprite*> SpriteList_t;
+    typedef std::vector<cocos2d::ClippingNode*> MaskList_t;
 private:
     GAFSequenceDelegate_t                   m_sequenceDelegate;
     GAFAnimationFinishedPlayDelegate_t      m_animationFinishedPlayDelegate;
     GAFAnimationStartedNextLoopDelegate_t   m_animationStartedNextLoopDelegate;
     GAFFramePlayedDelegate_t                m_framePlayedDelegate;
     GAFObjectControlDelegate_t              m_controlDelegate;
+
+    cocos2d::Node*                          m_container;
 
     uint32_t                                m_totalFrameCount;
     uint32_t                                m_currentSequenceStart;
@@ -40,16 +42,18 @@ private:
 
 private:
     void constructObject();
+    GAFObject* _instantiateObject(uint32_t id, GAFCharacterType type, uint32_t reference, bool isMask);
 
 protected:
     GAFAsset*                               m_asset;
     GAFTimeline*                            m_timeline;
     DisplayList_t                           m_displayList;
     DisplayList_t                           m_masksDList;
-    SpriteList_t                            m_visibleObjects;
+    MaskList_t                              m_masks;
     GAFCharacterType                        m_charType;
     GAFObjectType                           m_objectType;
     uint32_t                                m_currentFrame;
+    uint32_t                                m_userDataFrame;
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
 
@@ -58,11 +62,11 @@ protected:
 
     void    setAnimationRunning(bool value);
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
-
+    
     void    instantiateAnimatedObjects(const AnimationObjects_t &objs, int max);
     void    instantiateMasks(const AnimationMasks_t& masks);
 
-    void    encloseNewTimeline(uint32_t reference, uint32_t objId);
+    GAFObject*   encloseNewTimeline(uint32_t reference);
 
     GAFObject();
 
@@ -190,7 +194,8 @@ public:
     uint32_t getSubObjectId(const std::string& className) const;
     //////////////////////////////////////////////////////////////////////////
 #endif
-    void realizeFrame(cocos2d::Node* out, size_t frameIndex);
+    void realizeFrame(cocos2d::Node* out, uint32_t frameIndex);
+    void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex, uint32_t frame, bool visible);
 
     uint32_t getFps() const;
 

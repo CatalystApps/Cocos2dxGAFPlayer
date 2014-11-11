@@ -73,6 +73,7 @@ void GAFSprite::setExternaTransform(const cocos2d::AffineTransform& transform)
     if (!cocos2d::AffineTransformEqualToTransform(getExternalTransform(), transform))
     {
         m_externalTransform = transform;
+        _transformUpdated = true;
         _transformDirty = true;
         _inverseDirty = true;
     }

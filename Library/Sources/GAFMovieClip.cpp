@@ -61,7 +61,9 @@ bool GAFMovieClip::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::
         m_programBase = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::Alpha));
         m_programBase->retain();
 #if CHECK_CTX_IDENTITY
-        m_programNoCtx = (cocos2d::GLProgramState::getOrCreateWithGLProgramName(cocos2d::GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP));
+        cocos2d::GLProgram* p = GLProgramCache::getInstance()->getGLProgram(cocos2d::GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP);
+        CCASSERT(p, "Error! Program SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP not found.");
+        m_programNoCtx = cocos2d::GLProgramState::create(p);
         m_programNoCtx->retain();
 #endif
 #if CHECK_CTX_IDENTITY
