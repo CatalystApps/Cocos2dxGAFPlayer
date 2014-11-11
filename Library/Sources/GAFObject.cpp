@@ -37,10 +37,10 @@ m_isLooped(false),
 m_isReversed(false),
 m_timeDelta(0.0),
 m_fps(0),
-m_stencilLayer(-1),
 m_asset(nullptr),
 m_timeline(nullptr),
 m_currentFrame(GAFFirstFrameIndex),
+m_objectType(GAFObjectType::None),
 m_animationsSelectorScheduled(false)
 {
     m_charType = GAFCharacterType::Timeline;
@@ -303,7 +303,7 @@ void GAFObject::instantiateMasks(const AnimationMasks_t& masks)
 
                 if (spriteFrame)
                 {
-                    GAFMask *mask = new GAFMask(m_stencilLayer);
+                    GAFMask *mask = new GAFMask();
                     mask->initWithSpriteFrame(spriteFrame);
 
                     mask->objectIdRef = i->first;
@@ -321,22 +321,6 @@ void GAFObject::instantiateMasks(const AnimationMasks_t& masks)
                 }
             }
         }
-    }
-}
-
-void GAFObject::updateStencilLayer(int newLayer)
-{
-    m_stencilLayer = newLayer;
-
-    for (DisplayList_t::iterator it = m_masksDList.begin(), e = m_masksDList.end(); it != e; ++it)
-    {
-        if (*it == nullptr)
-        {
-            continue;
-        }
-
-        GAFMask* mask = static_cast<GAFMask*>(*it);
-        mask->updateStencilLayer(newLayer);
     }
 }
 
@@ -944,7 +928,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
                         {
                             GAFMask* mask = static_cast<GAFMask*>(m_masksDList[state->maskObjectIdRef]);
 
-                            mask->addMaskedObject(subObject);
+                            //mask->addMaskedObject(subObject);
 
                             if (mask->getParent() != this)
                             {
@@ -1038,29 +1022,6 @@ void GAFObject::realizeFrame(cocos2d::Node* out, size_t frameIndex)
     }
 
 
-}
-
-void GAFObject::setStencilLayer(int newLayer)
-{
-    m_stencilLayer = std::max(-1, std::min(newLayer, 255));
-    updateStencilLayer(m_stencilLayer);
-}
-
-void GAFObject::incStencilLayer()
-{
-    m_stencilLayer = std::max(-1, std::min(++m_stencilLayer, 255));
-    updateStencilLayer(m_stencilLayer);
-}
-
-void GAFObject::decStencilLayer()
-{
-    m_stencilLayer = std::max(-1, std::min(--m_stencilLayer, 255));
-    updateStencilLayer(m_stencilLayer);
-}
-
-int GAFObject::getStencilLayer() const
-{
-    return m_stencilLayer;
 }
 
 uint32_t GAFObject::getFps() const

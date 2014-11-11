@@ -33,9 +33,6 @@
     <ClCompile Include="Sources\GAFShaderManager.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\GAFStencilMaskSprite.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\GAFSubobjectState.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -141,9 +138,6 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFShaderManager.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\GAFStencilMaskSprite.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFSubobjectState.h">

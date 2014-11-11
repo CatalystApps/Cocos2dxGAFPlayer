@@ -28,6 +28,13 @@ enum class GAFCharacterType : uint32_t
     Timeline
 };
 
+enum class GAFObjectType : uint32_t
+{
+    None = 0,
+    MovieClip,
+    Mask
+};
+
 enum class GAFActionType : int32_t
 {
     //0 - stop, 1 - play, 2 - gotoAndStop, 3 - gotoAndPlay, 4 - dispatchEvent

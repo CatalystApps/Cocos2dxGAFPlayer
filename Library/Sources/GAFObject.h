@@ -36,13 +36,9 @@ private:
     double                                  m_timeDelta;
     uint32_t                                m_fps;
 
-    int                                     m_stencilLayer;
-
-
     bool                                    m_animationsSelectorScheduled;
 
 private:
-    void updateStencilLayer(int newLayer);
     void constructObject();
 
 protected:
@@ -52,6 +48,7 @@ protected:
     DisplayList_t                           m_masksDList;
     SpriteList_t                            m_visibleObjects;
     GAFCharacterType                        m_charType;
+    GAFObjectType                           m_objectType;
     uint32_t                                m_currentFrame;
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
@@ -87,14 +84,12 @@ public:
     void setControlDelegate(GAFObjectControlDelegate_t delegate);
 
 #if COCOS2D_VERSION < 0x00030200
-    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
-    {
-        (void)transformUpdated
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
 #else
     void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+#endif
     {
         (void)flags;
-#endif
         (void)renderer;
         (void)transform;
     }
@@ -196,18 +191,6 @@ public:
     //////////////////////////////////////////////////////////////////////////
 #endif
     void realizeFrame(cocos2d::Node* out, size_t frameIndex);
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void setStencilLayer(int newLayer);
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void incStencilLayer();
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void decStencilLayer();
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    int  getStencilLayer() const;
 
     uint32_t getFps() const;
 

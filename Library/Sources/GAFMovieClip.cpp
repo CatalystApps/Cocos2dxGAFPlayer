@@ -61,7 +61,7 @@ bool GAFMovieClip::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::
         m_programBase = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::Alpha));
         m_programBase->retain();
 #if CHECK_CTX_IDENTITY
-        m_programNoCtx = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaNoCtx));
+        m_programNoCtx = (cocos2d::GLProgramState::getOrCreateWithGLProgramName(cocos2d::GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP));
         m_programNoCtx->retain();
 #endif
 #if CHECK_CTX_IDENTITY
@@ -115,7 +115,7 @@ uint32_t GAFMovieClip::setUniforms()
 #else
 #define getUniformId(x) GAFShaderManager::getUniformName(x)
 #endif
-    
+
 #if CHECK_CTX_IDENTITY
     const bool ctx = hasCtx();
 #else
@@ -124,21 +124,20 @@ uint32_t GAFMovieClip::setUniforms()
 
 
     GLProgramState* state = getGLProgramState();
-    
+
     GAFMovieClipHash hash;
     memset(&hash, 0, sizeof(GAFMovieClipHash));
-    
+
     hash.program = getGLProgram()->getProgram();
     hash.texture = _texture->getName();
     hash.blend = _blendFunc;
 
-    
+
     if (!ctx)
-    {        
-        hash.c = m_colorTransformMult.w;
-        state->setUniformFloat(
-            getUniformId(GAFShaderManager::EUniforms::Alpha),
-            m_colorTransformMult.w);
+    {
+        Color4F color(m_colorTransformMult.x, m_colorTransformMult.y, m_colorTransformMult.z, m_colorTransformMult.w);
+        setColor(Color3B(color));
+        setOpacity(static_cast<GLubyte>(color.a * 255.0f));
     }
     else
     {
@@ -155,14 +154,14 @@ uint32_t GAFMovieClip::setUniforms()
 
         if (!m_colorMatrixFilterData)
         {
-            hash.d = m_colorMatrixIdentity1;
-            hash.e = m_colorMatrixIdentity2;
+            hash.d = cocos2d::Mat4::IDENTITY;
+            hash.e = cocos2d::Vec4::ZERO;
             state->setUniformMat4(
                 getUniformId(GAFShaderManager::EUniforms::ColorMatrixBody),
-                m_colorMatrixIdentity1);
+                cocos2d::Mat4::IDENTITY);
             state->setUniformVec4(
                 getUniformId(GAFShaderManager::EUniforms::ColorMatrixAppendix),
-                m_colorMatrixIdentity2);
+                cocos2d::Vec4::ZERO);
         }
         else
         {
@@ -178,7 +177,6 @@ uint32_t GAFMovieClip::setUniforms()
     }
     return XXH32((void*)&hash, sizeof(GAFMovieClipHash), 0);
 }
-
 void GAFMovieClip::setColorTransform(const GLfloat * mults, const GLfloat * offsets)
 {
     m_colorTransformMult = Vec4(mults);
@@ -236,7 +234,7 @@ const cocos2d::Rect& GAFMovieClip::getInitialTextureRect() const
 void GAFMovieClip::updateCtx()
 {
     m_ctxDirty = false;
-    if ((m_colorTransformMult != cocos2d::Vec4::ONE) || (m_colorTransformOffsets != cocos2d::Vec4::ZERO))
+    if (!m_colorTransformOffsets.isZero() || m_colorMatrixFilterData)
     {
         _glProgramState = m_programBase;
     }
@@ -255,15 +253,12 @@ bool GAFMovieClip::hasCtx()
 }
 
 #if COCOS2D_VERSION < 0x00030200
-void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
-{
-    GAFSprite::draw(renderer, transform, transformUpdated);
+void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
 #else
 void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-{
 #endif
+{
     GAFSprite::draw(renderer, transform, flags);
-
 }
 
 NS_GAF_END
