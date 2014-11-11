@@ -16,8 +16,6 @@ private:
 private:
     cocos2d::Vec4                   m_colorTransformMult;
     cocos2d::Vec4                   m_colorTransformOffsets;
-    cocos2d::Mat4                   m_colorMatrixIdentity1;
-    cocos2d::Vec4                   m_colorMatrixIdentity2;
     GAFColorColorMatrixFilterData*  m_colorMatrixFilterData;
     GAFGlowFilterData*              m_glowFilterData;
     GAFBlurFilterData*              m_blurFilterData;

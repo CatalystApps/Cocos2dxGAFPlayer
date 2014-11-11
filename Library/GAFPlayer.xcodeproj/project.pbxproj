@@ -97,9 +97,6 @@
 		1A2FBF36192E00C800631FE9 /* PrimitiveDeserializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrimitiveDeserializer.cpp; sourceTree = "<group>"; };
 		1A2FBF37192E00C800631FE9 /* PrimitiveDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimitiveDeserializer.h; sourceTree = "<group>"; };
 		1A2FBF39192E00C800631FE9 /* GAFPrecompiledShaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFPrecompiledShaders.h; sourceTree = "<group>"; };
-		1A2FBF3A192E00C800631FE9 /* GaussianBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaussianBlur.h; sourceTree = "<group>"; };
-		1A2FBF3B192E00C800631FE9 /* kGAFScrollLayerAlphaFilterProgramCacheKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kGAFScrollLayerAlphaFilterProgramCacheKey.h; sourceTree = "<group>"; };
-		1A2FBF3C192E00C800631FE9 /* kGAFSpriteWithAlphaShaderProgramCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kGAFSpriteWithAlphaShaderProgramCache.h; sourceTree = "<group>"; };
 		1A2FBF3D192E00C800631FE9 /* TagDefineAnimationFrames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineAnimationFrames.cpp; sourceTree = "<group>"; };
 		1A2FBF3E192E00C800631FE9 /* TagDefineAnimationFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineAnimationFrames.h; sourceTree = "<group>"; };
 		1A2FBF3F192E00C800631FE9 /* TagDefineAnimationMasks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineAnimationMasks.cpp; sourceTree = "<group>"; };
@@ -218,9 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				1A2FBF39192E00C800631FE9 /* GAFPrecompiledShaders.h */,
-				1A2FBF3A192E00C800631FE9 /* GaussianBlur.h */,
-				1A2FBF3B192E00C800631FE9 /* kGAFScrollLayerAlphaFilterProgramCacheKey.h */,
-				1A2FBF3C192E00C800631FE9 /* kGAFSpriteWithAlphaShaderProgramCache.h */,
 			);
 			path = ShadersPrecompiled;
 			sourceTree = "<group>";

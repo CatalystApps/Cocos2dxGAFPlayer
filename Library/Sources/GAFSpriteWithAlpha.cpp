@@ -36,6 +36,7 @@ m_programBase(nullptr),
 m_programNoCtx(nullptr),
 m_hasCtx(false)
 {
+    m_type = GAFSprite::ESpriteType::Sprite;
 }
 
 GAFSpriteWithAlpha::~GAFSpriteWithAlpha()
@@ -61,7 +62,8 @@ bool GAFSpriteWithAlpha::initWithTexture(cocos2d::Texture2D *pTexture, const coc
         m_programBase = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::Alpha));
         m_programBase->retain();
 #if CHECK_CTX_IDENTITY
-        m_programNoCtx = GLProgramState::create(GAFShaderManager::getProgram(GAFShaderManager::EPrograms::AlphaNoCtx));
+
+        m_programNoCtx = (cocos2d::GLProgramState::getOrCreateWithGLProgramName(cocos2d::GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP));
         m_programNoCtx->retain();
 #endif
 #if CHECK_CTX_IDENTITY
@@ -134,11 +136,10 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
 
     
     if (!ctx)
-    {        
-        hash.c = m_colorTransformMult.w;
-        state->setUniformFloat(
-            getUniformId(GAFShaderManager::EUniforms::Alpha),
-            m_colorTransformMult.w);
+    {
+        Color4F color(m_colorTransformMult.x, m_colorTransformMult.y, m_colorTransformMult.z, m_colorTransformMult.w);
+        setColor(Color3B(color));
+        setOpacity(color.a * 255.0f);
     }
     else
     {
@@ -155,14 +156,14 @@ uint32_t GAFSpriteWithAlpha::setUniforms()
 
         if (!m_colorMatrixFilterData)
         {
-            hash.d = m_colorMatrixIdentity1;
-            hash.e = m_colorMatrixIdentity2;
+            hash.d = cocos2d::Mat4::IDENTITY;
+            hash.e = cocos2d::Vec4::ZERO;
             state->setUniformMat4(
                 getUniformId(GAFShaderManager::EUniforms::ColorMatrixBody),
-                m_colorMatrixIdentity1);
+                cocos2d::Mat4::IDENTITY);
             state->setUniformVec4(
                 getUniformId(GAFShaderManager::EUniforms::ColorMatrixAppendix),
-                m_colorMatrixIdentity2);
+                cocos2d::Vec4::ZERO);
         }
         else
         {
@@ -236,7 +237,7 @@ const cocos2d::Rect& GAFSpriteWithAlpha::getInitialTextureRect() const
 void GAFSpriteWithAlpha::updateCtx()
 {
     m_ctxDirty = false;
-    if ((m_colorTransformMult != cocos2d::Vec4::ONE) || (m_colorTransformOffsets != cocos2d::Vec4::ZERO))
+    if (!m_colorTransformOffsets.isZero() || m_colorMatrixFilterData)
     {
         _glProgramState = m_programBase;
         m_hasCtx = true;

@@ -26,6 +26,13 @@ typedef struct _gafBlendFuncSeparate
 class GAFSprite : public cocos2d::Sprite
 {
 public:
+    enum class ESpriteType
+    {
+        None = -1,
+        Sprite,
+        Mask
+    };
+
     GAFSprite();
 
     virtual bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame);
@@ -42,7 +49,7 @@ public:
 #else
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
 #endif
-    
+
     void setAtlasScale(float scale);
 
     inline void setLocator(bool locator)
@@ -50,6 +57,9 @@ public:
         m_isLocator = locator;
     }
     
+    ESpriteType getType() const { return m_type; }
+    void setType(ESpriteType t);
+
 protected:
 
     /**
@@ -85,6 +95,7 @@ protected:
         AffineTransform     m_externalTransform;
     cocos2d::CustomCommand  m_customCommand;
     GAFQuadCommand          m_quadCommand;
+    ESpriteType             m_type;
 private:
 
     /**

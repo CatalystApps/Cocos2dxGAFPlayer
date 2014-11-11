@@ -19,7 +19,8 @@ GAFSprite::GAFSprite()
 m_useSeparateBlendFunc(false),
 m_isLocator(false),
 m_blendEquation(-1),
-m_atlasScale(1.0f)
+m_atlasScale(1.0f),
+m_type(ESpriteType::None)
 {
 
 }
@@ -69,6 +70,7 @@ void GAFSprite::setExternaTransform(const cocos2d::AffineTransform& transform)
     {
         m_externalTransform = transform;
         _transformDirty = true;
+        _transformUpdated = true;
         _inverseDirty = true;
     }
 }
@@ -149,6 +151,12 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
         m_quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &m_quad, 1, Mat4::IDENTITY, id);
         renderer->addCommand(&m_quadCommand);
     }
+#if CC_SPRITE_DEBUG_DRAW
+    _customDebugDrawCommand.init(_globalZOrder);
+    _customDebugDrawCommand.func = [this](){this->drawDebugData(); };
+    Sprite::drawDebugData();
+    renderer->addCommand(&_customDebugDrawCommand);
+#endif //CC_SPRITE_DEBUG_DRAW
 }
 
 void GAFSprite::setAtlasScale(float scale)
@@ -163,7 +171,7 @@ void GAFSprite::setAtlasScale(float scale)
 
 uint32_t GAFSprite::setUniforms()
 {
-#if 1//COCOS2D_VERSION < 0x00030300
+#if COCOS2D_VERSION < 0x00030300
     uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
 #else
     uint32_t materialID = Renderer::MATERIAL_ID_DO_NOT_BATCH;
@@ -177,6 +185,12 @@ uint32_t GAFSprite::setUniforms()
         materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
     }
     return materialID;
+}
+
+void GAFSprite::setType(ESpriteType t)
+{
+    CCASSERT(m_type == ESpriteType::None, "Warning. Type Redefenition.");
+    m_type = t;
 }
 
 void GAFSprite::customDraw(cocos2d::Mat4& transform)

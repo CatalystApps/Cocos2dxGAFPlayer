@@ -127,12 +127,10 @@ cocos2d::Texture2D* GAFFilterManager::renderGlowTexture(cocos2d::Sprite* sprite,
     // Draw with blur over X coordinate
     CHECK_GL_ERROR_DEBUG();
     {
-        GLfloat texelWidthValue = blurRadiusX / (GLfloat)rTextureSize.width;
-        GLfloat texelHeightValue = 0;
+        cocos2d::Vec2 texelValue(blurRadiusX / (GLfloat)rTextureSize.width, 0);
 
         GLProgramState* state = GLProgramState::create(program);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetX), texelWidthValue);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetY), texelHeightValue);
+        state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffset), texelValue);
         state->setUniformVec4(getUniformId(GAFShaderManager::EUniforms::GlowColor), *(Vec4*)(&filter->color));
 
         Sprite* s = Sprite::createWithTexture(outA->getSprite()->getTexture());
@@ -151,12 +149,10 @@ cocos2d::Texture2D* GAFFilterManager::renderGlowTexture(cocos2d::Sprite* sprite,
     // Draw with blur over Y coordinate
     CHECK_GL_ERROR_DEBUG();
     {
-        GLfloat texelWidthValue = 0;
-        GLfloat texelHeightValue = blurRadiusY / (GLfloat)rTextureSize.height;
+        cocos2d::Vec2 texelValue(0, blurRadiusY / (GLfloat)rTextureSize.height);
 
         GLProgramState* state = GLProgramState::create(program);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetX), texelWidthValue);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetY), texelHeightValue);
+        state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffset), texelValue);
         state->setUniformVec4(getUniformId(GAFShaderManager::EUniforms::GlowColor), *(Vec4*)(&filter->color));
 
         Sprite* s = Sprite::createWithTexture(outB->getSprite()->getTexture());
@@ -220,12 +216,10 @@ cocos2d::Texture2D* GAFFilterManager::renderBlurTexture(cocos2d::Sprite* sprite,
     // Draw with blur over X coordinate
     CHECK_GL_ERROR_DEBUG();
     {
-        GLfloat texelWidthValue = blurRadiusX / (GLfloat)rTextureSize.width;
-        GLfloat texelHeightValue = 0;
+        cocos2d::Vec2 texelValue(blurRadiusX / (GLfloat)rTextureSize.width, 0);
 
         GLProgramState* state = GLProgramState::create(program);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::BlurTexelOffsetX), texelWidthValue);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::BlurTexelOffsetY), texelHeightValue);
+        state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::BlurTexelOffset), texelValue);
 
         Sprite* s = Sprite::createWithTexture(outA->getSprite()->getTexture());
         s->setPosition(rTextureSize.width / 2, rTextureSize.height / 2);
@@ -243,12 +237,10 @@ cocos2d::Texture2D* GAFFilterManager::renderBlurTexture(cocos2d::Sprite* sprite,
     // Draw with blur over Y coordinate
     CHECK_GL_ERROR_DEBUG();
     {
-        GLfloat texelWidthValue = 0;
-        GLfloat texelHeightValue = blurRadiusY / (GLfloat)rTextureSize.height;
+        cocos2d::Vec2 texelValue(0, blurRadiusY / (GLfloat)rTextureSize.height);
 
         GLProgramState* state = GLProgramState::create(program);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::BlurTexelOffsetX), texelWidthValue);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::BlurTexelOffsetY), texelHeightValue);
+        state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::BlurTexelOffset), texelValue);
 
         Sprite* s = Sprite::createWithTexture(outB->getSprite()->getTexture());
         s->setPosition(rTextureSize.width / 2, rTextureSize.height / 2);
@@ -302,12 +294,10 @@ cocos2d::Texture2D* GAFFilterManager::renderShadowTexture(cocos2d::Sprite* sprit
     // Draw with blur over X coordinate
     CHECK_GL_ERROR_DEBUG();
     {
-        GLfloat texelWidthValue = blurRadiusX / (GLfloat)rTextureSize.width;
-        GLfloat texelHeightValue = 0;
+        Vec2 texelValue(blurRadiusX / (GLfloat)rTextureSize.width, 0);
 
         GLProgramState* state = GLProgramState::create(program);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetX), texelWidthValue);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetY), texelHeightValue);
+        state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffset), texelValue);
         state->setUniformVec4(getUniformId(GAFShaderManager::EUniforms::GlowColor), *(Vec4*)(&filter->color));
 
         Sprite* s = Sprite::createWithTexture(outA->getSprite()->getTexture());
@@ -326,12 +316,10 @@ cocos2d::Texture2D* GAFFilterManager::renderShadowTexture(cocos2d::Sprite* sprit
     // Draw with blur over Y coordinate
     CHECK_GL_ERROR_DEBUG();
     {
-        GLfloat texelWidthValue = 0;
-        GLfloat texelHeightValue = blurRadiusY / (GLfloat)rTextureSize.height;
+        Vec2 texelValue(0, blurRadiusY / (GLfloat)rTextureSize.height);
 
         GLProgramState* state = GLProgramState::create(program);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetX), texelWidthValue);
-        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffsetY), texelHeightValue);
+        state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffset), texelValue);
         state->setUniformVec4(getUniformId(GAFShaderManager::EUniforms::GlowColor), *(Vec4*)(&filter->color));
 
         Sprite* s = Sprite::createWithTexture(outB->getSprite()->getTexture());

@@ -23,7 +23,8 @@ typedef std::map<unsigned int, unsigned int>        AnimationMasks_t;      // Ob
 typedef std::map<unsigned int, unsigned int>        AnimationObjects_t;    // Object id -> Element Atlas Id
 typedef std::vector<GAFAnimationFrame*>             AnimationFrames_t;
 //typedef std::unordered_map<unsigned int, GAFSprite*> SubObjects_t;
-typedef std::vector<GAFSprite*> SubObjects_t;
+typedef std::vector<GAFSprite*>                     SubObjects_t;
+typedef std::vector<cocos2d::ClippingNode*>         MaskObjectsList_t;
 typedef std::vector<GAFFilterData*>                 Filters_t;
 
 typedef std::unordered_map<unsigned int, int>       CaptureObjects_t;      // Object id -> capture flags

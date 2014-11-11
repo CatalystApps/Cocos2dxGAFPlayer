@@ -62,20 +62,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_winrt.props" />
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_wp8_headers.props" />
+    <Import Project="..\..\..\..\..\cocos\2d\wp_8.1_props\cocos2d_wp_8.1_platform.props" />
+    <Import Project="..\..\..\..\..\cocos\2d\wp8_props\cocos2d_wp8.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_winrt.props" />
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_wp8_headers.props" />
+    <Import Project="..\..\..\..\..\cocos\2d\wp_8.1_props\cocos2d_wp_8.1_platform.props" />
+    <Import Project="..\..\..\..\..\cocos\2d\wp8_props\cocos2d_wp8.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_winrt.props" />
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_wp8_headers.props" />
+    <Import Project="..\..\..\..\..\cocos\2d\wp_8.1_props\cocos2d_wp_8.1_platform.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_winrt.props" />
-    <Import Project="..\..\..\..\..\cocos\2d\cocos2d_wp8_headers.props" />
+    <Import Project="..\..\..\..\..\cocos\2d\wp_8.1_props\cocos2d_wp_8.1_platform.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -96,7 +94,7 @@
       <CompileAsWinRT>true</CompileAsWinRT>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;$(ProjectDir)..\..\..\..\..\..\cocos;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -117,7 +115,7 @@
       <CompileAsWinRT>true</CompileAsWinRT>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;$(ProjectDir)..\..\..\..\..\..\cocos;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,7 +135,7 @@
       <CompileAsWinRT>true</CompileAsWinRT>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;$(ProjectDir)..\..\..\..\..\..\cocos;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -160,7 +158,7 @@
       <CompileAsWinRT>true</CompileAsWinRT>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\Library;$(ProjectDir)..\..\..\Library\Sources;$(ProjectDir)..\..\..\..\..\..\cocos;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -178,32 +176,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\cocos\2d\cocos2d_wp8.vcxproj">
-      <Project>{b5af91b3-64ea-44e1-84b0-d759e93758fb}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\cocos\audio\proj.wp8\CocosDenshion.vcxproj">
-      <Project>{df125891-eee9-4466-b903-f828fd272158}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\cocos\editor-support\cocosbuilder\proj.wp8\libCocosBuilder.vcxproj">
-      <Project>{20d4035d-fd3f-4fd3-baba-97bc1c38dfc2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\cocos\editor-support\cocostudio\proj.wp8\libCocosStudio.vcxproj">
-      <Project>{51e5736e-e1a3-4c94-abb7-e92ecef9c12e}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\cocos\editor-support\spine\proj.wp8\libSpine.vcxproj">
       <Project>{7d4fc6eb-9497-4804-98f3-3eaedc896154}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\cocos\network\proj.wp8\libNetwork.vcxproj">
-      <Project>{7daa99e7-8e07-4fef-8374-8ec04e395d2e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\cocos\storage\local-storage\proj.wp8\libLocalStorage.vcxproj">
-      <Project>{88982c27-5a7b-40a8-86e7-b3187b44b322}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\cocos\ui\proj.wp8\libGUI.vcxproj">
-      <Project>{08fb23e4-1517-4edc-b682-da238cdaa83d}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\extensions\proj.wp8\libExtensions.vcxproj">
-      <Project>{04a0c42f-23bb-469b-a9d8-ca49136adbd4}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\external\Box2D\proj.wp8\Box2D.vcxproj">
       <Project>{c55734a3-702c-4fa1-b950-32c8e169302f}</Project>

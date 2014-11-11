@@ -34,18 +34,12 @@ class GAFAnimatedObject : public cocos2d::Layer, public GAFAnimation
 protected:
     GAFAnimatedObject();
 private:
+    Node* m_container;
     GAFAsset * m_asset;
 
     SubObjects_t m_subObjects;
-    SubObjects_t m_masks;
+    MaskObjectsList_t m_masks;
     
-    // No reason to have a list here. Vector will work faster.
-    typedef std::vector<GAFSprite*> SubObjectsList_t;
-    
-    SubObjectsList_t m_visibleObjects;
-
-    int         m_stencilLayer;
-
     CaptureObjects_t m_capturedObjects;
     bool _animationsSelectorScheduled;
     GAFFramePlayedDelegate * m_framePlayedDelegate;
@@ -59,24 +53,24 @@ private:
     PCAnimationFPSType _FPSType; // Obsolete. Will be removed
     int m_fps;
 
-    void _updateStencilLayer(int newLayer);
     void _constructObject();
+    GAFSprite* createObject(unsigned int elementId, unsigned int atlasId, bool isMask);
+    void realizeFrame(cocos2d::Node* out, size_t frameIndex);
 public:
     ~GAFAnimatedObject();
     static GAFAnimatedObject * create(GAFAsset * anAsset);
     static GAFAnimatedObject * createAndRun(const std::string& gafPath, bool looped = false);
 
+    
+    virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &parentTransform, uint32_t parentFlags) override;
     bool init(GAFAsset * anAsset);
     void processAnimations(float dt);
     cocos2d::Vect pupilCoordinatesWithXSemiaxis(float anXSemiaxis, float anYSemiaxis, cocos2d::Vect aCenter, cocos2d::Vect anExternalPoint);
     void removeAllSubObjects();
     
     void instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
-
-    void setSubobjectsVisible(bool visible);
-
+    
     const SubObjects_t& getSubojects() const;
-    const SubObjects_t& getMasks() const;
 
     void animatorDidPlayedFrame(GAFAnimator * anAnimator, int aFrameNo);
 
@@ -104,22 +98,7 @@ public:
     unsigned int objectIdByObjectName(const std::string& aName);
 
     cocos2d::Sprite* renderCurrentFrameToTexture(bool usePOTTextures = false);
-
-    void realizeFrame(cocos2d::Node* out, size_t frameIndex);
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void setStencilLayer(int newLayer);
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void incStencilLayer();
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void decStencilLayer();
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    int  getStencilLayer() const;
-
-
+    void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex, size_t frame, bool visible);
     int getFps() const;
 
     void setFps(int value);
