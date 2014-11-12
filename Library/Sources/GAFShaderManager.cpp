@@ -15,12 +15,8 @@ USING_NS_CC;
 #define STRINGIFY(A)  #A
 
 #include "Shaders/GaussianBlurFragmentShader.frag"
-#include "Shaders/GaussianBlurVertexShader.vert"
 #include "Shaders/GlowFragmentShader.frag"
-#include "Shaders/pcShader_masked_texture.frag"
-#include "Shaders/pcShader_PositionTexture_alphaFilter.frag"
 #include "Shaders/pcShader_PositionTextureAlpha_frag.frag"
-#include "Shaders/pcShader_PositionTextureAlpha_frag_noCTX.frag"
 
 NS_GAF_BEGIN
 
@@ -30,17 +26,9 @@ NS_GAF_BEGIN
     {
         GaussianBlurFragmentShader_fs,                  // GaussBlur
         GlowFragmentShader_fs,                          // Glow
-        pcShader_masked_texture_fs,                     // Masked
-        pcShader_PositionTexture_alphaFilter_fs,        // AlphaFilter
         pcShader_PositionTextureAlpha_frag_fs,          // Alpha
-        pcShader_PositionTextureAlpha_frag_noCTX_fs     // AlphaNoCtx
     };
-
-    const char* const GAFShaderManager::s_vertexShaders[] =
-    {
-        GaussianBlurVertexShader_vs                     // GaussBlur
-    };
-
+    
     cocos2d::GLProgram* GAFShaderManager::s_programs[] =
     {
         nullptr
@@ -52,14 +40,10 @@ NS_GAF_BEGIN
         "colorTransformOffsets",    // ColorTransformOffset
         "colorMatrix",              // ColorMatrixBody
         "colorMatrix2",             // ColorMatrixAppendix
-    
-        "fragmentAlpha",            // Alpha
 
-        "u_texelOffset_x",          // BlurTexelOffsetX
-        "u_texelOffset_y",          // BlurTexelOffsetY
-         
-        "u_texelOffset_x",          // GlowTexelOffsetX
-        "u_texelOffset_y",          // GlowTexelOffsetY
+        "u_step",                   // BlurTexelOffset
+
+        "u_step",                   // GlowTexelOffset
         "u_glowColor"               // GlowColor
     };
 
@@ -68,15 +52,11 @@ NS_GAF_BEGIN
         -1
     };
 
-
-
     void GAFShaderManager::renderRecreate(EventCustom*)
     {
         Initialize(true);
         CCLOG("RENDER recreated");
     }
-
-
 
     void GAFShaderManager::Initialize(bool force /*= false*/)
     {
@@ -117,6 +97,7 @@ NS_GAF_BEGIN
                     CCASSERT(program->initWithByteArrays(cocos2d::ccPositionTextureColor_vert, fragmentShader), "`Alpha` shader init error");
                     CCASSERT(program->link(), "`Alpha` shader linking error");
                     program->updateUniforms();
+                    CHECK_GL_ERROR_DEBUG();
                 }
                 else
                 {
@@ -124,6 +105,7 @@ NS_GAF_BEGIN
                     CC_SAFE_RELEASE(s_programs[EPrograms::Alpha]);
                     s_programs[EPrograms::Alpha] = program;
                     CC_SAFE_RETAIN(s_programs[EPrograms::Alpha]);
+                    CHECK_GL_ERROR_DEBUG();
                 }
                 CCASSERT(program, "`Alpha` shader not loaded.");
 
@@ -134,85 +116,29 @@ NS_GAF_BEGIN
                 s_uniformLocations[EUniforms::ColorTransformOffset] =   glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::ColorTransformOffset]);
                 s_uniformLocations[EUniforms::ColorMatrixBody] =        glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::ColorMatrixBody]);
                 s_uniformLocations[EUniforms::ColorMatrixAppendix] =    glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::ColorMatrixAppendix]);
-
-            }
-
-            // AlphaNoCtx
-            {
-                const char* fragmentShader = getShader(EFragmentShader::AlphaNoCtx);
-                GLProgram* program = nullptr;
-                if (reinit)
-                {
-                    program = s_programs[EPrograms::AlphaNoCtx];
-                    program->reset();
-                    CCASSERT(program->initWithByteArrays(cocos2d::ccPositionTextureColor_vert, fragmentShader), "`AlphaNoCtx` shader init error");
-                    CCASSERT(program->link(), "`AlphaNoCtx` shader linking error");
-                    program->updateUniforms();
-                }
-                else
-                {
-                    program = GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, fragmentShader);
-                    CC_SAFE_RELEASE(s_programs[EPrograms::AlphaNoCtx]);
-                    s_programs[EPrograms::AlphaNoCtx] = program;
-                    CC_SAFE_RETAIN(s_programs[EPrograms::AlphaNoCtx]);
-                }
-
-                CCASSERT(program, "`AlphaNoCtx` shader not loaded.");
-
-                program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-                program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-                program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                s_uniformLocations[EUniforms::Alpha] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::Alpha]);
-
-            }
-
-            // AlphaFilter
-            {
-                const char* fragmentShader = getShader(EFragmentShader::AlphaFilter);
-                GLProgram* program = nullptr;
-                if (reinit)
-                {
-                    program = s_programs[EPrograms::AlphaFilter];
-                    program->reset();
-                    CCASSERT(program->initWithByteArrays(cocos2d::ccPositionTextureColor_vert, fragmentShader), "`AlphaFilter` shader init error");
-                    CCASSERT(program->link(), "`AlphaFilter` shader linking error");
-                    program->updateUniforms();
-                }
-                else
-                {
-                    program = GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, fragmentShader);
-                    CC_SAFE_RELEASE(s_programs[EPrograms::AlphaFilter]);
-                    s_programs[EPrograms::AlphaFilter] = program;
-                    CC_SAFE_RETAIN(s_programs[EPrograms::AlphaFilter]);
-                }
-
-                CCASSERT(program, "`AlphaFilter` shader not loaded.");
-
-                program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
-                program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
-                program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                
+                CHECK_GL_ERROR_DEBUG();
             }
             
             // Blur
             {
-                const char* vs = getShader(EVertexShader::GaussBlur);
                 const char* fs = getShader(EFragmentShader::GaussBlur);
                 GLProgram* program = nullptr;
                 if (reinit)
                 {
                     program = s_programs[EPrograms::Blur];
                     program->reset();
-                    CCASSERT(program->initWithByteArrays(vs, fs), "`Blur` shader init error");
+                    CCASSERT(program->initWithByteArrays(cocos2d::ccPositionTextureColor_vert, fs), "`Blur` shader init error");
                     CCASSERT(program->link(), "`Blur` shader linking error");
                     program->updateUniforms();
+                    CHECK_GL_ERROR_DEBUG();
                 }
                 else
                 {
-                    program = GLProgram::createWithByteArrays(vs, fs);
+                    program = GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, fs);
                     CC_SAFE_RELEASE(s_programs[EPrograms::Blur]);
                     s_programs[EPrograms::Blur] = program;
                     CC_SAFE_RETAIN(s_programs[EPrograms::Blur]);
+                    CHECK_GL_ERROR_DEBUG();
                 }
 
                 CCASSERT(program, "`Blur` shader not loaded.");
@@ -220,29 +146,30 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                s_uniformLocations[EUniforms::BlurTexelOffsetX] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::BlurTexelOffsetX]);
-                s_uniformLocations[EUniforms::BlurTexelOffsetY] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::BlurTexelOffsetY]);
+                s_uniformLocations[EUniforms::BlurTexelOffset] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::BlurTexelOffset]);
+                CHECK_GL_ERROR_DEBUG();
             }
 
             // Glow
             {
-                const char* vs = GAFShaderManager::getShader(GAFShaderManager::EVertexShader::GaussBlur);
                 const char* fs = GAFShaderManager::getShader(GAFShaderManager::EFragmentShader::Glow);
                 GLProgram* program = nullptr;
                 if (reinit)
                 {
                     program = s_programs[EPrograms::Glow];
                     program->reset();
-                    CCASSERT(program->initWithByteArrays(vs, fs), "`Glow` shader init error");
+                    CCASSERT(program->initWithByteArrays(cocos2d::ccPositionTextureColor_vert, fs), "`Glow` shader init error");
                     CCASSERT(program->link(), "`Glow` shader linking error");
                     program->updateUniforms();
+                    CHECK_GL_ERROR_DEBUG();
                 }
                 else
                 {
-                    program = GLProgram::createWithByteArrays(vs, fs);
+                    program = GLProgram::createWithByteArrays(cocos2d::ccPositionTextureColor_vert, fs);
                     CC_SAFE_RELEASE(s_programs[EPrograms::Glow]);
                     s_programs[EPrograms::Glow] = program;
                     CC_SAFE_RETAIN(s_programs[EPrograms::Glow]);
+                    CHECK_GL_ERROR_DEBUG();
                 }
 
                 CCASSERT(program, "`Glow` shader not loaded.");
@@ -250,9 +177,9 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_POSITION, cocos2d::GLProgram::VERTEX_ATTRIB_POSITION);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_COLOR, cocos2d::GLProgram::VERTEX_ATTRIB_COLOR);
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-                s_uniformLocations[EUniforms::GlowTexelOffsetX] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowTexelOffsetX]);
-                s_uniformLocations[EUniforms::GlowTexelOffsetX] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowTexelOffsetX]);
+                s_uniformLocations[EUniforms::GlowTexelOffset] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowTexelOffset]);
                 s_uniformLocations[EUniforms::GlowColor] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowColor]);
+                CHECK_GL_ERROR_DEBUG();
 
             }
             s_initialized = true;

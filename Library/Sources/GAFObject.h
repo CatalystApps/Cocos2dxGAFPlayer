@@ -17,13 +17,15 @@ private:
 public:
 
     typedef std::vector<GAFObject*> DisplayList_t;
-    typedef std::vector<GAFSprite*> SpriteList_t;
+    typedef std::vector<cocos2d::ClippingNode*> MaskList_t;
 private:
     GAFSequenceDelegate_t                   m_sequenceDelegate;
     GAFAnimationFinishedPlayDelegate_t      m_animationFinishedPlayDelegate;
     GAFAnimationStartedNextLoopDelegate_t   m_animationStartedNextLoopDelegate;
     GAFFramePlayedDelegate_t                m_framePlayedDelegate;
     GAFObjectControlDelegate_t              m_controlDelegate;
+
+    cocos2d::Node*                          m_container;
 
     uint32_t                                m_totalFrameCount;
     uint32_t                                m_currentSequenceStart;
@@ -36,36 +38,39 @@ private:
     double                                  m_timeDelta;
     uint32_t                                m_fps;
 
-    int                                     m_stencilLayer;
-
-
     bool                                    m_animationsSelectorScheduled;
 
 private:
-    void updateStencilLayer(int newLayer);
     void constructObject();
+    GAFObject* _instantiateObject(uint32_t id, GAFCharacterType type, uint32_t reference, bool isMask);
 
 protected:
+    GAFObject*                              m_timelineParentObject;
     GAFAsset*                               m_asset;
     GAFTimeline*                            m_timeline;
     DisplayList_t                           m_displayList;
     DisplayList_t                           m_masksDList;
-    SpriteList_t                            m_visibleObjects;
+    MaskList_t                              m_masks;
     GAFCharacterType                        m_charType;
+    GAFObjectType                           m_objectType;
     uint32_t                                m_currentFrame;
+    uint32_t                                m_showingFrame; // Frame number that is valid from the beginning of realize frame
+    uint32_t                                m_lastVisibleInFrame; // Last frame that object was visible in
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
+
+    void    setTimelineParentObject(GAFObject* obj) { m_timelineParentObject = obj; }
 
     void    processAnimation();
     void    processAnimations(float dt);
 
     void    setAnimationRunning(bool value);
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
-
+    
     void    instantiateAnimatedObjects(const AnimationObjects_t &objs, int max);
     void    instantiateMasks(const AnimationMasks_t& masks);
 
-    void    encloseNewTimeline(uint32_t reference, uint32_t objId);
+    GAFObject*   encloseNewTimeline(uint32_t reference);
 
     GAFObject();
 
@@ -87,14 +92,18 @@ public:
     void setControlDelegate(GAFObjectControlDelegate_t delegate);
 
 #if COCOS2D_VERSION < 0x00030200
-    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
-    {
-        (void)transformUpdated
+    void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags) override;
 #else
-    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+    void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
+#endif
+
+#if COCOS2D_VERSION < 0x00030200
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags) override
+#else
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override
+#endif
     {
         (void)flags;
-#endif
         (void)renderer;
         (void)transform;
     }
@@ -151,6 +160,8 @@ public:
 
     bool hasSequences() const;
 
+    bool isVisibleInCurrentFrame() const;
+
     cocos2d::Rect getBoundingBoxForCurrentFrame();
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
@@ -195,19 +206,8 @@ public:
     uint32_t getSubObjectId(const std::string& className) const;
     //////////////////////////////////////////////////////////////////////////
 #endif
-    void realizeFrame(cocos2d::Node* out, size_t frameIndex);
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void setStencilLayer(int newLayer);
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void incStencilLayer();
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    void decStencilLayer();
-
-    //! 0 means all masked pixels will be marked as 1 and so on
-    int  getStencilLayer() const;
+    void realizeFrame(cocos2d::Node* out, uint32_t frameIndex);
+    void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex, uint32_t frame, bool visible);
 
     uint32_t getFps() const;
 
