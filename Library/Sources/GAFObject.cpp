@@ -1111,10 +1111,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             switch (action.getType())
             {
             case GAFActionType::Stop:
-                stop();
+                pauseAnimation();
                 break;
             case GAFActionType::Play:
-                start();
+                resumeAnimation();
                 break;
             case GAFActionType::GotoAndStop: 
                 gotoAndStop(action.getParam(GAFTimelineAction::PI_FRAME));
