@@ -758,7 +758,7 @@ void GAFObject::step()
             }
         }
 
-        if (m_currentFrame >= m_currentSequenceEnd)
+        if (m_currentFrame >= m_currentSequenceEnd - 1)
         {
             if (m_isLooped)
             {
