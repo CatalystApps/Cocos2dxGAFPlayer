@@ -777,8 +777,6 @@ void GAFObject::step()
                 {
                     m_animationFinishedPlayDelegate(this);
                 }
-
-                return;
             }
         }
 
