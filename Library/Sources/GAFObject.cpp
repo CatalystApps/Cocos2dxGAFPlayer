@@ -425,7 +425,6 @@ GAFObject* GAFObject::encloseNewTimeline(uint32_t reference)
 
     GAFObject* newObject = GAFObject::create(m_asset, tl->second);
     newObject->retain();
-    addChild(newObject);
     if (!newObject->getIsAnimationRunning())
     {
         newObject->m_currentFrame = GAFFirstFrameIndex;
@@ -950,7 +949,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 
     if (animationFrames.size() > frameIndex)
     {
-        GAFAnimationFrame *currentFrame = animationFrames[frameIndex];
+        GAFAnimationFrame *currentFrame = animationFrames[frameIndex];  
 
         const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
 
@@ -985,7 +984,27 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     m_parentColorTransforms[0].w * cm[3]);
                 subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
 
-                rearrangeSubobject(this, subObject, state->zIndex, frameIndex, true);
+                if (m_masks[state->objectIdRef])
+                {
+                    rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex, frameIndex, 1);
+                }
+                else
+                {
+                    //subObject->removeFromParentAndCleanup(false);
+                    if (state->maskObjectIdRef == IDNONE)
+                    {
+                        rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
+                    }
+                    else
+                    {
+                        // If the state has a mask, then attach it 
+                        // to the clipping node. Clipping node will be attached on its state
+                        auto mask = m_masks[state->maskObjectIdRef];
+                        CCASSERT(mask, "Error. No mask found for this ID");
+                        if (mask)
+                            rearrangeSubobject(mask, subObject, state->zIndex, frameIndex, 1);
+                    }
+                }
                 
                 subObject->step();
 
@@ -1003,7 +1022,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     GAFFilterData* filter = NULL;
 
                     GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
-
+                    /*
                     Filters_t filtersUnion;
                     filtersUnion.insert(filtersUnion.end(), m_parentFilters.begin(), m_parentFilters.end());
                     filtersUnion.insert(filtersUnion.end(), filters.begin(), filters.end());
@@ -1013,6 +1032,16 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                         filter = filtersUnion[0];
                         filter->apply(mc);
                     }
+                    */
+                    if (m_parentFilters.size() > 0)
+                    {
+                        filter = *m_parentFilters.begin();
+                    }
+                    else if (filters.size() > 0)
+                    {
+                        filter = *filters.begin();
+                    }
+
 
                     if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
                     {
