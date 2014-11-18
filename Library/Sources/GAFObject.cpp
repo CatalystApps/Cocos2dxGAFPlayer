@@ -1039,7 +1039,11 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     {
                         filter = *filters.begin();
                     }
-
+                    
+                    if (filter)
+                    {
+                    	filter->apply(mc);
+                    }
 
                     if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
                     {
