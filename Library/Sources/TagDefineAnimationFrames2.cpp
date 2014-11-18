@@ -189,7 +189,7 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
                         colorFilter->matrix[j * 4 + i] = in->readFloat();
                     }
 
-                    colorFilter->matrix2[i] = in->readFloat() / 256.f;
+                    colorFilter->matrix2[i] = in->readFloat() / 255.f;
                 }
 
                 state->pushFilter(colorFilter);
