@@ -940,7 +940,7 @@ void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int
 void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 {
     const AnimationFrames_t& animationFrames = m_timeline->getAnimationFrames();
-    if (m_parentColorTransforms[0].x < std::numeric_limits<float>::epsilon())
+    if (m_parentColorTransforms[0].w < std::numeric_limits<float>::epsilon())
     {
         return;
     }
