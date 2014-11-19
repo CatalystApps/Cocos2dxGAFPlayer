@@ -74,6 +74,8 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 
         if (in->getInput()->getHeader().getMajorVersion() >= 4)
         {
+            element->scale *= txAtlas->getScale();
+            
             char hasScale9Grid = in->readUByte();
 
             if (hasScale9Grid)
