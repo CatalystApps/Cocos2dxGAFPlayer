@@ -12,6 +12,9 @@ Sources/GAFMovieClip.cpp \
 Sources/GAFMask.cpp \
 Sources/GAFAssetTextureManager.cpp \
 Sources/GAFTimeline.cpp \
+Sources/GAFTimelineAction.cpp \
+Sources/GAFTextField.cpp \
+Sources/GAFTextData.cpp \
 Sources/GAFAnimationFrame.cpp \
 Sources/GAFAnimationSequence.cpp \
 Sources/GAFAsset.cpp \
@@ -21,8 +24,6 @@ Sources/GAFLoader.cpp \
 Sources/GAFShaderManager.cpp \
 Sources/GAFQuadCommand.cpp \
 Sources/GAFSprite.cpp \
-Sources/GAFSpriteWithAlpha.cpp \
-Sources/GAFStencilMaskSprite.cpp \
 Sources/GAFStream.cpp \
 Sources/GAFSubobjectState.cpp \
 Sources/GAFTextureAtlas.cpp \
@@ -38,7 +39,8 @@ Sources/TagDefineNamedParts.cpp \
 Sources/TagDefineSequences.cpp \
 Sources/TagDefineStage.cpp \
 Sources/TagDefineAnimationFrames2.cpp\
-Sources/TagDefineTimeline.cpp
+Sources/TagDefineTimeline.cpp \
+Sources/TagDefineTextField.cpp 
 
 LOCAL_C_INCLUDES := \
 $(LOCAL_PATH)/../../../cocos \
