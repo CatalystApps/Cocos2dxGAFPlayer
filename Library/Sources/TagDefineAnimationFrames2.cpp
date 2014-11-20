@@ -14,6 +14,24 @@
 
 NS_GAF_BEGIN
 
+struct GAFReadColor
+{
+    unsigned char b, g, r, a;
+};
+
+static void translateColor(cocos2d::Color4F& out, unsigned int in)
+{
+    GAFReadColor gcol;
+
+    memcpy(&gcol, &in, 4);
+
+    out.b = gcol.b / 255.f;
+    out.g = gcol.g / 255.f;
+    out.r = gcol.r / 255.f;
+    out.a = gcol.a / 255.f;
+}
+
+
 void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* ctx)
 {
     unsigned int count = in->readU32();
@@ -170,10 +188,10 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
             else if (type == GFT_Glow)
             {
                 GAFGlowFilterData* filter = new GAFGlowFilterData();
-                cocos2d::Color4B clr;
-                PrimitiveDeserializer::deserialize(in, &clr);
 
-                filter->color = cocos2d::Color4F(clr.r / 255.f, clr.g / 255.f, clr.b / 255.f, clr.a / 255.f);
+                uint32_t clr = in->readU32();
+
+                translateColor(filter->color, clr);
 
                 PrimitiveDeserializer::deserialize(in, &filter->blurSize);
 
@@ -187,10 +205,9 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
             {
                 GAFDropShadowFilterData* filter = new GAFDropShadowFilterData();
 
-                cocos2d::Color4B clr;
-                PrimitiveDeserializer::deserialize(in, &clr);
+                uint32_t clr = in->readU32();
 
-                filter->color = cocos2d::Color4F(clr.r / 255.f, clr.g / 255.f, clr.b / 255.f, clr.a / 255.f);
+                translateColor(filter->color, clr);
 
                 PrimitiveDeserializer::deserialize(in, &filter->blurSize);
                 filter->angle = in->readFloat();

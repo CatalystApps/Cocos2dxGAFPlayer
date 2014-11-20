@@ -14,8 +14,6 @@ private:
     
     GAFSubobjectState* extractState(GAFStream* in);
 
-    void _translateColor(cocos2d::Color4F& out, const cocos2d::Color4B& in);
-
 public:
     
     ~TagDefineAnimationFrames();
