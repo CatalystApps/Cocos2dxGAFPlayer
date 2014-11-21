@@ -592,7 +592,7 @@ void GAFObject::setReversed(bool reversed)
         {
             continue;
         }
-        obj->setLooped(reversed);
+        obj->setReversed(reversed);
     }
 }
 
