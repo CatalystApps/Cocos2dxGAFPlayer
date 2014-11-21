@@ -29,6 +29,19 @@ GAFObject * GAFAsset::createObject()
         return nullptr;
     }
 
+    if (m_rootTimeline == nullptr)
+    {
+        CCLOG("%s", "You haven't root timeline in this asset. Please set root timeline by setRootTimelineWithName(...)");
+        for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
+        {
+            if (!i->second->getLinkageName().empty())
+            {
+                setRootTimeline(i->second);
+                break;
+            }
+        }
+    }
+
     return GAFObject::create(this, m_rootTimeline);
 }
 
@@ -168,6 +181,21 @@ void GAFAsset::setRootTimeline(GAFTimeline *tl)
     assert(!m_rootTimeline);
     m_rootTimeline = tl;
     //m_rootTimeline->retain();
+    m_header.pivot = tl->getPivot();
+    m_header.frameSize = tl->getRect();
+}
+
+void GAFAsset::setRootTimelineWithName(std::string name)
+{
+    for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
+    {
+        std::string tl_name = i->second->getLinkageName();
+        if (tl_name.compare(name) == 0)
+        {
+            setRootTimeline(i->second);
+            break;
+        }
+    }
 }
 
 GAFTimeline* GAFAsset::getRootTimeline() const

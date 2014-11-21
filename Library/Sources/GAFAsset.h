@@ -45,6 +45,7 @@ public:
     const GAFHeader&            getHeader() const;
     
     void                        setRootTimeline(GAFTimeline* tl);
+    void                        setRootTimelineWithName(std::string name);
     GAFTimeline*                getRootTimeline() const;
 
 	const Timelines_t&			getTimelines() const;

@@ -38,10 +38,6 @@ void TagDefineTimeline::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeli
     if (id == 0)
     {
         asset->setRootTimeline(tl);
-        GAFHeader header = asset->getHeader();
-        header.pivot = pivot;
-        header.frameSize = aabb;
-        asset->setHeader(header);
     }
 
     asset->pushTimeline(id, tl);
