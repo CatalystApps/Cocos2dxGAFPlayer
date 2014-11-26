@@ -1124,13 +1124,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             else if (subObject->m_charType == GAFCharacterType::TextField)
             {
                 GAFTextField *tf = static_cast<GAFTextField*>(subObject);
-
-                if (subObject->getParent())
-                {
-                    out->removeChild(subObject, false);
-                }
-
-                addChild(tf);
+                rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
             }
             
         }
