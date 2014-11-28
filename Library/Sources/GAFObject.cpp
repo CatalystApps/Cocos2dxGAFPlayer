@@ -1105,7 +1105,6 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                 if (subObject->m_objectType == GAFObjectType::MovieClip)
                 {
                     GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
-                    cocos2d::Vec4 cm = cocos2d::Vec4(state->colorMults());
                     float colorMults[4] = {
                         state->colorMults()[0] * m_parentColorTransforms[0].x,
                         state->colorMults()[1] * m_parentColorTransforms[0].y,
@@ -1125,13 +1124,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             else if (subObject->m_charType == GAFCharacterType::TextField)
             {
                 GAFTextField *tf = static_cast<GAFTextField*>(subObject);
-
-                if (subObject->getParent())
-                {
-                    out->removeChild(subObject, false);
-                }
-
-                addChild(tf);
+                rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
             }
             
         }
