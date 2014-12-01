@@ -125,7 +125,7 @@ def main():
     try:
 
         tojs_root = os.path.dirname(__file__)
-        output_dir = '%s/frameworks/js-bindings/bindings/gaf' % project_root
+        output_dir = '%s/../bindings' % os.path.dirname(__file__)
 
         cmd_args = {'gaf.ini' : ('gaf', 'jsb_gaf'), \
                     }
