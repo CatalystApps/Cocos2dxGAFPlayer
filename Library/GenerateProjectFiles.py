@@ -17,8 +17,9 @@ def gen_android_proj(cxx_root, out_folder):
     searchExp = "CCX_ROOT :="
     for line in fileinput.input(out_folder + "/Android.mk", inplace=True):
         if searchExp in line:
-            print 'CCX_ROOT := "%s";' % cxx_root
-        sys.stdout.write(line)
+            print 'CCX_ROOT := %s' % cxx_root
+        else:
+            sys.stdout.write(line)
 
 
 def gen_xcode_proj(cxx_root, out_folder):
@@ -47,6 +48,8 @@ def main():
 
     if out_folder:
         if os.path.exists(out_folder):
+            # maybe shutil.rmtree(out_folder) to delete non-empty folders
             os.removedirs(out_folder)
 
     gen_xcode_proj(opts.ccx_root, out_folder)
+    #gen_android_proj(opts.ccx_root, out_folder)
