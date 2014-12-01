@@ -16,4 +16,4 @@
 
 #include <cocos2d.h>
 
-#include "Sources/GAFMacros.h"
+#include "GAFMacros.h"
