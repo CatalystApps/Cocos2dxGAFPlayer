@@ -11,10 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GAFPrecompiled.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Sources\GAFAssetTextureManager.cpp" />
     <ClCompile Include="Sources\GAFCachedTexture.cpp" />
     <ClCompile Include="Sources\GAFFile.cpp" />
@@ -27,6 +23,9 @@
     <ClCompile Include="Sources\GAFMask.cpp" />
     <ClCompile Include="Sources\GAFMovieClip.cpp" />
     <ClCompile Include="Sources\GAFObject.cpp" />
+    <ClCompile Include="Sources\GAFPrecompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Sources\GAFQuadCommand.cpp" />
     <ClCompile Include="Sources\GAFShaderManager.cpp" />
     <ClCompile Include="Sources\GAFSprite.cpp" />
@@ -51,7 +50,6 @@
     <ClCompile Include="Sources\TagDefineTimeline.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GAFPrecompiled.h" />
     <ClInclude Include="Sources\DefinitionTagBase.h" />
     <ClInclude Include="Sources\GAF.h" />
     <ClInclude Include="Sources\GAFAssetTextureManager.h" />
@@ -69,6 +67,7 @@
     <ClInclude Include="Sources\GAFMacros.h" />
     <ClInclude Include="Sources\GAFMask.h" />
     <ClInclude Include="Sources\GAFObject.h" />
+    <ClInclude Include="Sources\GAFPrecompiled.h" />
     <ClInclude Include="Sources\GAFQuadCommand.h" />
     <ClInclude Include="Sources\GAFShaderManager.h" />
     <ClInclude Include="Sources\GAFSprite.h" />

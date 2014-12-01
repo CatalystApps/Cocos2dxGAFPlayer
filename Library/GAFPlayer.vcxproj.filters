@@ -42,9 +42,6 @@
     <ClCompile Include="Sources\GAFTextureAtlasElement.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="GAFPrecompiled.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\TagDefineAnimationFrames.cpp">
       <Filter>Sources\GAFLoader\Tags</Filter>
     </ClCompile>
@@ -123,6 +120,9 @@
     <ClCompile Include="Sources\GAFTimelineAction.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GAFPrecompiled.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\GAFAnimationFrame.h">
@@ -151,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="Sources\ShadersPrecompiled\GAFPrecompiledShaders.h">
       <Filter>Sources\ShadersPrecompiled</Filter>
-    </ClInclude>
-    <ClInclude Include="GAFPrecompiled.h">
-      <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\DefinitionTagBase.h">
       <Filter>Sources\GAFLoader\Tags</Filter>
@@ -252,6 +249,9 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\GAFTimelineAction.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GAFPrecompiled.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
