@@ -2,6 +2,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+CCX_ROOT := $(LOCAL_PATH)/../../..
+
 LOCAL_MODULE := gafplayer_static
 
 LOCAL_MODULE_FILENAME := libgafplayer
@@ -43,11 +45,11 @@ Sources/TagDefineTimeline.cpp \
 Sources/TagDefineTextField.cpp 
 
 LOCAL_C_INCLUDES := \
-$(LOCAL_PATH)/../../../cocos \
-$(LOCAL_PATH)/../../../cocos/2d \
-$(LOCAL_PATH)/../../../cocos/platform/android \
-$(LOCAL_PATH)/../../../cocos/math \
-$(LOCAL_PATH)/../../../extensions \
+$(CCX_ROOT)/cocos \
+$(CCX_ROOT)/cocos/2d \
+$(CCX_ROOT)/cocos/platform/android \
+$(CCX_ROOT)/cocos/math \
+$(CCX_ROOT)/extensions \
 $(LOCAL_PATH)/Sources
 
 include $(BUILD_STATIC_LIBRARY)
