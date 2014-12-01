@@ -24,14 +24,20 @@ def gen_android_proj(cxx_root, out_folder):
 def gen_xcode_proj(cxx_root, out_folder):
     shutil.copytree(os.getcwd() + "/GAFPlayer.xcodeproj", out_folder)
 
-    newcwd = out_folder + "/GAFPlayer.xcodeproj"
+    newcwd = out_folder;
     project = "project.pbxproj"
 
-    searchExp = "CCX_ROOT ="
+    searchExpCCX_ROOT = "CCX_ROOT ="
+    searchExpSourcesPath = "path = Sources;"
+    searchExpPCH = 'GCC_PREFIX_HEADER = "Sources/GAFPlayer-Prefix.pch";'
 
     for line in fileinput.input(newcwd + project, inplace=True):
-        if searchExp in line:
+        if searchExpCCX_ROOT in line:
             print 'CCX_ROOT_OVERRIDE = "%s";' % cxx_root
+        if searchExpSourcesPath in line:
+            line = line.replace(searchExpSourcesPath, "path = " + os.getcwd() + "/Sources;")
+        if searchExpPCH in line:
+            line = line.replace(searchExpPCH, 'GCC_PREFIX_HEADER = ' + '"' + os.getcwd() + '/Sources/GAFPlayer-Prefix.pch";')
         sys.stdout.write(line)
 
 
@@ -47,6 +53,6 @@ def main():
 
     if out_folder:
         if os.path.exists(out_folder):
-            os.removedirs(out_folder)
+            shutil.rmtree(out_folder)
 
-    gen_xcode_proj(opts.ccx_root, out_folder)
+    gen_xcode_proj(opts.ccx_root, out_folder + "/GAFPlayer.xcodeproj/")
