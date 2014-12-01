@@ -5,6 +5,15 @@
 #include "jsfriendapi.h"
 
 
+extern JSClass  *jsb_gaf_GAFAnimationSequence_class;
+extern JSObject *jsb_gaf_GAFAnimationSequence_prototype;
+
+bool js_gaf_GAFAnimationSequence_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_gaf_GAFAnimationSequence_finalize(JSContext *cx, JSObject *obj);
+void js_register_gaf_GAFAnimationSequence(JSContext *cx, JSObject *global);
+void register_all_gaf(JSContext* cx, JSObject* obj);
+bool js_gaf_GAFAnimationSequence_length(JSContext *cx, uint32_t argc, jsval *vp);
+
 extern JSClass  *jsb_gaf_GAFTimeline_class;
 extern JSObject *jsb_gaf_GAFTimeline_prototype;
 
@@ -60,7 +69,7 @@ bool js_gaf_GAFAsset_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_getHeader(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_getTextureManager(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFAsset_setHeader(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_gaf_GAFAsset_setRootTimelineWithName(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_isAssetVersionPlayable(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_desiredCsf(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_create(JSContext *cx, uint32_t argc, jsval *vp);

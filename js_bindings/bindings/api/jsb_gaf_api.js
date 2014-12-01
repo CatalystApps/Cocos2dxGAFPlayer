@@ -4,6 +4,23 @@
 var gaf = gaf || {};
 
 /**
+ * @class GAFAnimationSequence
+ */
+gaf.GAFAnimationSequence = {
+
+/**
+ * @method length
+ * @return {unsigned int}
+ */
+length : function (
+)
+{
+    return 0;
+},
+
+};
+
+/**
  * @class GAFTimeline
  */
 gaf.GAFTimeline = {
@@ -439,11 +456,11 @@ getTextureManager : function (
 },
 
 /**
- * @method setHeader
- * @param {gaf::GAFHeader} arg0
+ * @method setRootTimelineWithName
+ * @param {String} arg0
  */
-setHeader : function (
-gafheader 
+setRootTimelineWithName : function (
+str 
 )
 {
 },

@@ -36,6 +36,85 @@ static bool js_is_native_obj(JSContext *cx, JS::HandleObject obj, JS::HandleId i
     vp.set(BOOLEAN_TO_JSVAL(true));
     return true;    
 }
+JSClass  *jsb_gaf_GAFAnimationSequence_class;
+JSObject *jsb_gaf_GAFAnimationSequence_prototype;
+
+bool js_gaf_GAFAnimationSequence_length(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFAnimationSequence* cobj = (gaf::GAFAnimationSequence *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAnimationSequence_length : Invalid Native Object");
+    if (argc == 0) {
+        unsigned int ret = cobj->length();
+        jsval jsret = JSVAL_NULL;
+        jsret = uint32_to_jsval(cx, ret);
+        JS_SET_RVAL(cx, vp, jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFAnimationSequence_length : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
+
+
+void js_gaf_GAFAnimationSequence_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (GAFAnimationSequence)", obj);
+}
+
+void js_register_gaf_GAFAnimationSequence(JSContext *cx, JSObject *global) {
+    jsb_gaf_GAFAnimationSequence_class = (JSClass *)calloc(1, sizeof(JSClass));
+    jsb_gaf_GAFAnimationSequence_class->name = "GAFAnimationSequence";
+    jsb_gaf_GAFAnimationSequence_class->addProperty = JS_PropertyStub;
+    jsb_gaf_GAFAnimationSequence_class->delProperty = JS_DeletePropertyStub;
+    jsb_gaf_GAFAnimationSequence_class->getProperty = JS_PropertyStub;
+    jsb_gaf_GAFAnimationSequence_class->setProperty = JS_StrictPropertyStub;
+    jsb_gaf_GAFAnimationSequence_class->enumerate = JS_EnumerateStub;
+    jsb_gaf_GAFAnimationSequence_class->resolve = JS_ResolveStub;
+    jsb_gaf_GAFAnimationSequence_class->convert = JS_ConvertStub;
+    jsb_gaf_GAFAnimationSequence_class->finalize = js_gaf_GAFAnimationSequence_finalize;
+    jsb_gaf_GAFAnimationSequence_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+    static JSPropertySpec properties[] = {
+        {"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+    };
+
+    static JSFunctionSpec funcs[] = {
+        JS_FN("length", js_gaf_GAFAnimationSequence_length, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+    };
+
+    JSFunctionSpec *st_funcs = NULL;
+
+    jsb_gaf_GAFAnimationSequence_prototype = JS_InitClass(
+        cx, global,
+        NULL, // parent proto
+        jsb_gaf_GAFAnimationSequence_class,
+        dummy_constructor<gaf::GAFAnimationSequence>, 0, // no constructor
+        properties,
+        funcs,
+        NULL, // no static properties
+        st_funcs);
+    // make the class enumerable in the registered namespace
+//  bool found;
+//FIXME: Removed in Firefox v27 
+//  JS_SetPropertyAttributes(cx, global, "GAFAnimationSequence", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+    // add the proto and JSClass to the type->js info hash table
+    TypeTest<gaf::GAFAnimationSequence> t;
+    js_type_class_t *p;
+    std::string typeName = t.s_name();
+    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
+    {
+        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+        p->jsclass = jsb_gaf_GAFAnimationSequence_class;
+        p->proto = jsb_gaf_GAFAnimationSequence_prototype;
+        p->parentProto = NULL;
+        _js_global_type_map.insert(std::make_pair(typeName, p));
+    }
+}
+
 JSClass  *jsb_gaf_GAFTimeline_class;
 JSObject *jsb_gaf_GAFTimeline_prototype;
 
@@ -1110,31 +1189,24 @@ bool js_gaf_GAFAsset_getTextureManager(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFAsset_getTextureManager : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
-bool js_gaf_GAFAsset_setHeader(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_gaf_GAFAsset_setRootTimelineWithName(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
     bool ok = true;
     JSObject *obj = JS_THIS_OBJECT(cx, vp);
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setHeader : Invalid Native Object");
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setRootTimelineWithName : Invalid Native Object");
     if (argc == 1) {
-        gaf::GAFHeader arg0;
-        do {
-            if (!argv[0].isObject()) { ok = false; break; }
-            js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
-            jsProxy = jsb_get_js_proxy(tmpObj);
-            arg0 = (gaf::GAFHeader&)(jsProxy ? jsProxy->ptr : NULL);
-            JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
-        } while (0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setHeader : Error processing arguments");
-        cobj->setHeader(arg0);
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setRootTimelineWithName : Error processing arguments");
+        cobj->setRootTimelineWithName(arg0);
         JS_SET_RVAL(cx, vp, JSVAL_VOID);
         return true;
     }
 
-    JS_ReportError(cx, "js_gaf_GAFAsset_setHeader : wrong number of arguments: %d, was expecting %d", argc, 1);
+    JS_ReportError(cx, "js_gaf_GAFAsset_setRootTimelineWithName : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
 bool js_gaf_GAFAsset_isAssetVersionPlayable(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1348,7 +1420,7 @@ void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
         JS_FN("getHeader", js_gaf_GAFAsset_getHeader, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("createObject", js_gaf_GAFAsset_createObject, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getTextureManager", js_gaf_GAFAsset_getTextureManager, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setHeader", js_gaf_GAFAsset_setHeader, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("setRootTimelineWithName", js_gaf_GAFAsset_setRootTimelineWithName, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 
@@ -2471,6 +2543,7 @@ void register_all_gaf(JSContext* cx, JSObject* obj) {
 
     js_register_gaf_GAFAsset(cx, obj);
     js_register_gaf_GAFTimeline(cx, obj);
+    js_register_gaf_GAFAnimationSequence(cx, obj);
     js_register_gaf_GAFObject(cx, obj);
     js_register_gaf_GAFAssetTextureManager(cx, obj);
 }
