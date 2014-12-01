@@ -14,18 +14,22 @@ import shutil
 
 def gen_android_proj(cxx_root, out_folder):
     shutil.copyfile(os.getcwd() + "/Android.mk", out_folder + "/Android.mk")
-    searchExp = "CCX_ROOT :="
+    searchExpCocosRoot = "CCX_ROOT :="
+    searchExpGafSources = "GAF_LIB_SOURCES :="
     for line in fileinput.input(out_folder + "/Android.mk", inplace=True):
-        if searchExp in line:
-            print 'CCX_ROOT := %s' % cxx_root
-        else:
-            sys.stdout.write(line)
+        if searchExpCocosRoot in line:
+            line = "%s %s\n" % (searchExpCocosRoot, cxx_root)
+        elif searchExpGafSources in line:
+            line = "%s %s/Sources\n" % (searchExpGafSources, os.getcwd())
+            line = line.replace("\\", "/")
+
+        sys.stdout.write(line)
 
 
 def gen_xcode_proj(cxx_root, out_folder):
     shutil.copytree(os.getcwd() + "/GAFPlayer.xcodeproj", out_folder)
 
-    newcwd = out_folder;
+    newcwd = out_folder
     project = "project.pbxproj"
 
     searchExpCCX_ROOT = "CCX_ROOT ="
