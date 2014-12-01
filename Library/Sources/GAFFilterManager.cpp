@@ -184,9 +184,8 @@ cocos2d::Texture2D* GAFFilterManager::renderBlurTexture(cocos2d::Sprite* sprite,
 {
     GLProgram* program = GAFShaderManager::getProgram(GAFShaderManager::EPrograms::Blur);
 
-    GAFBlurFilterData* f = static_cast<GAFBlurFilterData*>(filter);
-    const float blurRadiusX = (f->blurSize.width / 4.f);
-    const float blurRadiusY = (f->blurSize.height / 4.f);
+    const float blurRadiusX = (filter->blurSize.width / 4.f);
+    const float blurRadiusY = (filter->blurSize.height / 4.f);
 
     Size textureSize = sprite->getTextureRect().size;
     Size rTextureSize = Size(textureSize.width + kGaussianKernelSize * blurRadiusX,

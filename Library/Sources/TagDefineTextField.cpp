@@ -19,6 +19,8 @@ void TagDefineTextField::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timel
         unsigned int objectIdRef = in->readU32();
 
         GAFTextData* textData = new GAFTextData();
+
+        PrimitiveDeserializer::deserialize(in, &textData->m_pivot);
         textData->m_width = in->readFloat();
         textData->m_height = in->readFloat();
         in->readString(&textData->m_text);

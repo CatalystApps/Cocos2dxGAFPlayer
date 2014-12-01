@@ -47,6 +47,8 @@ public:
         std::string m_url; // !! unused
     };
 
+    cocos2d::Point m_pivot;
+
     float m_width;
     float m_height;
 
