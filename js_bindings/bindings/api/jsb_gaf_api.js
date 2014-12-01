@@ -744,14 +744,6 @@ stop : function (
 },
 
 /**
- * @method step
- */
-step : function (
-)
-{
-},
-
-/**
  * @method isReversed
  * @return {bool}
  */
