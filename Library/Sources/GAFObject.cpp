@@ -839,7 +839,7 @@ void GAFObject::step()
 
 bool GAFObject::hasSequences() const
 {
-    return m_timeline->getAnimationSequences().empty();
+    return !m_timeline->getAnimationSequences().empty();
 }
 
 static cocos2d::Rect GAFCCRectUnion(const cocos2d::Rect& src1, const cocos2d::Rect& src2)
