@@ -623,14 +623,11 @@ bool GAFObject::gotoAndStop(const std::string& frameLabel)
     if (IDNONE == f)
     {
         uint32_t frameNumber = atoi(frameLabel.c_str());
-        if (frameNumber > 0)
-        {
-            return gotoAndStop(frameNumber - 1);
-        }
-        else
+        if (frameNumber == 0)
         {
             return false;
         }
+        return gotoAndStop(frameNumber - 1);
     }
     return gotoAndStop(f);
 }
@@ -651,14 +648,11 @@ bool GAFObject::gotoAndPlay(const std::string& frameLabel)
     if (IDNONE == f)
     {
         uint32_t frameNumber = atoi(frameLabel.c_str());
-        if (frameNumber > 0)
-        {
-            return gotoAndPlay(frameNumber - 1);
-        }
-        else
+        if (frameNumber == 0)
         {
             return false;
         }
+        return gotoAndPlay(frameNumber - 1);
     }
     return gotoAndPlay(f);
 }
