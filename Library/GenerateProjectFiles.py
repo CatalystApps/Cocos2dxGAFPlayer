@@ -60,6 +60,8 @@ def main():
         if os.path.exists(out_folder):
             shutil.rmtree(out_folder)
 
+    os.mkdir(out_folder)
+
     gen_xcode_proj(opts.ccx_root, out_folder + "/GAFPlayer.xcodeproj/")
-    #gen_android_proj(opts.ccx_root, out_folder)
+    gen_android_proj(opts.ccx_root, out_folder)
 
