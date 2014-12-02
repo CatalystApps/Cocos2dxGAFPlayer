@@ -1145,6 +1145,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                 break;
             case GAFActionType::GotoAndPlay:
 				gotoAndPlay(action.getParam(GAFTimelineAction::PI_FRAME));
+                break;
             case GAFActionType::DispatchEvent:
 				_eventDispatcher->dispatchCustomEvent(action.getParam(GAFTimelineAction::PI_EVENT_TYPE), &action);
 				break;
