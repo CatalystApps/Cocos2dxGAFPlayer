@@ -622,7 +622,15 @@ bool GAFObject::gotoAndStop(const std::string& frameLabel)
     uint32_t f = getStartFrame(frameLabel);
     if (IDNONE == f)
     {
-        return false;
+        uint32_t frameNumber = atoi(frameLabel.c_str());
+        if (frameNumber > 0)
+        {
+            return gotoAndStop(frameNumber - 1);
+        }
+        else
+        {
+            return false;
+        }
     }
     return gotoAndStop(f);
 }
@@ -642,7 +650,15 @@ bool GAFObject::gotoAndPlay(const std::string& frameLabel)
     uint32_t f = getStartFrame(frameLabel);
     if (IDNONE == f)
     {
-        return false;
+        uint32_t frameNumber = atoi(frameLabel.c_str());
+        if (frameNumber > 0)
+        {
+            return gotoAndPlay(frameNumber - 1);
+        }
+        else
+        {
+            return false;
+        }
     }
     return gotoAndPlay(f);
 }
@@ -758,25 +774,22 @@ void GAFObject::step()
             }
         }
 
-        if (m_currentFrame >= m_currentSequenceEnd - 1)
+        if (m_isLooped && m_currentFrame > m_currentSequenceEnd - 1)
         {
-            if (m_isLooped)
+            m_currentFrame = m_currentSequenceStart;
+                
+            if (m_animationStartedNextLoopDelegate)
             {
-                m_currentFrame = m_currentSequenceStart;
-
-                if (m_animationStartedNextLoopDelegate)
-                {
-                    m_animationStartedNextLoopDelegate(this);
-                }
+                m_animationStartedNextLoopDelegate(this);
             }
-            else
-            {
-                setAnimationRunning(false);
+        }
+        else if (!m_isLooped && m_currentFrame >= m_currentSequenceEnd - 1)
+        {
+            setAnimationRunning(false);
 
-                if (m_animationFinishedPlayDelegate)
-                {
-                    m_animationFinishedPlayDelegate(this);
-                }
+            if (m_animationFinishedPlayDelegate)
+            {
+                m_animationFinishedPlayDelegate(this);
             }
         }
 
