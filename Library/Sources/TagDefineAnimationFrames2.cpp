@@ -109,18 +109,13 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
                 GAFActionType type = static_cast<GAFActionType>(in->readU32());
                 std::vector<std::string> params;
 
-                if (type != GAFActionType::Stop && type != GAFActionType::Play)
+                unsigned int paramsLength = in->readU32();
+                unsigned int startPosition = in->getPosition();
+                while (paramsLength > in->getPosition() - startPosition)
                 {
-                    unsigned int paramsCount = in->readU32();
-                    while (paramsCount)
-                    {
-                        std::string paramValue;
-                        in->readString(&paramValue);
-
-                        params.push_back(paramValue);
-
-                        paramsCount--;
-                    }
+                    std::string paramValue;
+                    in->readString(&paramValue);
+                    params.push_back(paramValue);
                 }
 
                 action.setAction(type, params);
