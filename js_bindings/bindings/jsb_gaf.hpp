@@ -104,7 +104,6 @@ bool js_gaf_GAFObject_isDone(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFObject_setSequenceDelegate(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_setFrame(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_setControlDelegate(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_getEndFrame(JSContext *cx, uint32_t argc, jsval *vp);

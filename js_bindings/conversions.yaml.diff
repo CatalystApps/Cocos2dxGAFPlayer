@@ -1,0 +1,31 @@
+ tools/bindings-generator/targets/spidermonkey/conversions.yaml | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/tools/bindings-generator/targets/spidermonkey/conversions.yaml b/tools/bindings-generator/targets/spidermonkey/conversions.yaml
+index 7a2e655..ea3e9b1 100644
+--- a/tools/bindings-generator/targets/spidermonkey/conversions.yaml
++++ b/tools/bindings-generator/targets/spidermonkey/conversions.yaml
+@@ -26,6 +26,7 @@ conversions:
+     "cocostudio::": "ccs."
+     "cocosbuilder::": "cc."
+     "CocosDenshion::": "cc."
++    "gaf::": "gaf."
+   to_native:
+     # jsval to int
+     int: "ok &= jsval_to_int32(cx, ${in_value}, (int32_t *)&${out_value})"
+@@ -118,6 +119,15 @@ conversions:
+     "Vec2": "${out_value} = vector2_to_jsval(cx, ${in_value})"
+     "Vec3": "${out_value} = vector3_to_jsval(cx, ${in_value})"
+     "BlendFunc": "${out_value} = blendfunc_to_jsval(cx, ${in_value})"
++    "AnimationObjects_t": "${out_value} = AnimationObjects_to_jsval(cx, ${in_value})"
++    "AnimationFrames_t": "${out_value} = AnimationFrames_to_jsval(cx, ${in_value})"
++    "AnimationMasks_t": "${out_value} = AnimationMasks_to_jsval(cx, ${in_value})"
++    "NamedParts_t": "${out_value} = NamedParts_to_jsval(cx, ${in_value})"
++    "AnimationSequences_t": "${out_value} = AnimationSequences_to_jsval(cx, ${in_value})"
++    "TextsData_t": "${out_value} = TextsData_to_jsval(cx, ${in_value})"
++    "GAFTextureAtlas": "${out_value} = GAFTextureAtlas_to_jsval(cx, ${in_value})"
++    "Timelines_t": "${out_value} = Timelines_to_jsval(cx, ${in_value})"
++    "GAFHeader": "${out_value} = GAFHeader_to_jsval(cx, ${in_value})"
+     object: |
+       do {
+       ${($level + 1) * '    '}if (${in_value}) {

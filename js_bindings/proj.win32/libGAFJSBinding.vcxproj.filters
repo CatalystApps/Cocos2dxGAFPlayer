@@ -2,8 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="..\bindings\jsb_gaf.hpp" />
+    <ClInclude Include="..\bindings\js_gaf_manual_conversions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\bindings\jsb_gaf.cpp" />
+    <ClCompile Include="..\bindings\js_gaf_manual_conversions.cpp" />
   </ItemGroup>
 </Project>

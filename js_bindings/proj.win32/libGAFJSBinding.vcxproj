@@ -16,10 +16,10 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -45,9 +45,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../Library/Sources;$(ProjectDir)../../../external/spidermonkey/include/win32;$(ProjectDir)../../../cocos2d-x/cocos;$(EngineRoot)external/win32-specific/gles/include/OGLES;$(ProjectDir)../../../bindings/manual;$(EngineRoot)cocos/base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_MBCS;_WINDOWS;WIN32;COCOS2D_DEBUG=1;_DEBUG%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Library/Sources;$(ProjectDir)../../../external/spidermonkey/include/win32;$(ProjectDir)../../../cocos2d-x/cocos;$(EngineRoot)external/win32-specific/gles/include/OGLES;$(ProjectDir)../../../bindings/manual;$(EngineRoot)cocos/base;$(EngineRoot)external/chipmunk/include/chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;_WINDOWS;WIN32;COCOS2D_DEBUG=1;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings>4068;4101;4800;4251;4244;4099;4083;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -69,9 +73,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\bindings\jsb_gaf.cpp" />
+    <ClCompile Include="..\bindings\js_gaf_manual_conversions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\bindings\jsb_gaf.hpp" />
+    <ClInclude Include="..\bindings\js_gaf_manual_conversions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

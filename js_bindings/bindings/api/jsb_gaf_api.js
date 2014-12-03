@@ -28,13 +28,13 @@ gaf.GAFTimeline = {
 /**
  * @method getSequence
  * @param {String} arg0
- * @return {gaf::GAFAnimationSequence}
+ * @return {gaf.GAFAnimationSequence}
  */
 getSequence : function (
 str 
 )
 {
-    return gaf::GAFAnimationSequence;
+    return gaf.GAFAnimationSequence;
 },
 
 /**
@@ -168,13 +168,13 @@ getAnimationMasks : function (
 /**
  * @method getSequenceByFirstFrame
  * @param {unsigned int} arg0
- * @return {gaf::GAFAnimationSequence}
+ * @return {gaf.GAFAnimationSequence}
  */
 getSequenceByFirstFrame : function (
 int 
 )
 {
-    return gaf::GAFAnimationSequence;
+    return gaf.GAFAnimationSequence;
 },
 
 /**
@@ -189,12 +189,12 @@ int
 
 /**
  * @method getParent
- * @return {gaf::GAFTimeline}
+ * @return {gaf.GAFTimeline}
  */
 getParent : function (
 )
 {
-    return gaf::GAFTimeline;
+    return gaf.GAFTimeline;
 },
 
 /**
@@ -210,23 +210,23 @@ int
 /**
  * @method getSequenceByLastFrame
  * @param {unsigned int} arg0
- * @return {gaf::GAFAnimationSequence}
+ * @return {gaf.GAFAnimationSequence}
  */
 getSequenceByLastFrame : function (
 int 
 )
 {
-    return gaf::GAFAnimationSequence;
+    return gaf.GAFAnimationSequence;
 },
 
 /**
  * @method getTextureAtlas
- * @return {gaf::GAFTextureAtlas}
+ * @return {gaf.GAFTextureAtlas}
  */
 getTextureAtlas : function (
 )
 {
-    return gaf::GAFTextureAtlas;
+    return gaf.GAFTextureAtlas;
 },
 
 /**
@@ -252,7 +252,7 @@ getLinkageName : function (
 /**
  * @method GAFTimeline
  * @constructor
- * @param {gaf::GAFTimeline} arg0
+ * @param {gaf.GAFTimeline} arg0
  * @param {unsigned int} arg1
  * @param {rect_object} arg2
  * @param {vec2_object} arg3
@@ -317,12 +317,12 @@ color4b
 
 /**
  * @method createObjectAndRun
- * @return {gaf::GAFObject}
+ * @return {gaf.GAFObject}
  */
 createObjectAndRun : function (
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
@@ -337,12 +337,12 @@ getSceneWidth : function (
 
 /**
  * @method getRootTimeline
- * @return {gaf::GAFTimeline}
+ * @return {gaf.GAFTimeline}
  */
 getRootTimeline : function (
 )
 {
-    return gaf::GAFTimeline;
+    return gaf.GAFTimeline;
 },
 
 /**
@@ -427,32 +427,32 @@ int
 
 /**
  * @method getHeader
- * @return {gaf::GAFHeader}
+ * @return {gaf.GAFHeader}
  */
 getHeader : function (
 )
 {
-    return gaf::GAFHeader;
+    return gaf.GAFHeader;
 },
 
 /**
  * @method createObject
- * @return {gaf::GAFObject}
+ * @return {gaf.GAFObject}
  */
 createObject : function (
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
  * @method getTextureManager
- * @return {gaf::GAFAssetTextureManager}
+ * @return {gaf.GAFAssetTextureManager}
  */
 getTextureManager : function (
 )
 {
-    return gaf::GAFAssetTextureManager;
+    return gaf.GAFAssetTextureManager;
 },
 
 /**
@@ -491,14 +491,14 @@ desiredCsf : function (
  * @method create
  * @param {String} arg0
  * @param {function} arg1
- * @return {gaf::GAFAsset}
+ * @return {gaf.GAFAsset}
  */
 create : function (
 str, 
 func 
 )
 {
-    return gaf::GAFAsset;
+    return gaf.GAFAsset;
 },
 
 /**
@@ -516,7 +516,7 @@ float
  * @param {String} arg0
  * @param {String} arg1
  * @param {function} arg2
- * @return {gaf::GAFAsset}
+ * @return {gaf.GAFAsset}
  */
 createWithBundle : function (
 str, 
@@ -524,7 +524,7 @@ str,
 func 
 )
 {
-    return gaf::GAFAsset;
+    return gaf.GAFAsset;
 },
 
 /**
@@ -596,13 +596,13 @@ int
 /**
  * @method getObjectByName
 * @param {String|String} str
-* @return {gaf::GAFObject|gaf::GAFObject}
+* @return {gaf.GAFObject|gaf.GAFObject}
 */
 getObjectByName : function(
 str 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
@@ -687,8 +687,8 @@ start : function (
 
 /**
  * @method init
- * @param {gaf::GAFAsset} arg0
- * @param {gaf::GAFTimeline} arg1
+ * @param {gaf.GAFAsset} arg0
+ * @param {gaf.GAFTimeline} arg1
  * @return {bool}
  */
 init : function (
@@ -751,16 +751,6 @@ isReversed : function (
 )
 {
     return false;
-},
-
-/**
- * @method setSequenceDelegate
- * @param {function} arg0
- */
-setSequenceDelegate : function (
-func 
-)
-{
 },
 
 /**
@@ -867,16 +857,16 @@ getFps : function (
 
 /**
  * @method create
- * @param {gaf::GAFAsset} arg0
- * @param {gaf::GAFTimeline} arg1
- * @return {gaf::GAFObject}
+ * @param {gaf.GAFAsset} arg0
+ * @param {gaf.GAFTimeline} arg1
+ * @return {gaf.GAFObject}
  */
 create : function (
 gafasset, 
 gaftimeline 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 };
