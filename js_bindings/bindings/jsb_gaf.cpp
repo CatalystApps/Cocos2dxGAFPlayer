@@ -1952,6 +1952,23 @@ bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_playSequence : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
+bool js_gaf_GAFObject_getNodeToParentTransform(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getNodeToParentTransform : Invalid Native Object");
+    if (argc == 0) {
+        const cocos2d::Mat4& ret = cobj->getNodeToParentTransform();
+        jsval jsret = JSVAL_NULL;
+        jsret = matrix_to_jsval(cx, ret);
+        JS_SET_RVAL(cx, vp, jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFObject_getNodeToParentTransform : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
 bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JSObject *obj = JS_THIS_OBJECT(cx, vp);
@@ -2266,7 +2283,6 @@ bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_gaf_GAFSprite_prototype;
 
 void js_gaf_GAFObject_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (GAFObject)", obj);
@@ -2309,6 +2325,7 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         JS_FN("isVisibleInCurrentFrame", js_gaf_GAFObject_isVisibleInCurrentFrame, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isDone", js_gaf_GAFObject_isDone, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("playSequence", js_gaf_GAFObject_playSequence, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getNodeToParentTransform", js_gaf_GAFObject_getNodeToParentTransform, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("stop", js_gaf_GAFObject_stop, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isReversed", js_gaf_GAFObject_isReversed, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setFrame", js_gaf_GAFObject_setFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -2331,7 +2348,7 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
 
     jsb_gaf_GAFObject_prototype = JS_InitClass(
         cx, global,
-        jsb_gaf_GAFSprite_prototype,
+        NULL, // parent proto
         jsb_gaf_GAFObject_class,
         dummy_constructor<gaf::GAFObject>, 0, // no constructor
         properties,
@@ -2352,7 +2369,7 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
         p->jsclass = jsb_gaf_GAFObject_class;
         p->proto = jsb_gaf_GAFObject_prototype;
-        p->parentProto = jsb_gaf_GAFSprite_prototype;
+        p->parentProto = NULL;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
 }
@@ -2476,10 +2493,10 @@ void register_all_gaf(JSContext* cx, JSObject* obj) {
     }
     obj = ns;
 
-    js_register_gaf_GAFAsset(cx, obj);
-    js_register_gaf_GAFTimeline(cx, obj);
-    js_register_gaf_GAFAnimationSequence(cx, obj);
-    js_register_gaf_GAFObject(cx, obj);
     js_register_gaf_GAFAssetTextureManager(cx, obj);
+    js_register_gaf_GAFTimeline(cx, obj);
+    js_register_gaf_GAFObject(cx, obj);
+    js_register_gaf_GAFAsset(cx, obj);
+    js_register_gaf_GAFAnimationSequence(cx, obj);
 }
 

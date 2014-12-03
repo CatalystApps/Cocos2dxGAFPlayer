@@ -79,6 +79,11 @@
     <ClInclude Include="..\bindings\jsb_gaf.hpp" />
     <ClInclude Include="..\bindings\js_gaf_manual_conversions.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\GAFPlayer.vcxproj">
+      <Project>{4e240210-2d26-4d4c-9329-e912fdac94cc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

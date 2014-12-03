@@ -736,6 +736,16 @@ bool
 },
 
 /**
+ * @method getNodeToParentTransform
+ * @return {mat4_object}
+ */
+getNodeToParentTransform : function (
+)
+{
+    return cc.Mat4;
+},
+
+/**
  * @method stop
  */
 stop : function (
