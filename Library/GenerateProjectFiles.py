@@ -61,6 +61,8 @@ def gen_vc_proj(ccx_root, out_folder):
 
     for ccx_root_param in props_root.iter("{%s}CCX_ROOT" % vs_xml_namespace):
         ccx_root_param.text = ccx_root
+    for gaf_sources_param in props_root.iter("{%s}GAF_SOURCES_ROOT" % vs_xml_namespace):
+        gaf_sources_param.text = os.getcwd() + "\Sources"
 
     props_tree.write(props_filename)
 
