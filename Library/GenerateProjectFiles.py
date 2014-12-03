@@ -10,6 +10,8 @@ import os
 import fileinput
 import sys
 import shutil
+from xml.etree import ElementTree as et
+from xml.dom import minidom
 
 
 def gen_android_proj(cxx_root, out_folder):
@@ -45,6 +47,42 @@ def gen_xcode_proj(cxx_root, out_folder):
             line = line.replace(searchExpPCH, 'GCC_PREFIX_HEADER = ' + '"' + os.getcwd() + '/Sources/GAFPlayer-Prefix.pch";')
         sys.stdout.write(line)
 
+def gen_vc_proj(cxx_root, out_folder):
+    shutil.copyfile(os.getcwd() + "/Library.props", out_folder + "/Library.props")
+
+    vcxprojFileName = out_folder + "/GAFPlayer.vcxproj"
+    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxprojFileName)
+    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj.filters", out_folder + "/GAFPlayer.vcxproj.filters")
+
+    newcwd = out_folder
+
+    searchExp = "<CCX_ROOT>CCX_ROOT_VALUE</CCX_ROOT>"
+
+    for line in fileinput.input(newcwd + "/Library.props", inplace=True):
+        if searchExp in line:
+            line = line.replace(searchExp, "<CCX_ROOT>" + cxx_root + "</CCX_ROOT>")
+        sys.stdout.write(line)
+
+    sourcesDirList = os.listdir(os.getcwd() + "/Sources")
+    sources = []
+
+    for f in sourcesDirList:
+        if f.endswith(".h") or f.endswith(".cpp"):
+            sources.append(f)
+
+    fi = fileinput.input(newcwd + "/GAFPlayer.vcxproj", inplace=True)
+    for source in sources:
+        for line in fi:
+            searchExpSource = '<ClCompile Include='
+            #searchExpSource = '<ClCompile Include="Sources\GAFAssetTextureManager.cpp" />'
+            if searchExpSource in line:
+                line = '<ClCompile Include=\\"' + os.getcwd() + "\\Sources\\" + source + '" />\n'
+            sys.stdout.write(line)
+
+
+def gen_wp8_proj(cxx_root, out_folder):
+    print "gen_wp8_proj"
+
 
 def main():
     parser = OptionParser()
@@ -64,4 +102,5 @@ def main():
 
     gen_xcode_proj(opts.ccx_root, out_folder + "/GAFPlayer.xcodeproj/")
     gen_android_proj(opts.ccx_root, out_folder)
+    gen_vc_proj(opts.ccx_root, out_folder)
 
