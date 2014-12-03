@@ -115,570 +115,6 @@ void js_register_gaf_GAFAnimationSequence(JSContext *cx, JSObject *global) {
     }
 }
 
-JSClass  *jsb_gaf_GAFTimeline_class;
-JSObject *jsb_gaf_GAFTimeline_prototype;
-
-bool js_gaf_GAFTimeline_getSequence(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getSequence : Invalid Native Object");
-    if (argc == 1) {
-        std::string arg0;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_getSequence : Error processing arguments");
-        const gaf::GAFAnimationSequence* ret = cobj->getSequence(arg0);
-        jsval jsret = JSVAL_NULL;
-        do {
-            if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFAnimationSequence>(cx, (gaf::GAFAnimationSequence*)ret);
-                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-            } else {
-                jsret = JSVAL_NULL;
-            }
-        } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getSequence : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_usedAtlasContentScaleFactor(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_usedAtlasContentScaleFactor : Invalid Native Object");
-    if (argc == 0) {
-        double ret = cobj->usedAtlasContentScaleFactor();
-        jsval jsret = JSVAL_NULL;
-        jsret = DOUBLE_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_usedAtlasContentScaleFactor : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_setSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_setSceneHeight : Invalid Native Object");
-    if (argc == 1) {
-        unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_setSceneHeight : Error processing arguments");
-        cobj->setSceneHeight(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_setSceneHeight : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_getAnimationObjects(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getAnimationObjects : Invalid Native Object");
-    if (argc == 0) {
-        const gaf::AnimationObjects_t& ret = cobj->getAnimationObjects();
-        jsval jsret = JSVAL_NULL;
-        jsret = AnimationObjects_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getAnimationObjects : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_setSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_setSceneColor : Invalid Native Object");
-    if (argc == 1) {
-        cocos2d::Color4B arg0;
-        ok &= jsval_to_cccolor4b(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_setSceneColor : Error processing arguments");
-        cobj->setSceneColor(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_setSceneColor : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_getAnimationFrames(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getAnimationFrames : Invalid Native Object");
-    if (argc == 0) {
-        const gaf::AnimationFrames_t& ret = cobj->getAnimationFrames();
-        jsval jsret = JSVAL_NULL;
-        jsret = AnimationFrames_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getAnimationFrames : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_loadImages(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_loadImages : Invalid Native Object");
-    if (argc == 0) {
-        cobj->loadImages();
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_loadImages : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getRect(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getRect : Invalid Native Object");
-    if (argc == 0) {
-        cocos2d::Rect ret = cobj->getRect();
-        jsval jsret = JSVAL_NULL;
-        jsret = ccrect_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getRect : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getNamedParts(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getNamedParts : Invalid Native Object");
-    if (argc == 0) {
-        const gaf::NamedParts_t& ret = cobj->getNamedParts();
-        jsval jsret = JSVAL_NULL;
-        jsret = NamedParts_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getNamedParts : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getAnimationSequences(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getAnimationSequences : Invalid Native Object");
-    if (argc == 0) {
-        const gaf::AnimationSequences_t& ret = cobj->getAnimationSequences();
-        jsval jsret = JSVAL_NULL;
-        jsret = AnimationSequences_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getAnimationSequences : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_setLinkageName(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_setLinkageName : Invalid Native Object");
-    if (argc == 1) {
-        std::string arg0;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_setLinkageName : Error processing arguments");
-        cobj->setLinkageName(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_setLinkageName : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_getFramesCount(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getFramesCount : Invalid Native Object");
-    if (argc == 0) {
-        unsigned int ret = cobj->getFramesCount();
-        jsval jsret = JSVAL_NULL;
-        jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getFramesCount : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getTextsData(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getTextsData : Invalid Native Object");
-    if (argc == 0) {
-        const gaf::TextsData_t& ret = cobj->getTextsData();
-        jsval jsret = JSVAL_NULL;
-        jsret = TextsData_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getTextsData : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getAnimationMasks(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getAnimationMasks : Invalid Native Object");
-    if (argc == 0) {
-        const gaf::AnimationMasks_t& ret = cobj->getAnimationMasks();
-        jsval jsret = JSVAL_NULL;
-        jsret = AnimationMasks_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getAnimationMasks : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getSequenceByFirstFrame(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getSequenceByFirstFrame : Invalid Native Object");
-    if (argc == 1) {
-        unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_getSequenceByFirstFrame : Error processing arguments");
-        const gaf::GAFAnimationSequence* ret = cobj->getSequenceByFirstFrame(arg0);
-        jsval jsret = JSVAL_NULL;
-        do {
-            if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFAnimationSequence>(cx, (gaf::GAFAnimationSequence*)ret);
-                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-            } else {
-                jsret = JSVAL_NULL;
-            }
-        } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getSequenceByFirstFrame : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_setSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_setSceneWidth : Invalid Native Object");
-    if (argc == 1) {
-        unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_setSceneWidth : Error processing arguments");
-        cobj->setSceneWidth(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_setSceneWidth : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_getParent(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getParent : Invalid Native Object");
-    if (argc == 0) {
-        gaf::GAFTimeline* ret = cobj->getParent();
-        jsval jsret = JSVAL_NULL;
-        do {
-            if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFTimeline>(cx, (gaf::GAFTimeline*)ret);
-                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-            } else {
-                jsret = JSVAL_NULL;
-            }
-        } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getParent : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_setSceneFps : Invalid Native Object");
-    if (argc == 1) {
-        unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_setSceneFps : Error processing arguments");
-        cobj->setSceneFps(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_setSceneFps : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_getSequenceByLastFrame(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getSequenceByLastFrame : Invalid Native Object");
-    if (argc == 1) {
-        unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_getSequenceByLastFrame : Error processing arguments");
-        const gaf::GAFAnimationSequence* ret = cobj->getSequenceByLastFrame(arg0);
-        jsval jsret = JSVAL_NULL;
-        do {
-            if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFAnimationSequence>(cx, (gaf::GAFAnimationSequence*)ret);
-                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-            } else {
-                jsret = JSVAL_NULL;
-            }
-        } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getSequenceByLastFrame : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFTimeline_getTextureAtlas(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getTextureAtlas : Invalid Native Object");
-    if (argc == 0) {
-        gaf::GAFTextureAtlas* ret = cobj->getTextureAtlas();
-        jsval jsret = JSVAL_NULL;
-        do {
-            if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFTextureAtlas>(cx, (gaf::GAFTextureAtlas*)ret);
-                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-            } else {
-                jsret = JSVAL_NULL;
-            }
-        } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getTextureAtlas : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getPivot(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getPivot : Invalid Native Object");
-    if (argc == 0) {
-        const cocos2d::Point ret = cobj->getPivot();
-        jsval jsret = JSVAL_NULL;
-        jsret = ccpoint_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getPivot : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_getLinkageName(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFTimeline* cobj = (gaf::GAFTimeline *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFTimeline_getLinkageName : Invalid Native Object");
-    if (argc == 0) {
-        const std::string ret = cobj->getLinkageName();
-        jsval jsret = JSVAL_NULL;
-        jsret = std_string_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFTimeline_getLinkageName : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
-bool js_gaf_GAFTimeline_constructor(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    gaf::GAFTimeline* arg0;
-    unsigned int arg1;
-    cocos2d::Rect arg2;
-    cocos2d::Point arg3;
-    unsigned int arg4;
-    do {
-            if (!argv[0].isObject()) { ok = false; break; }
-            js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
-            jsProxy = jsb_get_js_proxy(tmpObj);
-            arg0 = (gaf::GAFTimeline*)(jsProxy ? jsProxy->ptr : NULL);
-            JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
-        } while (0);
-    ok &= jsval_to_uint32(cx, argv[1], &arg1);
-    ok &= jsval_to_ccrect(cx, argv[2], &arg2);
-    ok &= jsval_to_ccpoint(cx, argv[3], &arg3);
-    ok &= jsval_to_uint32(cx, argv[4], &arg4);
-    JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFTimeline_constructor : Error processing arguments");
-    gaf::GAFTimeline* cobj = new (std::nothrow) gaf::GAFTimeline(arg0, arg1, arg2, arg3, arg4);
-    cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
-    if (_ccobj) {
-        _ccobj->autorelease();
-    }
-    TypeTest<gaf::GAFTimeline> t;
-    js_type_class_t *typeClass = nullptr;
-    std::string typeName = t.s_name();
-    auto typeMapIter = _js_global_type_map.find(typeName);
-    CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
-    typeClass = typeMapIter->second;
-    CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-    JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
-    // link the native object with the javascript object
-    js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "gaf::GAFTimeline");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
-    return true;
-}
-
-
-
-void js_gaf_GAFTimeline_finalize(JSFreeOp *fop, JSObject *obj) {
-    CCLOGINFO("jsbindings: finalizing JS object %p (GAFTimeline)", obj);
-}
-
-void js_register_gaf_GAFTimeline(JSContext *cx, JSObject *global) {
-    jsb_gaf_GAFTimeline_class = (JSClass *)calloc(1, sizeof(JSClass));
-    jsb_gaf_GAFTimeline_class->name = "GAFTimeline";
-    jsb_gaf_GAFTimeline_class->addProperty = JS_PropertyStub;
-    jsb_gaf_GAFTimeline_class->delProperty = JS_DeletePropertyStub;
-    jsb_gaf_GAFTimeline_class->getProperty = JS_PropertyStub;
-    jsb_gaf_GAFTimeline_class->setProperty = JS_StrictPropertyStub;
-    jsb_gaf_GAFTimeline_class->enumerate = JS_EnumerateStub;
-    jsb_gaf_GAFTimeline_class->resolve = JS_ResolveStub;
-    jsb_gaf_GAFTimeline_class->convert = JS_ConvertStub;
-    jsb_gaf_GAFTimeline_class->finalize = js_gaf_GAFTimeline_finalize;
-    jsb_gaf_GAFTimeline_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
-
-    static JSPropertySpec properties[] = {
-        {"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
-        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
-    };
-
-    static JSFunctionSpec funcs[] = {
-        JS_FN("getSequence", js_gaf_GAFTimeline_getSequence, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("usedAtlasContentScaleFactor", js_gaf_GAFTimeline_usedAtlasContentScaleFactor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setSceneHeight", js_gaf_GAFTimeline_setSceneHeight, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getAnimationObjects", js_gaf_GAFTimeline_getAnimationObjects, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setSceneColor", js_gaf_GAFTimeline_setSceneColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getAnimationFrames", js_gaf_GAFTimeline_getAnimationFrames, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("loadImages", js_gaf_GAFTimeline_loadImages, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getRect", js_gaf_GAFTimeline_getRect, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getNamedParts", js_gaf_GAFTimeline_getNamedParts, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getAnimationSequences", js_gaf_GAFTimeline_getAnimationSequences, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setLinkageName", js_gaf_GAFTimeline_setLinkageName, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getFramesCount", js_gaf_GAFTimeline_getFramesCount, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getTextsData", js_gaf_GAFTimeline_getTextsData, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getAnimationMasks", js_gaf_GAFTimeline_getAnimationMasks, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getSequenceByFirstFrame", js_gaf_GAFTimeline_getSequenceByFirstFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setSceneWidth", js_gaf_GAFTimeline_setSceneWidth, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getParent", js_gaf_GAFTimeline_getParent, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setSceneFps", js_gaf_GAFTimeline_setSceneFps, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getSequenceByLastFrame", js_gaf_GAFTimeline_getSequenceByLastFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getTextureAtlas", js_gaf_GAFTimeline_getTextureAtlas, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getPivot", js_gaf_GAFTimeline_getPivot, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getLinkageName", js_gaf_GAFTimeline_getLinkageName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FS_END
-    };
-
-    JSFunctionSpec *st_funcs = NULL;
-
-    jsb_gaf_GAFTimeline_prototype = JS_InitClass(
-        cx, global,
-        NULL, // parent proto
-        jsb_gaf_GAFTimeline_class,
-        js_gaf_GAFTimeline_constructor, 0, // constructor
-        properties,
-        funcs,
-        NULL, // no static properties
-        st_funcs);
-    // make the class enumerable in the registered namespace
-//  bool found;
-//FIXME: Removed in Firefox v27 
-//  JS_SetPropertyAttributes(cx, global, "GAFTimeline", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
-
-    // add the proto and JSClass to the type->js info hash table
-    TypeTest<gaf::GAFTimeline> t;
-    js_type_class_t *p;
-    std::string typeName = t.s_name();
-    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
-    {
-        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
-        p->jsclass = jsb_gaf_GAFTimeline_class;
-        p->proto = jsb_gaf_GAFTimeline_prototype;
-        p->parentProto = NULL;
-        _js_global_type_map.insert(std::make_pair(typeName, p));
-    }
-}
-
 JSClass  *jsb_gaf_GAFAsset_class;
 JSObject *jsb_gaf_GAFAsset_prototype;
 
@@ -2381,6 +1817,22 @@ void js_gaf_GAFObject_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (GAFObject)", obj);
 }
 
+static bool js_gaf_GAFObject_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    jsval *argv = JS_ARGV(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    gaf::GAFObject *nobj = new (std::nothrow) gaf::GAFObject();
+    if (nobj) {
+        nobj->autorelease();
+    }
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    JS_AddNamedObjectRoot(cx, &p->obj, "gaf::GAFObject");
+    bool isFound = false;
+    if (JS_HasProperty(cx, obj, "_ctor", &isFound) && isFound)
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return true;
+}
 void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
     jsb_gaf_GAFObject_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_gaf_GAFObject_class->name = "GAFObject";
@@ -2430,6 +1882,7 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         JS_FN("setReversed", js_gaf_GAFObject_setReversed, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("hasSequences", js_gaf_GAFObject_hasSequences, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getFps", js_gaf_GAFObject_getFps, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_gaf_GAFObject_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 
@@ -2571,6 +2024,94 @@ void js_register_gaf_GAFAssetTextureManager(JSContext *cx, JSObject *global) {
     }
 }
 
+JSClass  *jsb_gaf_GAFMovieClip_class;
+JSObject *jsb_gaf_GAFMovieClip_prototype;
+
+bool js_gaf_GAFMovieClip_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    jsval *argv = JS_ARGV(cx, vp);
+    bool ok = true;
+    gaf::GAFMovieClip* cobj = new (std::nothrow) gaf::GAFMovieClip();
+    cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
+    if (_ccobj) {
+        _ccobj->autorelease();
+    }
+    TypeTest<gaf::GAFMovieClip> t;
+    js_type_class_t *typeClass = nullptr;
+    std::string typeName = t.s_name();
+    auto typeMapIter = _js_global_type_map.find(typeName);
+    CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
+    typeClass = typeMapIter->second;
+    CCASSERT(typeClass, "The value is null.");
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+    // link the native object with the javascript object
+    js_proxy_t* p = jsb_new_proxy(cobj, obj);
+    JS_AddNamedObjectRoot(cx, &p->obj, "gaf::GAFMovieClip");
+    if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
+    return true;
+}
+
+
+extern JSObject *jsb_gaf_GAFObject_prototype;
+
+void js_gaf_GAFMovieClip_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (GAFMovieClip)", obj);
+}
+
+void js_register_gaf_GAFMovieClip(JSContext *cx, JSObject *global) {
+    jsb_gaf_GAFMovieClip_class = (JSClass *)calloc(1, sizeof(JSClass));
+    jsb_gaf_GAFMovieClip_class->name = "GAFMovieClip";
+    jsb_gaf_GAFMovieClip_class->addProperty = JS_PropertyStub;
+    jsb_gaf_GAFMovieClip_class->delProperty = JS_DeletePropertyStub;
+    jsb_gaf_GAFMovieClip_class->getProperty = JS_PropertyStub;
+    jsb_gaf_GAFMovieClip_class->setProperty = JS_StrictPropertyStub;
+    jsb_gaf_GAFMovieClip_class->enumerate = JS_EnumerateStub;
+    jsb_gaf_GAFMovieClip_class->resolve = JS_ResolveStub;
+    jsb_gaf_GAFMovieClip_class->convert = JS_ConvertStub;
+    jsb_gaf_GAFMovieClip_class->finalize = js_gaf_GAFMovieClip_finalize;
+    jsb_gaf_GAFMovieClip_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+    static JSPropertySpec properties[] = {
+        {"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+    };
+
+    static JSFunctionSpec funcs[] = {
+        JS_FS_END
+    };
+
+    JSFunctionSpec *st_funcs = NULL;
+
+    jsb_gaf_GAFMovieClip_prototype = JS_InitClass(
+        cx, global,
+        jsb_gaf_GAFObject_prototype,
+        jsb_gaf_GAFMovieClip_class,
+        js_gaf_GAFMovieClip_constructor, 0, // constructor
+        properties,
+        funcs,
+        NULL, // no static properties
+        st_funcs);
+    // make the class enumerable in the registered namespace
+//  bool found;
+//FIXME: Removed in Firefox v27 
+//  JS_SetPropertyAttributes(cx, global, "GAFMovieClip", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+    // add the proto and JSClass to the type->js info hash table
+    TypeTest<gaf::GAFMovieClip> t;
+    js_type_class_t *p;
+    std::string typeName = t.s_name();
+    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
+    {
+        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+        p->jsclass = jsb_gaf_GAFMovieClip_class;
+        p->proto = jsb_gaf_GAFMovieClip_prototype;
+        p->parentProto = jsb_gaf_GAFObject_prototype;
+        _js_global_type_map.insert(std::make_pair(typeName, p));
+    }
+}
+
 void register_all_gaf(JSContext* cx, JSObject* obj) {
     // first, try to get the ns
     JS::RootedValue nsval(cx);
@@ -2587,9 +2128,9 @@ void register_all_gaf(JSContext* cx, JSObject* obj) {
 
     js_register_gaf_GAFAsset(cx, obj);
     js_register_gaf_GAFSprite(cx, obj);
-    js_register_gaf_GAFTimeline(cx, obj);
     js_register_gaf_GAFAnimationSequence(cx, obj);
     js_register_gaf_GAFObject(cx, obj);
+    js_register_gaf_GAFMovieClip(cx, obj);
     js_register_gaf_GAFAssetTextureManager(cx, obj);
 }
 

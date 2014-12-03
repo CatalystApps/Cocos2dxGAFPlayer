@@ -14,37 +14,6 @@ void js_register_gaf_GAFAnimationSequence(JSContext *cx, JSObject *global);
 void register_all_gaf(JSContext* cx, JSObject* obj);
 bool js_gaf_GAFAnimationSequence_length(JSContext *cx, uint32_t argc, jsval *vp);
 
-extern JSClass  *jsb_gaf_GAFTimeline_class;
-extern JSObject *jsb_gaf_GAFTimeline_prototype;
-
-bool js_gaf_GAFTimeline_constructor(JSContext *cx, uint32_t argc, jsval *vp);
-void js_gaf_GAFTimeline_finalize(JSContext *cx, JSObject *obj);
-void js_register_gaf_GAFTimeline(JSContext *cx, JSObject *global);
-void register_all_gaf(JSContext* cx, JSObject* obj);
-bool js_gaf_GAFTimeline_getSequence(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_usedAtlasContentScaleFactor(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_setSceneHeight(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getAnimationObjects(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_setSceneColor(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getAnimationFrames(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_loadImages(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getRect(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getNamedParts(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getAnimationSequences(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_setLinkageName(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getFramesCount(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getTextsData(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getAnimationMasks(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getSequenceByFirstFrame(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_setSceneWidth(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getParent(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getSequenceByLastFrame(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getTextureAtlas(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getPivot(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_getLinkageName(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFTimeline_GAFTimeline(JSContext *cx, uint32_t argc, jsval *vp);
-
 extern JSClass  *jsb_gaf_GAFAsset_class;
 extern JSObject *jsb_gaf_GAFAsset_prototype;
 
@@ -135,5 +104,14 @@ void js_register_gaf_GAFAssetTextureManager(JSContext *cx, JSObject *global);
 void register_all_gaf(JSContext* cx, JSObject* obj);
 bool js_gaf_GAFAssetTextureManager_getMemoryConsumptionStat(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAssetTextureManager_GAFAssetTextureManager(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *jsb_gaf_GAFMovieClip_class;
+extern JSObject *jsb_gaf_GAFMovieClip_prototype;
+
+bool js_gaf_GAFMovieClip_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_gaf_GAFMovieClip_finalize(JSContext *cx, JSObject *obj);
+void js_register_gaf_GAFMovieClip(JSContext *cx, JSObject *global);
+void register_all_gaf(JSContext* cx, JSObject* obj);
+bool js_gaf_GAFMovieClip_GAFMovieClip(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 

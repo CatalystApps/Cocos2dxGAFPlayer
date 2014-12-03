@@ -21,256 +21,6 @@ length : function (
 };
 
 /**
- * @class GAFTimeline
- */
-gaf.GAFTimeline = {
-
-/**
- * @method getSequence
- * @param {String} arg0
- * @return {gaf.GAFAnimationSequence}
- */
-getSequence : function (
-str 
-)
-{
-    return gaf.GAFAnimationSequence;
-},
-
-/**
- * @method usedAtlasContentScaleFactor
- * @return {float}
- */
-usedAtlasContentScaleFactor : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method setSceneHeight
- * @param {unsigned int} arg0
- */
-setSceneHeight : function (
-int 
-)
-{
-},
-
-/**
- * @method getAnimationObjects
- * @return {map_object}
- */
-getAnimationObjects : function (
-)
-{
-    return map_object;
-},
-
-/**
- * @method setSceneColor
- * @param {color4b_object} arg0
- */
-setSceneColor : function (
-color4b 
-)
-{
-},
-
-/**
- * @method getAnimationFrames
- * @return {Array}
- */
-getAnimationFrames : function (
-)
-{
-    return new Array();
-},
-
-/**
- * @method loadImages
- */
-loadImages : function (
-)
-{
-},
-
-/**
- * @method getRect
- * @return {rect_object}
- */
-getRect : function (
-)
-{
-    return cc.Rect;
-},
-
-/**
- * @method getNamedParts
- * @return {map_object}
- */
-getNamedParts : function (
-)
-{
-    return map_object;
-},
-
-/**
- * @method getAnimationSequences
- * @return {map_object}
- */
-getAnimationSequences : function (
-)
-{
-    return map_object;
-},
-
-/**
- * @method setLinkageName
- * @param {String} arg0
- */
-setLinkageName : function (
-str 
-)
-{
-},
-
-/**
- * @method getFramesCount
- * @return {unsigned int}
- */
-getFramesCount : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method getTextsData
- * @return {map_object}
- */
-getTextsData : function (
-)
-{
-    return map_object;
-},
-
-/**
- * @method getAnimationMasks
- * @return {map_object}
- */
-getAnimationMasks : function (
-)
-{
-    return map_object;
-},
-
-/**
- * @method getSequenceByFirstFrame
- * @param {unsigned int} arg0
- * @return {gaf.GAFAnimationSequence}
- */
-getSequenceByFirstFrame : function (
-int 
-)
-{
-    return gaf.GAFAnimationSequence;
-},
-
-/**
- * @method setSceneWidth
- * @param {unsigned int} arg0
- */
-setSceneWidth : function (
-int 
-)
-{
-},
-
-/**
- * @method getParent
- * @return {gaf.GAFTimeline}
- */
-getParent : function (
-)
-{
-    return gaf.GAFTimeline;
-},
-
-/**
- * @method setSceneFps
- * @param {unsigned int} arg0
- */
-setSceneFps : function (
-int 
-)
-{
-},
-
-/**
- * @method getSequenceByLastFrame
- * @param {unsigned int} arg0
- * @return {gaf.GAFAnimationSequence}
- */
-getSequenceByLastFrame : function (
-int 
-)
-{
-    return gaf.GAFAnimationSequence;
-},
-
-/**
- * @method getTextureAtlas
- * @return {gaf.GAFTextureAtlas}
- */
-getTextureAtlas : function (
-)
-{
-    return gaf.GAFTextureAtlas;
-},
-
-/**
- * @method getPivot
- * @return {vec2_object}
- */
-getPivot : function (
-)
-{
-    return cc.Vec2;
-},
-
-/**
- * @method getLinkageName
- * @return {String}
- */
-getLinkageName : function (
-)
-{
-    return ;
-},
-
-/**
- * @method GAFTimeline
- * @constructor
- * @param {gaf.GAFTimeline} arg0
- * @param {unsigned int} arg1
- * @param {rect_object} arg2
- * @param {vec2_object} arg3
- * @param {unsigned int} arg4
- */
-GAFTimeline : function (
-gaftimeline, 
-int, 
-rect, 
-vec2, 
-int 
-)
-{
-},
-
-};
-
-/**
  * @class GAFAsset
  */
 gaf.GAFAsset = {
@@ -917,6 +667,22 @@ getMemoryConsumptionStat : function (
  * @constructor
  */
 GAFAssetTextureManager : function (
+)
+{
+},
+
+};
+
+/**
+ * @class GAFMovieClip
+ */
+gaf.GAFMovieClip = {
+
+/**
+ * @method GAFMovieClip
+ * @constructor
+ */
+GAFMovieClip : function (
 )
 {
 },
