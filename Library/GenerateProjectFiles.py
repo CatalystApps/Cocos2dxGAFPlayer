@@ -47,26 +47,28 @@ def gen_xcode_proj(cxx_root, out_folder):
             line = line.replace(searchExpPCH, 'GCC_PREFIX_HEADER = ' + '"' + os.getcwd() + '/Sources/GAFPlayer-Prefix.pch";')
         sys.stdout.write(line)
 
-def gen_vc_proj(cxx_root, out_folder):
+def gen_vc_proj(ccx_root, out_folder):
+    vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
+    ET.register_namespace('', vs_xml_namespace)
 
     shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj.filters", out_folder + "/GAFPlayer.vcxproj.filters")
 
     # props
-    props_filename = "Library.props"
-    shutil.copyfile(os.getcwd() + "/" + props_filename, out_folder + "/" + props_filename)
-    searchExp = "<CCX_ROOT>CCX_ROOT_VALUE</CCX_ROOT>"
-    for line in fileinput.input(out_folder + "/" + props_filename, inplace=True):
-        if searchExp in line:
-            line = line.replace("CCX_ROOT_VALUE", cxx_root)
-        sys.stdout.write(line)
+    props_filename = out_folder + "/Library.props"
+    shutil.copyfile(os.getcwd() + "/Library.props", props_filename)
+    props_tree = ET.parse(props_filename)
+    props_root = props_tree.getroot()
+
+    for ccx_root_param in props_root.iter("{%s}CCX_ROOT" % vs_xml_namespace):
+        ccx_root_param.text = ccx_root
+
+    props_tree.write(props_filename)
 
     # project
-    vcxproj_file_name = out_folder + "/GAFPlayer.vcxproj"
-    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxproj_file_name)
+    vcxproj_filename = out_folder + "/GAFPlayer.vcxproj"
+    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxproj_filename)
 
-    vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
-    ET.register_namespace('', vs_xml_namespace)
-    vcx_tree = ET.parse(vcxproj_file_name)
+    vcx_tree = ET.parse(vcxproj_filename)
     vcx_root = vcx_tree.getroot()
 
     for sources_info in vcx_root.iter("{%s}ClCompile" % vs_xml_namespace):
@@ -81,7 +83,7 @@ def gen_vc_proj(cxx_root, out_folder):
             file_path = file_path.replace('Sources', os.getcwd() + '\\Sources')
             includes_info.set("Include", file_path)
 
-    vcx_tree.write(vcxproj_file_name)
+    vcx_tree.write(vcxproj_filename)
 
 
 def gen_wp8_proj(cxx_root, out_folder):
