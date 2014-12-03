@@ -10,7 +10,7 @@ import os
 import fileinput
 import sys
 import shutil
-from xml.etree import ElementTree as et
+from xml.etree import ElementTree as ET
 from xml.dom import minidom
 
 
@@ -48,36 +48,40 @@ def gen_xcode_proj(cxx_root, out_folder):
         sys.stdout.write(line)
 
 def gen_vc_proj(cxx_root, out_folder):
-    shutil.copyfile(os.getcwd() + "/Library.props", out_folder + "/Library.props")
 
-    vcxprojFileName = out_folder + "/GAFPlayer.vcxproj"
-    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxprojFileName)
     shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj.filters", out_folder + "/GAFPlayer.vcxproj.filters")
 
-    newcwd = out_folder
-
+    # props
+    props_filename = "Library.props"
+    shutil.copyfile(os.getcwd() + "/" + props_filename, out_folder + "/" + props_filename)
     searchExp = "<CCX_ROOT>CCX_ROOT_VALUE</CCX_ROOT>"
-
-    for line in fileinput.input(newcwd + "/Library.props", inplace=True):
+    for line in fileinput.input(out_folder + "/" + props_filename, inplace=True):
         if searchExp in line:
-            line = line.replace(searchExp, "<CCX_ROOT>" + cxx_root + "</CCX_ROOT>")
+            line = line.replace("CCX_ROOT_VALUE", cxx_root)
         sys.stdout.write(line)
 
-    sourcesDirList = os.listdir(os.getcwd() + "/Sources")
-    sources = []
+    # project
+    vcxproj_file_name = out_folder + "/GAFPlayer.vcxproj"
+    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxproj_file_name)
 
-    for f in sourcesDirList:
-        if f.endswith(".h") or f.endswith(".cpp"):
-            sources.append(f)
+    vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
+    ET.register_namespace('', vs_xml_namespace)
+    vcx_tree = ET.parse(vcxproj_file_name)
+    vcx_root = vcx_tree.getroot()
 
-    fi = fileinput.input(newcwd + "/GAFPlayer.vcxproj", inplace=True)
-    for source in sources:
-        for line in fi:
-            searchExpSource = '<ClCompile Include='
-            #searchExpSource = '<ClCompile Include="Sources\GAFAssetTextureManager.cpp" />'
-            if searchExpSource in line:
-                line = '<ClCompile Include=\\"' + os.getcwd() + "\\Sources\\" + source + '" />\n'
-            sys.stdout.write(line)
+    for sources_info in vcx_root.iter("{%s}ClCompile" % vs_xml_namespace):
+        file_path = sources_info.get('Include')
+        if file_path:
+            file_path = file_path.replace('Sources', os.getcwd() + '\\Sources')
+            sources_info.set("Include", file_path)
+
+    for includes_info in vcx_root.iter("{%s}ClInclude" % vs_xml_namespace):
+        file_path = includes_info.get('Include')
+        if file_path:
+            file_path = file_path.replace('Sources', os.getcwd() + '\\Sources')
+            includes_info.set("Include", file_path)
+
+    vcx_tree.write(vcxproj_file_name)
 
 
 def gen_wp8_proj(cxx_root, out_folder):
