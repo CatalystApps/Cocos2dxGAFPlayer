@@ -10,7 +10,7 @@ import os
 import fileinput
 import sys
 import shutil
-from xml.etree import ElementTree as et
+from xml.etree import ElementTree as ET
 from xml.dom import minidom
 
 
@@ -47,37 +47,45 @@ def gen_xcode_proj(cxx_root, out_folder):
             line = line.replace(searchExpPCH, 'GCC_PREFIX_HEADER = ' + '"' + os.getcwd() + '/Sources/GAFPlayer-Prefix.pch";')
         sys.stdout.write(line)
 
-def gen_vc_proj(cxx_root, out_folder):
-    shutil.copyfile(os.getcwd() + "/Library.props", out_folder + "/Library.props")
+def gen_vc_proj(ccx_root, out_folder):
+    vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
+    ET.register_namespace('', vs_xml_namespace)
 
-    vcxprojFileName = out_folder + "/GAFPlayer.vcxproj"
-    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxprojFileName)
     shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj.filters", out_folder + "/GAFPlayer.vcxproj.filters")
 
-    newcwd = out_folder
+    # props
+    props_filename = out_folder + "/Library.props"
+    shutil.copyfile(os.getcwd() + "/Library.props", props_filename)
+    props_tree = ET.parse(props_filename)
+    props_root = props_tree.getroot()
 
-    searchExp = "<CCX_ROOT>CCX_ROOT_VALUE</CCX_ROOT>"
+    for ccx_root_param in props_root.iter("{%s}CCX_ROOT" % vs_xml_namespace):
+        ccx_root_param.text = ccx_root
+    for gaf_sources_param in props_root.iter("{%s}GAF_SOURCES_ROOT" % vs_xml_namespace):
+        gaf_sources_param.text = os.getcwd() + "\Sources"
 
-    for line in fileinput.input(newcwd + "/Library.props", inplace=True):
-        if searchExp in line:
-            line = line.replace(searchExp, "<CCX_ROOT>" + cxx_root + "</CCX_ROOT>")
-        sys.stdout.write(line)
+    props_tree.write(props_filename)
 
-    sourcesDirList = os.listdir(os.getcwd() + "/Sources")
-    sources = []
+    # project
+    vcxproj_filename = out_folder + "/GAFPlayer.vcxproj"
+    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxproj_filename)
 
-    for f in sourcesDirList:
-        if f.endswith(".h") or f.endswith(".cpp"):
-            sources.append(f)
+    vcx_tree = ET.parse(vcxproj_filename)
+    vcx_root = vcx_tree.getroot()
 
-    fi = fileinput.input(newcwd + "/GAFPlayer.vcxproj", inplace=True)
-    for source in sources:
-        for line in fi:
-            searchExpSource = '<ClCompile Include='
-            #searchExpSource = '<ClCompile Include="Sources\GAFAssetTextureManager.cpp" />'
-            if searchExpSource in line:
-                line = '<ClCompile Include=\\"' + os.getcwd() + "\\Sources\\" + source + '" />\n'
-            sys.stdout.write(line)
+    for sources_info in vcx_root.iter("{%s}ClCompile" % vs_xml_namespace):
+        file_path = sources_info.get('Include')
+        if file_path:
+            file_path = file_path.replace('Sources', os.getcwd() + '\\Sources')
+            sources_info.set("Include", file_path)
+
+    for includes_info in vcx_root.iter("{%s}ClInclude" % vs_xml_namespace):
+        file_path = includes_info.get('Include')
+        if file_path:
+            file_path = file_path.replace('Sources', os.getcwd() + '\\Sources')
+            includes_info.set("Include", file_path)
+
+    vcx_tree.write(vcxproj_filename)
 
 
 def gen_wp8_proj(cxx_root, out_folder):
