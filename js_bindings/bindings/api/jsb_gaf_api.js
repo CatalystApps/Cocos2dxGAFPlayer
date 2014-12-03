@@ -539,6 +539,32 @@ GAFAsset : function (
 };
 
 /**
+ * @class GAFSprite
+ */
+gaf.GAFSprite = {
+
+/**
+ * @method setLocator
+ * @param {bool} arg0
+ */
+setLocator : function (
+bool 
+)
+{
+},
+
+/**
+ * @method GAFSprite
+ * @constructor
+ */
+GAFSprite : function (
+)
+{
+},
+
+};
+
+/**
  * @class GAFObject
  */
 gaf.GAFObject = {
@@ -733,16 +759,6 @@ bool
 )
 {
     return false;
-},
-
-/**
- * @method getNodeToParentTransform
- * @return {mat4_object}
- */
-getNodeToParentTransform : function (
-)
-{
-    return cc.Mat4;
 },
 
 /**

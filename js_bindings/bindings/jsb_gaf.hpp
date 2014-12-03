@@ -77,6 +77,16 @@ bool js_gaf_GAFAsset_setDesiredCsf(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_createWithBundle(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_GAFAsset(JSContext *cx, uint32_t argc, jsval *vp);
 
+extern JSClass  *jsb_gaf_GAFSprite_class;
+extern JSObject *jsb_gaf_GAFSprite_prototype;
+
+bool js_gaf_GAFSprite_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_gaf_GAFSprite_finalize(JSContext *cx, JSObject *obj);
+void js_register_gaf_GAFSprite(JSContext *cx, JSObject *global);
+void register_all_gaf(JSContext* cx, JSObject* obj);
+bool js_gaf_GAFSprite_setLocator(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_gaf_GAFSprite_GAFSprite(JSContext *cx, uint32_t argc, jsval *vp);
+
 extern JSClass  *jsb_gaf_GAFObject_class;
 extern JSObject *jsb_gaf_GAFObject_prototype;
 
@@ -102,7 +112,6 @@ bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_isVisibleInCurrentFrame(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_isDone(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFObject_getNodeToParentTransform(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_setFrame(JSContext *cx, uint32_t argc, jsval *vp);
