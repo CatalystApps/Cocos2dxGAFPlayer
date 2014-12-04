@@ -28,6 +28,9 @@ def gen_android_proj(cxx_root, out_folder):
 
 
 def gen_xcode_proj(cxx_root, out_folder):
+    if os.path.exists(out_folder + "/GAFPlayer.xcodeproj/"):
+        shutil.rmtree(out_folder + "/GAFPlayer.xcodeproj/")
+
     shutil.copytree(os.getcwd() + "/GAFPlayer.xcodeproj", out_folder + "/GAFPlayer.xcodeproj/")
 
     newcwd = out_folder + "/GAFPlayer.xcodeproj/"
@@ -114,11 +117,8 @@ def main():
 
     out_folder = opts.out_folder
 
-    if out_folder:
-        if os.path.exists(out_folder):
-            shutil.rmtree(out_folder)
-
-    os.mkdir(out_folder)
+    if not out_folder:
+        os.mkdir(out_folder)
 
     if 'all' in args or 'xcode' in args:
         gen_xcode_proj(opts.ccx_root, out_folder)
