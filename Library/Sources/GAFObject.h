@@ -72,9 +72,9 @@ protected:
 
     GAFObject*   encloseNewTimeline(uint32_t reference);
 
-    GAFObject();
 
 public:
+    GAFObject();
 
     /// @note do not forget to call setSequenceDelegate(nullptr) before deleting your subscriber
     void setSequenceDelegate(GAFSequenceDelegate_t delegate);
