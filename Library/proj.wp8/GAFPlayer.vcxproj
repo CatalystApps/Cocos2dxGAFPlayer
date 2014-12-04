@@ -92,7 +92,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CCX_ROOT)/cocos;$(CCX_ROOT)/cocos/math;$(CCX_ROOT)/external/winrt-specific/angle/include;$(CCX_ROOT)/cocos/platform/winrt;$(CCX_ROOT)/external/wp8-specific/zlib/include;$(GAF_SOURCES_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <CompileAsWinRT>true</CompileAsWinRT>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -116,7 +116,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CCX_ROOT)/cocos;$(CCX_ROOT)/cocos/math;$(CCX_ROOT)/external/winrt-specific/angle/include;$(CCX_ROOT)/cocos/platform/winrt;$(CCX_ROOT)/external/wp8-specific/zlib/include;$(GAF_SOURCES_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zm200;/clr</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -130,7 +130,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(ProjectDir)../;$(ProjectDir)../Sources;$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CCX_ROOT)/cocos;$(CCX_ROOT)/cocos/math;$(CCX_ROOT)/external/winrt-specific/angle/include;$(CCX_ROOT)/cocos/platform/winrt;$(CCX_ROOT)/external/wp8-specific/zlib/include;$(GAF_SOURCES_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
