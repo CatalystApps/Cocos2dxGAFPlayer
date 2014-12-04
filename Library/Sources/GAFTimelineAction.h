@@ -9,6 +9,8 @@ typedef std::vector<std::string> ActionParams_t;
 class GAFTimelineAction
 {
 public:
+    GAFTimelineAction();
+
 	enum ParameterIndex
 	{
 		PI_FRAME = 0,
@@ -23,7 +25,7 @@ public:
 	const std::string getParam(ParameterIndex idx);
 
 private:
-    GAFActionType m_type = GAFActionType::None;
+    GAFActionType m_type;
     ActionParams_t m_params;
 };
 
