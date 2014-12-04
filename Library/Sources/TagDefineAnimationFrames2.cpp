@@ -107,6 +107,9 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
                 GAFTimelineAction action;
 
                 GAFActionType type = static_cast<GAFActionType>(in->readU32());
+                std::string scope;
+                in->readString(&scope);
+
                 std::vector<std::string> params;
 
                 unsigned int paramsLength = in->readU32();
@@ -118,7 +121,7 @@ void TagDefineAnimationFrames2::read(GAFStream* in, GAFAsset* asset, GAFTimeline
                     params.push_back(paramValue);
                 }
 
-                action.setAction(type, params);
+                action.setAction(type, params, scope);
                 frame->pushTimelineAction(action);
             }
         }

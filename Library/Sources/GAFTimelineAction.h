@@ -20,13 +20,14 @@ public:
 		PI_EVENT_DATA
 	};
 
-    void setAction(GAFActionType type, ActionParams_t params);
+    void setAction(GAFActionType type, ActionParams_t params, std::string scope);
     GAFActionType getType();
 	const std::string getParam(ParameterIndex idx);
 
 private:
     GAFActionType m_type;
     ActionParams_t m_params;
+    std::string m_scope;
 };
 
 NS_GAF_END
