@@ -73,7 +73,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../../cocos;$(ProjectDir)../../../../cocos/math;$(ProjectDir)../../../winrt-specific/angle/include;$(ProjectDir)../../../../cocos/platform/winrt;$(GAF_SOURCES_ROOT);$(ProjectDir)../../../wp8-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CCX_ROOT)/cocos;$(CCX_ROOT)/cocos/math;$(CCX_ROOT)/external/winrt-specific/angle/include;$(CCX_ROOT)/cocos/platform/winrt;$(CCX_ROOT)/external/wp8-specific/zlib/include;$(GAF_SOURCES_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <CompileAs>CompileAsCpp</CompileAs>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
