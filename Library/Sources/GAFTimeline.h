@@ -24,9 +24,9 @@ private:
     cocos2d::Rect           m_aabb;
     cocos2d::Point          m_pivot;
 
-    unsigned int            m_sceneFps = 0;
-    unsigned int            m_sceneWidth = 0;
-    unsigned int            m_sceneHeight = 0;
+    unsigned int            m_sceneFps;
+    unsigned int            m_sceneWidth;
+    unsigned int            m_sceneHeight;
     cocos2d::Color4B        m_sceneColor;
 
     uint32_t                m_framesCount;
@@ -38,7 +38,7 @@ private:
 
     float                   m_usedAtlasContentScaleFactor;
 
-    GAFTimeline*            m_parent = nullptr; // weak
+    GAFTimeline*            m_parent; // weak
 
     void                    _chooseTextureAtlas();
 public:
