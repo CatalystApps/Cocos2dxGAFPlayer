@@ -3,6 +3,12 @@
 
 NS_GAF_BEGIN
 
+GAFTimelineAction::GAFTimelineAction()
+: m_type(GAFActionType::None)
+{
+
+}
+
 void GAFTimelineAction::setAction(GAFActionType type, ActionParams_t params)
 {
     m_type = type;

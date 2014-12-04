@@ -12,6 +12,9 @@ m_id(id)
 , m_pivot(pivot)
 , m_framesCount(framesCount)
 , m_parent(parent)
+, m_sceneFps(0)
+, m_sceneWidth(0)
+, m_sceneHeight(0)
 {
 
 }

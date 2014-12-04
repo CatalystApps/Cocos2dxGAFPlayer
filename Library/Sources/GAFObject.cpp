@@ -195,7 +195,7 @@ GAFObject* GAFObject::_instantiateObject(uint32_t id, GAFCharacterType type, uin
             {
                 result->setAtlasScale(1.0f / txElemet->scale);
             }
-            result->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });
+            result->setBlendFunc(cocos2d::BlendFunc::ALPHA_PREMULTIPLIED);
         }
     }
     if (result)
