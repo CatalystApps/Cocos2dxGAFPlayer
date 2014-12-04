@@ -1,14 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="..\GAFPrecompiled.cpp" />
-    <ClCompile Include="..\Sources\GAFAnimatedObject.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\GAFAnimation.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\GAFAnimationFrame.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -34,12 +27,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\GAFSprite.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\GAFSpriteWithAlpha.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\GAFStencilMaskSprite.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\GAFStream.cpp">
@@ -90,17 +77,31 @@
     <ClCompile Include="..\Sources\PrimitiveDeserializer.cpp">
       <Filter>Sources\Loader</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\GAFPrecompiled.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFMask.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFMovieClip.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFObject.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFTextField.cpp">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFTimeline.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFTimelineAction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="..\GAFPrecompiled.h" />
-    <ClInclude Include="..\Sources\GAFAnimatedObject.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\GAFAnimation.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\GAFAnimationFrame.h">
       <Filter>Sources</Filter>
     </ClInclude>
@@ -135,12 +136,6 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\GAFSprite.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\GAFSpriteWithAlpha.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\GAFStencilMaskSprite.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\GAFStream.h">
@@ -197,6 +192,27 @@
     <ClInclude Include="..\Sources\PrimitiveDeserializer.h">
       <Filter>Sources\Loader</Filter>
     </ClInclude>
+    <ClInclude Include="..\Sources\GAFPrecompiled.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFMask.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFMovieClip.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFObject.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFTextField.h">
+      <Filter>Sources\GAFObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFTimeline.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFTimelineAction.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -204,6 +220,9 @@
     </Filter>
     <Filter Include="Sources\Loader">
       <UniqueIdentifier>{27ee2c7e-e440-4448-9b8e-dbdc84f12d87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GAFObjects">
+      <UniqueIdentifier>{f452c7c7-6017-4374-9edf-f880a40a0a5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
