@@ -133,9 +133,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\DefinitionTagBase.h" />
+    <ClInclude Include="..\Sources\GAF.h" />
     <ClInclude Include="..\Sources\GAFAnimationFrame.h" />
     <ClInclude Include="..\Sources\GAFAnimationSequence.h" />
     <ClInclude Include="..\Sources\GAFAsset.h" />
+    <ClInclude Include="..\Sources\GAFAssetTextureManager.h" />
     <ClInclude Include="..\Sources\GAFCachedTexture.h" />
     <ClInclude Include="..\Sources\GAFCollections.h" />
     <ClInclude Include="..\Sources\GAFDelegates.h" />
@@ -153,6 +155,7 @@
     <ClInclude Include="..\Sources\GAFSprite.h" />
     <ClInclude Include="..\Sources\GAFStream.h" />
     <ClInclude Include="..\Sources\GAFSubobjectState.h" />
+    <ClInclude Include="..\Sources\GAFTextData.h" />
     <ClInclude Include="..\Sources\GAFTextField.h" />
     <ClInclude Include="..\Sources\GAFTextureAtlas.h" />
     <ClInclude Include="..\Sources\GAFTextureAtlasElement.h" />
@@ -168,6 +171,7 @@
     <ClInclude Include="..\Sources\TagDefines.h" />
     <ClInclude Include="..\Sources\TagDefineSequences.h" />
     <ClInclude Include="..\Sources\TagDefineStage.h" />
+    <ClInclude Include="..\Sources\TagDefineTextField.h" />
     <ClInclude Include="..\Sources\TagDefineTimeline.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
@@ -176,6 +180,7 @@
     <ClCompile Include="..\Sources\GAFAnimationFrame.cpp" />
     <ClCompile Include="..\Sources\GAFAnimationSequence.cpp" />
     <ClCompile Include="..\Sources\GAFAsset.cpp" />
+    <ClCompile Include="..\Sources\GAFAssetTextureManager.cpp" />
     <ClCompile Include="..\Sources\GAFCachedTexture.cpp" />
     <ClCompile Include="..\Sources\GAFFile.cpp" />
     <ClCompile Include="..\Sources\GAFFilterData.cpp" />
@@ -190,6 +195,7 @@
     <ClCompile Include="..\Sources\GAFSprite.cpp" />
     <ClCompile Include="..\Sources\GAFStream.cpp" />
     <ClCompile Include="..\Sources\GAFSubobjectState.cpp" />
+    <ClCompile Include="..\Sources\GAFTextData.cpp" />
     <ClCompile Include="..\Sources\GAFTextField.cpp" />
     <ClCompile Include="..\Sources\GAFTextureAtlas.cpp" />
     <ClCompile Include="..\Sources\GAFTextureAtlasElement.cpp" />
@@ -204,6 +210,7 @@
     <ClCompile Include="..\Sources\TagDefineNamedParts.cpp" />
     <ClCompile Include="..\Sources\TagDefineSequences.cpp" />
     <ClCompile Include="..\Sources\TagDefineStage.cpp" />
+    <ClCompile Include="..\Sources\TagDefineTextField.cpp" />
     <ClCompile Include="..\Sources\TagDefineTimeline.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

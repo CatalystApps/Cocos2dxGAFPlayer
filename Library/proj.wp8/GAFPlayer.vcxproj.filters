@@ -98,6 +98,15 @@
     <ClCompile Include="..\Sources\GAFTimelineAction.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\GAFAssetTextureManager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFTextData.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TagDefineTextField.cpp">
+      <Filter>Sources\Loader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -212,6 +221,18 @@
     </ClInclude>
     <ClInclude Include="..\Sources\GAFTimelineAction.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAF.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFAssetTextureManager.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GAFTextData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TagDefineTextField.h">
+      <Filter>Sources\Loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
