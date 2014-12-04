@@ -173,7 +173,10 @@ def main():
                       help='whether to generate project for js bindings')
     opts, args = parser.parse_args()
 
-    if not opts.ccx_root or not opts.out_folder or len(args) < 1:
+    if len(args) < 1:
+        args = ('all', )
+
+    if not opts.ccx_root or not opts.out_folder:
         print """
         Usage:
         -c {Cocos2d-x root} -o {Folder to store generated projects} TARGETS
