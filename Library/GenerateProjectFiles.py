@@ -114,8 +114,13 @@ def main():
          F.E.:
          -c E:\Projects\Cocos2d-x\ -o E:\Projects\GAFLibraryProject\ xcode msvs_desktop
         """
+        return
 
     out_folder = opts.out_folder
+
+    if os.getcwd() in os.path.abspath(out_folder):
+        print "Please specify not child folder"
+        return
 
     if not out_folder:
         os.mkdir(out_folder)
