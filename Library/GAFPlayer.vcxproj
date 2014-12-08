@@ -136,7 +136,7 @@
       <PrecompiledHeaderFile>GAFPrecompiled.h</PrecompiledHeaderFile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);../../cocos2d-x/cocos;$(CCX_ROOT)/cocos/;../../cocos2d-x/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES/;../../cocos2d-x/external/glfw3/include/win32/;$(CCX_ROOT)/external/glfw3/include/win32/;../../cocos2d-x/external/win32-specific/zlib/include/;$(CCX_ROOT)/external/win32-specific/zlib/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT_2)/cocos;$(CCX_ROOT)/cocos/;$(CCX_ROOT_2)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT_2)/external/glfw3/include/win32/;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT_2)/external/win32-specific/zlib/include/;$(CCX_ROOT)/external/win32-specific/zlib/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
