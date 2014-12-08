@@ -412,6 +412,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CCX_ROOT = "$(SRCROOT)/../../../";
+				CCX_ROOT2 = "$(SRCROOT)/../../";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -455,6 +456,10 @@
 					"$(CCX_ROOT_OVERRIDE)/cocos/2d",
 					"$(CCX_ROOT_OVERRIDE)/cocos/math",
 					"$(CCX_ROOT_OVERRIDE)/cocos/platform/ios",
+					"$(CCX_ROOT2)/cocos",
+					"$(CCX_ROOT2)/cocos/2d",
+					"$(CCX_ROOT2)/cocos/math",
+					"$(CCX_ROOT2)/cocos/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
@@ -470,6 +475,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CCX_ROOT = "$(SRCROOT)/../../../";
+				CCX_ROOT2 = "$(SRCROOT)/../../";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -508,6 +514,10 @@
 					"$(CCX_ROOT_OVERRIDE)/cocos/2d",
 					"$(CCX_ROOT_OVERRIDE)/cocos/math",
 					"$(CCX_ROOT_OVERRIDE)/cocos/platform/ios",
+					"$(CCX_ROOT2)/cocos",
+					"$(CCX_ROOT2)/cocos/2d",
+					"$(CCX_ROOT2)/cocos/math",
+					"$(CCX_ROOT2)/cocos/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
