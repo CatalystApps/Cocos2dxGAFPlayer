@@ -8,10 +8,6 @@
     #include <zlib.h>
 #endif
 
-#ifdef ANDROID
-    #include "platform/android/CCFileUtilsAndroid.h"
-#endif
-
 NS_GAF_BEGIN
 
 void GAFFile::_readHeaderBegin(GAFHeader& out)

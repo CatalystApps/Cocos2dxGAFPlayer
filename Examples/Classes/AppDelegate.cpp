@@ -1,7 +1,5 @@
 #include "AppDelegate.h"
 
-#include "cocos2d.h"
-
 #include "GafFeatures.h"
 
 #include <vector>
