@@ -49,7 +49,6 @@ protected:
     GAFAsset*                               m_asset;
     GAFTimeline*                            m_timeline;
     DisplayList_t                           m_displayList;
-    DisplayList_t                           m_masksDList;
     MaskList_t                              m_masks;
     GAFCharacterType                        m_charType;
     GAFObjectType                           m_objectType;
