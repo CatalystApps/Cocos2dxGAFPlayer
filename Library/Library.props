@@ -3,6 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <CCX_ROOT>..\..\..</CCX_ROOT>
+    <CCX_ROOT_2>..\..\cocos2d-x</CCX_ROOT_2>
     <GAF_SOURCES_ROOT>$(ProjectDir)\Sources</GAF_SOURCES_ROOT>
   </PropertyGroup>
   <PropertyGroup />
@@ -10,6 +11,10 @@
   <ItemGroup>
     <BuildMacro Include="CCX_ROOT">
       <Value>$(CCX_ROOT)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="CCX_ROOT_2">
+      <Value>$(CCX_ROOT_2)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
     <BuildMacro Include="GAF_SOURCES_ROOT">
