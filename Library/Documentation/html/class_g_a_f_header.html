@@ -85,6 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_g_a_f_header-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -100,6 +101,15 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="separator:ab9536b3012166ea714b84b276c0ceee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a881c562b6a5406037cdf0e264b128032"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a881c562b6a5406037cdf0e264b128032"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>getMajorVersion</b> () const </td></tr>
+<tr class="separator:a881c562b6a5406037cdf0e264b128032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c73216fb78d8780801c644797b673ab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c73216fb78d8780801c644797b673ab"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>getMinorVersion</b> () const </td></tr>
+<tr class="separator:a4c73216fb78d8780801c644797b673ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a0b7abfc25244d812d0b8fa09178fc8af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b7abfc25244d812d0b8fa09178fc8af"></a>
@@ -114,12 +124,18 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fileLenght</b
 <tr class="memitem:a8d92fb3827a49283c8d72ac91e8e15a8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d92fb3827a49283c8d72ac91e8e15a8"></a>
 unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>framesCount</b></td></tr>
 <tr class="separator:a8d92fb3827a49283c8d72ac91e8e15a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14295d5da50c7defe10c8712a1e646c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14295d5da50c7defe10c8712a1e646c7"></a>
-CCRect&#160;</td><td class="memItemRight" valign="bottom"><b>frameSize</b></td></tr>
-<tr class="separator:a14295d5da50c7defe10c8712a1e646c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cdb50a38cb46c189902941db17c72c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4cdb50a38cb46c189902941db17c72c5"></a>
-CCPoint&#160;</td><td class="memItemRight" valign="bottom"><b>pivot</b></td></tr>
-<tr class="separator:a4cdb50a38cb46c189902941db17c72c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0826872d49db40aff99ebe471a7ccce"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0826872d49db40aff99ebe471a7ccce"></a>
+cocos2d::Rect&#160;</td><td class="memItemRight" valign="bottom"><b>frameSize</b></td></tr>
+<tr class="separator:ae0826872d49db40aff99ebe471a7ccce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb4cb619e594a5e98b9f4e6b685da134"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb4cb619e594a5e98b9f4e6b685da134"></a>
+cocos2d::Vect&#160;</td><td class="memItemRight" valign="bottom"><b>pivot</b></td></tr>
+<tr class="separator:abb4cb619e594a5e98b9f4e6b685da134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b996df41bd4d6a391ac8b68d2526259"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b996df41bd4d6a391ac8b68d2526259"></a>
+std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>scaleValues</b></td></tr>
+<tr class="separator:a4b996df41bd4d6a391ac8b68d2526259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94c40f24e90298cb3b462a3edb4e8126"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94c40f24e90298cb3b462a3edb4e8126"></a>
+std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>csfValues</b></td></tr>
+<tr class="separator:a94c40f24e90298cb3b462a3edb4e8126"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_g_a_f_header_8h_source.html">GAFHeader.h</a></li>
@@ -127,7 +143,7 @@ CCPoint&#160;</td><td class="memItemRight" valign="bottom"><b>pivot</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 27 2014 16:02:37 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 8 2014 21:36:50 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

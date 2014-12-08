@@ -87,6 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_g_a_f_texture_atlas-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">GAFTextureAtlas Class Reference</div>  </div>
@@ -116,9 +117,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pushAtlasInfo</b> (co
 <tr class="memitem:a3d4cd3cb238026fdab8cf61a6cda5ea0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d4cd3cb238026fdab8cf61a6cda5ea0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>pushElement</b> (unsigned int idx, <a class="el" href="class_g_a_f_texture_atlas_element.html">GAFTextureAtlasElement</a> *el)</td></tr>
 <tr class="separator:a3d4cd3cb238026fdab8cf61a6cda5ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2672ddc9cad6ac02ba23807c4ac288f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2672ddc9cad6ac02ba23807c4ac288f8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadImages</b> (const std::string &amp;dir, <a class="el" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a> *delegate)</td></tr>
-<tr class="separator:a2672ddc9cad6ac02ba23807c4ac288f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a607f97c1a5498e117cdc0ff6dcb0548e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a607f97c1a5498e117cdc0ff6dcb0548e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadImages</b> (const std::string &amp;dir, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile *bundle=nullptr)</td></tr>
+<tr class="separator:a607f97c1a5498e117cdc0ff6dcb0548e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a334da7f9849a70dd2c7f1ef971da47c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a334da7f9849a70dd2c7f1ef971da47c7"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>loaded</b> () const </td></tr>
 <tr class="separator:a334da7f9849a70dd2c7f1ef971da47c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,22 +129,50 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setScale</b> (float v
 <tr class="memitem:a5d27a36a40ffb7cdf0dc55bad0c7160b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d27a36a40ffb7cdf0dc55bad0c7160b"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>getScale</b> () const </td></tr>
 <tr class="separator:a5d27a36a40ffb7cdf0dc55bad0c7160b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b24db317fd6b4038bec4cdfa9d5b90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19b24db317fd6b4038bec4cdfa9d5b90"></a>
-CCImage *&#160;</td><td class="memItemRight" valign="bottom"><b>image</b> ()</td></tr>
-<tr class="separator:a19b24db317fd6b4038bec4cdfa9d5b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ccfaa50d3cfa2909b04eecc27a761c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ccfaa50d3cfa2909b04eecc27a761c6"></a>
-CCArray *&#160;</td><td class="memItemRight" valign="bottom"><b>images</b> ()</td></tr>
-<tr class="separator:a2ccfaa50d3cfa2909b04eecc27a761c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09e65747bdff3424099bb75bd8fd687f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09e65747bdff3424099bb75bd8fd687f"></a>
-CCTexture2D *&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b> ()</td></tr>
-<tr class="separator:a09e65747bdff3424099bb75bd8fd687f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d43a3121f93587af836940b6914dadc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d43a3121f93587af836940b6914dadc"></a>
-CCArray *&#160;</td><td class="memItemRight" valign="bottom"><b>textures</b> ()</td></tr>
-<tr class="separator:a8d43a3121f93587af836940b6914dadc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d3ff2b2995c3c902fa6f18dd5971f16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d3ff2b2995c3c902fa6f18dd5971f16"></a>
+cocos2d::Image *&#160;</td><td class="memItemRight" valign="bottom"><b>image</b> ()</td></tr>
+<tr class="separator:a2d3ff2b2995c3c902fa6f18dd5971f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af868da6dcf6d6ad81751c5461932b9c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af868da6dcf6d6ad81751c5461932b9c9"></a>
+cocos2d::__Array *&#160;</td><td class="memItemRight" valign="bottom"><b>images</b> ()</td></tr>
+<tr class="separator:af868da6dcf6d6ad81751c5461932b9c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c2973ba705b2a2be1f74a3fd886526"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1c2973ba705b2a2be1f74a3fd886526"></a>
+cocos2d::Texture2D *&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b> ()</td></tr>
+<tr class="separator:aa1c2973ba705b2a2be1f74a3fd886526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a778b5238ba4613851a1291b95bc8124d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a778b5238ba4613851a1291b95bc8124d"></a>
+cocos2d::__Array *&#160;</td><td class="memItemRight" valign="bottom"><b>textures</b> ()</td></tr>
+<tr class="separator:a778b5238ba4613851a1291b95bc8124d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a608d1ebc010c1d05cf9ad29bc4106577"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a608d1ebc010c1d05cf9ad29bc4106577"></a>
 const Elements_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getElements</b> () const </td></tr>
 <tr class="separator:a608d1ebc010c1d05cf9ad29bc4106577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a780eb95a70cc3c01238de095571792b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a780eb95a70cc3c01238de095571792b0"></a>
+const AtlasInfos_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAtlasInfos</b> () const </td></tr>
+<tr class="separator:a780eb95a70cc3c01238de095571792b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846409999c4325acf1aa970ef5a9def0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_texture_atlas.html#a846409999c4325acf1aa970ef5a9def0">getMemoryConsumptionStat</a> () const </td></tr>
+<tr class="separator:a846409999c4325acf1aa970ef5a9def0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a903340592c0195ccd1b3a194071ee2a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a903340592c0195ccd1b3a194071ee2a4"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>compareAtlasesById</b> (const <a class="el" href="struct_g_a_f_texture_atlas_1_1_atlas_info.html">AtlasInfo</a> &amp;ai1, const <a class="el" href="struct_g_a_f_texture_atlas_1_1_atlas_info.html">AtlasInfo</a> &amp;ai2)</td></tr>
+<tr class="separator:a903340592c0195ccd1b3a194071ee2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a846409999c4325acf1aa970ef5a9def0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t GAFTextureAtlas::getMemoryConsumptionStat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>All CCImages will be freed at the first call of textures() So there is only VRAM occupation In case you don't want to release CCImages at textures(), remove releasing ones and after calling getMemoryConsumptionStat you will need x2 a given number: RAM + VRAM </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_g_a_f_texture_atlas_8h_source.html">GAFTextureAtlas.h</a></li>
 <li>GAFTextureAtlas.cpp</li>
@@ -151,7 +180,7 @@ const Elements_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 27 2014 16:02:38 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 8 2014 21:36:50 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
