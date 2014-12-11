@@ -4,7 +4,7 @@
   <PropertyGroup Label="UserMacros">
     <CCX_ROOT>$(MSBuildThisFileDirectory)..\..\..\</CCX_ROOT>
     <CCX_ROOT_2>$(MSBuildThisFileDirectory)..\..\cocos2d-x\</CCX_ROOT_2>
-    <GAF_SOURCES_ROOT>$(ProjectDir)\Sources</GAF_SOURCES_ROOT>
+    <GAF_SOURCES_ROOT>$(MSBuildThisFileDirectory)Sources\</GAF_SOURCES_ROOT>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />

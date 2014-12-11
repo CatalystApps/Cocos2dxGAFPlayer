@@ -102,81 +102,82 @@ Inheritance diagram for GAFAsset:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a695028ed6b3a26fd165421893f46ee7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a695028ed6b3a26fd165421893f46ee7d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#a695028ed6b3a26fd165421893f46ee7d">initWithGAFFile</a> (const std::string &amp;filePath, <a class="el" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a> *delegate=NULL)</td></tr>
-<tr class="memdesc:a695028ed6b3a26fd165421893f46ee7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes asset with bGAF data. <br/></td></tr>
-<tr class="separator:a695028ed6b3a26fd165421893f46ee7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d1e1c6720cac97ca8c4e6603166f420"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d1e1c6720cac97ca8c4e6603166f420"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushTextureAtlas</b> (<a class="el" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a> *atlas)</td></tr>
-<tr class="separator:a0d1e1c6720cac97ca8c4e6603166f420"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb2467a673e4c3a2d96e642cf5ef751f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb2467a673e4c3a2d96e642cf5ef751f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushAnimationMask</b> (unsigned int objectId, unsigned int elementAtlasIdRef)</td></tr>
-<tr class="separator:acb2467a673e4c3a2d96e642cf5ef751f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1984f660aed9acf375d9c792de38fb7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1984f660aed9acf375d9c792de38fb7f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushAnimationObjects</b> (unsigned int objectId, unsigned int elementAtlasIdRef)</td></tr>
-<tr class="separator:a1984f660aed9acf375d9c792de38fb7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d887c492b9bb5e82c339710aec2b0b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d887c492b9bb5e82c339710aec2b0b5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushAnimationFrame</b> (<a class="el" href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a> *frame)</td></tr>
-<tr class="separator:a2d887c492b9bb5e82c339710aec2b0b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1b19fca0985530ff596aba830d63217"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1b19fca0985530ff596aba830d63217"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushAnimationSequence</b> (const std::string nameId, int start, int end)</td></tr>
-<tr class="separator:ae1b19fca0985530ff596aba830d63217"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2025df523f4c9acf6fd61d085aa09ac3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2025df523f4c9acf6fd61d085aa09ac3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushNamedPart</b> (unsigned int objectIdRef, const std::string &amp;name)</td></tr>
-<tr class="separator:a2025df523f4c9acf6fd61d085aa09ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a123f0ba4ea4d9c6900e17f350b4d7733"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a123f0ba4ea4d9c6900e17f350b4d7733"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#a123f0ba4ea4d9c6900e17f350b4d7733">initWithGAFFile</a> (const std::string &amp;filePath, GAFTextureLoadDelegate_t delegate)</td></tr>
+<tr class="memdesc:a123f0ba4ea4d9c6900e17f350b4d7733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes asset with bGAF data. <br/></td></tr>
+<tr class="separator:a123f0ba4ea4d9c6900e17f350b4d7733"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e18ca1cafd1994bd31dd0879f22c72"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01e18ca1cafd1994bd31dd0879f22c72"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>initWithGAFBundle</b> (const std::string &amp;zipfilePath, const std::string &amp;entryFile, GAFTextureLoadDelegate_t delegate)</td></tr>
+<tr class="separator:a01e18ca1cafd1994bd31dd0879f22c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e6533c80eeaf9f648239d19acc15537"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e6533c80eeaf9f648239d19acc15537"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>pushTimeline</b> (uint32_t timelineIdRef, <a class="el" href="class_g_a_f_timeline.html">GAFTimeline</a> *t)</td></tr>
+<tr class="separator:a5e6533c80eeaf9f648239d19acc15537"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03706728ca9db4db42d4ae208c21ef9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03706728ca9db4db42d4ae208c21ef9a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setHeader</b> (<a class="el" href="class_g_a_f_header.html">GAFHeader</a> &amp;h)</td></tr>
 <tr class="separator:a03706728ca9db4db42d4ae208c21ef9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82fc9d2b4c4503c6dd76960919f32374"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82fc9d2b4c4503c6dd76960919f32374"></a>
-const AnimationObjects_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimationObjects</b> () const </td></tr>
-<tr class="separator:a82fc9d2b4c4503c6dd76960919f32374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae978a9449a2076dace5da614332c29e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae978a9449a2076dace5da614332c29e5"></a>
-const AnimationMasks_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimationMasks</b> () const </td></tr>
-<tr class="separator:ae978a9449a2076dace5da614332c29e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04f84efd56bd940821a52d073af39a2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04f84efd56bd940821a52d073af39a2d"></a>
-const AnimationFrames_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimationFrames</b> () const </td></tr>
-<tr class="separator:a04f84efd56bd940821a52d073af39a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c5ae13e9269fce9c2534d772da81fcc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c5ae13e9269fce9c2534d772da81fcc"></a>
-const NamedParts_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getNamedParts</b> () const </td></tr>
-<tr class="separator:a1c5ae13e9269fce9c2534d772da81fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa7f2492aed0f29aded11a729c711c9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa7f2492aed0f29aded11a729c711c9f"></a>
-const AnimationSequences_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#afa7f2492aed0f29aded11a729c711c9f">getAnimationSequences</a> () const </td></tr>
-<tr class="memdesc:afa7f2492aed0f29aded11a729c711c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get all of the sequences <br/></td></tr>
-<tr class="separator:afa7f2492aed0f29aded11a729c711c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2403947fc6e9c35b523e2e98f6a28ad0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2403947fc6e9c35b523e2e98f6a28ad0"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#a2403947fc6e9c35b523e2e98f6a28ad0">animationFramesCount</a> () const </td></tr>
-<tr class="memdesc:a2403947fc6e9c35b523e2e98f6a28ad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">total number of frames in animation <br/></td></tr>
-<tr class="separator:a2403947fc6e9c35b523e2e98f6a28ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0754d552a2d095d503e7fe19c418532e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0754d552a2d095d503e7fe19c418532e"></a>
-<a class="el" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>textureAtlas</b> ()</td></tr>
-<tr class="separator:a0754d552a2d095d503e7fe19c418532e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95f47d282897b17a8e863c3195208913"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a95f47d282897b17a8e863c3195208913"></a>
-const <a class="el" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#a95f47d282897b17a8e863c3195208913">getSequence</a> (const std::string &amp;name) const </td></tr>
-<tr class="memdesc:a95f47d282897b17a8e863c3195208913"><td class="mdescLeft">&#160;</td><td class="mdescRight">get <a class="el" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a> by name specified in editor <br/></td></tr>
-<tr class="separator:a95f47d282897b17a8e863c3195208913"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57d07e5c5a44161509daa24998c09ed6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57d07e5c5a44161509daa24998c09ed6"></a>
-const <a class="el" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#a57d07e5c5a44161509daa24998c09ed6">getSequenceByLastFrame</a> (int frame) const </td></tr>
-<tr class="memdesc:a57d07e5c5a44161509daa24998c09ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get <a class="el" href="class_g_a_f_animation_sequence.html">GAFAnimationSequence</a> by last frame number in sequence <br/></td></tr>
-<tr class="separator:a57d07e5c5a44161509daa24998c09ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7dcb1e62979a21fce6aa8231efe681e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7dcb1e62979a21fce6aa8231efe681e"></a>
-<a class="el" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createObject</b> ()</td></tr>
-<tr class="separator:ac7dcb1e62979a21fce6aa8231efe681e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5141be189ac25342def83d9ed8345017"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5141be189ac25342def83d9ed8345017"></a>
-<a class="el" href="class_g_a_f_animated_object.html">GAFAnimatedObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createObjectAndRun</b> (bool looped=false)</td></tr>
-<tr class="separator:a5141be189ac25342def83d9ed8345017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada62ac8fc08cc7a3fbec78e6f88dfca9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada62ac8fc08cc7a3fbec78e6f88dfca9"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#ada62ac8fc08cc7a3fbec78e6f88dfca9">usedAtlasContentScaleFactor</a> () const </td></tr>
-<tr class="memdesc:ada62ac8fc08cc7a3fbec78e6f88dfca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">used content scale factor <br/></td></tr>
-<tr class="separator:ada62ac8fc08cc7a3fbec78e6f88dfca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bb346c55d676e777820c239289e4b1a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6bb346c55d676e777820c239289e4b1a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTextureLoadDelegate</b> (<a class="el" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a> *delegate)</td></tr>
-<tr class="separator:a6bb346c55d676e777820c239289e4b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acccfeaabcf24904a89aa7aa7601041e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acccfeaabcf24904a89aa7aa7601041e2"></a>
+const <a class="el" href="class_g_a_f_header.html">GAFHeader</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getHeader</b> () const </td></tr>
+<tr class="separator:acccfeaabcf24904a89aa7aa7601041e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81093e105ede6499fbb1b8f54e64f2e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81093e105ede6499fbb1b8f54e64f2e6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setRootTimeline</b> (<a class="el" href="class_g_a_f_timeline.html">GAFTimeline</a> *tl)</td></tr>
+<tr class="separator:a81093e105ede6499fbb1b8f54e64f2e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4128ce82431bac8abb3fe5ddb6fb0080"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4128ce82431bac8abb3fe5ddb6fb0080"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setRootTimelineWithName</b> (std::string name)</td></tr>
+<tr class="separator:a4128ce82431bac8abb3fe5ddb6fb0080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af4e046377242b59d1546dfb8e7f932"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4af4e046377242b59d1546dfb8e7f932"></a>
+<a class="el" href="class_g_a_f_timeline.html">GAFTimeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getRootTimeline</b> () const </td></tr>
+<tr class="separator:a4af4e046377242b59d1546dfb8e7f932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcbf71af172f18fd06eeb036d2defca7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcbf71af172f18fd06eeb036d2defca7"></a>
+const Timelines_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getTimelines</b> () const </td></tr>
+<tr class="separator:afcbf71af172f18fd06eeb036d2defca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dfe17e2a282e3d28ce8cb20caa13471"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8dfe17e2a282e3d28ce8cb20caa13471"></a>
+Timelines_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getTimelines</b> ()</td></tr>
+<tr class="separator:a8dfe17e2a282e3d28ce8cb20caa13471"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23a1859f7b10df6142b392b36e35997"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab23a1859f7b10df6142b392b36e35997"></a>
+<a class="el" href="class_g_a_f_object.html">GAFObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createObject</b> ()</td></tr>
+<tr class="separator:ab23a1859f7b10df6142b392b36e35997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92bf43310d0538af76741a8ec689f91e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92bf43310d0538af76741a8ec689f91e"></a>
+<a class="el" href="class_g_a_f_object.html">GAFObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createObjectAndRun</b> (bool looped=false)</td></tr>
+<tr class="separator:a92bf43310d0538af76741a8ec689f91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c962b6762d134cedbb2dc89c0055a50"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c962b6762d134cedbb2dc89c0055a50"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTextureLoadDelegate</b> (GAFTextureLoadDelegate_t delegate)</td></tr>
+<tr class="separator:a1c962b6762d134cedbb2dc89c0055a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a798e1fd0accf52fa04703ff248067b76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a798e1fd0accf52fa04703ff248067b76"></a>
+<a class="el" href="class_g_a_f_asset_texture_manager.html">GAFAssetTextureManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getTextureManager</b> ()</td></tr>
+<tr class="separator:a798e1fd0accf52fa04703ff248067b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2f4e49c60d13d2e68749cd13c9cd3e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2f4e49c60d13d2e68749cd13c9cd3e1"></a>
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getSceneFps</b> () const </td></tr>
+<tr class="separator:ad2f4e49c60d13d2e68749cd13c9cd3e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d932b73ca3cdcff6bc27855a579652"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1d932b73ca3cdcff6bc27855a579652"></a>
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getSceneWidth</b> () const </td></tr>
+<tr class="separator:aa1d932b73ca3cdcff6bc27855a579652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac136deb32f044409698f1fe6a43035e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac136deb32f044409698f1fe6a43035e5"></a>
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getSceneHeight</b> () const </td></tr>
+<tr class="separator:ac136deb32f044409698f1fe6a43035e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a977cae0fc5c7abc9d78509541a5900d7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a977cae0fc5c7abc9d78509541a5900d7"></a>
+const cocos2d::Color4B &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getSceneColor</b> () const </td></tr>
+<tr class="separator:a977cae0fc5c7abc9d78509541a5900d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29975566e2049aa8905dc208297bc130"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29975566e2049aa8905dc208297bc130"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSceneFps</b> (unsigned int)</td></tr>
+<tr class="separator:a29975566e2049aa8905dc208297bc130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03c0a85a356f903b0ac4506ea8d6206"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab03c0a85a356f903b0ac4506ea8d6206"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSceneWidth</b> (unsigned int)</td></tr>
+<tr class="separator:ab03c0a85a356f903b0ac4506ea8d6206"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53077121f716a1ae61449dbec42103c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a53077121f716a1ae61449dbec42103c3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSceneHeight</b> (unsigned int)</td></tr>
+<tr class="separator:a53077121f716a1ae61449dbec42103c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab013000212aeeede618c12ad39873fb5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab013000212aeeede618c12ad39873fb5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSceneColor</b> (const cocos2d::Color4B &amp;)</td></tr>
+<tr class="separator:ab013000212aeeede618c12ad39873fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a7e158b9a85f4e661b54e3eb929ab7010"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e158b9a85f4e661b54e3eb929ab7010"></a>
-static <a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (const std::string &amp;gafFilePath, <a class="el" href="class_g_a_f_texture_load_delegate.html">GAFTextureLoadDelegate</a> *delegate=NULL)</td></tr>
-<tr class="separator:a7e158b9a85f4e661b54e3eb929ab7010"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b60b2d685bbda2d53d95d5d81bf8896"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5b60b2d685bbda2d53d95d5d81bf8896"></a>
+static <a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createWithBundle</b> (const std::string &amp;zipfilePath, const std::string &amp;entryFile, GAFTextureLoadDelegate_t delegate)</td></tr>
+<tr class="separator:a5b60b2d685bbda2d53d95d5d81bf8896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2feed9f94e814dd95f54e5ce015b900c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2feed9f94e814dd95f54e5ce015b900c"></a>
+static <a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (const std::string &amp;gafFilePath, GAFTextureLoadDelegate_t delegate)</td></tr>
+<tr class="separator:a2feed9f94e814dd95f54e5ce015b900c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a352998927228ce3ada2810ba7d506161"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a352998927228ce3ada2810ba7d506161"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_f_asset.html#a352998927228ce3ada2810ba7d506161">isAssetVersionPlayable</a> (const char *version)</td></tr>
 <tr class="memdesc:a352998927228ce3ada2810ba7d506161"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of <a class="el" href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a> objects. <br/></td></tr>
@@ -197,7 +198,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 27 2014 16:02:37 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 8 2014 21:36:50 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

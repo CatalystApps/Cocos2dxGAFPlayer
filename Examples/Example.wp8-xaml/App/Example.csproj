@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PhoneDirect3DXamlAppInterop</RootNamespace>
-    <AssemblyName>PhoneDirect3DXamlAppInterop</AssemblyName>
+    <RootNamespace>cocos2d</RootNamespace>
+    <AssemblyName>gaf_test</AssemblyName>
     <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -19,9 +19,9 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>PhoneDirect3DXamlAppInterop_$(Configuration)_$(Platform).xap</XapFilename>
+    <XapFilename>gaf_test_$(Configuration)_$(Platform).xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>PhoneDirect3DXamlAppInterop.App</SilverlightAppEntry>
+    <SilverlightAppEntry>cocos2d.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
@@ -73,7 +73,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\ARM\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -102,6 +102,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Resources\answer.wav" />
+    <Content Include="Assets\Resources\bird_bezneba\bird_bezneba1.png" />
+    <Content Include="Assets\Resources\bird_bezneba\bird_bezneba2.png" />
+    <Content Include="Assets\Resources\bird_bezneba\bird_bezneba3.png" />
+    <Content Include="Assets\Resources\bird_bezneba\bird_bezneba4.png" />
+    <Content Include="Assets\Resources\bird_bezneba\bird_bezneba5.png" />
+    <Content Include="Assets\Resources\bird_bezneba\bird_bezneba6.png" />
+    <Content Include="Assets\Resources\biggreen\biggreen.gaf" />
+    <Content Include="Assets\Resources\car.wav" />
+    <Content Include="Assets\Resources\christmas2013_julia2\christmas2013_julia21.png" />
+    <Content Include="Assets\Resources\christmas2013_julia2\christmas2013_julia22.png" />
+    <Content Include="Assets\Resources\cut_the_hope\cut_the_hope.gaf" />
+    <Content Include="Assets\Resources\bird_bezneba\bird_bezneba.gaf" />
+    <Content Include="Assets\Resources\christmas2013_julia2\christmas2013_julia2.gaf" />
+    <Content Include="Assets\Resources\fairy2\fairy2.gaf" />
+    <Content Include="Assets\Resources\fireman_2014_sound\fireman_2014_sound.gaf" />
+    <Content Include="Assets\Resources\firemen\firemen.gaf" />
+    <Content Include="Assets\Resources\impiretank_05_oneplace\impiretank_05_oneplace.gaf" />
+    <Content Include="Assets\Resources\myshopsgame4\myshopsgame4.gaf" />
+    <Content Include="Assets\Resources\peacock_feb3_natasha\peacock_feb3_natasha.gaf" />
+    <Content Include="Assets\Resources\tiger\tiger.gaf" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
@@ -112,6 +133,56 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Resources\biggreen\biggreen1.png" />
+    <Content Include="Assets\Resources\biggreen\biggreen2.png" />
+    <Content Include="Assets\Resources\buttons\black_bg_button%402x.png" />
+    <Content Include="Assets\Resources\cut_the_hope\cut_the_hope1.png" />
+    <Content Include="Assets\Resources\cut_the_hope\cut_the_hope2.png" />
+    <Content Include="Assets\Resources\cut_the_hope\cut_the_hope3.png" />
+    <Content Include="Assets\Resources\cut_the_hope\cut_the_hope4.png" />
+    <Content Include="Assets\Resources\cut_the_hope\cut_the_hope5.png" />
+    <Content Include="Assets\Resources\cut_the_hope\cut_the_hope6.png" />
+    <Content Include="Assets\Resources\buttons\gaf_logo%402x.png" />
+    <Content Include="Assets\Resources\buttons\left_arrow%402x.png" />
+    <Content Include="Assets\Resources\buttons\left_arrow_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\next_animation_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\next_animation_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\next_frame_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\next_frame_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\pause_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\pause_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\play_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\play_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\previous_animation_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\previous_animation_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\previous_frame_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\previous_frame_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\restart_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\restart_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\right_arrow%402x.png" />
+    <Content Include="Assets\Resources\buttons\right_arrow_pressed%402x.png" />
+    <Content Include="Assets\Resources\buttons\white_bg_button%402x.png" />
+    <Content Include="Assets\Resources\buttons\white_bg_button_pressed%402x.png" />
+    <Content Include="Assets\Resources\fairy2\fairy21.png" />
+    <Content Include="Assets\Resources\fairy2\fairy22.png" />
+    <Content Include="Assets\Resources\fairy2\fairy23.png" />
+    <Content Include="Assets\Resources\fairy2\fairy24.png" />
+    <Content Include="Assets\Resources\fireman_2014_sound\fireman_2014_sound1.png" />
+    <Content Include="Assets\Resources\fireman_2014_sound\fireman_2014_sound2.png" />
+    <Content Include="Assets\Resources\firemen\firemen1.png" />
+    <Content Include="Assets\Resources\firemen\firemen2.png" />
+    <Content Include="Assets\Resources\firemen\firemen3.png" />
+    <Content Include="Assets\Resources\firemen\firemen4.png" />
+    <Content Include="Assets\Resources\impiretank_05_oneplace\impiretank_05_oneplace1.png" />
+    <Content Include="Assets\Resources\impiretank_05_oneplace\impiretank_05_oneplace2.png" />
+    <Content Include="Assets\Resources\myshopsgame4\myshopsgame41.png" />
+    <Content Include="Assets\Resources\myshopsgame4\myshopsgame42.png" />
+    <Content Include="Assets\Resources\order.wav" />
+    <Content Include="Assets\Resources\peacock_feb3_natasha\peacock_feb3_natasha1.png" />
+    <Content Include="Assets\Resources\peacock_feb3_natasha\peacock_feb3_natasha2.png" />
+    <Content Include="Assets\Resources\ring.wav" />
+    <Content Include="Assets\Resources\tiger\tiger1.png" />
+    <Content Include="Assets\Resources\tiger\tiger2.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -150,14 +221,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Resources\**\*">
-      <Link>Assets\Resources\%(RecursiveDir)%(FileName)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AppComponent\ExampleComponent.vcxproj">
-      <Project>{60EC6889-C3C4-45AD-A006-47D9EE689212}</Project>
+      <Project>{60ec6889-c3c4-45ad-a006-47d9ee689212}</Project>
       <Name>ExampleComponent</Name>
     </ProjectReference>
   </ItemGroup>

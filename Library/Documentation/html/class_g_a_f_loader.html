@@ -96,6 +96,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a948581bc5b984c727dd0d9dc9b351bd1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a948581bc5b984c727dd0d9dc9b351bd1"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadFile</b> (const std::string &amp;fname, <a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *context)</td></tr>
 <tr class="separator:a948581bc5b984c727dd0d9dc9b351bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d35ce50819bcd4b28d208397591451"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7d35ce50819bcd4b28d208397591451"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadData</b> (const unsigned char *data, size_t len, <a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *context)</td></tr>
+<tr class="separator:ae7d35ce50819bcd4b28d208397591451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb32d128ed2888438875e6935248ab58"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb32d128ed2888438875e6935248ab58"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isFileLoaded</b> () const </td></tr>
 <tr class="separator:afb32d128ed2888438875e6935248ab58"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,6 +108,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isFileLoaded</b> () c
 <tr class="memitem:a64abda9fe449d626c39ccd18b11ccbb1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a64abda9fe449d626c39ccd18b11ccbb1"></a>
 const <a class="el" href="class_g_a_f_header.html">GAFHeader</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getHeader</b> () const </td></tr>
 <tr class="separator:a64abda9fe449d626c39ccd18b11ccbb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add5b862adc78f4abb420e0688871dacd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add5b862adc78f4abb420e0688871dacd"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getVersionMinor</b> () const </td></tr>
+<tr class="separator:add5b862adc78f4abb420e0688871dacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6265c70dddbba01305e7ed440e0b5aa3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6265c70dddbba01305e7ed440e0b5aa3"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getVersionMajor</b> () const </td></tr>
+<tr class="separator:a6265c70dddbba01305e7ed440e0b5aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a979f58af9861e0a3d5ead02d13c153a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a979f58af9861e0a3d5ead02d13c153a3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>registerTagLoader</b> (unsigned int idx, <a class="el" href="class_definition_tag_base.html">DefinitionTagBase</a> *)</td></tr>
+<tr class="separator:a979f58af9861e0a3d5ead02d13c153a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c999e07341d8bfea69f9ccc64997b6a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c999e07341d8bfea69f9ccc64997b6a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadTags</b> (<a class="el" href="class_g_a_f_stream.html">GAFStream</a> *in, <a class="el" href="class_g_a_f_asset.html">GAFAsset</a> *asset, <a class="el" href="class_g_a_f_timeline.html">GAFTimeline</a> *timeline)</td></tr>
+<tr class="separator:a0c999e07341d8bfea69f9ccc64997b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_g_a_f_loader_8h_source.html">GAFLoader.h</a></li>
@@ -113,7 +128,7 @@ const <a class="el" href="class_g_a_f_header.html">GAFHeader</a> &amp;&#160;</td
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 27 2014 16:02:37 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 8 2014 21:36:50 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

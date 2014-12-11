@@ -185,7 +185,7 @@ void GAFAsset::setRootTimeline(GAFTimeline *tl)
     m_header.frameSize = tl->getRect();
 }
 
-void GAFAsset::setRootTimelineWithName(std::string name)
+void GAFAsset::setRootTimelineWithName(const std::string& name)
 {
     for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
     {
@@ -201,6 +201,17 @@ void GAFAsset::setRootTimelineWithName(std::string name)
 GAFTimeline* GAFAsset::getRootTimeline() const
 {
     return m_rootTimeline;
+}
+
+GAFTimeline* GAFAsset::getTimelineByName(const std::string& name) const
+{
+    for (Timelines_t::value_type it : m_timelines)
+    {
+        if (it.second->getLinkageName() == name)
+            return it.second;
+    }
+
+    return nullptr;
 }
 
 void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)

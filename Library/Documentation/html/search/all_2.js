@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['capturecontroloversubobjectnamed',['captureControlOverSubobjectNamed',['../class_g_a_f_animated_object.html#a7592f5120a61ea5b7f06f6cdcb7e128a',1,'GAFAnimatedObject']]]
+  ['definitiontagbase',['DefinitionTagBase',['../class_definition_tag_base.html',1,'']]],
+  ['desiredcsf',['desiredCsf',['../class_g_a_f_asset.html#a9ff163431342d8706dd055e995169e2f',1,'GAFAsset']]]
 ];
