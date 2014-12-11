@@ -1,7 +1,5 @@
 #include "AppDelegate.h"
 
-#include "cocos2d.h"
-
 #include "GafFeatures.h"
 
 #include <vector>
@@ -20,6 +18,13 @@ AppDelegate::AppDelegate()
 
 AppDelegate::~AppDelegate()
 {
+}
+
+void AppDelegate::initGLContextAttrs()
+{
+    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
+
+    GLView::setGLContextAttrs(glContextAttrs);
 }
 
 bool AppDelegate::applicationDidFinishLaunching()

@@ -25,6 +25,7 @@
     <ClCompile Include="Sources\GAFObject.cpp" />
     <ClCompile Include="Sources\GAFPrecompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Sources\GAFQuadCommand.cpp" />
     <ClCompile Include="Sources\GAFShaderManager.cpp" />
@@ -122,6 +123,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Library.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -134,7 +136,7 @@
       <PrecompiledHeaderFile>GAFPrecompiled.h</PrecompiledHeaderFile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/cocos/2d/;$(CCX_ROOT)/cocos/platform/win32/;$(CCX_ROOT)/cocos/;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT)/external/win32-specific/zlib/include/;$(CCX_ROOT)/cocos/math/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT_2)/cocos;$(CCX_ROOT)/cocos/;$(CCX_ROOT_2)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT_2)/external/glfw3/include/win32/;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT_2)/external/win32-specific/zlib/include/;$(CCX_ROOT)/external/win32-specific/zlib/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -150,7 +152,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>GAFPrecompiled.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/cocos/2d/;$(CCX_ROOT)/cocos/platform/win32/;$(CCX_ROOT)/cocos/;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT)/external/win32-specific/zlib/include/;$(CCX_ROOT)/cocos/math/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT_2)/cocos;$(CCX_ROOT)/cocos/;$(CCX_ROOT_2)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES/;$(CCX_ROOT_2)/external/glfw3/include/win32/;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT_2)/external/win32-specific/zlib/include/;$(CCX_ROOT)/external/win32-specific/zlib/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

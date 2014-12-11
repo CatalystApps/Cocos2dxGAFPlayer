@@ -2,7 +2,7 @@
 #include "GAFSprite.h"
 #include "GAFCollections.h"
 
-#include "TransformUtils.h"
+#include "math/TransformUtils.h"
 #include "../external/xxhash/xxhash.h"
 
 USING_NS_CC;

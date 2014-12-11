@@ -268,7 +268,6 @@ bool GafFeatures::init()
     setupMenuItems();
     gray(nullptr);
     
-    m_files.push_back("GAF4Test/GAF4Test.gaf");
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
@@ -578,8 +577,8 @@ void GafFeatures::addObjectsToScene()
         object->setLooped(true);
         object->start();
         
-       // object->setSequenceDelegate(std::bind(&GafFeatures::onFinishSequence, _1, _2));
-       // object->setFramePlayedDelegate(std::bind(&GafFeatures::onFramePlayed, _1, _2));
+        object->setSequenceDelegate(std::bind(&GafFeatures::onFinishSequence, this, _1, _2));
+        object->setFramePlayedDelegate(std::bind(&GafFeatures::onFramePlayed, this, _1, _2));
         
     }
 }
@@ -589,7 +588,7 @@ void GafFeatures::onFinishSequence( GAFObject * object, const std::string& seque
     //! This function will be triggered once a sequence completed
 }
 
-void GafFeatures::onFramePlayed(GAFObject *object, int frame)
+void GafFeatures::onFramePlayed(GAFObject *object, uint32_t frame)
 {
     MusicEffects_t::const_iterator it = m_musicEffects.find(frame);
     

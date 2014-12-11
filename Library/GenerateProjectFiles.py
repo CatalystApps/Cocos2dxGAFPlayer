@@ -14,6 +14,8 @@ from xml.etree import ElementTree as eT
 
 
 def gen_win32_bindings_proj(ccx_root, out_folder):
+    print " * Generating JS Bindings project"
+
     vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
     eT.register_namespace('', vs_xml_namespace)
     proj_filters_src = os.path.abspath("../js_bindings/proj.win32/libGAFJSBinding.vcxproj.filters")
@@ -27,122 +29,159 @@ def gen_win32_bindings_proj(ccx_root, out_folder):
 
     vcx_tree = eT.parse(proj_dst)
     vcx_root = vcx_tree.getroot()
-
+    info_occurrences = 0
     for sources_info in vcx_root.iter("{%s}ClCompile" % vs_xml_namespace):
         file_path = sources_info.get('Include')
         if file_path:
             file_path = file_path.replace('..\\bindings', os.path.abspath('../js_bindings/bindings'))
             sources_info.set("Include", file_path)
+            info_occurrences += 1
 
     for includes_info in vcx_root.iter("{%s}ClInclude" % vs_xml_namespace):
         file_path = includes_info.get('Include')
         if file_path:
             file_path = file_path.replace('..\\bindings', os.path.abspath('../js_bindings/bindings'))
             includes_info.set("Include", file_path)
+            info_occurrences += 1
 
     vcx_tree.write(proj_dst)
 
+    print " ** Replaced occurrences [Source Files] - %d" % info_occurrences
+    print " * JS Bindings project generated\n"
+
 
 def gen_android_proj(ccx_root, out_folder):
-    shutil.copyfile(os.getcwd() + "/Android.mk", out_folder + "/Android.mk")
+    print " * Generating Android project"
+
+    shutil.copyfile(os.path.join(os.getcwd(), "Android.mk"), os.path.join(out_folder, "Android.mk"))
     cocos_root_marker = "CCX_ROOT :="
     gaf_sources_marker = "GAF_LIB_SOURCES :="
-    for line in fileinput.input(out_folder + "/Android.mk", inplace=True):
+    info_occurrences = [0] * 2
+    for line in fileinput.input(os.path.join(out_folder, "Android.mk"), inplace=True):
         if cocos_root_marker in line:
             line = "%s %s\n" % (cocos_root_marker, ccx_root)
+            info_occurrences[0] += 1
         elif gaf_sources_marker in line:
             line = "%s %s/Sources\n" % (gaf_sources_marker, os.getcwd())
             line = line.replace("\\", "/")
-
+            info_occurrences[1] += 1
         sys.stdout.write(line)
+
+    print " ** Replaced occurrences [Cocos2d-x root] - %d, [GAF Sources] - %d" % (info_occurrences[0], info_occurrences[1])
+    print " * Android project generated\n"
 
 
 def gen_xcode_proj(ccx_root, out_folder):
-    if os.path.exists(out_folder + "/GAFPlayer.xcodeproj/"):
-        shutil.rmtree(out_folder + "/GAFPlayer.xcodeproj/")
+    print " * Generating XCode project"
 
-    shutil.copytree(os.getcwd() + "/GAFPlayer.xcodeproj", out_folder + "/GAFPlayer.xcodeproj/")
+    newcwd = os.path.join(out_folder, "GAFPlayer.xcodeproj/")
 
-    newcwd = out_folder + "/GAFPlayer.xcodeproj/"
+    if os.path.exists(newcwd):
+        print " ** Remove existing folder"
+        shutil.rmtree(newcwd)
+
+    shutil.copytree(os.path.join(os.getcwd(), "GAFPlayer.xcodeproj"), newcwd)
+
     project = "project.pbxproj"
 
     cocos_root_marker = "CCX_ROOT ="
     gaf_sources_marker = "path = Sources;"
     pch_marker = 'GCC_PREFIX_HEADER = "Sources/GAFPlayer-Prefix.pch";'
-
+    info_occurrences = [0] * 3
     for line in fileinput.input(newcwd + project, inplace=True):
         if cocos_root_marker in line:
             print 'CCX_ROOT_OVERRIDE = "%s";' % ccx_root
+            info_occurrences[0] += 1
         if gaf_sources_marker in line:
-            line = line.replace(gaf_sources_marker, "path = " + os.getcwd() + "/Sources;")
+            line = line.replace(gaf_sources_marker, "path = %s;" % os.path.join(os.getcwd(), "Sources"))
+            info_occurrences[1] += 1
         if pch_marker in line:
             line = line.replace(pch_marker,
-                                'GCC_PREFIX_HEADER = "' + os.getcwd() + '/Sources/GAFPlayer-Prefix.pch";')
+                                'GCC_PREFIX_HEADER = "%s";' % os.path.join(os.getcwd(), 'Sources/GAFPlayer-Prefix.pch'))
+            info_occurrences[2] += 1
         sys.stdout.write(line)
+
+    print " ** Replaced occurrences [Cocos2d-x root] - %d, [GAF Sources] - %d, [PCH] - %d" % (info_occurrences[0], info_occurrences[1], info_occurrences[2])
+    print " * XCode project generated\n"
 
 
 def gen_vc_proj(ccx_root, out_folder):
+    print " * Generating VS project"
+
     vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
     eT.register_namespace('', vs_xml_namespace)
 
-    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj.filters", out_folder + "/GAFPlayer.vcxproj.filters")
+    shutil.copyfile(os.path.join(os.getcwd(), "GAFPlayer.vcxproj.filters"), os.path.join(out_folder, "GAFPlayer.vcxproj.filters"))
 
     gen_vs_props_file(ccx_root, out_folder)
 
     # project
-    vcxproj_filename = out_folder + "/GAFPlayer.vcxproj"
-    shutil.copyfile(os.getcwd() + "/GAFPlayer.vcxproj", vcxproj_filename)
+    vcxproj_filename = os.path.join(out_folder, "GAFPlayer.vcxproj")
+    shutil.copyfile(os.path.join(os.getcwd(), "GAFPlayer.vcxproj"), vcxproj_filename)
 
     vcx_tree = eT.parse(vcxproj_filename)
     vcx_root = vcx_tree.getroot()
-
+    info_occurrences = 0
     for sources_info in vcx_root.iter("{%s}ClCompile" % vs_xml_namespace):
         file_path = sources_info.get('Include')
         if file_path:
-            file_path = file_path.replace('Sources', os.getcwd() + '\\Sources')
+            file_path = file_path.replace('Sources', os.path.join(os.getcwd(), 'Sources'))
             sources_info.set("Include", file_path)
+            info_occurrences += 1
 
     for includes_info in vcx_root.iter("{%s}ClInclude" % vs_xml_namespace):
         file_path = includes_info.get('Include')
         if file_path:
-            file_path = file_path.replace('Sources', os.getcwd() + '\\Sources')
+            file_path = file_path.replace('Sources', os.path.join(os.getcwd(), 'Sources'))
             includes_info.set("Include", file_path)
+            info_occurrences += 1
 
     vcx_tree.write(vcxproj_filename)
 
+    print " ** Replaced occurrences [GAF Source Files] - %d" % info_occurrences
+    print " * VS project generated\n"
+
 
 def gen_wp8_proj(ccx_root, out_folder):
+    print " * Generating VS WP8 project"
+
     vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
     eT.register_namespace('', vs_xml_namespace)
 
     gen_vs_props_file(ccx_root, out_folder)
 
-    win8_project_folder = out_folder + "/proj.wp8/"
+    win8_project_folder = os.path.join(out_folder, "proj.wp8/")
     if os.path.exists(win8_project_folder):
+        print " ** Remove existing folder"
         shutil.rmtree(win8_project_folder)
     os.mkdir(win8_project_folder)
     required_files = ('GAFPlayer.vcxproj', 'GAFPlayer.vcxproj.filters', 'pch.cpp', 'pch.h', 'targetver.h')
     for file_name in required_files:
-        shutil.copyfile(os.getcwd() + "/proj.wp8/" + file_name, win8_project_folder + file_name)
+        shutil.copyfile(os.path.join(os.getcwd(), "proj.wp8", file_name), os.path.join(win8_project_folder, file_name))
 
-    vcxproj_filename = win8_project_folder + "/GAFPlayer.vcxproj"
+    vcxproj_filename = os.path.join(win8_project_folder, "GAFPlayer.vcxproj")
 
     vcx_tree = eT.parse(vcxproj_filename)
     vcx_root = vcx_tree.getroot()
-
+    info_occurrences = 0
     for sources_info in vcx_root.iter("{%s}ClCompile" % vs_xml_namespace):
         file_path = sources_info.get('Include')
         if file_path:
-            file_path = file_path.replace('..\Sources', os.getcwd() + '\\Sources')
+            file_path = file_path.replace('..\Sources', os.path.join(os.getcwd(), 'Sources'))
             sources_info.set("Include", file_path)
+            info_occurrences += 1
 
     for includes_info in vcx_root.iter("{%s}ClInclude" % vs_xml_namespace):
         file_path = includes_info.get('Include')
         if file_path:
-            file_path = file_path.replace('..\Sources', os.getcwd() + '\\Sources')
+            file_path = file_path.replace('..\Sources', os.path.join(os.getcwd(), 'Sources'))
             includes_info.set("Include", file_path)
+            info_occurrences += 1
 
     vcx_tree.write(vcxproj_filename)
+
+    print " ** Replaced occurrences [GAF Source Files] - %d" % info_occurrences
+    print " * VS WP8 project generated\n"
 
 
 def gen_vs_props_file(ccx_root, out_folder):
@@ -150,18 +189,24 @@ def gen_vs_props_file(ccx_root, out_folder):
     eT.register_namespace('', vs_xml_namespace)
 
     # props
-    props_filename = out_folder + "/Library.props"
-    shutil.copyfile(os.getcwd() + "/Library.props", props_filename)
+    props_filename = os.path.join(out_folder, "Library.props")
+    shutil.copyfile(os.path.join(os.getcwd(), "Library.props"), props_filename)
     props_tree = eT.parse(props_filename)
     props_root = props_tree.getroot()
 
+    info_occurrences = [0] * 2
     for ccx_root_param in props_root.iter(
                     "{%s}CCX_ROOT" % vs_xml_namespace):  # todo - change to find (only one entrance in this file)
         ccx_root_param.text = ccx_root
+        info_occurrences[0] += 1
     for gaf_sources_param in props_root.iter("{%s}GAF_SOURCES_ROOT" % vs_xml_namespace):
-        gaf_sources_param.text = os.getcwd() + "\Sources"
+        gaf_sources_param.text = os.path.join(os.getcwd(), "Sources")
+        info_occurrences[1] += 1
 
     props_tree.write(props_filename)
+
+    print " ** Props file changed. Replaced occurrences: [Cocos2d-x root] - %d, [GAF Sources] - %d" % (info_occurrences[0], info_occurrences[1])
+
 
 def main():
     parser = OptionParser()
@@ -173,7 +218,10 @@ def main():
                       help='whether to generate project for js bindings')
     opts, args = parser.parse_args()
 
-    if not opts.ccx_root or not opts.out_folder or len(args) < 1:
+    if len(args) < 1:
+        args = ('all', )
+
+    if not opts.ccx_root or not opts.out_folder:
         print """
         Usage:
         -c {Cocos2d-x root} -o {Folder to store generated projects} TARGETS
@@ -203,3 +251,5 @@ def main():
         gen_vc_proj(opts.ccx_root, out_folder)
     if 'all' in args or 'msvs_wp8' in args:
         gen_wp8_proj(opts.ccx_root, out_folder)
+
+    print "Finished"

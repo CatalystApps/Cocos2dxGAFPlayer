@@ -86,67 +86,88 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a>;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a>;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_sprite.html">GAFSprite</a>;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_filter_data.html">GAFFilterData</a>;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;GAFAnimationSequence.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;NS_GAF_BEGIN</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;GAFAnimationSequence.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">enum</span> GAFFilterType</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    GFT_DropShadow = 0,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    GFT_Blur = 1,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    GFT_Glow = 2,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    GFT_ColorMatrix = 6</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;};</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">typedef</span> std::vector&lt;GAFTextureAtlas*&gt;               TextureAtlases_t;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">typedef</span> std::map&lt;unsigned int, unsigned int&gt;        AnimationMasks_t;      <span class="comment">// Object id -&gt; Element Atlas Id</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">typedef</span> std::map&lt;unsigned int, unsigned int&gt;        AnimationObjects_t;    <span class="comment">// Object id -&gt; Element Atlas Id</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">typedef</span> std::vector&lt;GAFAnimationFrame*&gt;             AnimationFrames_t;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">typedef</span> std::map&lt;unsigned int, GAFSprite*&gt;          SubObjects_t;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">typedef</span> std::vector&lt;GAFFilterData*&gt;                 Filters_t;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">typedef</span> std::map&lt;unsigned int, int&gt;                 CaptureObjects_t;      <span class="comment">// Object id -&gt; capture flags</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">// TODO: it better to use HashMap(Unordered map)</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">typedef</span> std::map&lt;std::string, GAFAnimationSequence&gt; AnimationSequences_t;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">typedef</span> std::map&lt;std::string, unsigned int&gt;         NamedParts_t;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_sprite.html">GAFSprite</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_filter_data.html">GAFFilterData</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_timeline.html">GAFTimeline</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_text_data.html">GAFTextData</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="class_g_a_f_object.html">GAFObject</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">enum class</span> GAFFilterType : uint32_t</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    GFT_DropShadow = 0,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    GFT_Blur = 1,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    GFT_Glow = 2,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    GFT_ColorMatrix = 6</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">enum class</span> GAFCharacterType : uint32_t</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    Texture = 0,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    TextField,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    Timeline</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define GAF_SAFE_RELEASE_MAP(__type, __instance)\</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">i-&gt;second-&gt;release(); \</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">} __instance.clear();</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#define GAF_SAFE_RELEASE_ARRAY(__type, __instance)\</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">(*i)-&gt;release(); \</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">} __instance.clear();</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#define GAF_RELEASE_ARRAY(__type, __instance)\</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">delete *i; \</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">} __instance.clear();</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#define GAF_RELEASE_MAP(__type, __instance)\</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">for (__type::iterator i = __instance.begin(), e = __instance.end(); i != e; ++i) {\</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">delete i-&gt;second; \</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">} __instance.clear();</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">enum</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    IDNONE = UINT_MAX</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
-<div class="ttc" id="class_g_a_f_sprite_html"><div class="ttname"><a href="class_g_a_f_sprite.html">GAFSprite</a></div><div class="ttdef"><b>Definition:</b> GAFSprite.h:23</div></div>
-<div class="ttc" id="class_g_a_f_filter_data_html"><div class="ttname"><a href="class_g_a_f_filter_data.html">GAFFilterData</a></div><div class="ttdef"><b>Definition:</b> GAFFilterData.h:10</div></div>
-<div class="ttc" id="class_g_a_f_texture_atlas_html"><div class="ttname"><a href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a></div><div class="ttdef"><b>Definition:</b> GAFTextureAtlas.h:18</div></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">enum class</span> GAFObjectType : uint32_t</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    None = 0,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    MovieClip,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    Mask</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">enum class</span> GAFActionType : int32_t</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">//0 - stop, 1 - play, 2 - gotoAndStop, 3 - gotoAndPlay, 4 - dispatchEvent</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    None = -1,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Stop = 0,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    Play,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    GotoAndStop,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    GotoAndPlay,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    DispatchEvent,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">enum</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    GAFFirstFrameIndex = 0</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">typedef</span> std::tuple&lt;uint32_t, GAFCharacterType&gt;              AnimationObjectEx_t;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">typedef</span> std::vector&lt;GAFTextureAtlas*&gt;                       TextureAtlases_t;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">typedef</span> std::unordered_map&lt;uint32_t, AnimationObjectEx_t&gt;   AnimationMasks_t;      <span class="comment">// Object id -&gt; Element Atlas Id, Type</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">typedef</span> std::unordered_map&lt;uint32_t, AnimationObjectEx_t&gt;   AnimationObjects_t;    <span class="comment">// Object id -&gt; Element Atlas Id, Type</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">typedef</span> std::vector&lt;GAFAnimationFrame*&gt;                     AnimationFrames_t;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">typedef</span> std::vector&lt;GAFFilterData*&gt;                         Filters_t;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">typedef</span> std::unordered_map&lt;uint32_t, GAFTimeline*&gt;          Timelines_t;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">typedef</span> std::unordered_map&lt;uint32_t, GAFTextData*&gt;          TextsData_t;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">typedef</span> std::unordered_map&lt;uint32_t, int&gt;                   CaptureObjects_t;      <span class="comment">// Object id -&gt; capture flags</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">typedef</span> std::unordered_map&lt;std::string, GAFAnimationSequence&gt;         AnimationSequences_t;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">typedef</span> std::unordered_map&lt;std::string, uint32_t&gt;                     NamedParts_t;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">static</span> <span class="keyword">const</span> uint32_t IDNONE = UINT_MAX;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;NS_GAF_END</div>
+<div class="ttc" id="class_g_a_f_sprite_html"><div class="ttname"><a href="class_g_a_f_sprite.html">GAFSprite</a></div><div class="ttdef"><b>Definition:</b> GAFSprite.h:24</div></div>
+<div class="ttc" id="class_g_a_f_object_html"><div class="ttname"><a href="class_g_a_f_object.html">GAFObject</a></div><div class="ttdef"><b>Definition:</b> GAFObject.h:12</div></div>
+<div class="ttc" id="class_g_a_f_timeline_html"><div class="ttname"><a href="class_g_a_f_timeline.html">GAFTimeline</a></div><div class="ttdef"><b>Definition:</b> GAFTimeline.h:12</div></div>
+<div class="ttc" id="class_g_a_f_filter_data_html"><div class="ttname"><a href="class_g_a_f_filter_data.html">GAFFilterData</a></div><div class="ttdef"><b>Definition:</b> GAFFilterData.h:8</div></div>
+<div class="ttc" id="class_g_a_f_texture_atlas_html"><div class="ttname"><a href="class_g_a_f_texture_atlas.html">GAFTextureAtlas</a></div><div class="ttdef"><b>Definition:</b> GAFTextureAtlas.h:9</div></div>
 <div class="ttc" id="class_g_a_f_animation_frame_html"><div class="ttname"><a href="class_g_a_f_animation_frame.html">GAFAnimationFrame</a></div><div class="ttdef"><b>Definition:</b> GAFAnimationFrame.h:9</div></div>
+<div class="ttc" id="class_g_a_f_text_data_html"><div class="ttname"><a href="class_g_a_f_text_data.html">GAFTextData</a></div><div class="ttdef"><b>Definition:</b> GAFTextData.h:5</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 27 2014 16:02:37 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 8 2014 21:36:50 for GAF Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
