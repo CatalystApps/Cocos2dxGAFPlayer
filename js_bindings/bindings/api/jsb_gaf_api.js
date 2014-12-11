@@ -462,20 +462,6 @@ start : function (
 },
 
 /**
- * @method init
- * @param {gaf.GAFAsset} arg0
- * @param {gaf.GAFTimeline} arg1
- * @return {bool}
- */
-init : function (
-gafasset, 
-gaftimeline 
-)
-{
-    return false;
-},
-
-/**
  * @method isVisibleInCurrentFrame
  * @return {bool}
  */
@@ -632,17 +618,12 @@ getFps : function (
 },
 
 /**
- * @method create
- * @param {gaf.GAFAsset} arg0
- * @param {gaf.GAFTimeline} arg1
- * @return {gaf.GAFObject}
+ * @method GAFObject
+ * @constructor
  */
-create : function (
-gafasset, 
-gaftimeline 
+GAFObject : function (
 )
 {
-    return gaf.GAFObject;
 },
 
 };

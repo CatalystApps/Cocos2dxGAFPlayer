@@ -77,7 +77,6 @@ bool js_gaf_GAFObject_setFramePlayedDelegate(JSContext *cx, uint32_t argc, jsval
 bool js_gaf_GAFObject_getCurrentFrameIndex(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_getTotalFrameCount(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_start(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_isVisibleInCurrentFrame(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_isDone(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp);
@@ -93,7 +92,7 @@ bool js_gaf_GAFObject_resumeAnimation(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_setReversed(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_hasSequences(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_getFps(JSContext *cx, uint32_t argc, jsval *vp);
-bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_gaf_GAFObject_GAFObject(JSContext *cx, uint32_t argc, jsval *vp);
 
 extern JSClass  *jsb_gaf_GAFAssetTextureManager_class;
 extern JSObject *jsb_gaf_GAFAssetTextureManager_prototype;

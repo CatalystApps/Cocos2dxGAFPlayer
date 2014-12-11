@@ -1377,44 +1377,6 @@ bool js_gaf_GAFObject_start(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_start : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
-bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_init : Invalid Native Object");
-    if (argc == 2) {
-        gaf::GAFAsset* arg0;
-        gaf::GAFTimeline* arg1;
-        do {
-            if (!argv[0].isObject()) { ok = false; break; }
-            js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
-            jsProxy = jsb_get_js_proxy(tmpObj);
-            arg0 = (gaf::GAFAsset*)(jsProxy ? jsProxy->ptr : NULL);
-            JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
-        } while (0);
-        do {
-            if (!argv[1].isObject()) { ok = false; break; }
-            js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
-            jsProxy = jsb_get_js_proxy(tmpObj);
-            arg1 = (gaf::GAFTimeline*)(jsProxy ? jsProxy->ptr : NULL);
-            JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
-        } while (0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_init : Error processing arguments");
-        bool ret = cobj->init(arg0, arg1);
-        jsval jsret = JSVAL_NULL;
-        jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFObject_init : wrong number of arguments: %d, was expecting %d", argc, 2);
-    return false;
-}
 bool js_gaf_GAFObject_isVisibleInCurrentFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JSObject *obj = JS_THIS_OBJECT(cx, vp);
@@ -1769,45 +1731,30 @@ bool js_gaf_GAFObject_getFps(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_getFps : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
-bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_gaf_GAFObject_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
     bool ok = true;
-    if (argc == 2) {
-        gaf::GAFAsset* arg0;
-        gaf::GAFTimeline* arg1;
-        do {
-            if (!argv[0].isObject()) { ok = false; break; }
-            js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
-            jsProxy = jsb_get_js_proxy(tmpObj);
-            arg0 = (gaf::GAFAsset*)(jsProxy ? jsProxy->ptr : NULL);
-            JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
-        } while (0);
-        do {
-            if (!argv[1].isObject()) { ok = false; break; }
-            js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
-            jsProxy = jsb_get_js_proxy(tmpObj);
-            arg1 = (gaf::GAFTimeline*)(jsProxy ? jsProxy->ptr : NULL);
-            JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
-        } while (0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_create : Error processing arguments");
-        gaf::GAFObject* ret = gaf::GAFObject::create(arg0, arg1);
-        jsval jsret = JSVAL_NULL;
-        do {
-        if (ret) {
-            js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFObject>(cx, (gaf::GAFObject*)ret);
-            jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-        } else {
-            jsret = JSVAL_NULL;
-        }
-    } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
+    gaf::GAFObject* cobj = new (std::nothrow) gaf::GAFObject();
+    cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
+    if (_ccobj) {
+        _ccobj->autorelease();
     }
-    JS_ReportError(cx, "js_gaf_GAFObject_create : wrong number of arguments");
-    return false;
+    TypeTest<gaf::GAFObject> t;
+    js_type_class_t *typeClass = nullptr;
+    std::string typeName = t.s_name();
+    auto typeMapIter = _js_global_type_map.find(typeName);
+    CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
+    typeClass = typeMapIter->second;
+    CCASSERT(typeClass, "The value is null.");
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+    // link the native object with the javascript object
+    js_proxy_t* p = jsb_new_proxy(cobj, obj);
+    JS_AddNamedObjectRoot(cx, &p->obj, "gaf::GAFObject");
+    if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
+    return true;
 }
 
 
@@ -1866,7 +1813,6 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         JS_FN("getCurrentFrameIndex", js_gaf_GAFObject_getCurrentFrameIndex, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getTotalFrameCount", js_gaf_GAFObject_getTotalFrameCount, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("start", js_gaf_GAFObject_start, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("init", js_gaf_GAFObject_init, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isVisibleInCurrentFrame", js_gaf_GAFObject_isVisibleInCurrentFrame, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isDone", js_gaf_GAFObject_isDone, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("playSequence", js_gaf_GAFObject_playSequence, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -1886,16 +1832,13 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         JS_FS_END
     };
 
-    static JSFunctionSpec st_funcs[] = {
-        JS_FN("create", js_gaf_GAFObject_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FS_END
-    };
+    JSFunctionSpec *st_funcs = NULL;
 
     jsb_gaf_GAFObject_prototype = JS_InitClass(
         cx, global,
         jsb_gaf_GAFSprite_prototype,
         jsb_gaf_GAFObject_class,
-        dummy_constructor<gaf::GAFObject>, 0, // no constructor
+        js_gaf_GAFObject_constructor, 0, // constructor
         properties,
         funcs,
         NULL, // no static properties
