@@ -9,7 +9,7 @@ GAFTimelineAction::GAFTimelineAction()
 
 }
 
-void GAFTimelineAction::setAction(GAFActionType type, ActionParams_t params, std::string scope)
+void GAFTimelineAction::setAction(GAFActionType type, ActionParams_t params, const std::string& scope)
 {
     m_type = type;
     m_scope = scope;

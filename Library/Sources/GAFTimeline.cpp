@@ -46,7 +46,7 @@ void GAFTimeline::pushAnimationFrame(GAFAnimationFrame* frame)
     m_animationFrames.push_back(frame);
 }
 
-void GAFTimeline::pushAnimationSequence(const std::string nameId, int start, int end)
+void GAFTimeline::pushAnimationSequence(const std::string& nameId, int start, int end)
 {
     GAFAnimationSequence seq;
     seq.name = nameId;
