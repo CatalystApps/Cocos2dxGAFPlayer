@@ -54,6 +54,7 @@ public:
 
     static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate);
     static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate);
+    static GAFAsset*            create(const std::string& gafFilePath);
 
     GAFAsset();
     ~GAFAsset();

@@ -53,4 +53,5 @@ Library/Sources/latex
 /Examples/Example.wp8-xaml/Release
 /Examples/Example.wp8-xaml/ipch
 /js_bindings/tojs/userconf.ini
+/lua_bindings/tolua/userconf.ini
 *.pyc

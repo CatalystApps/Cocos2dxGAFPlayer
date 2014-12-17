@@ -50,7 +50,7 @@ public:
     void                        pushAnimationMask(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
     void                        pushAnimationObject(uint32_t objectId, uint32_t elementAtlasIdRef, GAFCharacterType charType);
     void                        pushAnimationFrame(GAFAnimationFrame* frame);
-    void                        pushAnimationSequence(const std::string nameId, int start, int end);
+    void                        pushAnimationSequence(const std::string& nameId, int start, int end);
     void                        pushNamedPart(uint32_t objectIdRef, const std::string& name);
     void                        pushTextData(uint32_t objectIdRef, GAFTextData* textField);
 
