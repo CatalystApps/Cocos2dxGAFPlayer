@@ -1,0 +1,15 @@
+ targets/lua/conversions.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/targets/lua/conversions.yaml b/targets/lua/conversions.yaml
+index eb10980..ec2c1a1 100644
+--- a/targets/lua/conversions.yaml
++++ b/targets/lua/conversions.yaml
+@@ -27,6 +27,7 @@ conversions:
+     "cocostudio::": "ccs."
+     "cocosbuilder::": "cc."
+     "CocosDenshion::": "cc."
++    "gaf::": "gaf."
+ 
+   to_native:
+     # lua to native
