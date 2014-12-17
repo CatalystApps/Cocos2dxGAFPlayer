@@ -13,7 +13,41 @@ import shutil
 from xml.etree import ElementTree as eT
 
 
-def gen_win32_bindings_proj(ccx_root, out_folder):
+def gen_win32_lua_bindings_proj(ccx_root, out_folder):
+    print " * Generating Lua Bindings project"
+
+    vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
+    eT.register_namespace('', vs_xml_namespace)
+
+    # project
+    proj_src = os.path.abspath("../lua_bindings/proj.win32/libGAFLuaBinding.vcxproj")
+    proj_dst = os.path.join(out_folder, "libGAFLuaBinding.vcxproj")
+    shutil.copyfile(proj_src, proj_dst)
+
+    vcx_tree = eT.parse(proj_dst)
+    vcx_root = vcx_tree.getroot()
+    info_occurrences = 0
+    for sources_info in vcx_root.iter("{%s}ClCompile" % vs_xml_namespace):
+        file_path = sources_info.get('Include')
+        if file_path:
+            file_path = file_path.replace('..\\bindings', os.path.abspath('../lua_bindings/bindings'))
+            sources_info.set("Include", file_path)
+            info_occurrences += 1
+
+    for includes_info in vcx_root.iter("{%s}ClInclude" % vs_xml_namespace):
+        file_path = includes_info.get('Include')
+        if file_path:
+            file_path = file_path.replace('..\\bindings', os.path.abspath('../lua_bindings/bindings'))
+            includes_info.set("Include", file_path)
+            info_occurrences += 1
+
+    vcx_tree.write(proj_dst)
+
+    print " ** Replaced occurrences [Source Files] - %d" % info_occurrences
+    print " * Lua Bindings project generated\n"
+
+
+def gen_win32_js_bindings_proj(ccx_root, out_folder):
     print " * Generating JS Bindings project"
 
     vs_xml_namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
@@ -216,6 +250,8 @@ def main():
                       help='where to store generated project files, e.g E:/Projects/GAFLibraryProject')
     parser.add_option('-j', '--jsbindings', action="store_true", dest='jsbindings', default=False,
                       help='whether to generate project for js bindings')
+    parser.add_option('-l', '--luabindings', action="store_true", dest='luabindings', default=False,
+                      help='whether to generate project for lua bindings')
     opts, args = parser.parse_args()
 
     if len(args) < 1:
@@ -224,7 +260,7 @@ def main():
     if not opts.ccx_root or not opts.out_folder:
         print """
         Usage:
-        -c {Cocos2d-x root} -o {Folder to store generated projects} TARGETS
+        -c {Cocos2d-x root} -o {Folder to store generated projects} [--jsbindings] [--luabindings] TARGETS
          Where TARGETS can be: all, xcode, android, msvs_wp8, msvs_desktop
 
          F.E.:
@@ -242,7 +278,9 @@ def main():
         os.mkdir(out_folder)
 
     if opts.jsbindings:
-        gen_win32_bindings_proj(opts.ccx_root, out_folder)
+        gen_win32_js_bindings_proj(opts.ccx_root, out_folder)
+    if opts.luabindings:
+        gen_win32_lua_bindings_proj(opts.ccx_root, out_folder)
     if 'all' in args or 'xcode' in args:
         gen_xcode_proj(opts.ccx_root, out_folder)
     if 'all' in args or 'android' in args:
