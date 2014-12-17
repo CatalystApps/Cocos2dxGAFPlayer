@@ -92,6 +92,10 @@ GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegat
     return nullptr;
 }
 
+GAFAsset* GAFAsset::create(const std::string& gafFilePath)
+{
+    return create(gafFilePath, nullptr);
+}
 
 GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate /*= NULL*/)
 {

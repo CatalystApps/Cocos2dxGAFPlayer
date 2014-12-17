@@ -18,8 +18,7 @@ def _check_ndk_root_env():
     '''
 
     try:
-        # NDK_ROOT = os.environ['NDK_ROOT']
-        NDK_ROOT = 'd:\\Android\\android-ndk-r9';
+        NDK_ROOT = os.environ['NDK_ROOT']
     except Exception:
         print "NDK_ROOT not defined. Please define NDK_ROOT in your environment."
         sys.exit(1)
@@ -78,9 +77,16 @@ def main():
 
     if platform == 'win32':
         x86_llvm_path = os.path.abspath(os.path.join(ndk_root, 'toolchains/llvm-3.3/prebuilt', '%s' % cur_platform))
+        if not os.path.exists(x86_llvm_path):
+            x86_llvm_path = os.path.abspath(os.path.join(ndk_root, 'toolchains/llvm-3.4/prebuilt', '%s' % cur_platform))
     else:
         x86_llvm_path = os.path.abspath(os.path.join(ndk_root, 'toolchains/llvm-3.3/prebuilt', '%s-%s' % (cur_platform, 'x86')))
+        if not os.path.exists(x86_llvm_path):
+            x86_llvm_path = os.path.abspath(os.path.join(ndk_root, 'toolchains/llvm-3.4/prebuilt', '%s-%s' % (cur_platform, 'x86')))
+
     x64_llvm_path = os.path.abspath(os.path.join(ndk_root, 'toolchains/llvm-3.3/prebuilt', '%s-%s' % (cur_platform, 'x86_64')))
+    if not os.path.exists(x64_llvm_path):
+        x64_llvm_path = os.path.abspath(os.path.join(ndk_root, 'toolchains/llvm-3.4/prebuilt', '%s-%s' % (cur_platform, 'x86_64')))
 
     if os.path.isdir(x86_llvm_path):
         llvm_path = x86_llvm_path
@@ -143,20 +149,6 @@ def main():
         if platform == 'win32':
             with _pushd(output_dir):
                 _run_cmd('dos2unix *')
-
-        
-        custom_cmd_args = {}
-        if len(custom_cmd_args) > 0:
-            output_dir = '%s/frameworks/custom/auto' % project_root
-            for key in custom_cmd_args.keys():
-                args = custom_cmd_args[key]
-                cfg = '%s/%s' % (tolua_root, key)
-                print 'Generating bindings for %s...' % (key[:-4])
-                command = '%s %s %s -s %s -t %s -o %s -n %s' % (python_bin, generator_py, cfg, args[0], target, output_dir, args[1])
-                _run_cmd(command)
-            if platform == 'win32':
-                with _pushd(output_dir):
-                    _run_cmd('dos2unix *')
 
         print '---------------------------------'
         print 'Generating lua bindings succeeds.'
