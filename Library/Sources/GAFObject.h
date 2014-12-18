@@ -40,6 +40,8 @@ private:
 
     bool                                    m_animationsSelectorScheduled;
 
+    bool                                    m_isInResetState;
+
 private:
     void constructObject();
     GAFObject* _instantiateObject(uint32_t id, GAFCharacterType type, uint32_t reference, bool isMask);
