@@ -59,7 +59,8 @@ m_currentFrame(GAFFirstFrameIndex),
 m_showingFrame(GAFFirstFrameIndex),
 m_lastVisibleInFrame(0),
 m_objectType(GAFObjectType::None),
-m_animationsSelectorScheduled(false)
+m_animationsSelectorScheduled(false),
+m_isInResetState(false)
 {
     m_charType = GAFCharacterType::Timeline;
 	m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
@@ -966,53 +967,61 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             if (!subObject)
                 continue;
 
+            if (state->colorMults()[GAFColorTransformIndex::GAFCTI_A] >= 0.f && subObject->m_isInResetState)
+            {
+                subObject->m_currentFrame = subObject->m_currentSequenceStart;
+            }
+            subObject->m_isInResetState = state->colorMults()[GAFColorTransformIndex::GAFCTI_A] < 0.f;
+
             if (!state->isVisible())
                 continue;
 
             if (subObject->m_charType == GAFCharacterType::Timeline)
             {
-                cocos2d::AffineTransform stateTransform = state->affineTransform;
-                float csf = m_timeline->usedAtlasContentScaleFactor();
-                stateTransform.tx *= csf;
-                stateTransform.ty *= csf;
-                cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
-                subObject->setAdditionalTransform(t);
-                subObject->m_parentFilters.clear();
-                const Filters_t& filters = state->getFilters();
-                subObject->m_parentFilters.insert(subObject->m_parentFilters.end(), filters.begin(), filters.end());
-
-                const float* cm = state->colorMults();
-                subObject->m_parentColorTransforms[0] = cocos2d::Vec4(
-                    m_parentColorTransforms[0].x * cm[0],
-                    m_parentColorTransforms[0].y * cm[1],
-                    m_parentColorTransforms[0].z * cm[2],
-                    m_parentColorTransforms[0].w * cm[3]);
-                subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
-
-                if (m_masks[state->objectIdRef])
+                if (!subObject->m_isInResetState)
                 {
-                    rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex, frameIndex, 1);
-                }
-                else
-                {
-                    //subObject->removeFromParentAndCleanup(false);
-                    if (state->maskObjectIdRef == IDNONE)
+                    cocos2d::AffineTransform stateTransform = state->affineTransform;
+                    float csf = m_timeline->usedAtlasContentScaleFactor();
+                    stateTransform.tx *= csf;
+                    stateTransform.ty *= csf;
+                    cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
+                    subObject->setAdditionalTransform(t);
+                    subObject->m_parentFilters.clear();
+                    const Filters_t& filters = state->getFilters();
+                    subObject->m_parentFilters.insert(subObject->m_parentFilters.end(), filters.begin(), filters.end());
+
+                    const float* cm = state->colorMults();
+                    subObject->m_parentColorTransforms[0] = cocos2d::Vec4(
+                        m_parentColorTransforms[0].x * cm[0],
+                        m_parentColorTransforms[0].y * cm[1],
+                        m_parentColorTransforms[0].z * cm[2],
+                        m_parentColorTransforms[0].w * cm[3]);
+                    subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
+
+                    if (m_masks[state->objectIdRef])
                     {
-                        rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
+                        rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex, frameIndex, 1);
                     }
                     else
                     {
-                        // If the state has a mask, then attach it 
-                        // to the clipping node. Clipping node will be attached on its state
-                        auto mask = m_masks[state->maskObjectIdRef];
-                        CCASSERT(mask, "Error. No mask found for this ID");
-                        if (mask)
-                            rearrangeSubobject(mask, subObject, state->zIndex, frameIndex, 1);
+                        //subObject->removeFromParentAndCleanup(false);
+                        if (state->maskObjectIdRef == IDNONE)
+                        {
+                            rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
+                        }
+                        else
+                        {
+                            // If the state has a mask, then attach it 
+                            // to the clipping node. Clipping node will be attached on its state
+                            auto mask = m_masks[state->maskObjectIdRef];
+                            CCASSERT(mask, "Error. No mask found for this ID");
+                            if (mask)
+                                rearrangeSubobject(mask, subObject, state->zIndex, frameIndex, 1);
+                        }
                     }
-                }
-                
-                subObject->step();
 
+                    subObject->step();
+                }
             }
             else if (subObject->m_charType == GAFCharacterType::Texture)
             {
