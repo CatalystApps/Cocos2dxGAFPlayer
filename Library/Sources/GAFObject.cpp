@@ -37,7 +37,7 @@ cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFor
     cocos2d::AffineTransform transform = aTransform;
     transform.b = -transform.b;
     transform.c = -transform.c;
-    transform.ty = - transform.ty;
+    transform.ty = -transform.ty;
     return transform;
 }
 
@@ -63,8 +63,8 @@ m_animationsSelectorScheduled(false),
 m_isInResetState(false)
 {
     m_charType = GAFCharacterType::Timeline;
-	m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
-	m_parentColorTransforms[1] = cocos2d::Vec4::ZERO;
+    m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
+    m_parentColorTransforms[1] = cocos2d::Vec4::ZERO;
     setUserData(reinterpret_cast<void*>(&m_lastVisibleInFrame));
 }
 
@@ -120,7 +120,7 @@ bool GAFObject::init(GAFAsset * anAnimationData, GAFTimeline* timeline)
     m_currentSequenceStart = m_currentFrame = GAFFirstFrameIndex;
 
     m_currentSequenceEnd = m_totalFrameCount = m_timeline->getFramesCount();
-    
+
     constructObject();
 
     return true;
@@ -137,7 +137,7 @@ void GAFObject::constructObject()
     m_fps = m_asset->getSceneFps();
 
     m_animationsSelectorScheduled = false;
-    
+
     instantiateObject(m_timeline->getAnimationObjects(), m_timeline->getAnimationMasks());
 }
 
@@ -206,15 +206,15 @@ GAFObject* GAFObject::_instantiateObject(uint32_t id, GAFCharacterType type, uin
 
 void GAFObject::instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks)
 {
-	uint32_t maxIdx = 0;
-	for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
-	{
+    uint32_t maxIdx = 0;
+    for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
+    {
         maxIdx = std::max(it->first, maxIdx);
-	}
-	for (AnimationMasks_t::const_iterator it = masks.begin(), e = masks.end(); it != e; ++it)
-	{
-		maxIdx = std::max(it->first, maxIdx);
-	}
+    }
+    for (AnimationMasks_t::const_iterator it = masks.begin(), e = masks.end(); it != e; ++it)
+    {
+        maxIdx = std::max(it->first, maxIdx);
+    }
     maxIdx += 1;
 
     m_displayList.resize(maxIdx);
@@ -320,7 +320,7 @@ void GAFObject::start()
     schedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
 
     m_animationsSelectorScheduled = true;
-    
+
     if (!m_isRunning)
     {
         m_currentFrame = GAFFirstFrameIndex;
@@ -332,7 +332,7 @@ void GAFObject::stop()
 {
     unschedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
     m_animationsSelectorScheduled = false;
-    
+
     if (m_isRunning)
     {
         m_currentFrame = GAFFirstFrameIndex;
@@ -348,7 +348,7 @@ void GAFObject::processAnimations(float dt)
     {
         m_timeDelta -= frameTime;
         step();
-        
+
         if (m_framePlayedDelegate)
         {
             m_framePlayedDelegate(this, m_currentFrame);
@@ -378,7 +378,7 @@ bool GAFObject::isDone() const
     {
         return false;
     }
-
+    
     if (!m_isReversed)
     {
         return m_currentFrame > m_totalFrameCount;
@@ -467,7 +467,7 @@ bool GAFObject::gotoAndStop(uint32_t frameNumber)
 {
     if (setFrame(frameNumber))
     {
-        setAnimationRunning(false);
+        m_isRunning = false;
         return true;
     }
     return false;
@@ -492,7 +492,7 @@ bool GAFObject::gotoAndPlay(uint32_t frameNumber)
 {
     if (setFrame(frameNumber))
     {
-        setAnimationRunning(true);
+        m_isRunning = true;
         return true;
     }
     return false;
@@ -595,7 +595,7 @@ void GAFObject::step()
         if (m_isLooped && m_currentFrame > m_currentSequenceEnd - 1)
         {
             m_currentFrame = m_currentSequenceStart;
-                
+
             if (m_animationStartedNextLoopDelegate)
             {
                 m_animationStartedNextLoopDelegate(this);
@@ -771,9 +771,10 @@ void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int
 void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 {
     const AnimationFrames_t& animationFrames = m_timeline->getAnimationFrames();
+
     if (animationFrames.size() <= frameIndex)
     {
-        return; // early exit
+        return;
     }
 
     GAFAnimationFrame *currentFrame = animationFrames[frameIndex];
@@ -997,58 +998,58 @@ void GAFObject::setFps(uint32_t value)
 
 GAFObject* GAFObject::getObjectByName(const std::string& name)
 {
-    if (!name.empty())
+    if (name.empty())
     {
-        std::stringstream ss(name);
-        std::string item;
-        typedef std::vector<std::string> StringVec_t;
-        StringVec_t elems;
-        while (std::getline(ss, item, '.'))
+        return nullptr;
+    }
+
+    std::stringstream ss(name);
+    std::string item;
+    typedef std::vector<std::string> StringVec_t;
+    StringVec_t elems;
+    while (std::getline(ss, item, '.'))
+    {
+        elems.push_back(item);
+    }
+
+    GAFObject* retval = nullptr;
+
+    if (!elems.empty())
+    {
+        const NamedParts_t& np = m_timeline->getNamedParts();
+        NamedParts_t::const_iterator it = np.find(elems[0]);
+
+        if (it != np.end())
         {
-            elems.push_back(item);
-        }
+            retval = m_displayList[it->second];
 
-        GAFObject* retval = nullptr;
-
-        if (!elems.empty())
-        {
-            const NamedParts_t& np = m_timeline->getNamedParts();
-            NamedParts_t::const_iterator it = np.find(elems[0]);
-
-            if (it != np.end())
+            if (elems.size() == 1)
             {
-                retval = m_displayList[it->second];
-                if (elems.size() == 1)
+                return retval;
+            }
+            StringVec_t::iterator begIt = elems.begin() + 1;
+
+            while (begIt != elems.end())
+            {
+                const NamedParts_t& np = retval->m_timeline->getNamedParts();
+                NamedParts_t::const_iterator it = np.find(*begIt);
+                if (it != np.end())
                 {
-                    return retval;
+                    retval = retval->m_displayList[it->second];
+                }
+                else
+                {
+                    // Sequence is incorrect
+                    //break;
+
+                    // It is better to return nil instead of the last found object in a chain
+                    return nullptr;
                 }
 
-                StringVec_t::iterator begIt = elems.begin() + 1;
-
-                while (begIt != elems.end())
-                {
-                    const NamedParts_t& np = retval->m_timeline->getNamedParts();
-                    NamedParts_t::const_iterator it = np.find(*begIt);
-                    if (it != np.end())
-                    {
-                        retval = retval->m_displayList[it->second];
-                    }
-                    else
-                    {
-                        // Sequence is incorrect
-                        //break;
-
-                        // It is better to return nil instead of the last found object in a chain
-                        return nullptr;
-                    }
-
-                    ++begIt;
-                }
+                ++begIt;
             }
         }
     }
-
-    return nullptr;
 }
 
 const GAFObject* GAFObject::getObjectByName(const std::string& name) const

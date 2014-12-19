@@ -114,7 +114,11 @@ public:
     void        start();
     void        stop();
     void        step();
+
+    /// Pauses animation including enclosed timelines
     void        pauseAnimation();
+
+    /// Resumes animation including enclosed timelines
     void        resumeAnimation();
 
     bool        isDone() const;
@@ -131,12 +135,14 @@ public:
 
     bool        setFrame(uint32_t index);
 
-    /// Plays specified frame and then stops	
+    /// Plays specified frame and then stops excluding enclosed timelines
     bool        gotoAndStop(const std::string& frameLabel);
+    /// Plays specified frame and then stops excluding enclosed timelines
     bool        gotoAndStop(uint32_t frameNumber);
 
-    /// Plays animation from specified frame	
+    /// Plays animation from specified frame excluding enclosed timelines
     bool        gotoAndPlay(const std::string& frameLabel);
+    /// Plays animation from specified frame excluding enclosed timelines
     bool        gotoAndPlay(uint32_t frameNumber);
 
     uint32_t    getStartFrame(const std::string& frameLabel);
@@ -176,37 +182,7 @@ public:
     // @returns instance of GAFObject or null. Warning: the instance could be invalidated when the system catches EVENT_COME_TO_FOREGROUND event
     GAFObject* getObjectByName(const std::string& name);
     const GAFObject* getObjectByName(const std::string& name) const;
-#if 0
-    // Searches for an object by given id
-    // @param object id
-    // @note it can slow down the real-time performance
-    // @returns instance of GAFSprite or null. Warning: the instance could be invalidated when the system catches EVENT_COME_TO_FOREGROUND event
-    GAFSprite* getSprite(uint32_t id) const;
 
-    // Searches for an object by given string
-    // @param object name e.g. "head" or object path e.g. "knight.body.arm"
-    // @note it can slow down the real-time performance
-    // @returns GAFSpriteID
-    //GAFSpriteID   getSpriteId(const std::string& name) const;
-
-    // Searches for an animated object by given class name(linkage name)
-    // @note the root object has a name "rootTimeline"
-    // @param object name e.g. "Head"
-    // @returns instance of GAFObject or null
-    GAFObject* getSubObject(const std::string& className) const;
-
-    // Searches for an animated object by given class name(linkage name)
-    // @param object id
-    // @returns instance of GAFObject or null
-    GAFObject* getSubObject(uint32_t id) const;
-
-    // Searches for an animated object by given class name(linkage name)
-    // @note the root object has a name "rootTimeline"
-    // @param object name e.g. "Head"
-    // @returns object id
-    uint32_t getSubObjectId(const std::string& className) const;
-    //////////////////////////////////////////////////////////////////////////
-#endif
     void realizeFrame(cocos2d::Node* out, uint32_t frameIndex);
     void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex, uint32_t frame, bool visible);
 

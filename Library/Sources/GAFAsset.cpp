@@ -56,7 +56,7 @@ GAFObject* GAFAsset::createObjectAndRun(bool looped)
     return res;
 }
 
-GAFAsset::GAFAsset():
+GAFAsset::GAFAsset() :
 m_textureLoadDelegate(nullptr),
 m_sceneFps(60),
 m_sceneWidth(0),
@@ -119,21 +119,11 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     ssize_t sz = 0;
     unsigned char* gafData = bundle.getFileData(entryFile, &sz);
 
-    if (!gafData || !sz)
-        return false;
+    bool isLoaded = false;
 
-    bool isLoaded = loader->loadData(gafData, sz, this);
-
-    if (isLoaded)
+    if (gafData && sz)
     {
-        /*_chooseTextureAtlas();
-
-        if (m_currentTextureAtlas)
-        {
-            m_textureLoadDelegate = delegate;
-            m_currentTextureAtlas->loadImages(entryFile, m_textureLoadDelegate, &bundle);
-        }
-		*/
+        isLoaded = loader->loadData(gafData, sz, this);
     }
 
     delete loader;
@@ -149,25 +139,26 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
 
-	if (m_timelines.empty())
+    if (m_timelines.empty())
     {
+        delete loader;
         return false;
     }
     if (isLoaded)
     {
-		for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
-		{
-			i->second->loadImages();
+        for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
+        {
+            i->second->loadImages();
 
-			if (i->second->getTextureAtlas())
-			{
-				m_textureManager->appendInfoFromTextureAtlas(i->second->getTextureAtlas());
-				//i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
-			}
-		}
+            if (i->second->getTextureAtlas())
+            {
+                m_textureManager->appendInfoFromTextureAtlas(i->second->getTextureAtlas());
+                //i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
+            }
+        }
 
-		m_textureLoadDelegate = delegate;
-		m_textureManager->loadImages(fullfilePath, m_textureLoadDelegate);
+        m_textureLoadDelegate = delegate;
+        m_textureManager->loadImages(fullfilePath, m_textureLoadDelegate);
     }
 
     delete loader;
@@ -177,7 +168,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 
 /*GAFTextureAtlas* GAFAsset::getTextureAtlas()
 {
-    return m_currentTextureAtlas;
+return m_currentTextureAtlas;
 }*/
 
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
@@ -220,7 +211,7 @@ GAFTimeline* GAFAsset::getTimelineByName(const std::string& name) const
 
 void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)
 {
-	m_timelines[timelineIdRef] = t;
+    m_timelines[timelineIdRef] = t;
     t->retain();
 }
 
@@ -236,7 +227,7 @@ void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate_t delegate)
 
 GAFAssetTextureManager* GAFAsset::getTextureManager()
 {
-	return m_textureManager;
+    return m_textureManager;
 }
 
 Timelines_t& GAFAsset::getTimelines()
@@ -246,7 +237,7 @@ Timelines_t& GAFAsset::getTimelines()
 
 const Timelines_t& GAFAsset::getTimelines() const
 {
-	return m_timelines;
+    return m_timelines;
 }
 
 const GAFHeader& GAFAsset::getHeader() const
