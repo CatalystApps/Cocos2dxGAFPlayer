@@ -209,17 +209,11 @@ void GAFObject::instantiateObject(const AnimationObjects_t& objs, const Animatio
 	uint32_t maxIdx = 0;
 	for (AnimationObjects_t::const_iterator it = objs.begin(), e = objs.end(); it != e; ++it)
 	{
-		if (it->first > maxIdx)
-		{
-			maxIdx = it->first;
-		}
+        maxIdx = std::max(it->first, maxIdx);
 	}
 	for (AnimationMasks_t::const_iterator it = masks.begin(), e = masks.end(); it != e; ++it)
 	{
-		if (it->first > maxIdx)
-		{
-			maxIdx = it->first;
-		}
+		maxIdx = std::max(it->first, maxIdx);
 	}
     maxIdx += 1;
 
@@ -252,168 +246,6 @@ void GAFObject::instantiateObject(const AnimationObjects_t& objs, const Animatio
     }
 }
 
-/*
-void GAFObject::instantiateAnimatedObjects(const AnimationObjects_t &objs, int max)
-{
-	m_displayList.resize(max + 1);
-
-    for (AnimationObjects_t::const_iterator i = objs.begin(), e = objs.end(); i != e; ++i)
-    {
-        GAFCharacterType charType = std::get<1>(i->second);
-        uint32_t reference = std::get<0>(i->second);
-        uint32_t objectId = i->first;
-
-        if (charType == GAFCharacterType::Timeline)
-        {
-            encloseNewTimeline(reference, objectId);
-        }
-        else if (charType == GAFCharacterType::Texture)
-        {
-            GAFTextureAtlas* atlas = m_timeline->getTextureAtlas();
-            const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
-            cocos2d::SpriteFrame * spriteFrame = nullptr;
-
-            uint32_t atlasElementIdRef = std::get<0>(i->second);
-
-            GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by its xref
-
-            assert(elIt != elementsMap.end());
-
-            const GAFTextureAtlasElement* txElemet = NULL;
-
-            if (elIt != elementsMap.end())
-            {
-                txElemet = elIt->second;
-
-                GAFAssetTextureManager* txMgr = m_asset->getTextureManager();
-
-                cocos2d::Texture2D * texture = txMgr->getTextureById(txElemet->atlasIdx + 1);
-                if (texture)
-                {
-                    spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
-                }
-                else
-                {
-                    CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
-                }
-            }
-
-            if (spriteFrame && txElemet)
-            {
-                GAFMovieClip *sprite = new GAFMovieClip();
-                sprite->initWithSpriteFrame(spriteFrame);
-
-                sprite->objectIdRef = objectId;
-
-                sprite->setVisible(false);
-                cocos2d::Vect pt = cocos2d::Vect(0 - (0 - (txElemet->pivotPoint.x / sprite->getContentSize().width)),
-                    0 + (1 - (txElemet->pivotPoint.y / sprite->getContentSize().height)));
-                sprite->setAnchorPoint(pt);
-
-                if (txElemet->scale != 1.0f)
-                {
-                    sprite->setAtlasScale(1.0f / txElemet->scale);
-                }
-                // visual studio compile fix
-                sprite->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });
-                m_displayList[objectId] = sprite;
-
-            }
-            else
-            {
-                assert(false);
-                CCLOGERROR("Cannot add subnode with AtlasElementRef: %d, not found in atlas(es). Ignoring.", atlasElementIdRef);
-            }
-        }
-        else if (charType == GAFCharacterType::TextField)
-        {
-            TextsData_t::const_iterator it = m_timeline->getTextsData().find(reference);
-            if (it != m_timeline->getTextsData().end())
-            {
-                GAFTextField *tf = new GAFTextField();
-                tf->initWithTextData(it->second);
-                m_displayList[objectId] = tf;
-            }
-        }
-    }
-}
-
-void GAFObject::instantiateMasks(const AnimationMasks_t& masks)
-{
-    uint32_t maxIdx = 0;
-    for (AnimationMasks_t::const_iterator it = masks.begin(), e = masks.end(); it != e; ++it)
-    {
-        if (it->first > maxIdx)
-        {
-            maxIdx = it->first;
-        }
-    }
-
-    m_masksDList.resize(maxIdx + 1);
-
-    for (AnimationMasks_t::const_iterator i = masks.begin(), e = masks.end(); i != e; ++i)
-    {
-        GAFCharacterType charType = std::get<1>(i->second);
-        uint32_t reference = std::get<0>(i->second);
-        uint32_t objectId = i->first;
-
-        if (charType == GAFCharacterType::Timeline)
-        {
-            encloseNewTimeline(reference, objectId);
-        }
-        else if (charType == GAFCharacterType::Texture)
-        {
-            GAFTextureAtlas* atlas = m_timeline->getTextureAtlas();
-            const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
-
-            unsigned int atlasElementIdRef = std::get<0>(i->second);
-
-            GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(atlasElementIdRef); // Search for atlas element by it's xref
-
-            assert(elIt != elementsMap.end());
-
-            const GAFTextureAtlasElement* txElemet = nullptr;
-            cocos2d::SpriteFrame * spriteFrame = nullptr;
-
-            if (elIt != elementsMap.end())
-            {
-                txElemet = elIt->second;
-
-                GAFAssetTextureManager* txMgr = m_asset->getTextureManager();
-
-                cocos2d::Texture2D * texture = txMgr->getTextureById(txElemet->atlasIdx + 1);
-                if (texture)
-                {
-                    spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
-                }
-                else
-                {
-                    CCLOGERROR("Cannot add sub object with Id: %d, atlas with idx: %d not found.", atlasElementIdRef, txElemet->atlasIdx);
-                }
-
-                if (spriteFrame)
-                {
-                    GAFMask *mask = new GAFMask();
-                    mask->initWithSpriteFrame(spriteFrame);
-
-                    mask->objectIdRef = i->first;
-                    cocos2d::Vect pt = cocos2d::Vect(0 - (0 - (txElemet->pivotPoint.x / mask->getContentSize().width)),
-                        0 + (1 - (txElemet->pivotPoint.y / mask->getContentSize().height)));
-
-                    mask->setAnchorPoint(pt);
-                    if (txElemet->scale != 1.0f)
-                    {
-                        mask->setAtlasScale(1.0f / txElemet->scale);
-                    }
-
-                    m_masksDList[objectId] = mask;
-                    //addChild(mask);
-                }
-            }
-        }
-    }
-}
-*/
 GAFObject* GAFObject::encloseNewTimeline(uint32_t reference)
 {
     Timelines_t& timelines = m_asset->getTimelines();
@@ -546,16 +378,14 @@ bool GAFObject::isDone() const
     {
         return false;
     }
+
+    if (!m_isReversed)
+    {
+        return m_currentFrame > m_totalFrameCount;
+    }
     else
     {
-        if (!m_isReversed)
-        {
-            return m_currentFrame > m_totalFrameCount;
-        }
-        else
-        {
-            return m_currentFrame < GAFFirstFrameIndex - 1;
-        }
+        return m_currentFrame < GAFFirstFrameIndex - 1;
     }
 }
 
@@ -721,15 +551,8 @@ bool GAFObject::playSequence(const std::string& name, bool looped /*= false*/, b
     m_currentSequenceStart = s;
     m_currentSequenceEnd = e;
 
-    if (m_currentFrame < m_currentSequenceStart || m_currentFrame > m_currentSequenceEnd)
-    {
-        m_currentFrame = m_currentSequenceStart;
-    }
-    else
-    {
-        m_currentFrame = m_currentSequenceStart;
-    }
-
+    m_currentFrame = m_currentSequenceStart;
+    
     setLooped(looped);
 
     if (resume)
@@ -948,146 +771,53 @@ void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int
 void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 {
     const AnimationFrames_t& animationFrames = m_timeline->getAnimationFrames();
-    if (m_parentColorTransforms[0].w < std::numeric_limits<float>::epsilon())
+    if (animationFrames.size() <= frameIndex)
     {
-        return;
+        return; // early exit
     }
 
-    if (animationFrames.size() > frameIndex)
+    GAFAnimationFrame *currentFrame = animationFrames[frameIndex];
+
+    const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
+
+    for (const GAFSubobjectState* state : states)
     {
-        GAFAnimationFrame *currentFrame = animationFrames[frameIndex];  
+        GAFObject* subObject = m_displayList[state->objectIdRef];
 
-        const GAFAnimationFrame::SubobjectStates_t& states = currentFrame->getObjectStates();
+        CCASSERT(subObject, "Error. SubObject with current ID not found");
+        if (!subObject)
+            continue;
 
-        for (const GAFSubobjectState* state : states)
+        if (state->colorMults()[GAFColorTransformIndex::GAFCTI_A] >= 0.f && subObject->m_isInResetState)
         {
-            GAFObject* subObject = m_displayList[state->objectIdRef];
+            subObject->m_currentFrame = subObject->m_currentSequenceStart;
+        }
+        subObject->m_isInResetState = state->colorMults()[GAFColorTransformIndex::GAFCTI_A] < 0.f;
 
-            CCASSERT(subObject, "Error. SubObject with current ID not found");
-            if (!subObject)
-                continue;
+        if (!state->isVisible())
+            continue;
 
-            if (state->colorMults()[GAFColorTransformIndex::GAFCTI_A] >= 0.f && subObject->m_isInResetState)
+        if (subObject->m_charType == GAFCharacterType::Timeline)
+        {
+            if (!subObject->m_isInResetState)
             {
-                subObject->m_currentFrame = subObject->m_currentSequenceStart;
-            }
-            subObject->m_isInResetState = state->colorMults()[GAFColorTransformIndex::GAFCTI_A] < 0.f;
+                cocos2d::AffineTransform stateTransform = state->affineTransform;
+                float csf = m_timeline->usedAtlasContentScaleFactor();
+                stateTransform.tx *= csf;
+                stateTransform.ty *= csf;
+                cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
+                subObject->setAdditionalTransform(t);
+                subObject->m_parentFilters.clear();
+                const Filters_t& filters = state->getFilters();
+                subObject->m_parentFilters.insert(subObject->m_parentFilters.end(), filters.begin(), filters.end());
 
-            if (!state->isVisible())
-                continue;
-
-            if (subObject->m_charType == GAFCharacterType::Timeline)
-            {
-                if (!subObject->m_isInResetState)
-                {
-                    cocos2d::AffineTransform stateTransform = state->affineTransform;
-                    float csf = m_timeline->usedAtlasContentScaleFactor();
-                    stateTransform.tx *= csf;
-                    stateTransform.ty *= csf;
-                    cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
-                    subObject->setAdditionalTransform(t);
-                    subObject->m_parentFilters.clear();
-                    const Filters_t& filters = state->getFilters();
-                    subObject->m_parentFilters.insert(subObject->m_parentFilters.end(), filters.begin(), filters.end());
-
-                    const float* cm = state->colorMults();
-                    subObject->m_parentColorTransforms[0] = cocos2d::Vec4(
-                        m_parentColorTransforms[0].x * cm[0],
-                        m_parentColorTransforms[0].y * cm[1],
-                        m_parentColorTransforms[0].z * cm[2],
-                        m_parentColorTransforms[0].w * cm[3]);
-                    subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
-
-                    if (m_masks[state->objectIdRef])
-                    {
-                        rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex, frameIndex, 1);
-                    }
-                    else
-                    {
-                        //subObject->removeFromParentAndCleanup(false);
-                        if (state->maskObjectIdRef == IDNONE)
-                        {
-                            rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
-                        }
-                        else
-                        {
-                            // If the state has a mask, then attach it 
-                            // to the clipping node. Clipping node will be attached on its state
-                            auto mask = m_masks[state->maskObjectIdRef];
-                            CCASSERT(mask, "Error. No mask found for this ID");
-                            if (mask)
-                                rearrangeSubobject(mask, subObject, state->zIndex, frameIndex, 1);
-                        }
-                    }
-
-                    subObject->step();
-                }
-            }
-            else if (subObject->m_charType == GAFCharacterType::Texture)
-            {
-                cocos2d::Vect prevAP = subObject->getAnchorPoint();
-                cocos2d::Size  prevCS = subObject->getContentSize();
-
-#if ENABLE_RUNTIME_FILTERS
-                if (subObject->m_objectType == GAFObjectType::MovieClip)
-                {
-                    // Validate sprite type (w/ or w/o filter)
-                    const Filters_t& filters = state->getFilters();
-                    GAFFilterData* filter = NULL;
-
-                    GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
-                    /*
-                    Filters_t filtersUnion;
-                    filtersUnion.insert(filtersUnion.end(), m_parentFilters.begin(), m_parentFilters.end());
-                    filtersUnion.insert(filtersUnion.end(), filters.begin(), filters.end());
-
-                    if (!filtersUnion.empty())
-                    {
-                        filter = filtersUnion[0];
-                        filter->apply(mc);
-                    }
-                    */
-                    if (m_parentFilters.size() > 0)
-                    {
-                        filter = *m_parentFilters.begin();
-                    }
-                    else if (filters.size() > 0)
-                    {
-                        filter = *filters.begin();
-                    }
-                    
-                    if (filter)
-                    {
-                    	filter->apply(mc);
-                    }
-
-                    if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
-                    {
-                        mc->setBlurFilterData(nullptr);
-                    }
-
-                    if (!filter || filter->getType() != GAFFilterType::GFT_ColorMatrix)
-                    {
-                        mc->setColorMarixFilterData(nullptr);
-                    }
-
-                    if (!filter || filter->getType() != GAFFilterType::GFT_Glow)
-                    {
-                        mc->setGlowFilterData(nullptr);
-                    }
-
-                    if (!filter || filter->getType() != GAFFilterType::GFT_DropShadow)
-                    {
-                        GAFDropShadowFilterData::reset(mc);
-                    }
-                }
-#endif
-
-                cocos2d::Size newCS = subObject->getContentSize();
-                cocos2d::Vect newAP = cocos2d::Vect(((prevAP.x - 0.5f) * prevCS.width) / newCS.width + 0.5f,
-                    ((prevAP.y - 0.5f) * prevCS.height) / newCS.height + 0.5f);
-                subObject->setAnchorPoint(newAP);
-
+                const float* cm = state->colorMults();
+                subObject->m_parentColorTransforms[0] = cocos2d::Vec4(
+                    m_parentColorTransforms[0].x * cm[0],
+                    m_parentColorTransforms[0].y * cm[1],
+                    m_parentColorTransforms[0].z * cm[2],
+                    m_parentColorTransforms[0].w * cm[3]);
+                subObject->m_parentColorTransforms[1] = cocos2d::Vec4(state->colorOffsets()) + m_parentColorTransforms[1];
 
                 if (m_masks[state->objectIdRef])
                 {
@@ -1111,69 +841,147 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     }
                 }
 
-                cocos2d::AffineTransform stateTransform = state->affineTransform;
-                float csf = m_timeline->usedAtlasContentScaleFactor();
-                stateTransform.tx *= csf;
-                stateTransform.ty *= csf;
-                cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
-                subObject->setExternalTransform(t);
+                subObject->step();
+            }
+        }
+        else if (subObject->m_charType == GAFCharacterType::Texture)
+        {
+            cocos2d::Vect prevAP = subObject->getAnchorPoint();
+            cocos2d::Size  prevCS = subObject->getContentSize();
 
-                if (subObject->m_objectType == GAFObjectType::MovieClip)
+#if ENABLE_RUNTIME_FILTERS
+            if (subObject->m_objectType == GAFObjectType::MovieClip)
+            {
+                // Validate sprite type (w/ or w/o filter)
+                const Filters_t& filters = state->getFilters();
+                GAFFilterData* filter = NULL;
+
+                GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
+
+                if (m_parentFilters.size() > 0)
                 {
-                    GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
-                    float colorMults[4] = {
-                        state->colorMults()[0] * m_parentColorTransforms[0].x,
-                        state->colorMults()[1] * m_parentColorTransforms[0].y,
-                        state->colorMults()[2] * m_parentColorTransforms[0].z,
-                        state->colorMults()[3] * m_parentColorTransforms[0].w
-                    };
-                    float colorOffsets[4] = {
-                        state->colorOffsets()[0] + m_parentColorTransforms[1].x,
-                        state->colorOffsets()[1] + m_parentColorTransforms[1].y,
-                        state->colorOffsets()[2] + m_parentColorTransforms[1].z,
-                        state->colorOffsets()[3] + m_parentColorTransforms[1].w
-                    };
+                    filter = *m_parentFilters.begin();
+                }
+                else if (filters.size() > 0)
+                {
+                    filter = *filters.begin();
+                }
 
-                    mc->setColorTransform(colorMults, colorOffsets);
+                if (filter)
+                {
+                    filter->apply(mc);
+                }
+
+                if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
+                {
+                    mc->setBlurFilterData(nullptr);
+                }
+
+                if (!filter || filter->getType() != GAFFilterType::GFT_ColorMatrix)
+                {
+                    mc->setColorMarixFilterData(nullptr);
+                }
+
+                if (!filter || filter->getType() != GAFFilterType::GFT_Glow)
+                {
+                    mc->setGlowFilterData(nullptr);
+                }
+
+                if (!filter || filter->getType() != GAFFilterType::GFT_DropShadow)
+                {
+                    GAFDropShadowFilterData::reset(mc);
                 }
             }
-            else if (subObject->m_charType == GAFCharacterType::TextField)
-            {
-                GAFTextField *tf = static_cast<GAFTextField*>(subObject);
-                rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
-            }
-            
-        }
+#endif
 
-        GAFAnimationFrame::TimelineActions_t timelineActions = currentFrame->getTimelineActions();
-        for (GAFTimelineAction action : timelineActions)
+            cocos2d::Size newCS = subObject->getContentSize();
+            cocos2d::Vect newAP = cocos2d::Vect(((prevAP.x - 0.5f) * prevCS.width) / newCS.width + 0.5f,
+                ((prevAP.y - 0.5f) * prevCS.height) / newCS.height + 0.5f);
+            subObject->setAnchorPoint(newAP);
+
+
+            if (m_masks[state->objectIdRef])
+            {
+                rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex, frameIndex, 1);
+            }
+            else
+            {
+                //subObject->removeFromParentAndCleanup(false);
+                if (state->maskObjectIdRef == IDNONE)
+                {
+                    rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
+                }
+                else
+                {
+                    // If the state has a mask, then attach it 
+                    // to the clipping node. Clipping node will be attached on its state
+                    auto mask = m_masks[state->maskObjectIdRef];
+                    CCASSERT(mask, "Error. No mask found for this ID");
+                    if (mask)
+                        rearrangeSubobject(mask, subObject, state->zIndex, frameIndex, 1);
+                }
+            }
+
+            cocos2d::AffineTransform stateTransform = state->affineTransform;
+            float csf = m_timeline->usedAtlasContentScaleFactor();
+            stateTransform.tx *= csf;
+            stateTransform.ty *= csf;
+            cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
+            subObject->setExternalTransform(t);
+
+            if (subObject->m_objectType == GAFObjectType::MovieClip)
+            {
+                GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
+                float colorMults[4] = {
+                    state->colorMults()[0] * m_parentColorTransforms[0].x,
+                    state->colorMults()[1] * m_parentColorTransforms[0].y,
+                    state->colorMults()[2] * m_parentColorTransforms[0].z,
+                    state->colorMults()[3] * m_parentColorTransforms[0].w
+                };
+                float colorOffsets[4] = {
+                    state->colorOffsets()[0] + m_parentColorTransforms[1].x,
+                    state->colorOffsets()[1] + m_parentColorTransforms[1].y,
+                    state->colorOffsets()[2] + m_parentColorTransforms[1].z,
+                    state->colorOffsets()[3] + m_parentColorTransforms[1].w
+                };
+
+                mc->setColorTransform(colorMults, colorOffsets);
+            }
+        }
+        else if (subObject->m_charType == GAFCharacterType::TextField)
         {
-            switch (action.getType())
-            {
-            case GAFActionType::Stop:
-                pauseAnimation();
-                break;
-            case GAFActionType::Play:
-                resumeAnimation();
-                break;
-            case GAFActionType::GotoAndStop: 
-                gotoAndStop(action.getParam(GAFTimelineAction::PI_FRAME));
-                break;
-            case GAFActionType::GotoAndPlay:
-				gotoAndPlay(action.getParam(GAFTimelineAction::PI_FRAME));
-                break;
-            case GAFActionType::DispatchEvent:
-				_eventDispatcher->dispatchCustomEvent(action.getParam(GAFTimelineAction::PI_EVENT_TYPE), &action);
-				break;
-
-            case GAFActionType::None:
-            default:
-                break;
-            }
+            GAFTextField *tf = static_cast<GAFTextField*>(subObject);
+            rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
         }
+
     }
 
+    GAFAnimationFrame::TimelineActions_t timelineActions = currentFrame->getTimelineActions();
+    for (GAFTimelineAction action : timelineActions)
+    {
+        switch (action.getType())
+        {
+        case GAFActionType::Stop:
+            pauseAnimation();
+            break;
+        case GAFActionType::Play:
+            resumeAnimation();
+            break;
+        case GAFActionType::GotoAndStop:
+            gotoAndStop(action.getParam(GAFTimelineAction::PI_FRAME));
+            break;
+        case GAFActionType::GotoAndPlay:
+            gotoAndPlay(action.getParam(GAFTimelineAction::PI_FRAME));
+            break;
+        case GAFActionType::DispatchEvent:
+            _eventDispatcher->dispatchCustomEvent(action.getParam(GAFTimelineAction::PI_EVENT_TYPE), &action);
+            break;
 
+        case GAFActionType::None:
+        default:
+            break;
+        }
+    }
 }
 
 uint32_t GAFObject::getFps() const
@@ -1210,33 +1018,32 @@ GAFObject* GAFObject::getObjectByName(const std::string& name)
             if (it != np.end())
             {
                 retval = m_displayList[it->second];
-
-                if (elems.size() > 1)
+                if (elems.size() == 1)
                 {
-                    StringVec_t::iterator begIt = elems.begin() + 1;
-
-                    while (begIt != elems.end())
-                    {
-                        const NamedParts_t& np = retval->m_timeline->getNamedParts();
-                        NamedParts_t::const_iterator it = np.find(*begIt);
-                        if (it != np.end())
-                        {
-                            retval = retval->m_displayList[it->second];
-                        }
-                        else
-                        {
-                            // Sequence is incorrect
-                            //break;
-
-                            // It is better to return nil instead of the last found object in a chain
-                            return nullptr;
-                        }
-
-                        ++begIt;
-                    }
+                    return retval;
                 }
 
-                return retval;
+                StringVec_t::iterator begIt = elems.begin() + 1;
+
+                while (begIt != elems.end())
+                {
+                    const NamedParts_t& np = retval->m_timeline->getNamedParts();
+                    NamedParts_t::const_iterator it = np.find(*begIt);
+                    if (it != np.end())
+                    {
+                        retval = retval->m_displayList[it->second];
+                    }
+                    else
+                    {
+                        // Sequence is incorrect
+                        //break;
+
+                        // It is better to return nil instead of the last found object in a chain
+                        return nullptr;
+                    }
+
+                    ++begIt;
+                }
             }
         }
     }
