@@ -323,9 +323,7 @@ void GAFObject::setControlDelegate(GAFObjectControlDelegate_t delegate)
 
 void GAFObject::start()
 {
-    schedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
-
-    m_animationsSelectorScheduled = true;
+    enableTick(true);
 
     if (!m_isRunning)
     {
@@ -336,9 +334,7 @@ void GAFObject::start()
 
 void GAFObject::stop()
 {
-    unschedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
-    m_animationsSelectorScheduled = false;
-
+    enableTick(false);
     if (m_isRunning)
     {
         m_currentFrame = GAFFirstFrameIndex;
@@ -1094,6 +1090,22 @@ void GAFObject::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transfor
     if (isVisibleInCurrentFrame())
     {
         GAFSprite::visit(renderer, transform, flags);
+    }
+}
+
+void GAFObject::enableTick(bool val)
+{
+    if (!m_animationsSelectorScheduled && val)
+    {
+        schedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
+
+        m_animationsSelectorScheduled = true;
+    }
+    else if (m_animationsSelectorScheduled && !val)
+    {
+        unschedule(cocos2d::SEL_SCHEDULE(&GAFObject::processAnimations));
+
+        m_animationsSelectorScheduled = false;
     }
 }
 
