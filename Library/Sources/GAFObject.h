@@ -154,8 +154,14 @@ public:
     /// @param resume if true - animation will be played immediately, if false - playback will be paused after the first frame is shown
     /// @param hint specific animation playback parameters
 
-    bool playSequence(const std::string& name, bool looped = false, bool resume = true);
-    void clearSequence();
+    bool        playSequence(const std::string& name, bool looped = false, bool resume = true);
+
+    /// Stops playing an animation as a sequence
+    void        clearSequence();
+
+    /// schedule/unschedule
+    /// @note this function is automatically called in start/stop
+    void        enableTick(bool val);
 
 public:
 
