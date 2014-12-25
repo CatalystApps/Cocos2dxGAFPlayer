@@ -16,6 +16,8 @@ NS_GAF_END
 
 USING_NS_GAF;
 
+//#define SEARCH_ALL_GAF_FILES
+
 class GafFeatures : public cocos2d::Layer
 {
 private:
@@ -46,6 +48,16 @@ private:
     
     void setupMenuItems();
     cocos2d::MenuItemImage* addButton(const std::string& buttonName, const std::string& buttonPressedName, const cocos2d::Point& pos, const cocos2d::ccMenuCallback& clb);
+
+    void generateGafFilesList();
+#ifdef SEARCH_ALL_GAF_FILES
+#if defined(WIN32)
+    void searchGafFilesInDirectory(std::wstring& path);
+#elif defined(__APPLE__)
+    void searchGafFilesInDirectory(std::string& path);
+#endif
+#endif // SEARCH_ALL_GAF_FILES
+
 public:
     GafFeatures();
     ~GafFeatures();

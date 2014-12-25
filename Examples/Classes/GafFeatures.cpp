@@ -4,8 +4,16 @@
 
 #include <iostream>
 
+#if defined(__APPLE__) && defined(SEARCH_ALL_GAF_FILES)
+#include <dirent.h>
+#include <unistd.h>
+#endif // __APPLE__ && SEARCH_ALL_GAF_FILES
+
 #ifdef WIN32
 #include <windows.h>
+#ifdef SEARCH_ALL_GAF_FILES
+#include <codecvt>
+#endif // SEARCH_ALL_GAF_FILES
 
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
@@ -268,6 +276,28 @@ bool GafFeatures::init()
     setupMenuItems();
     gray(nullptr);
     
+    generateGafFilesList();
+    
+    m_anim_index = 0;
+    
+    addObjectsToScene();
+    
+    return true;
+}
+
+void GafFeatures::generateGafFilesList()
+{
+#ifdef SEARCH_ALL_GAF_FILES
+#if defined(WIN32)
+    std::wstring start_path = L"";
+#elif defined(__APPLE__)
+    char *dir = getcwd(NULL, 0);
+    std::string start_path = dir;
+    start_path.append("/../../.."); // Supress Appname.app/Content/Resources which is default directory
+    chdir(start_path.c_str()); // Mandatory action
+#endif // Platform
+    searchGafFilesInDirectory(start_path);
+#else // SEARCH_ALL_GAF_FILES
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
@@ -279,13 +309,93 @@ bool GafFeatures::init()
     m_files.push_back("myshopsgame4/myshopsgame4.gaf");
     m_files.push_back("peacock_feb3_natasha/peacock_feb3_natasha.gaf");
     m_files.push_back("tiger/tiger.gaf");
-    
-    m_anim_index = 0;
-    
-    addObjectsToScene();
-    
-    return true;
+#endif // SEARCH_ALL_GAF_FILES
 }
+
+#ifdef SEARCH_ALL_GAF_FILES
+#ifdef WIN32
+void GafFeatures::searchGafFilesInDirectory(std::string& path)
+{
+    std::wstring wpath = path;
+    std::wstring files = wpath + L"*.*";
+    const std::wstring gaf_extension = L".gaf";
+
+    WIN32_FIND_DATA wfd;
+    HANDLE search = FindFirstFileEx(files.c_str(), FindExInfoStandard, &wfd, FindExSearchNameMatch, NULL, 0);
+    bool ret = true;
+    if (search != INVALID_HANDLE_VALUE)
+    {
+        BOOL find = true;
+        while (find)
+        {
+            //. ..
+            if (wfd.cFileName[0] != '.')
+            {
+                std::wstring temp = wpath + wfd.cFileName;
+                
+                if (wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+                {
+                    temp += '/';
+                    searchGafFilesInDirectory(temp);
+                }
+                else if (temp.rfind(gaf_extension) == temp.length() - gaf_extension.length())
+                {
+                    const std::wstring resources_dir = L"Resources/";
+                    int pos = temp.rfind(resources_dir);
+                    std::wstring path_to_append = temp.substr(pos + resources_dir.length());
+
+                    typedef std::codecvt_utf8<wchar_t> convert_type;
+                    std::wstring_convert<convert_type, wchar_t> converter;
+
+                    std::string converted_path = converter.to_bytes(path_to_append);
+                    m_files.push_back(converted_path);
+                }
+            }
+            find = FindNextFile(search, &wfd);
+        }
+        if (path.empty())
+        {
+            FindClose(search);
+        }
+    }
+}
+#endif // WIN32
+
+#ifdef __APPLE__
+void GafFeatures::searchGafFilesInDirectory(std::string& path)
+{
+    const char* gaf_extension = ".gaf";
+
+    DIR* directory = opendir(path.c_str());
+    
+    if (directory)
+    {
+        struct dirent* hFile;
+        while ((hFile = readdir(directory)) != NULL)
+        {
+            if (hFile->d_name[0] == '.')
+            {
+                continue;
+            }
+            
+            std::string child_entry = path + "/";
+            child_entry.append(hFile->d_name);
+            
+            if (hFile->d_type == DT_DIR)
+            {
+                searchGafFilesInDirectory(child_entry);
+            }
+            else if(strstr(hFile->d_name, gaf_extension))
+            {
+                m_files.push_back(child_entry);
+            }
+        }
+        closedir(directory);
+    }
+    
+}
+#endif // __APPLE__
+#endif // SEARCH_ALL_GAF_FILES
 
 void GafFeatures::enableSequenceControllers( bool value )
 {

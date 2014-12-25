@@ -1046,6 +1046,7 @@ GAFObject* GAFObject::getObjectByName(const std::string& name)
             }
         }
     }
+    return nullptr;
 }
 
 const GAFObject* GAFObject::getObjectByName(const std::string& name) const
