@@ -791,9 +791,6 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
         }
         subObject->m_isInResetState = state->colorMults()[GAFColorTransformIndex::GAFCTI_A] < 0.f;
 
-        if (!state->isVisible())
-            continue;
-
         if (subObject->m_charType == GAFCharacterType::Timeline)
         {
             if (!subObject->m_isInResetState)
@@ -838,7 +835,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     }
                 }
 
-                subObject->step();
+                if (state->isVisible())
+                {
+                    subObject->step();
+                }
             }
         }
         else if (subObject->m_charType == GAFCharacterType::Texture)
