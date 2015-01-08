@@ -924,6 +924,18 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             stateTransform.tx *= csf;
             stateTransform.ty *= csf;
             cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
+            
+            if (isFlippedX() || isFlippedY())
+            {
+                float flipMulX = isFlippedX() ? -1 : 1;
+                float flipOffsetX = isFlippedX() ? getContentSize().width - m_asset->getHeader().frameSize.getMinX() : 0;
+                float flipMulY = isFlippedY() ? -1 : 1;
+                float flipOffsetY = isFlippedY() ? -getContentSize().height + m_asset->getHeader().frameSize.getMinY() : 0;
+
+                cocos2d::AffineTransform flipCenterTransform = cocos2d::AffineTransformMake(flipMulX, 0, 0, flipMulY, flipOffsetX, flipOffsetY);
+                t = AffineTransformConcat(t, flipCenterTransform);
+            }
+
             subObject->setExternalTransform(t);
 
             if (subObject->m_objectType == GAFObjectType::MovieClip)

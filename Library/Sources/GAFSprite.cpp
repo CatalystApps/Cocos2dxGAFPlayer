@@ -27,6 +27,9 @@ m_externalTransform(AffineTransform::IDENTITY)
 #if COCOS2D_VERSION < 0x00030300
     _batchNode = nullptr; // this will fix a bug in cocos2dx 3.2 tag
 #endif
+    setFlippedX(false); // Fix non-inited vars in cocos
+    setFlippedY(false);
+    _rectRotated = false;
 }
 
 bool GAFSprite::initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)
