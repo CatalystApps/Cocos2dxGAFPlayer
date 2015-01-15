@@ -158,8 +158,8 @@ void GAFLoader::_processLoad(GAFFile* file, GAFAsset* context)
         _registerTagLoadersV3();
 
 		timeline = new GAFTimeline(nullptr, 0, header.frameSize, header.pivot, header.framesCount);
-		context->setRootTimeline(timeline);
 		context->pushTimeline(0, timeline);
+        context->setRootTimeline((uint32_t)0);
     }
 
     _registerTagLoadersCommon();

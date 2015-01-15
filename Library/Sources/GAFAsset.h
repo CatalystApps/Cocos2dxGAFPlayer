@@ -21,6 +21,8 @@ private:
 	Timelines_t				m_timelines;
     GAFTimeline*            m_rootTimeline;
 
+    void setRootTimeline(GAFTimeline* tl);
+
     GAFTextureLoadDelegate_t m_textureLoadDelegate;
 	GAFAssetTextureManager*	m_textureManager;
 
@@ -44,8 +46,8 @@ public:
     void                        setHeader(GAFHeader& h);
     const GAFHeader&            getHeader() const;
     
-    void                        setRootTimeline(GAFTimeline* tl);
-    void                        setRootTimelineWithName(const std::string& name);
+    bool                        setRootTimeline(const std::string& name);
+    bool                        setRootTimeline(uint32_t id);
     GAFTimeline*                getRootTimeline() const;
     GAFTimeline*                getTimelineByName(const std::string& name) const;
 
