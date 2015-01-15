@@ -63,7 +63,7 @@ public:
     static bool                 isAssetVersionPlayable(const char * version);
 
     GAFObject*                  createObject();
-    GAFObject*                  createObjectAndRun(bool looped = false);
+    GAFObject*                  createObjectAndRun(bool looped);
 
     /// desired content scale factor
     static float                desiredCsf();
