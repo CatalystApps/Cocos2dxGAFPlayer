@@ -655,6 +655,68 @@ void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
     }
 }
 
+JSClass  *jsb_gaf_GAFSprite_class;
+JSObject *jsb_gaf_GAFSprite_prototype;
+
+
+extern JSObject *jsb_cocos2d_Sprite_prototype;
+
+void js_gaf_GAFSprite_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (GAFSprite)", obj);
+}
+
+void js_register_gaf_GAFSprite(JSContext *cx, JSObject *global) {
+    jsb_gaf_GAFSprite_class = (JSClass *)calloc(1, sizeof(JSClass));
+    jsb_gaf_GAFSprite_class->name = "Sprite";
+    jsb_gaf_GAFSprite_class->addProperty = JS_PropertyStub;
+    jsb_gaf_GAFSprite_class->delProperty = JS_DeletePropertyStub;
+    jsb_gaf_GAFSprite_class->getProperty = JS_PropertyStub;
+    jsb_gaf_GAFSprite_class->setProperty = JS_StrictPropertyStub;
+    jsb_gaf_GAFSprite_class->enumerate = JS_EnumerateStub;
+    jsb_gaf_GAFSprite_class->resolve = JS_ResolveStub;
+    jsb_gaf_GAFSprite_class->convert = JS_ConvertStub;
+    jsb_gaf_GAFSprite_class->finalize = js_gaf_GAFSprite_finalize;
+    jsb_gaf_GAFSprite_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+    static JSPropertySpec properties[] = {
+        {"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+    };
+
+    static JSFunctionSpec funcs[] = {
+        JS_FS_END
+    };
+
+    JSFunctionSpec *st_funcs = NULL;
+
+    jsb_gaf_GAFSprite_prototype = JS_InitClass(
+        cx, global,
+        jsb_cocos2d_Sprite_prototype,
+        jsb_gaf_GAFSprite_class,
+        empty_constructor, 0,
+        properties,
+        funcs,
+        NULL, // no static properties
+        st_funcs);
+    // make the class enumerable in the registered namespace
+//  bool found;
+//FIXME: Removed in Firefox v27 
+//  JS_SetPropertyAttributes(cx, global, "Sprite", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+    // add the proto and JSClass to the type->js info hash table
+    TypeTest<gaf::GAFSprite> t;
+    js_type_class_t *p;
+    std::string typeName = t.s_name();
+    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
+    {
+        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+        p->jsclass = jsb_gaf_GAFSprite_class;
+        p->proto = jsb_gaf_GAFSprite_prototype;
+        p->parentProto = jsb_cocos2d_Sprite_prototype;
+        _js_global_type_map.insert(std::make_pair(typeName, p));
+    }
+}
+
 JSClass  *jsb_gaf_GAFObject_class;
 JSObject *jsb_gaf_GAFObject_prototype;
 
@@ -1189,60 +1251,6 @@ bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_isReversed : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
-bool js_gaf_GAFObject_setSequenceDelegate(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setSequenceDelegate : Invalid Native Object");
-    if (argc == 1) {
-        std::function<void (gaf::GAFObject *, const std::basic_string<char> &)> arg0;
-        do {
-		    if(JS_TypeOfValue(cx, argv[0]) == JSTYPE_FUNCTION)
-		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
-		        auto lambda = [=](gaf::GAFObject* larg0, std::basic_string<char> larg1) -> void {
-		            jsval largv[2];
-		            do {
-		            if (larg0) {
-		                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFObject>(cx, (gaf::GAFObject*)larg0);
-		                largv[0] = OBJECT_TO_JSVAL(jsProxy->obj);
-		            } else {
-		                largv[0] = JSVAL_NULL;
-		            }
-		        } while (0);
-		            do {
-		            if (1) {
-                        largv[1] = std_string_to_jsval(cx, larg1);
-		            } else {
-		                largv[1] = JSVAL_NULL;
-		            }
-		        } while (0);
-		            jsval rval;
-		            bool ok = func->invoke(2, &largv[0], rval);
-		            if (!ok && JS_IsExceptionPending(cx)) {
-		                JS_ReportPendingException(cx);
-		            }
-		        };
-		        arg0 = lambda;
-		    }
-		    else
-		    {
-		        arg0 = nullptr;
-		    }
-		} while(0)
-		;
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setSequenceDelegate : Error processing arguments");
-        cobj->setSequenceDelegate(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFObject_setSequenceDelegate : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
 bool js_gaf_GAFObject_setFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
@@ -1611,7 +1619,6 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         JS_FN("playSequence", js_gaf_GAFObject_playSequence, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("stop", js_gaf_GAFObject_stop, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isReversed", js_gaf_GAFObject_isReversed, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setSequenceDelegate", js_gaf_GAFObject_setSequenceDelegate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setFrame", js_gaf_GAFObject_setFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setControlDelegate", js_gaf_GAFObject_setControlDelegate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getEndFrame", js_gaf_GAFObject_getEndFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -1674,6 +1681,7 @@ void register_all_gaf(JSContext* cx, JSObject* obj) {
     obj = ns;
 
     js_register_gaf_GAFAsset(cx, obj);
+    js_register_gaf_GAFSprite(cx, obj);
     js_register_gaf_GAFObject(cx, obj);
 }
 

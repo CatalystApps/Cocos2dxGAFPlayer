@@ -216,6 +216,13 @@ GAFAsset : function (
 };
 
 /**
+ * @class GAFSprite
+ */
+gaf.Sprite = {
+
+};
+
+/**
  * @class GAFObject
  */
 gaf.Object = {
