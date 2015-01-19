@@ -1,6 +1,25 @@
 #include "jsb_gaf_manual.h"
 #include "cocos2d_specifics.hpp"
 #include "GAF_JS.h"
+#include "jsb_gaf.hpp"
+
+/*
+jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string) {
+    jsval out;
+    JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+        if (JS_EvaluateScript(cx, thisObj, string, strlen(string), "(string)", 1, &out) == true) {
+        return out;
+        }
+    return JSVAL_VOID;
+}
+*/
+void register_gaf(JSContext* cx, JSObject* global)
+{
+    register_all_gaf(cx, global);
+    JSObject* tmpObj = JSVAL_TO_OBJECT(anonEvaluate(cx, global, "(function () { return gaf.Object; })()"));
+    JS_DefineFunction(cx, tmpObj, "setSequenceDelegate", js_gaf_GAFObject_setSequenceDelegate, 1, JSPROP_READONLY | JSPROP_PERMANENT);
+}
+
 
 bool js_gaf_GAFObject_setSequenceDelegate(JSContext *cx, uint32_t argc, jsval *vp)
 {
