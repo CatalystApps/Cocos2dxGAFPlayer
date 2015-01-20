@@ -4,26 +4,9 @@
 var gaf = gaf || {};
 
 /**
- * @class GAFAnimationSequence
- */
-gaf.GAFAnimationSequence = {
-
-/**
- * @method length
- * @return {unsigned int}
- */
-length : function (
-)
-{
-    return 0;
-},
-
-};
-
-/**
  * @class GAFAsset
  */
-gaf.GAFAsset = {
+gaf.Asset = {
 
 /**
  * @method getSceneHeight
@@ -33,6 +16,18 @@ getSceneHeight : function (
 )
 {
     return 0;
+},
+
+/**
+ * @method setRootTimeline
+* @param {unsigned int|String} int
+* @return {bool|bool}
+*/
+setRootTimeline : function(
+str 
+)
+{
+    return false;
 },
 
 /**
@@ -67,9 +62,11 @@ color4b
 
 /**
  * @method createObjectAndRun
+ * @param {bool} arg0
  * @return {gaf.GAFObject}
  */
 createObjectAndRun : function (
+bool 
 )
 {
     return gaf.GAFObject;
@@ -83,26 +80,6 @@ getSceneWidth : function (
 )
 {
     return 0;
-},
-
-/**
- * @method getRootTimeline
- * @return {gaf.GAFTimeline}
- */
-getRootTimeline : function (
-)
-{
-    return gaf.GAFTimeline;
-},
-
-/**
- * @method getTimelines
-* @return {map_object|map_object}
-*/
-getTimelines : function(
-)
-{
-    return map_object;
 },
 
 /**
@@ -137,16 +114,6 @@ func
  */
 setSceneWidth : function (
 int 
-)
-{
-},
-
-/**
- * @method setTextureLoadDelegate
- * @param {function} arg0
- */
-setTextureLoadDelegate : function (
-func 
 )
 {
 },
@@ -196,26 +163,6 @@ createObject : function (
 },
 
 /**
- * @method getTextureManager
- * @return {gaf.GAFAssetTextureManager}
- */
-getTextureManager : function (
-)
-{
-    return gaf.GAFAssetTextureManager;
-},
-
-/**
- * @method setRootTimelineWithName
- * @param {String} arg0
- */
-setRootTimelineWithName : function (
-str 
-)
-{
-},
-
-/**
  * @method isAssetVersionPlayable
  * @param {char} arg0
  * @return {bool}
@@ -228,37 +175,17 @@ char
 },
 
 /**
- * @method desiredCsf
- * @return {float}
- */
-desiredCsf : function (
-)
-{
-    return 0;
-},
-
-/**
  * @method create
- * @param {String} arg0
- * @param {function} arg1
- * @return {gaf.GAFAsset}
- */
-create : function (
-str, 
+* @param {String|String} str
+* @param {function} func
+* @return {gaf.GAFAsset|gaf.GAFAsset}
+*/
+create : function(
+str,
 func 
 )
 {
     return gaf.GAFAsset;
-},
-
-/**
- * @method setDesiredCsf
- * @param {float} arg0
- */
-setDesiredCsf : function (
-float 
-)
-{
 },
 
 /**
@@ -291,33 +218,14 @@ GAFAsset : function (
 /**
  * @class GAFSprite
  */
-gaf.GAFSprite = {
-
-/**
- * @method setLocator
- * @param {bool} arg0
- */
-setLocator : function (
-bool 
-)
-{
-},
-
-/**
- * @method GAFSprite
- * @constructor
- */
-GAFSprite : function (
-)
-{
-},
+gaf.Sprite = {
 
 };
 
 /**
  * @class GAFObject
  */
-gaf.GAFObject = {
+gaf.Object = {
 
 /**
  * @method setAnimationStartedNextLoopDelegate
@@ -476,16 +384,6 @@ gaftimeline
 },
 
 /**
- * @method isVisibleInCurrentFrame
- * @return {bool}
- */
-isVisibleInCurrentFrame : function (
-)
-{
-    return false;
-},
-
-/**
  * @method isDone
  * @return {bool}
  */
@@ -527,6 +425,16 @@ isReversed : function (
 )
 {
     return false;
+},
+
+/**
+ * @method setSequenceDelegate
+ * @param {function} arg0
+ */
+setSequenceDelegate : function (
+func 
+)
+{
 },
 
 /**
@@ -645,44 +553,11 @@ gaftimeline
     return gaf.GAFObject;
 },
 
-};
-
 /**
- * @class GAFAssetTextureManager
- */
-gaf.GAFAssetTextureManager = {
-
-/**
- * @method getMemoryConsumptionStat
- * @return {unsigned int}
- */
-getMemoryConsumptionStat : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method GAFAssetTextureManager
+ * @method GAFObject
  * @constructor
  */
-GAFAssetTextureManager : function (
-)
-{
-},
-
-};
-
-/**
- * @class GAFMovieClip
- */
-gaf.GAFMovieClip = {
-
-/**
- * @method GAFMovieClip
- * @constructor
- */
-GAFMovieClip : function (
+GAFObject : function (
 )
 {
 },

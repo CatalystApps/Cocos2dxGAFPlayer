@@ -73,10 +73,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\bindings\jsb_gaf.cpp" />
+    <ClCompile Include="..\bindings\jsb_gaf_manual.cpp" />
     <ClCompile Include="..\bindings\js_gaf_manual_conversions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\bindings\jsb_gaf.hpp" />
+    <ClInclude Include="..\bindings\jsb_gaf_manual.h" />
     <ClInclude Include="..\bindings\js_gaf_manual_conversions.h" />
   </ItemGroup>
   <ItemGroup>
