@@ -271,17 +271,20 @@ void GAFObject::processAnimation()
     realizeFrame(m_container, m_currentFrame);
 }
 
-void GAFObject::setAnimationRunning(bool value)
+void GAFObject::setAnimationRunning(bool value, bool recurcive /*= false*/)
 {
     m_isRunning = value;
 
-    for (auto obj : m_displayList)
+    if (recurcive)
     {
-        if (obj == nullptr)
+        for (auto obj : m_displayList)
         {
-            continue;
+            if (obj == nullptr)
+            {
+                continue;
+            }
+            obj->setAnimationRunning(value);
         }
-        obj->setAnimationRunning(value);
     }
 }
 
@@ -390,17 +393,20 @@ bool GAFObject::isLooped() const
     return m_isLooped;
 }
 
-void GAFObject::setLooped(bool looped)
+void GAFObject::setLooped(bool looped, bool recurcive /*= false*/)
 {
     m_isLooped = looped;
 
-    for (auto obj : m_displayList)
+    if (recurcive)
     {
-        if (obj == nullptr)
+        for (auto obj : m_displayList)
         {
-            continue;
+            if (obj == nullptr)
+            {
+                continue;
+            }
+            obj->setLooped(looped);
         }
-        obj->setLooped(looped);
     }
 }
 

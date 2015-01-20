@@ -27,7 +27,7 @@ void GAFTimelineAction::setAction(GAFActionType type, ActionParams_t params, con
         m_params = params;
         break;
     case GAFActionType::DispatchEvent:
-        CCASSERT(params.size() > 0 && params.size() < 4, "Something wrong with action parameters");
+        CCASSERT(params.size() > 0 && params.size() < 5, "Something wrong with action parameters");
         m_params = params;
         break;
     default:

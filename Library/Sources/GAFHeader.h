@@ -35,7 +35,7 @@ public:
 
     inline uint16_t getMinorVersion() const
     {
-        return version >> 1;
+        return version >> 8;
     }
 };
 
