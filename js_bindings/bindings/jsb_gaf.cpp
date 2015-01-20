@@ -360,23 +360,6 @@ bool js_gaf_GAFAsset_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFAsset_setSceneFps : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
-bool js_gaf_GAFAsset_getHeader(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getHeader : Invalid Native Object");
-    if (argc == 0) {
-        const gaf::GAFHeader& ret = cobj->getHeader();
-        jsval jsret = JSVAL_NULL;
-        jsret = GAFHeader_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFAsset_getHeader : wrong number of arguments: %d, was expecting %d", argc, 0);
-    return false;
-}
 bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JSObject *obj = JS_THIS_OBJECT(cx, vp);
@@ -615,7 +598,6 @@ void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
         JS_FN("setSceneWidth", js_gaf_GAFAsset_setSceneWidth, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("initWithGAFFile", js_gaf_GAFAsset_initWithGAFFile, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setSceneFps", js_gaf_GAFAsset_setSceneFps, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("getHeader", js_gaf_GAFAsset_getHeader, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("createObject", js_gaf_GAFAsset_createObject, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
@@ -827,6 +809,16 @@ bool js_gaf_GAFObject_setLooped(JSContext *cx, uint32_t argc, jsval *vp)
         arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
         cobj->setLooped(arg0);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return true;
+    }
+    if (argc == 2) {
+        bool arg0;
+        bool arg1;
+        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
+        cobj->setLooped(arg0, arg1);
         JS_SET_RVAL(cx, vp, JSVAL_VOID);
         return true;
     }
@@ -1179,16 +1171,6 @@ bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp)
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_playSequence : Invalid Native Object");
-    if (argc == 1) {
-        std::string arg0;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_playSequence : Error processing arguments");
-        bool ret = cobj->playSequence(arg0);
-        jsval jsret = JSVAL_NULL;
-        jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
     if (argc == 2) {
         std::string arg0;
         bool arg1;
@@ -1216,7 +1198,7 @@ bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp)
         return true;
     }
 
-    JS_ReportError(cx, "js_gaf_GAFObject_playSequence : wrong number of arguments: %d, was expecting %d", argc, 1);
+    JS_ReportError(cx, "js_gaf_GAFObject_playSequence : wrong number of arguments: %d, was expecting %d", argc, 2);
     return false;
 }
 bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1232,6 +1214,28 @@ bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp)
     }
 
     JS_ReportError(cx, "js_gaf_GAFObject_stop : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
+bool js_gaf_GAFObject_setAnimationRunning(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    jsval *argv = JS_ARGV(cx, vp);
+    bool ok = true;
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setAnimationRunning : Invalid Native Object");
+    if (argc == 2) {
+        bool arg0;
+        bool arg1;
+        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setAnimationRunning : Error processing arguments");
+        cobj->setAnimationRunning(arg0, arg1);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFObject_setAnimationRunning : wrong number of arguments: %d, was expecting %d", argc, 2);
     return false;
 }
 bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1616,8 +1620,9 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         JS_FN("start", js_gaf_GAFObject_start, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("init", js_gaf_GAFObject_init, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isDone", js_gaf_GAFObject_isDone, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("playSequence", js_gaf_GAFObject_playSequence, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("playSequence", js_gaf_GAFObject_playSequence, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("stop", js_gaf_GAFObject_stop, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("setAnimationRunning", js_gaf_GAFObject_setAnimationRunning, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isReversed", js_gaf_GAFObject_isReversed, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setFrame", js_gaf_GAFObject_setFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setControlDelegate", js_gaf_GAFObject_setControlDelegate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),

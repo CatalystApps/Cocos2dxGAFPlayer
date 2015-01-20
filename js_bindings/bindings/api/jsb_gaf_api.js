@@ -63,13 +63,13 @@ color4b
 /**
  * @method createObjectAndRun
  * @param {bool} arg0
- * @return {gaf.GAFObject}
+ * @return {gaf::GAFObject}
  */
 createObjectAndRun : function (
 bool 
 )
 {
-    return gaf.GAFObject;
+    return gaf::GAFObject;
 },
 
 /**
@@ -143,23 +143,13 @@ int
 },
 
 /**
- * @method getHeader
- * @return {gaf.GAFHeader}
- */
-getHeader : function (
-)
-{
-    return gaf.GAFHeader;
-},
-
-/**
  * @method createObject
- * @return {gaf.GAFObject}
+ * @return {gaf::GAFObject}
  */
 createObject : function (
 )
 {
-    return gaf.GAFObject;
+    return gaf::GAFObject;
 },
 
 /**
@@ -178,14 +168,14 @@ char
  * @method create
 * @param {String|String} str
 * @param {function} func
-* @return {gaf.GAFAsset|gaf.GAFAsset}
+* @return {gaf::GAFAsset|gaf::GAFAsset}
 */
 create : function(
 str,
 func 
 )
 {
-    return gaf.GAFAsset;
+    return gaf::GAFAsset;
 },
 
 /**
@@ -193,7 +183,7 @@ func
  * @param {String} arg0
  * @param {String} arg1
  * @param {function} arg2
- * @return {gaf.GAFAsset}
+ * @return {gaf::GAFAsset}
  */
 createWithBundle : function (
 str, 
@@ -201,7 +191,7 @@ str,
 func 
 )
 {
-    return gaf.GAFAsset;
+    return gaf::GAFAsset;
 },
 
 /**
@@ -250,8 +240,10 @@ func
 /**
  * @method setLooped
  * @param {bool} arg0
+ * @param {bool} arg1
  */
 setLooped : function (
+bool, 
 bool 
 )
 {
@@ -280,13 +272,13 @@ int
 /**
  * @method getObjectByName
 * @param {String|String} str
-* @return {gaf.GAFObject|gaf.GAFObject}
+* @return {gaf::GAFObject|gaf::GAFObject}
 */
 getObjectByName : function(
 str 
 )
 {
-    return gaf.GAFObject;
+    return gaf::GAFObject;
 },
 
 /**
@@ -371,8 +363,8 @@ start : function (
 
 /**
  * @method init
- * @param {gaf.GAFAsset} arg0
- * @param {gaf.GAFTimeline} arg1
+ * @param {gaf::GAFAsset} arg0
+ * @param {gaf::GAFTimeline} arg1
  * @return {bool}
  */
 init : function (
@@ -418,6 +410,18 @@ stop : function (
 },
 
 /**
+ * @method setAnimationRunning
+ * @param {bool} arg0
+ * @param {bool} arg1
+ */
+setAnimationRunning : function (
+bool, 
+bool 
+)
+{
+},
+
+/**
  * @method isReversed
  * @return {bool}
  */
@@ -425,16 +429,6 @@ isReversed : function (
 )
 {
     return false;
-},
-
-/**
- * @method setSequenceDelegate
- * @param {function} arg0
- */
-setSequenceDelegate : function (
-func 
-)
-{
 },
 
 /**
@@ -541,16 +535,16 @@ getFps : function (
 
 /**
  * @method create
- * @param {gaf.GAFAsset} arg0
- * @param {gaf.GAFTimeline} arg1
- * @return {gaf.GAFObject}
+ * @param {gaf::GAFAsset} arg0
+ * @param {gaf::GAFTimeline} arg1
+ * @return {gaf::GAFObject}
  */
 create : function (
 gafasset, 
 gaftimeline 
 )
 {
-    return gaf.GAFObject;
+    return gaf::GAFObject;
 },
 
 /**

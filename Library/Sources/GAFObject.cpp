@@ -256,13 +256,8 @@ GAFObject* GAFObject::encloseNewTimeline(uint32_t reference)
 
     CCAssert(tl != timelines.end(), "Invalid object reference.");
 
-    GAFObject* newObject = GAFObject::create(m_asset, tl->second);
-    newObject->retain();
-    if (!newObject->getIsAnimationRunning())
-    {
-        newObject->m_currentFrame = GAFFirstFrameIndex;
-        newObject->setAnimationRunning(true);
-    }
+    GAFObject* newObject = new GAFObject();
+    newObject->init(m_asset, tl->second);
     return newObject;
 }
 
@@ -271,11 +266,11 @@ void GAFObject::processAnimation()
     realizeFrame(m_container, m_currentFrame);
 }
 
-void GAFObject::setAnimationRunning(bool value, bool recurcive /*= false*/)
+void GAFObject::setAnimationRunning(bool value, bool recursive)
 {
     m_isRunning = value;
 
-    if (recurcive)
+    if (recursive)
     {
         for (auto obj : m_displayList)
         {
@@ -283,7 +278,7 @@ void GAFObject::setAnimationRunning(bool value, bool recurcive /*= false*/)
             {
                 continue;
             }
-            obj->setAnimationRunning(value);
+            obj->setAnimationRunning(value, recursive);
         }
     }
 }
@@ -325,7 +320,7 @@ void GAFObject::start()
     if (!m_isRunning)
     {
         m_currentFrame = GAFFirstFrameIndex;
-        setAnimationRunning(true);
+        setAnimationRunning(true, true);
     }
 }
 
@@ -335,7 +330,7 @@ void GAFObject::stop()
     if (m_isRunning)
     {
         m_currentFrame = GAFFirstFrameIndex;
-        setAnimationRunning(false);
+        setAnimationRunning(false, true);
     }
 }
 
@@ -359,7 +354,7 @@ void GAFObject::pauseAnimation()
 {
     if (m_isRunning)
     {
-        setAnimationRunning(false);
+        setAnimationRunning(false, false);
     }
 }
 
@@ -367,7 +362,7 @@ void GAFObject::resumeAnimation()
 {
     if (!m_isRunning)
     {
-        setAnimationRunning(true);
+        setAnimationRunning(true, false);
     }
 }
 
@@ -393,11 +388,11 @@ bool GAFObject::isLooped() const
     return m_isLooped;
 }
 
-void GAFObject::setLooped(bool looped, bool recurcive /*= false*/)
+void GAFObject::setLooped(bool looped, bool recursive /*= false*/)
 {
     m_isLooped = looped;
 
-    if (recurcive)
+    if (recursive)
     {
         for (auto obj : m_displayList)
         {
@@ -405,7 +400,7 @@ void GAFObject::setLooped(bool looped, bool recurcive /*= false*/)
             {
                 continue;
             }
-            obj->setLooped(looped);
+            obj->setLooped(looped, recursive);
         }
     }
 }
@@ -530,7 +525,7 @@ uint32_t GAFObject::getEndFrame(const std::string& frameLabel)
     return IDNONE;
 }
 
-bool GAFObject::playSequence(const std::string& name, bool looped /*= false*/, bool resume /*= true*/)
+bool GAFObject::playSequence(const std::string& name, bool looped, bool resume /*= true*/)
 {
     if (!m_asset || !m_timeline)
     {
@@ -555,7 +550,7 @@ bool GAFObject::playSequence(const std::string& name, bool looped /*= false*/, b
 
     m_currentFrame = m_currentSequenceStart;
     
-    setLooped(looped);
+    setLooped(looped, false);
 
     if (resume)
     {
@@ -605,7 +600,7 @@ void GAFObject::step()
         }
         else if (!m_isLooped && m_currentFrame >= m_currentSequenceEnd - 1)
         {
-            setAnimationRunning(false);
+            setAnimationRunning(false, false);
 
             if (m_animationFinishedPlayDelegate)
             {
@@ -650,7 +645,7 @@ void GAFObject::step()
             }
             else
             {
-                setAnimationRunning(false);
+                setAnimationRunning(false, false);
 
                 if (m_animationFinishedPlayDelegate)
                 {

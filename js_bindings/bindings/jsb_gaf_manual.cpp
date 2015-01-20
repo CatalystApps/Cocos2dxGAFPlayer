@@ -1,23 +1,19 @@
 #include "jsb_gaf_manual.h"
-#include "cocos2d_specifics.hpp"
+//#include "cocos2d_specifics.hpp"
 #include "GAF_JS.h"
 #include "jsb_gaf.hpp"
+#include "js_gaf_manual_conversions.h"
 
-/*
-jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string) {
-    jsval out;
-    JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-        if (JS_EvaluateScript(cx, thisObj, string, strlen(string), "(string)", 1, &out) == true) {
-        return out;
-        }
-    return JSVAL_VOID;
-}
-*/
+extern JSObject* jsb_gaf_GAFObject_prototype;
+extern JSObject* jsb_gaf_GAFAsset_prototype;
+
 void register_gaf(JSContext* cx, JSObject* global)
 {
     register_all_gaf(cx, global);
-    JSObject* tmpObj = JSVAL_TO_OBJECT(anonEvaluate(cx, global, "(function () { return gaf.Object; })()"));
-    JS_DefineFunction(cx, tmpObj, "setSequenceDelegate", js_gaf_GAFObject_setSequenceDelegate, 1, JSPROP_READONLY | JSPROP_PERMANENT);
+
+    JS_DefineFunction(cx, jsb_gaf_GAFObject_prototype, "setSequenceDelegate", js_gaf_GAFObject_setSequenceDelegate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE);
+
+    JS_DefineFunction(cx, jsb_gaf_GAFAsset_prototype, "getHeader", js_gaf_GAFAsset_getHeader, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE);
 }
 
 
@@ -69,5 +65,23 @@ bool js_gaf_GAFObject_setSequenceDelegate(JSContext *cx, uint32_t argc, jsval *v
     }
 
     JS_ReportError(cx, "js_gaf_GAFObject_setSequenceDelegate : wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
+
+bool js_gaf_GAFAsset_getHeader(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2(cobj, cx, false, "js_gaf_GAFAsset_getHeader : Invalid Native Object");
+    if (argc == 0) {
+        const gaf::GAFHeader& ret = cobj->getHeader();
+        jsval jsret = JSVAL_NULL;
+        jsret = GAFHeader_to_jsval(cx, ret);
+        JS_SET_RVAL(cx, vp, jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFAsset_getHeader : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }

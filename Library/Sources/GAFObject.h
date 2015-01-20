@@ -65,7 +65,6 @@ protected:
     void    processAnimation();
     void    processAnimations(float dt);
 
-    void    setAnimationRunning(bool value, bool recurcive = false);
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
     
     void    instantiateAnimatedObjects(const AnimationObjects_t &objs, int max);
@@ -73,6 +72,7 @@ protected:
 
     GAFObject*   encloseNewTimeline(uint32_t reference);
 
+    void        step();
 
 public:
     GAFObject();
@@ -110,10 +110,8 @@ public:
     }
 public:
     // Playback accessing
-
     void        start();
     void        stop();
-    void        step();
 
     /// Pauses animation including enclosed timelines
     void        pauseAnimation();
@@ -121,11 +119,12 @@ public:
     /// Resumes animation including enclosed timelines
     void        resumeAnimation();
 
+
     bool        isDone() const;
     bool        getIsAnimationRunning() const;
 
     bool        isLooped() const;
-    void        setLooped(bool looped, bool recurcive = false);
+    void        setLooped(bool looped, bool recursive = false);
 
     bool        isReversed() const;
     void        setReversed(bool reversed);
@@ -154,7 +153,7 @@ public:
     /// @param resume if true - animation will be played immediately, if false - playback will be paused after the first frame is shown
     /// @param hint specific animation playback parameters
 
-    bool        playSequence(const std::string& name, bool looped = false, bool resume = true);
+    bool        playSequence(const std::string& name, bool looped, bool resume = true);
 
     /// Stops playing an animation as a sequence
     void        clearSequence();
@@ -163,6 +162,7 @@ public:
     /// @note this function is automatically called in start/stop
     void        enableTick(bool val);
 
+    void        setAnimationRunning(bool value, bool recurcive);
 public:
 
     virtual ~GAFObject();
