@@ -65,7 +65,7 @@ protected:
     void    processAnimation();
     void    processAnimations(float dt);
 
-    void    setAnimationRunning(bool value);
+    void    setAnimationRunning(bool value, bool recurcive = false);
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
     
     void    instantiateAnimatedObjects(const AnimationObjects_t &objs, int max);
@@ -125,7 +125,7 @@ public:
     bool        getIsAnimationRunning() const;
 
     bool        isLooped() const;
-    void        setLooped(bool looped);
+    void        setLooped(bool looped, bool recurcive = false);
 
     bool        isReversed() const;
     void        setReversed(bool reversed);
