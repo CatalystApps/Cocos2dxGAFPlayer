@@ -50,7 +50,7 @@ GAFObject* GAFAsset::createObjectAndRun(bool looped)
     GAFObject* res = createObject();
     if (res)
     {
-        res->setLooped(looped);
+        res->setLooped(looped, true);
         res->start();
     }
     return res;
