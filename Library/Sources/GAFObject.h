@@ -190,7 +190,7 @@ public:
     const GAFObject* getObjectByName(const std::string& name) const;
 
     void realizeFrame(cocos2d::Node* out, uint32_t frameIndex);
-    void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex, uint32_t frame, bool visible);
+    void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex);
 
     uint32_t getFps() const;
 

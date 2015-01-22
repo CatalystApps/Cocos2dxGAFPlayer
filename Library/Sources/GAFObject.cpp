@@ -18,20 +18,6 @@
 
 NS_GAF_BEGIN
 
-template<typename C, typename T>
-void eraseUserData(T objects)
-{
-    for (auto i : objects)
-    {
-        if (i)
-        {
-            void* d = i->getUserData();
-            if (d)
-                delete reinterpret_cast<C*>(d);
-        }
-    }
-}
-
 cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
 {
     cocos2d::AffineTransform transform = aTransform;
@@ -65,12 +51,10 @@ m_isInResetState(false)
     m_charType = GAFCharacterType::Timeline;
     m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
     m_parentColorTransforms[1] = cocos2d::Vec4::ZERO;
-    setUserData(reinterpret_cast<void*>(&m_lastVisibleInFrame));
 }
 
 GAFObject::~GAFObject()
 {
-    eraseUserData<uint32_t>(m_masks);
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(MaskList_t, m_masks);
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(DisplayList_t, m_displayList);
     CC_SAFE_RELEASE(m_asset);
@@ -239,7 +223,6 @@ void GAFObject::instantiateObject(const AnimationObjects_t& objs, const Animatio
         GAFObject* stencil = _instantiateObject(objectId, charType, reference, true);
         m_displayList[objectId] = stencil;
         cocos2d::ClippingNode* mask = cocos2d::ClippingNode::create(stencil);
-        mask->setUserData(new uint32_t(0));
         mask->retain();
         mask->setAlphaThreshold(0.1);
         m_masks[objectId] = mask;
@@ -746,11 +729,8 @@ cocos2d::Mat4 const& GAFObject::getNodeToParentTransform() const
         return GAFSprite::getNodeToParentTransform();
 }
 
-void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex, uint32_t frame, bool visible)
+void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex)
 {
-    if (!visible)
-        return;
-
     cocos2d::Node* parent = child->getParent();
     if (parent != out)
     {
@@ -762,7 +742,6 @@ void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int
         //static_cast<GAFAnimatedObject*>(child)->_transformUpdated = true;
         child->setLocalZOrder(zIndex);
     }
-    *reinterpret_cast<uint32_t*>(child->getUserData()) = (1 + frame);
 }
 
 void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
@@ -816,14 +795,14 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 
                 if (m_masks[state->objectIdRef])
                 {
-                    rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex, frameIndex, 1);
+                    rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex);
                 }
                 else
                 {
                     //subObject->removeFromParentAndCleanup(false);
                     if (state->maskObjectIdRef == IDNONE)
                     {
-                        rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
+                        rearrangeSubobject(out, subObject, state->zIndex);
                     }
                     else
                     {
@@ -832,7 +811,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                         auto mask = m_masks[state->maskObjectIdRef];
                         CCASSERT(mask, "Error. No mask found for this ID");
                         if (mask)
-                            rearrangeSubobject(mask, subObject, state->zIndex, frameIndex, 1);
+                            rearrangeSubobject(mask, subObject, state->zIndex);
                     }
                 }
 
@@ -900,14 +879,14 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 
             if (m_masks[state->objectIdRef])
             {
-                rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex, frameIndex, 1);
+                rearrangeSubobject(out, m_masks[state->objectIdRef], state->zIndex);
             }
             else
             {
                 //subObject->removeFromParentAndCleanup(false);
                 if (state->maskObjectIdRef == IDNONE)
                 {
-                    rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
+                    rearrangeSubobject(out, subObject, state->zIndex);
                 }
                 else
                 {
@@ -916,7 +895,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     auto mask = m_masks[state->maskObjectIdRef];
                     CCASSERT(mask, "Error. No mask found for this ID");
                     if (mask)
-                        rearrangeSubobject(mask, subObject, state->zIndex, frameIndex, 1);
+                        rearrangeSubobject(mask, subObject, state->zIndex);
                 }
             }
 
@@ -961,9 +940,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
         else if (subObject->m_charType == GAFCharacterType::TextField)
         {
             GAFTextField *tf = static_cast<GAFTextField*>(subObject);
-            rearrangeSubobject(out, subObject, state->zIndex, frameIndex, 1);
+            rearrangeSubobject(out, subObject, state->zIndex);
         }
 
+        subObject->m_lastVisibleInFrame = frameIndex + 1;
     }
 
     GAFAnimationFrame::TimelineActions_t timelineActions = currentFrame->getTimelineActions();
