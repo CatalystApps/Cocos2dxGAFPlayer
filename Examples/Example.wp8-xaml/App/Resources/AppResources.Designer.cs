@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PhoneDirect3DXamlAppInterop.Resources {
+namespace cocos2d.Resources {
     using System;
     
     
