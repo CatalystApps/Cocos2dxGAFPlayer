@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{39eb7904-9e5d-449f-849b-e8b70c0233bc}</ItemsProjectGuid>
+    <ItemsRootNamespace>GAFPlayer</ItemsRootNamespace>
+    <ItemsProjectName>GAFPlayer.Shared</ItemsProjectName>
+    <CodeSharingProject>248F659F-DAC5-46E8-AC09-60EC9FC95053</CodeSharingProject>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\DefinitionTagBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAF.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAnimationFrame.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAnimationSequence.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAsset.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAssetTextureManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFCachedTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFCollections.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFDelegates.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFFile.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFFilterData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFFilterManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFHeader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFLoader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFMacros.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFMask.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFMovieClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFPrecompiled.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFQuadCommand.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFShaderManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFStream.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFSubobjectState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextField.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextureAtlas.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextureAtlasElement.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTimeline.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTimelineAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\PrimitiveDeserializer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationFrames.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationFrames2.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationMasks.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationObjects.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAtlas.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineNamedParts.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefines.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineSequences.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineTextField.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineTimeline.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)targetver.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAnimationFrame.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAnimationSequence.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAsset.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFAssetTextureManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFCachedTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFFile.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFFilterData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFFilterManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFLoader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFMask.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFMovieClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFPrecompiled.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFQuadCommand.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFShaderManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFStream.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFSubobjectState.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextField.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextureAtlas.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTextureAtlasElement.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTimeline.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFTimelineAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\PrimitiveDeserializer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationFrames.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationFrames2.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationMasks.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAnimationObjects.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineAtlas.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineNamedParts.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineSequences.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineTextField.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Sources\TagDefineTimeline.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\..\Sources\GAFPlayer-Prefix.pch" />
+    <None Include="$(MSBuildThisFileDirectory)..\..\Sources\mainpage.dox" />
+  </ItemGroup>
+</Project>
