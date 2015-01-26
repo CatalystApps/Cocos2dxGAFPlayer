@@ -771,9 +771,6 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
         }
         subObject->m_isInResetState = state->colorMults()[GAFColorTransformIndex::GAFCTI_A] < 0.f;
 
-        if (!state->isVisible())
-            continue;
-
         if (subObject->m_charType == GAFCharacterType::Timeline)
         {
             if (!subObject->m_isInResetState)
@@ -946,7 +943,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             rearrangeSubobject(out, subObject, state->zIndex);
         }
 
-        subObject->m_lastVisibleInFrame = frameIndex + 1;
+        if (state->isVisible())
+        {
+            subObject->m_lastVisibleInFrame = frameIndex + 1;
+        }
     }
 
     GAFAnimationFrame::TimelineActions_t timelineActions = currentFrame->getTimelineActions();

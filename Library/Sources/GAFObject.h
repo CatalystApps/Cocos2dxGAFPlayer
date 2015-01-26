@@ -173,7 +173,7 @@ public:
 
     bool hasSequences() const;
 
-    bool isVisibleInCurrentFrame() const;
+    virtual bool isVisibleInCurrentFrame() const;
 
     cocos2d::Rect getBoundingBoxForCurrentFrame();
 
