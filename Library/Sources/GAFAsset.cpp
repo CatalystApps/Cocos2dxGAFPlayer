@@ -31,7 +31,7 @@ GAFObject * GAFAsset::createObject()
 
     if (m_rootTimeline == nullptr)
     {
-        CCLOG("%s", "You haven't root timeline in this asset. Please set root timeline by setRootTimelineWithName(...)");
+        CCLOG("%s", "You haven't root timeline in this asset. Please set root timeline by setRootTimeline(...)");
         for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
         {
             if (!i->second->getLinkageName().empty())
@@ -125,6 +125,10 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     {
         isLoaded = loader->loadData(gafData, sz, this);
     }
+    if (isLoaded)
+    {
+        loadTextures(fullfilePath, delegate);
+    }
 
     delete loader;
 
@@ -146,24 +150,29 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     }
     if (isLoaded)
     {
-        for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
-        {
-            i->second->loadImages();
-
-            if (i->second->getTextureAtlas())
-            {
-                m_textureManager->appendInfoFromTextureAtlas(i->second->getTextureAtlas());
-                //i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
-            }
-        }
-
-        m_textureLoadDelegate = delegate;
-        m_textureManager->loadImages(fullfilePath, m_textureLoadDelegate);
+        loadTextures(fullfilePath, delegate);
     }
 
     delete loader;
 
     return isLoaded;
+}
+
+void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate)
+{
+    for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
+    {
+        i->second->loadImages();
+
+        if (i->second->getTextureAtlas())
+        {
+            m_textureManager->appendInfoFromTextureAtlas(i->second->getTextureAtlas());
+            //i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
+        }
+    }
+
+    m_textureLoadDelegate = delegate;
+    m_textureManager->loadImages(filePath, m_textureLoadDelegate);
 }
 
 /*GAFTextureAtlas* GAFAsset::getTextureAtlas()

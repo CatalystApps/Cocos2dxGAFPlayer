@@ -23,6 +23,7 @@ private:
 
     void setRootTimeline(GAFTimeline* tl);
 
+    void loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate);
     GAFTextureLoadDelegate_t m_textureLoadDelegate;
 	GAFAssetTextureManager*	m_textureManager;
 
