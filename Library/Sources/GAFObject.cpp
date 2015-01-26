@@ -1035,6 +1035,8 @@ GAFObject* GAFObject::getObjectByName(const std::string& name)
 
                 ++begIt;
             }
+
+            return retval;
         }
     }
     return nullptr;
