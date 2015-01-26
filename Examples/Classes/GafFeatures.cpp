@@ -684,7 +684,7 @@ void GafFeatures::addObjectsToScene()
         
         // will work only if animation has a sequence
         object->playSequence("walk", true);
-        object->setLooped(true);
+        object->setLooped(true, true);
         object->start();
         
         object->setSequenceDelegate(std::bind(&GafFeatures::onFinishSequence, this, _1, _2));

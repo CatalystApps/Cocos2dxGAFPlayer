@@ -23,8 +23,7 @@ private:
     GAFAnimationFinishedPlayDelegate_t      m_animationFinishedPlayDelegate;
     GAFAnimationStartedNextLoopDelegate_t   m_animationStartedNextLoopDelegate;
     GAFFramePlayedDelegate_t                m_framePlayedDelegate;
-    GAFObjectControlDelegate_t              m_controlDelegate;
-
+    
     cocos2d::Node*                          m_container;
 
     uint32_t                                m_totalFrameCount;
@@ -88,9 +87,6 @@ public:
 
     /// @note do not forget to call setFramePlayedDelegate(nullptr) before deleting your subscriber
     void setFramePlayedDelegate(GAFFramePlayedDelegate_t delegate);
-
-    /// @note do not forget to call setControlDelegate(nullptr) before deleting your subscriber
-    void setControlDelegate(GAFObjectControlDelegate_t delegate);
 
 #if COCOS2D_VERSION < 0x00030200
     void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags) override;

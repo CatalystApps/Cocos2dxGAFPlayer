@@ -291,11 +291,6 @@ void GAFObject::setFramePlayedDelegate(GAFFramePlayedDelegate_t delegate)
     m_framePlayedDelegate = delegate;
 }
 
-void GAFObject::setControlDelegate(GAFObjectControlDelegate_t delegate)
-{
-    m_controlDelegate = delegate;
-}
-
 void GAFObject::start()
 {
     enableTick(true);
