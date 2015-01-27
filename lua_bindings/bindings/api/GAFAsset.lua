@@ -32,6 +32,7 @@
 -- 
 -- @function [parent=#GAFAsset] createObjectAndRun 
 -- @param self
+-- @param #bool looped
 -- @return GAFObject#GAFObject ret (return value: gaf.GAFObject)
         
 --------------------------------
@@ -105,12 +106,6 @@
 -- @param self
 -- @param #string name
 -- @return GAFTimeline#GAFTimeline ret (return value: gaf.GAFTimeline)
-        
---------------------------------
--- 
--- @function [parent=#GAFAsset] setRootTimelineWithName 
--- @param self
--- @param #string name
         
 --------------------------------
 -- / List of GAFAnimationFrame objects	
