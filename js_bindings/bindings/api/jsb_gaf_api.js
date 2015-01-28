@@ -63,13 +63,13 @@ color4b
 /**
  * @method createObjectAndRun
  * @param {bool} arg0
- * @return {gaf::GAFObject}
+ * @return {gaf.GAFObject}
  */
 createObjectAndRun : function (
 bool 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
@@ -144,12 +144,12 @@ int
 
 /**
  * @method createObject
- * @return {gaf::GAFObject}
+ * @return {gaf.GAFObject}
  */
 createObject : function (
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
@@ -168,14 +168,14 @@ char
  * @method create
 * @param {String|String} str
 * @param {function} func
-* @return {gaf::GAFAsset|gaf::GAFAsset}
+* @return {gaf.GAFAsset|gaf.GAFAsset}
 */
 create : function(
 str,
 func 
 )
 {
-    return gaf::GAFAsset;
+    return gaf.GAFAsset;
 },
 
 /**
@@ -183,7 +183,7 @@ func
  * @param {String} arg0
  * @param {String} arg1
  * @param {function} arg2
- * @return {gaf::GAFAsset}
+ * @return {gaf.GAFAsset}
  */
 createWithBundle : function (
 str, 
@@ -191,7 +191,7 @@ str,
 func 
 )
 {
-    return gaf::GAFAsset;
+    return gaf.GAFAsset;
 },
 
 /**
@@ -238,18 +238,6 @@ func
 },
 
 /**
- * @method setLooped
- * @param {bool} arg0
- * @param {bool} arg1
- */
-setLooped : function (
-bool, 
-bool 
-)
-{
-},
-
-/**
  * @method getBoundingBoxForCurrentFrame
  * @return {rect_object}
  */
@@ -272,13 +260,13 @@ int
 /**
  * @method getObjectByName
 * @param {String|String} str
-* @return {gaf::GAFObject|gaf::GAFObject}
+* @return {gaf.GAFObject|gaf.GAFObject}
 */
 getObjectByName : function(
 str 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
@@ -363,8 +351,8 @@ start : function (
 
 /**
  * @method init
- * @param {gaf::GAFAsset} arg0
- * @param {gaf::GAFTimeline} arg1
+ * @param {gaf.GAFAsset} arg0
+ * @param {gaf.GAFTimeline} arg1
  * @return {bool}
  */
 init : function (
@@ -444,11 +432,13 @@ int
 },
 
 /**
- * @method setControlDelegate
- * @param {function} arg0
+ * @method setLooped
+ * @param {bool} arg0
+ * @param {bool} arg1
  */
-setControlDelegate : function (
-func 
+setLooped : function (
+bool, 
+bool 
 )
 {
 },
@@ -535,16 +525,16 @@ getFps : function (
 
 /**
  * @method create
- * @param {gaf::GAFAsset} arg0
- * @param {gaf::GAFTimeline} arg1
- * @return {gaf::GAFObject}
+ * @param {gaf.GAFAsset} arg0
+ * @param {gaf.GAFTimeline} arg1
+ * @return {gaf.GAFObject}
  */
 create : function (
 gafasset, 
 gaftimeline 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**

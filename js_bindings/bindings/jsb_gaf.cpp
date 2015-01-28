@@ -796,36 +796,6 @@ bool js_gaf_GAFObject_setAnimationFinishedPlayDelegate(JSContext *cx, uint32_t a
     JS_ReportError(cx, "js_gaf_GAFObject_setAnimationFinishedPlayDelegate : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
-bool js_gaf_GAFObject_setLooped(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setLooped : Invalid Native Object");
-    if (argc == 1) {
-        bool arg0;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
-        cobj->setLooped(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-    if (argc == 2) {
-        bool arg0;
-        bool arg1;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
-        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
-        cobj->setLooped(arg0, arg1);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFObject_setLooped : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
 bool js_gaf_GAFObject_getBoundingBoxForCurrentFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JSObject *obj = JS_THIS_OBJECT(cx, vp);
@@ -1277,59 +1247,34 @@ bool js_gaf_GAFObject_setFrame(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_setFrame : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
-bool js_gaf_GAFObject_setControlDelegate(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_gaf_GAFObject_setLooped(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
     bool ok = true;
     JSObject *obj = JS_THIS_OBJECT(cx, vp);
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setControlDelegate : Invalid Native Object");
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setLooped : Invalid Native Object");
     if (argc == 1) {
-        std::function<void (gaf::GAFObject *, const gaf::GAFSprite *)> arg0;
-        do {
-		    if(JS_TypeOfValue(cx, argv[0]) == JSTYPE_FUNCTION)
-		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
-		        auto lambda = [=](gaf::GAFObject* larg0, const gaf::GAFSprite* larg1) -> void {
-		            jsval largv[2];
-		            do {
-		            if (larg0) {
-		                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFObject>(cx, (gaf::GAFObject*)larg0);
-		                largv[0] = OBJECT_TO_JSVAL(jsProxy->obj);
-		            } else {
-		                largv[0] = JSVAL_NULL;
-		            }
-		        } while (0);
-		            do {
-		            if (larg1) {
-		                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFSprite>(cx, (gaf::GAFSprite*)larg1);
-		                largv[1] = OBJECT_TO_JSVAL(jsProxy->obj);
-		            } else {
-		                largv[1] = JSVAL_NULL;
-		            }
-		        } while (0);
-		            jsval rval;
-		            bool ok = func->invoke(2, &largv[0], rval);
-		            if (!ok && JS_IsExceptionPending(cx)) {
-		                JS_ReportPendingException(cx);
-		            }
-		        };
-		        arg0 = lambda;
-		    }
-		    else
-		    {
-		        arg0 = nullptr;
-		    }
-		} while(0)
-		;
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setControlDelegate : Error processing arguments");
-        cobj->setControlDelegate(arg0);
+        bool arg0;
+        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
+        cobj->setLooped(arg0);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return true;
+    }
+    if (argc == 2) {
+        bool arg0;
+        bool arg1;
+        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
+        cobj->setLooped(arg0, arg1);
         JS_SET_RVAL(cx, vp, JSVAL_VOID);
         return true;
     }
 
-    JS_ReportError(cx, "js_gaf_GAFObject_setControlDelegate : wrong number of arguments: %d, was expecting %d", argc, 1);
+    JS_ReportError(cx, "js_gaf_GAFObject_setLooped : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
 bool js_gaf_GAFObject_getEndFrame(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1606,7 +1551,6 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
     static JSFunctionSpec funcs[] = {
         JS_FN("setAnimationStartedNextLoopDelegate", js_gaf_GAFObject_setAnimationStartedNextLoopDelegate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setAnimationFinishedPlayDelegate", js_gaf_GAFObject_setAnimationFinishedPlayDelegate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setLooped", js_gaf_GAFObject_setLooped, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getBoundingBoxForCurrentFrame", js_gaf_GAFObject_getBoundingBoxForCurrentFrame, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setFps", js_gaf_GAFObject_setFps, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getObjectByName", js_gaf_GAFObject_getObjectByName, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -1625,7 +1569,7 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
         JS_FN("setAnimationRunning", js_gaf_GAFObject_setAnimationRunning, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isReversed", js_gaf_GAFObject_isReversed, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setFrame", js_gaf_GAFObject_setFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setControlDelegate", js_gaf_GAFObject_setControlDelegate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("setLooped", js_gaf_GAFObject_setLooped, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getEndFrame", js_gaf_GAFObject_getEndFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("pauseAnimation", js_gaf_GAFObject_pauseAnimation, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("gotoAndPlay", js_gaf_GAFObject_gotoAndPlay, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
