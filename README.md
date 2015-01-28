@@ -1,6 +1,13 @@
 Generic Animation Format
 =========
 
+Abstract
+-----------------------
+
+Library for playing Adobe Flash animations in cocos2d-x through [GAF](http://gafmedia.com).
+
+SWF => GAF => cocos2d-x => [iOS, Android, WP8, Windows, Mac]
+
 Introduction
 -----------------------
 
