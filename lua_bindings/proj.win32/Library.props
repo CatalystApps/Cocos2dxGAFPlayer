@@ -2,9 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <CCX_ROOT>$(MSBuildThisFileDirectory)..\..\..\</CCX_ROOT>
-    <CCX_ROOT_2>$(MSBuildThisFileDirectory)..\..\cocos2d-x\</CCX_ROOT_2>
-    <GAF_SOURCES_ROOT>$(MSBuildThisFileDirectory)Sources\</GAF_SOURCES_ROOT>
+    <CCX_ROOT>$(MSBuildThisFileDirectory)..\..\..\..\</CCX_ROOT>
+    <CCX_ROOT_2>$(MSBuildThisFileDirectory)..\..\..\cocos2d-x\</CCX_ROOT_2>
+    <GAF_SOURCES_ROOT>$(MSBuildThisFileDirectory)..\..\Library\Sources\</GAF_SOURCES_ROOT>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />

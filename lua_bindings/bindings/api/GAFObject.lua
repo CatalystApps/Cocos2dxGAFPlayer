@@ -18,12 +18,6 @@
         
 --------------------------------
 -- 
--- @function [parent=#GAFObject] setLooped 
--- @param self
--- @param #bool looped
-        
---------------------------------
--- 
 -- @function [parent=#GAFObject] getBoundingBoxForCurrentFrame 
 -- @param self
 -- @return rect_table#rect_table ret (return value: rect_table)
@@ -43,7 +37,7 @@
 -- @return GAFObject#GAFObject ret (return value: gaf.GAFObject)
 
 --------------------------------
--- 
+-- / Stops playing an animation as a sequence
 -- @function [parent=#GAFObject] clearSequence 
 -- @param self
         
@@ -121,9 +115,22 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
+-- / schedule/unschedule/ @note this function is automatically called in start/stop
+-- @function [parent=#GAFObject] enableTick 
+-- @param self
+-- @param #bool val
+        
+--------------------------------
 -- 
 -- @function [parent=#GAFObject] stop 
 -- @param self
+        
+--------------------------------
+-- 
+-- @function [parent=#GAFObject] setAnimationRunning 
+-- @param self
+-- @param #bool value
+-- @param #bool recurcive
         
 --------------------------------
 -- 
@@ -139,10 +146,11 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- / @note do not forget to call setControlDelegate(nullptr) before deleting your subscriber
--- @function [parent=#GAFObject] setControlDelegate 
+-- 
+-- @function [parent=#GAFObject] setLooped 
 -- @param self
--- @param #function delegate
+-- @param #bool looped
+-- @param #bool recursive
         
 --------------------------------
 -- 
@@ -152,7 +160,7 @@
 -- @return unsigned int#unsigned int ret (return value: unsigned int)
         
 --------------------------------
--- 
+-- / Pauses animation including enclosed timelines
 -- @function [parent=#GAFObject] pauseAnimation 
 -- @param self
         
@@ -171,7 +179,7 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- 
+-- / Resumes animation including enclosed timelines
 -- @function [parent=#GAFObject] resumeAnimation 
 -- @param self
         
