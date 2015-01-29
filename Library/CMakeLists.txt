@@ -38,6 +38,12 @@ elseif(ANDROID)
 else()
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -std=c++11 -Wno-deprecated-declarations -Wno-reorder")
+
+if(IOS OR MACOX)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif()
+
 
 set(GAFPLAYER_SRC
   ${GAF_ROOT}/Sources/GAFAnimationFrame.cpp		
