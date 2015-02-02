@@ -143,7 +143,6 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
     if (!_insideBounds)
         return;
 
-    getGLProgramState()->apply(Mat4::IDENTITY);
     uint32_t id = setUniforms();
 
     if (m_useSeparateBlendFunc || (m_blendEquation != -1))
