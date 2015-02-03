@@ -27,80 +27,67 @@
 
 cmake_minimum_required(VERSION 2.6)
 
+# project(GAFPlayer)
+
+set(COCOS_ROOT ${CMAKE_SOURCE_DIR}/../../../cocos)
+set(GAF_ROOT ${CMAKE_SOURCE_DIR}/../Library)
 
 if(WIN32)
-set(GAF_PLATFORM_INCLUDE_DIR
-  ${COCOS_ROOT}/../external/${PLATFORM_FOLDER}-specific/gles/include/OGLES
+  add_definitions(-D_WINDOWS)
+  set(PLATFORM_FOLDER win32)
+  set(GAF_PLATFORM_INCLUDE_DIR
+    ${COCOS_ROOT}/../external/${PLATFORM_FOLDER}-specific/gles/include/OGLES
   )
 elseif(MACOSX OR APPLE)
+  set(PLATFORM_FOLDER mac)
+elseif(IOS)
+  add_definitions(-DCC_TARGET_OS_IPHONE)
 elseif(LINUX)
+  add_definitions(-DLINUX)
+  set(PLATFORM_FOLDER linux)
 elseif(ANDROID)
+  add_definitions(-DANDROID)
+  set(PLATFORM_FOLDER android)
 else()
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -std=c++11 -Wno-deprecated-declarations -Wno-reorder")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -std=c++11 -Wno-deprecated-declarations -Wno-reorder")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -std=c++11")
 
 if(MACOSX OR APPLE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
 
-
-set(GAFPLAYER_SRC
-  ${GAF_ROOT}/Sources/GAFAnimationFrame.cpp		
-  ${GAF_ROOT}/Sources/GAFFile.cpp			
-  ${GAF_ROOT}/Sources/GAFMovieClip.cpp		
-  ${GAF_ROOT}/Sources/GAFSprite.cpp			
-  ${GAF_ROOT}/Sources/GAFTextureAtlas.cpp		
-  ${GAF_ROOT}/Sources/TagDefineAnimationFrames.cpp	
-  ${GAF_ROOT}/Sources/TagDefineNamedParts.cpp
-  ${GAF_ROOT}/Sources/GAFAnimationSequence.cpp	
-  ${GAF_ROOT}/Sources/GAFFilterData.cpp		
-  ${GAF_ROOT}/Sources/GAFObject.cpp			
-  ${GAF_ROOT}/Sources/GAFStream.cpp			
-  ${GAF_ROOT}/Sources/GAFTextureAtlasElement.cpp	
-  ${GAF_ROOT}/Sources/TagDefineAnimationFrames2.cpp	
-  ${GAF_ROOT}/Sources/TagDefineSequences.cpp
-  ${GAF_ROOT}/Sources/GAFAsset.cpp			
-  ${GAF_ROOT}/Sources/GAFFilterManager.cpp		
-  ${GAF_ROOT}/Sources/GAFPrecompiled.cpp		
-  ${GAF_ROOT}/Sources/GAFSubobjectState.cpp		
-  ${GAF_ROOT}/Sources/GAFTimeline.cpp			
-  ${GAF_ROOT}/Sources/TagDefineAnimationMasks.cpp	
-  ${GAF_ROOT}/Sources/TagDefineStage.cpp
-  ${GAF_ROOT}/Sources/GAFAssetTextureManager.cpp	
-  ${GAF_ROOT}/Sources/GAFLoader.cpp			
-  ${GAF_ROOT}/Sources/GAFQuadCommand.cpp		
-  ${GAF_ROOT}/Sources/GAFTextData.cpp			
-  ${GAF_ROOT}/Sources/GAFTimelineAction.cpp		
-  ${GAF_ROOT}/Sources/TagDefineAnimationObjects.cpp	
-  ${GAF_ROOT}/Sources/TagDefineTextField.cpp
-  ${GAF_ROOT}/Sources/GAFCachedTexture.cpp		
-  ${GAF_ROOT}/Sources/GAFMask.cpp			
-  ${GAF_ROOT}/Sources/GAFShaderManager.cpp		
-  ${GAF_ROOT}/Sources/GAFTextField.cpp		
-  ${GAF_ROOT}/Sources/PrimitiveDeserializer.cpp	
-  ${GAF_ROOT}/Sources/TagDefineAtlas.cpp		
-  ${GAF_ROOT}/Sources/TagDefineTimeline.cpp
-    )
-
-
 include_directories(
+  /usr/include/
+  /usr/local/include/
+  /System/Library/Frameworks/
   ${GAF_PLATFORM_INCLUDE_DIR}
-  ${GAF_ROOT}
   ${GAF_ROOT}/Sources
   ${COCOS_ROOT}
   ${COCOS_ROOT}/2d
   ${COCOS_ROOT}/platform/${PLATFORM_FOLDER}
   ${COCOS_ROOT}/../external/${PLATFORM_FOLDER}-specific/zlib/include
   ${COCOS_ROOT}/../external/glfw3/include/${PLATFORM_FOLDER}
+  ${COCOS_ROOT}/base
   ${COCOS_ROOT}/math
 )
 
-add_library(gafplayer STATIC ${GAFPLAYER_SRC})
+set(CMAKE_EXE_LINKER_FLAGS “-framework AudioToolbox -framework CoreGraphics -framework QuartzCore -framework UIKit -framework OpenGLES”)
 
-set_target_properties(gafplayer
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+file(GLOB_RECURSE gaf_source_files
+  "${GAF_ROOT}/Sources/*.cpp")
+
+add_library(gafplayer ${gaf_source_files})
+
+#install .a file
+INSTALL(
+  TARGETS gafplayer
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  COMPONENT library
 )
 
+#install header files
+install(DIRECTORY Sources/ DESTINATION "include/GAFPlayer"
+  FILES_MATCHING PATTERN "*.h") 
