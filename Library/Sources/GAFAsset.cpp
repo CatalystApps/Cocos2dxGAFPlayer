@@ -182,7 +182,6 @@ return m_currentTextureAtlas;
 
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
 {
-    assert(!m_rootTimeline);
     m_rootTimeline = tl;
     //m_rootTimeline->retain();
     m_header.pivot = tl->getPivot();

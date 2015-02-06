@@ -54,12 +54,9 @@ double GetCounter()
 #endif
 
 
-cocos2d::Point centerScreenPosition(GAFAsset* ast, const cocos2d::Size& screenSize)
+cocos2d::Point centerScreenPosition(const cocos2d::Size& screenSize)
 {
-    const GAFHeader& headInfo = ast->getHeader();
-    
-    return cocos2d::Point(-headInfo.frameSize.getMinX() + (screenSize.width - headInfo.frameSize.size.width) / 2,
-                           headInfo.frameSize.getMinY() + (screenSize.height + headInfo.frameSize.size.height) / 2);
+    return cocos2d::Point(screenSize.width / 2, screenSize.height / 2);
 }
 
 GafFeatures::GafFeatures()
@@ -642,7 +639,9 @@ void GafFeatures::addObjectsToScene()
         addChild(object);
         
         float scaleFactor = cocos2d::Director::getInstance()->getContentScaleFactor();
-        object->setPosition(centerScreenPosition(m_asset, size / scaleFactor));
+        object->setAnchorPoint(cocos2d::Vec2(0.5, 0.5));
+        object->setFlippedX(true);
+        object->setPosition(centerScreenPosition(size / scaleFactor));
         object->setLocator(true);
         
         m_objects->addObject(object);
@@ -711,7 +710,7 @@ void GafFeatures::onFramePlayed(GAFObject *object, uint32_t frame)
 }
 
 //! path parameter could be changed
-void GafFeatures::onTexturePreLoad(std::string& path)
+void GafFeatures::onTexturePreLoad(std::string* path)
 {
-    CCLOG("Loading texture %s", path.c_str());
+    CCLOG("Loading texture %s", path->c_str());
 }

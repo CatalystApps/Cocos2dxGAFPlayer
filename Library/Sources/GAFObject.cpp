@@ -23,7 +23,7 @@ cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFor
     cocos2d::AffineTransform transform = aTransform;
     transform.b = -transform.b;
     transform.c = -transform.c;
-    transform.ty = -transform.ty;
+    transform.ty = getAnchorPointInPoints().y * 2 - transform.ty;
     return transform;
 }
 

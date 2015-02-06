@@ -95,7 +95,7 @@ public:
 
     virtual void onFinishSequence(GAFObject* object, const std::string& sequenceName);
 
-    virtual void onTexturePreLoad(std::string& path);
+    virtual void onTexturePreLoad(std::string* path);
     
     virtual void onFramePlayed(GAFObject* object, uint32_t frame);
 };
