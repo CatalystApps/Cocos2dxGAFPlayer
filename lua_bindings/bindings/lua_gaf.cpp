@@ -314,6 +314,55 @@ int lua_gaf_GAFAsset_createObjectAndRun(lua_State* tolua_S)
 
     return 0;
 }
+int lua_gaf_GAFAsset_setDesiredAtlasScale(lua_State* tolua_S)
+{
+    int argc = 0;
+    gaf::GAFAsset* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"gaf.GAFAsset",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (gaf::GAFAsset*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_gaf_GAFAsset_setDesiredAtlasScale'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        double arg0;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFAsset_setDesiredAtlasScale'", nullptr);
+            return 0;
+        }
+        cobj->setDesiredAtlasScale(arg0);
+        return 0;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:setDesiredAtlasScale",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFAsset_setDesiredAtlasScale'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_gaf_GAFAsset_getSceneWidth(lua_State* tolua_S)
 {
     int argc = 0;
@@ -451,6 +500,53 @@ int lua_gaf_GAFAsset_getSceneFps(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFAsset_getSceneFps'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_gaf_GAFAsset_desiredAtlasScale(lua_State* tolua_S)
+{
+    int argc = 0;
+    gaf::GAFAsset* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"gaf.GAFAsset",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (gaf::GAFAsset*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_gaf_GAFAsset_desiredAtlasScale'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFAsset_desiredAtlasScale'", nullptr);
+            return 0;
+        }
+        double ret = cobj->desiredAtlasScale();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:desiredAtlasScale",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFAsset_desiredAtlasScale'.",&tolua_err);
 #endif
 
     return 0;
@@ -903,40 +999,6 @@ int lua_gaf_GAFAsset_isAssetVersionPlayable(lua_State* tolua_S)
 #endif
     return 0;
 }
-int lua_gaf_GAFAsset_desiredCsf(lua_State* tolua_S)
-{
-    int argc = 0;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertable(tolua_S,1,"gaf.GAFAsset",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    argc = lua_gettop(tolua_S) - 1;
-
-    if (argc == 0)
-    {
-        if(!ok)
-        {
-            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFAsset_desiredCsf'", nullptr);
-            return 0;
-        }
-        double ret = gaf::GAFAsset::desiredCsf();
-        tolua_pushnumber(tolua_S,(lua_Number)ret);
-        return 1;
-    }
-    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "gaf.GAFAsset:desiredCsf",argc, 0);
-    return 0;
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFAsset_desiredCsf'.",&tolua_err);
-#endif
-    return 0;
-}
 int lua_gaf_GAFAsset_create(lua_State* tolua_S)
 {
     int argc = 0;
@@ -989,41 +1051,6 @@ int lua_gaf_GAFAsset_create(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFAsset_create'.",&tolua_err);
-#endif
-    return 0;
-}
-int lua_gaf_GAFAsset_setDesiredCsf(lua_State* tolua_S)
-{
-    int argc = 0;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertable(tolua_S,1,"gaf.GAFAsset",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    argc = lua_gettop(tolua_S) - 1;
-
-    if (argc == 1)
-    {
-        double arg0;
-        ok &= luaval_to_number(tolua_S, 2,&arg0);
-        if(!ok)
-        {
-            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFAsset_setDesiredCsf'", nullptr);
-            return 0;
-        }
-        gaf::GAFAsset::setDesiredCsf(arg0);
-        return 0;
-    }
-    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "gaf.GAFAsset:setDesiredCsf",argc, 1);
-    return 0;
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFAsset_setDesiredCsf'.",&tolua_err);
 #endif
     return 0;
 }
@@ -1126,9 +1153,11 @@ int lua_register_gaf_GAFAsset(lua_State* tolua_S)
         tolua_function(tolua_S,"getSceneColor",lua_gaf_GAFAsset_getSceneColor);
         tolua_function(tolua_S,"setSceneColor",lua_gaf_GAFAsset_setSceneColor);
         tolua_function(tolua_S,"createObjectAndRun",lua_gaf_GAFAsset_createObjectAndRun);
+        tolua_function(tolua_S,"setDesiredAtlasScale",lua_gaf_GAFAsset_setDesiredAtlasScale);
         tolua_function(tolua_S,"getSceneWidth",lua_gaf_GAFAsset_getSceneWidth);
         tolua_function(tolua_S,"getRootTimeline",lua_gaf_GAFAsset_getRootTimeline);
         tolua_function(tolua_S,"getSceneFps",lua_gaf_GAFAsset_getSceneFps);
+        tolua_function(tolua_S,"desiredAtlasScale",lua_gaf_GAFAsset_desiredAtlasScale);
         tolua_function(tolua_S,"initWithGAFBundle",lua_gaf_GAFAsset_initWithGAFBundle);
         tolua_function(tolua_S,"setSceneWidth",lua_gaf_GAFAsset_setSceneWidth);
         tolua_function(tolua_S,"setTextureLoadDelegate",lua_gaf_GAFAsset_setTextureLoadDelegate);
@@ -1138,9 +1167,7 @@ int lua_register_gaf_GAFAsset(lua_State* tolua_S)
         tolua_function(tolua_S,"getTextureManager",lua_gaf_GAFAsset_getTextureManager);
         tolua_function(tolua_S,"getTimelineByName",lua_gaf_GAFAsset_getTimelineByName);
         tolua_function(tolua_S,"isAssetVersionPlayable", lua_gaf_GAFAsset_isAssetVersionPlayable);
-        tolua_function(tolua_S,"desiredCsf", lua_gaf_GAFAsset_desiredCsf);
         tolua_function(tolua_S,"create", lua_gaf_GAFAsset_create);
-        tolua_function(tolua_S,"setDesiredCsf", lua_gaf_GAFAsset_setDesiredCsf);
         tolua_function(tolua_S,"createWithBundle", lua_gaf_GAFAsset_createWithBundle);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(gaf::GAFAsset).name();

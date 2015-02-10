@@ -36,6 +36,12 @@
 -- @return GAFObject#GAFObject ret (return value: gaf.GAFObject)
         
 --------------------------------
+-- / Sets desired atlas scale. Will choose nearest atlas scale from available
+-- @function [parent=#GAFAsset] setDesiredAtlasScale 
+-- @param self
+-- @param #float scale
+        
+--------------------------------
 -- 
 -- @function [parent=#GAFAsset] getSceneWidth 
 -- @param self
@@ -52,6 +58,12 @@
 -- @function [parent=#GAFAsset] getSceneFps 
 -- @param self
 -- @return unsigned int#unsigned int ret (return value: unsigned int)
+        
+--------------------------------
+-- / Desired atlas scale. Default is 1.0f
+-- @function [parent=#GAFAsset] desiredAtlasScale 
+-- @param self
+-- @return float#float ret (return value: float)
         
 --------------------------------
 -- 
@@ -115,12 +127,6 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- / desired content scale factor
--- @function [parent=#GAFAsset] desiredCsf 
--- @param self
--- @return float#float ret (return value: float)
-        
---------------------------------
 -- @overload self, string         
 -- @overload self, string, function         
 -- @function [parent=#GAFAsset] create
@@ -129,12 +135,6 @@
 -- @param #function delegate
 -- @return GAFAsset#GAFAsset ret (return value: gaf.GAFAsset)
 
---------------------------------
--- / sets desired content scale factor
--- @function [parent=#GAFAsset] setDesiredCsf 
--- @param self
--- @param #float csf
-        
 --------------------------------
 -- 
 -- @function [parent=#GAFAsset] createWithBundle 
