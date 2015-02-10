@@ -408,15 +408,15 @@ void GafFeatures::enableSequenceControllers( bool value )
 
 void GafFeatures::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event)
 {
-    /*if (!m_objects || !m_objects->count())
+    if (!m_objects || !m_objects->count())
     {
         return;
     }
 
-    GAFAnimatedObject * node = (GAFAnimatedObject*)m_objects->getObjectAtIndex(0);
+    GAFObject * node = (GAFObject*)m_objects->getObjectAtIndex(0);
     cocos2d::Touch * pTouch = touches[0];
     cocos2d::Point pt = pTouch->getLocation();
-    node->setPosition(pt.x, pt.y);*/
+    node->setPosition(pt.x, pt.y);
 }
 
 void GafFeatures::nextSequence( cocos2d::Ref* )
@@ -510,11 +510,11 @@ void GafFeatures::playpause(cocos2d::Ref*)
 
     if (object->getIsAnimationRunning())
     {
-        object->pauseAnimation();
+        object->setAnimationRunning(false, true);
     }
     else
     {
-        object->resumeAnimation();
+        object->setAnimationRunning(true, true);
     }
 }
 
@@ -640,7 +640,6 @@ void GafFeatures::addObjectsToScene()
         
         float scaleFactor = cocos2d::Director::getInstance()->getContentScaleFactor();
         object->setAnchorPoint(cocos2d::Vec2(0.5, 0.5));
-        object->setFlippedX(true);
         object->setPosition(centerScreenPosition(size / scaleFactor));
         object->setLocator(true);
         
