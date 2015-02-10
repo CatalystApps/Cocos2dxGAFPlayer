@@ -559,6 +559,12 @@ void GAFObject::step()
 {
     m_showingFrame = m_currentFrame;
 
+    if (!getIsAnimationRunning())
+    {
+        processAnimation();
+        return;
+    }
+
     if (m_sequenceDelegate && m_timeline)
     {
         const GAFAnimationSequence * seq = nullptr;
@@ -595,11 +601,8 @@ void GAFObject::step()
 
     processAnimation();
 
-    if (getIsAnimationRunning())
-    {
-        m_showingFrame = m_currentFrame;
-        m_currentFrame = nextFrame();
-    }
+    m_showingFrame = m_currentFrame;
+    m_currentFrame = nextFrame();
 }
 
 bool GAFObject::isCurrentFrameLastInSequence() const
