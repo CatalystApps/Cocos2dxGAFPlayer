@@ -735,7 +735,7 @@ void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int
     }
     else
     {
-        //static_cast<GAFAnimatedObject*>(child)->_transformUpdated = true;
+        static_cast<GAFObject*>(child)->_transformUpdated = true;
         child->setLocalZOrder(zIndex);
     }
 }
@@ -766,6 +766,9 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             subObject->m_currentFrame = subObject->m_currentSequenceStart;
         }
         subObject->m_isInResetState = state->colorMults()[GAFColorTransformIndex::GAFCTI_A] < 0.f;
+
+        if (!state->isVisible())
+            continue;
 
         if (subObject->m_charType == GAFCharacterType::Timeline)
         {
@@ -811,10 +814,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     }
                 }
 
-                if (state->isVisible())
-                {
-                    subObject->step();
-                }
+                subObject->step();
             }
         }
         else if (subObject->m_charType == GAFCharacterType::Texture)

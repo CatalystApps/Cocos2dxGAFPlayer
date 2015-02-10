@@ -30,8 +30,6 @@ protected:
     void updateTextureWithEffects();
     virtual uint32_t setUniforms() override;
 
-    virtual bool isVisibleInCurrentFrame() const override { return true; }
-
 public:
 
     GAFMovieClip();
