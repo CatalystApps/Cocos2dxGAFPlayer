@@ -543,7 +543,7 @@ void GAFAnimatedObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* ch
     }
     else
     {
-        //static_cast<GAFAnimatedObject*>(child)->_transformUpdated = true;
+        static_cast<GAFAnimatedObject*>(child)->_transformUpdated = true;
         child->setLocalZOrder(zIndex);
     }
     *reinterpret_cast<int*>(child->getUserData()) = (1+frame);
