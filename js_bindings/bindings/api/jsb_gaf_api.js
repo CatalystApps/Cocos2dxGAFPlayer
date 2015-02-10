@@ -73,6 +73,16 @@ bool
 },
 
 /**
+ * @method setDesiredAtlasScale
+ * @param {float} arg0
+ */
+setDesiredAtlasScale : function (
+float 
+)
+{
+},
+
+/**
  * @method getSceneWidth
  * @return {unsigned int}
  */
@@ -87,6 +97,16 @@ getSceneWidth : function (
  * @return {unsigned int}
  */
 getSceneFps : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method desiredAtlasScale
+ * @return {float}
+ */
+desiredAtlasScale : function (
 )
 {
     return 0;
@@ -233,18 +253,6 @@ func
  */
 setAnimationFinishedPlayDelegate : function (
 func 
-)
-{
-},
-
-/**
- * @method setLooped
- * @param {bool} arg0
- * @param {bool} arg1
- */
-setLooped : function (
-bool, 
-bool 
 )
 {
 },
@@ -444,11 +452,13 @@ int
 },
 
 /**
- * @method setControlDelegate
- * @param {function} arg0
+ * @method setLooped
+ * @param {bool} arg0
+ * @param {bool} arg1
  */
-setControlDelegate : function (
-func 
+setLooped : function (
+bool, 
+bool 
 )
 {
 },
