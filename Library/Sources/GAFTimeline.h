@@ -40,7 +40,7 @@ private:
 
     GAFTimeline*            m_parent; // weak
 
-    void                    _chooseTextureAtlas();
+    void                    _chooseTextureAtlas(float desiredAtlasScale);
 public:
 
     GAFTimeline(GAFTimeline* parent, uint32_t id, const cocos2d::Rect& aabb, cocos2d::Point& pivot, uint32_t framesCount);
@@ -84,9 +84,9 @@ public:
     GAFTimeline*                getParent() const;
 
     GAFTextureAtlas*            getTextureAtlas();
-    void                        loadImages();
+    void                        loadImages(float desiredAtlasScale);
 
-    float                       usedAtlasContentScaleFactor() const;
+    float                       usedAtlasScale() const;
 };
 
 NS_GAF_END

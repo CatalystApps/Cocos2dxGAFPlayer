@@ -775,7 +775,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             if (!subObject->m_isInResetState)
             {
                 cocos2d::AffineTransform stateTransform = state->affineTransform;
-                float csf = m_timeline->usedAtlasContentScaleFactor();
+                float csf = m_timeline->usedAtlasScale();
                 stateTransform.tx *= csf;
                 stateTransform.ty *= csf;
                 cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
@@ -896,7 +896,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             }
 
             cocos2d::AffineTransform stateTransform = state->affineTransform;
-            float csf = m_timeline->usedAtlasContentScaleFactor();
+            float csf = m_timeline->usedAtlasScale();
             stateTransform.tx *= csf;
             stateTransform.ty *= csf;
             cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);

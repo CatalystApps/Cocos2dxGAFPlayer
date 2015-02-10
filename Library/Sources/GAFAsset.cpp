@@ -12,14 +12,14 @@ NS_GAF_BEGIN
 
 static float  _desiredCsf = 1.f;
 
-float GAFAsset::desiredCsf()
+float GAFAsset::desiredAtlasScale()
 {
-    return cocos2d::CC_CONTENT_SCALE_FACTOR();
+    return m_desiredAtlasScale;
 }
 
-void GAFAsset::setDesiredCsf(float csf)
+void GAFAsset::setDesiredAtlasScale(float scale)
 {
-    _desiredCsf = csf;
+    m_desiredAtlasScale = scale;
 }
 
 GAFObject * GAFAsset::createObject()
@@ -61,7 +61,8 @@ m_textureLoadDelegate(nullptr),
 m_sceneFps(60),
 m_sceneWidth(0),
 m_sceneHeight(0),
-m_rootTimeline(nullptr)
+m_rootTimeline(nullptr),
+m_desiredAtlasScale(1.0f)
 {
     m_textureManager = new GAFAssetTextureManager();
     GAFShaderManager::Initialize();
@@ -162,7 +163,7 @@ void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_
 {
     for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
     {
-        i->second->loadImages();
+        i->second->loadImages(m_desiredAtlasScale);
 
         if (i->second->getTextureAtlas())
         {

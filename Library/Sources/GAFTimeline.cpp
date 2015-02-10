@@ -199,32 +199,29 @@ GAFTimeline* GAFTimeline::getParent() const
     return m_parent;
 }
 
-void GAFTimeline::loadImages()
+void GAFTimeline::loadImages(float desiredAtlasScale)
 {
     if (m_textureAtlases.empty())
     {
         m_currentTextureAtlas = nullptr;
         return;
     }
-    _chooseTextureAtlas();
+    _chooseTextureAtlas(desiredAtlasScale);
 
 }
 
-void GAFTimeline::_chooseTextureAtlas()
+void GAFTimeline::_chooseTextureAtlas(float desiredAtlasScale)
 {
     float atlasScale = m_textureAtlases[0]->getScale();
 
     m_currentTextureAtlas = m_textureAtlases[0];
 
     const size_t count = m_textureAtlases.size();
-
-    //TODO: check
-    float _currentDeviceScale = 1.f;
-
+    
     for (size_t i = 1; i < count; ++i)
     {
         float as = m_textureAtlases[i]->getScale();
-        if (fabs(atlasScale - _currentDeviceScale) > fabs(as - _currentDeviceScale))
+        if (fabs(atlasScale - desiredAtlasScale) > fabs(as - desiredAtlasScale))
         {
             m_currentTextureAtlas = m_textureAtlases[i];
             atlasScale = as;
@@ -234,7 +231,7 @@ void GAFTimeline::_chooseTextureAtlas()
     m_usedAtlasContentScaleFactor = atlasScale;
 }
 
-float GAFTimeline::usedAtlasContentScaleFactor() const
+float GAFTimeline::usedAtlasScale() const
 {
     return m_usedAtlasContentScaleFactor;
 }

@@ -32,6 +32,7 @@ private:
     unsigned int            m_sceneHeight;
     cocos2d::Color4B        m_sceneColor;
 
+    float                   m_desiredAtlasScale;
 private:
     int _majorVersion;
     int _minorVersion;
@@ -68,14 +69,14 @@ public:
     GAFObject*                  createObject();
     GAFObject*                  createObjectAndRun(bool looped);
 
-    /// desired content scale factor
-    static float                desiredCsf();
-    /// sets desired content scale factor
-    static void                 setDesiredCsf(float csf);
+    /// Desired atlas scale. Default is 1.0f
+    float                       desiredAtlasScale();
+    /// Sets desired atlas scale. Will choose nearest atlas scale from available
+    void                        setDesiredAtlasScale(float scale);
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate_t delegate);
     
-	GAFAssetTextureManager* getTextureManager();
+	GAFAssetTextureManager*     getTextureManager();
 
     const unsigned int getSceneFps() const;
     const unsigned int getSceneWidth() const;

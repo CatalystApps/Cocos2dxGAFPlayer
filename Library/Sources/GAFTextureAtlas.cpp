@@ -62,7 +62,7 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate_
                     source = aiSource.source;
                 }
 
-                if (aiSource.csf == GAFAsset::desiredCsf())
+                if (aiSource.csf == cocos2d::CCDirector::getInstance()->getContentScaleFactor())
                 {
                     source = aiSource.source;
                     break;
