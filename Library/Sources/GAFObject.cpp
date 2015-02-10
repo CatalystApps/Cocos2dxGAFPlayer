@@ -298,7 +298,7 @@ void GAFObject::start()
 
     if (!m_isRunning)
     {
-        m_currentFrame = GAFFirstFrameIndex;
+        m_currentFrame = m_isReversed ? m_totalFrameCount - 1 : GAFFirstFrameIndex;
         setAnimationRunning(true, true);
     }
 }
@@ -351,15 +351,17 @@ bool GAFObject::isDone() const
     {
         return false;
     }
+
+    return isCurrentFrameLastInSequence();
     
-    if (!m_isReversed)
+    /*if (!m_isReversed)
     {
         return m_currentFrame > m_totalFrameCount;
     }
     else
     {
         return m_currentFrame < GAFFirstFrameIndex - 1;
-    }
+    }*/
 }
 
 bool GAFObject::isLooped() const
@@ -389,9 +391,13 @@ bool GAFObject::isReversed() const
     return m_isReversed;
 }
 
-void GAFObject::setReversed(bool reversed)
+void GAFObject::setReversed(bool reversed, bool fromCurrentFrame /* = true */)
 {
     m_isReversed = reversed;
+    if (!fromCurrentFrame)
+    {
+        m_currentFrame = reversed ? m_currentSequenceEnd - 1 : m_currentSequenceStart;
+    }
 
     for (auto obj : m_displayList)
     {
@@ -399,7 +405,7 @@ void GAFObject::setReversed(bool reversed)
         {
             continue;
         }
-        obj->setReversed(reversed);
+        obj->setReversed(reversed, fromCurrentFrame);
     }
 }
 
@@ -527,7 +533,7 @@ bool GAFObject::playSequence(const std::string& name, bool looped, bool resume /
     m_currentSequenceStart = s;
     m_currentSequenceEnd = e;
 
-    m_currentFrame = m_currentSequenceStart;
+    m_currentFrame = m_isReversed ? (e - 1) : (s);
     
     setLooped(looped, false);
 
@@ -552,96 +558,71 @@ void GAFObject::clearSequence()
 void GAFObject::step()
 {
     m_showingFrame = m_currentFrame;
-    if (!m_isReversed)
+
+    if (m_sequenceDelegate && m_timeline)
     {
-        if (m_currentFrame < m_currentSequenceStart)
+        const GAFAnimationSequence * seq = nullptr;
+        if (!m_isReversed)
         {
-            m_currentFrame = m_currentSequenceStart;
+            seq = m_timeline->getSequenceByLastFrame(m_currentFrame);
+        }
+        else
+        {
+            seq = m_timeline->getSequenceByFirstFrame(m_currentFrame + 1);
         }
 
-        if (m_sequenceDelegate && m_timeline)
+        if (seq)
         {
-            const GAFAnimationSequence * seq = m_timeline->getSequenceByLastFrame(m_currentFrame);
-            if (seq)
-            {
-                m_sequenceDelegate(this, seq->name);
-            }
+            m_sequenceDelegate(this, seq->name);
         }
+    }
 
-        if (m_isLooped && m_currentFrame > m_currentSequenceEnd - 1)
+    if (isCurrentFrameLastInSequence())
+    {
+        if (m_isLooped)
         {
-            m_currentFrame = m_currentSequenceStart;
-
             if (m_animationStartedNextLoopDelegate)
-            {
                 m_animationStartedNextLoopDelegate(this);
-            }
         }
-        else if (!m_isLooped && m_currentFrame >= m_currentSequenceEnd - 1)
+        else
         {
             setAnimationRunning(false, false);
 
             if (m_animationFinishedPlayDelegate)
-            {
                 m_animationFinishedPlayDelegate(this);
-            }
-        }
-
-        processAnimation();
-
-        if (getIsAnimationRunning())
-        {
-            m_showingFrame = m_currentFrame++;
         }
     }
-    else
+
+    processAnimation();
+
+    if (getIsAnimationRunning())
     {
-        // If switched to reverse after final frame played
-        if (m_currentFrame >= m_currentSequenceEnd)
-        {
-            m_currentFrame = m_currentSequenceEnd - 1;
-        }
-
-        if (m_sequenceDelegate && m_timeline)
-        {
-            const GAFAnimationSequence * seq = m_timeline->getSequenceByFirstFrame(m_currentFrame + 1);
-            if (seq)
-            {
-                m_sequenceDelegate(this, seq->name);
-            }
-        }
-
-        if (m_currentFrame < m_currentSequenceStart)
-        {
-            if (m_isLooped)
-            {
-                m_currentFrame = m_currentSequenceEnd - 1;
-
-                if (m_animationStartedNextLoopDelegate)
-                {
-                    m_animationStartedNextLoopDelegate(this);
-                }
-            }
-            else
-            {
-                setAnimationRunning(false, false);
-
-                if (m_animationFinishedPlayDelegate)
-                {
-                    m_animationFinishedPlayDelegate(this);
-                }
-
-                return;
-            }
-        }
-
-        processAnimation();
-
-        if (getIsAnimationRunning())
-        {
-            m_showingFrame = m_currentFrame--;
-        }
+        m_showingFrame = m_currentFrame;
+        m_currentFrame = nextFrame();
     }
+}
+
+bool GAFObject::isCurrentFrameLastInSequence() const
+{
+    if (m_isReversed)
+        return m_currentFrame == m_currentSequenceStart;
+    return m_currentFrame == m_currentSequenceEnd - 1;
+}
+
+uint32_t GAFObject::nextFrame()
+{
+    if (isCurrentFrameLastInSequence())
+    {
+        if (!m_isLooped)
+            return m_currentFrame;
+
+        if (m_isReversed)
+            return m_currentSequenceEnd - 1;
+        else
+            return m_currentSequenceStart;
+    }
+
+    return m_currentFrame + (m_isReversed ? -1 : 1);
 }
 
 bool GAFObject::hasSequences() const

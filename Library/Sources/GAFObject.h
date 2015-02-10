@@ -72,6 +72,8 @@ protected:
     GAFObject*   encloseNewTimeline(uint32_t reference);
 
     void        step();
+    bool        isCurrentFrameLastInSequence() const;
+    uint32_t    nextFrame();
 
 public:
     GAFObject();
@@ -123,7 +125,7 @@ public:
     void        setLooped(bool looped, bool recursive = false);
 
     bool        isReversed() const;
-    void        setReversed(bool reversed);
+    void        setReversed(bool reversed, bool fromCurrentFrame = true);
 
     uint32_t    getTotalFrameCount() const;
     uint32_t    getCurrentFrameIndex() const;
