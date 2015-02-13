@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\FlipTest">
+      <UniqueIdentifier>{58e3487d-5dd6-474b-ab7b-eccb2a903533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\FramePlaybackTest">
+      <UniqueIdentifier>{88281dae-2331-4361-bc66-30c5a5f261ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MaskTimelineTest">
+      <UniqueIdentifier>{7f272b05-3d13-4e77-8ede-6d8fe58530fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\FiltersTest">
+      <UniqueIdentifier>{618400b2-6898-4892-a7e0-d836e61ce597}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseTest.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\controller.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\testBasic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\VisibleRect.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FlipTest\FlipTest.cpp">
+      <Filter>src\FlipTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FramePlaybackTest\FramePlaybackTest.cpp">
+      <Filter>src\FramePlaybackTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MaskTimelineTest\MaskTimelineTest.cpp">
+      <Filter>src\MaskTimelineTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FiltersTest\FiltersTest.cpp">
+      <Filter>src\FiltersTest</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BaseTest.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\controller.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\testBasic.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\testResource.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tests.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VisibleRect.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FlipTest\FlipTest.h">
+      <Filter>src\FlipTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FramePlaybackTest\FramePlaybackTest.h">
+      <Filter>src\FramePlaybackTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MaskTimelineTest\MaskTimelineTest.h">
+      <Filter>src\MaskTimelineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FiltersTest\FiltersTest.h">
+      <Filter>src\FiltersTest</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
