@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>GafTests</name>
+	<name>Example</name>
 	<comment></comment>
 	<projects>
 		<project>libcocos2dx</project>
@@ -27,7 +27,7 @@
 			<arguments>
 				<dictionary>
 					<key>?children?</key>
-					<value>?children?=?name?=entry\\\\\\\|\\\|\|?name?=outputEntries\||</value>
+					<value>?name?=outputEntries\|?children?=?name?=entry\\\\\\\|\\\|\||</value>
 				</dictionary>
 				<dictionary>
 					<key>?name?</key>
@@ -43,7 +43,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
-					<value>${ProjDirPath}/build_native.py -b release</value>
+					<value>${ProjDirPath}/build_native.py</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>
@@ -114,14 +114,19 @@
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/Classes</locationURI>
 		</link>
 		<link>
+			<name>GAF</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Library</locationURI>
+		</link>
+		<link>
 			<name>cocos2d</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/cocos2d</locationURI>
+			<locationURI>PARENT-4-PROJECT_LOC</locationURI>
 		</link>
 		<link>
 			<name>libcocos2d</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/cocos2d/cocos/platform/android/java/src</locationURI>
+			<locationURI>PARENT-4-PROJECT_LOC/cocos/platform/android/java/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -12,8 +12,15 @@ def get_num_of_cpu():
 	''' The build process can be accelerated by running multiple concurrent job processes using the -j-option.
 	'''
 	try:
-		import multiprocessing
-		return multiprocessing.cpu_count()
+		platform = sys.platform
+		if platform == 'win32':
+			if 'NUMBER_OF_PROCESSORS' in os.environ:
+				return int(os.environ['NUMBER_OF_PROCESSORS'])
+			else:
+				return 1
+		else:
+			from numpy.distutils import cpuinfo
+			return cpuinfo.cpu._getNCPUs()
 	except Exception:
 		print "Can't know cpuinfo, use default 1 cpu"
 		return 1
@@ -43,14 +50,20 @@ def check_environment_variables():
     return NDK_ROOT
 
 def select_toolchain_version():
+    '''Because ndk-r8e uses gcc4.6 as default. gcc4.6 doesn't support c++11. So we should select gcc4.7 when
+    using ndk-r8e. But gcc4.7 is removed in ndk-r9, so we should determine whether gcc4.7 exist.
+    Conclution:
+    ndk-r8e  -> use gcc4.7
+    ndk-r9   -> use gcc4.8
+    '''
 
     ndk_root = check_environment_variables()
-    if os.path.isdir(os.path.join(ndk_root,"toolchains/arm-linux-androideabi-4.9")):
-        os.environ['NDK_TOOLCHAIN_VERSION'] = '4.9'
-        print "The Selected NDK toolchain version was 4.9 !"
-    elif os.path.isdir(os.path.join(ndk_root,"toolchains/arm-linux-androideabi-4.8")):
+    if os.path.isdir(os.path.join(ndk_root,"toolchains/arm-linux-androideabi-4.8")):
         os.environ['NDK_TOOLCHAIN_VERSION'] = '4.8'
         print "The Selected NDK toolchain version was 4.8 !"
+    elif os.path.isdir(os.path.join(ndk_root,"toolchains/arm-linux-androideabi-4.7")):
+        os.environ['NDK_TOOLCHAIN_VERSION'] = '4.7'
+        print "The Selected NDK toolchain version was 4.7 !"
     else:
         print "Couldn't find the gcc toolchain."
         exit(1)
@@ -59,13 +72,19 @@ def do_build(cocos_root, ndk_root, app_android_root,ndk_build_param,sdk_root,and
 
     ndk_path = os.path.join(ndk_root, "ndk-build")
 
-    num_of_cpu = get_num_of_cpu()
-
-    app_android_root = app_android_root.replace(' ', '\\ ')
-    if ndk_build_param == None:
-        command = '%s -j%d -C %s NDK_DEBUG=%d' % (ndk_path, num_of_cpu, app_android_root, build_mode=='debug')
+    # windows should use ";" to seperate module paths
+    platform = sys.platform
+    if platform == 'win32':
+        ndk_module_path = 'NDK_MODULE_PATH=%s;%s/external;%s/cocos;%s/../..' % (cocos_root, cocos_root, cocos_root, app_android_root)
     else:
-        command = '%s -j%d -C %s NDK_DEBUG=%d %s' % (ndk_path, num_of_cpu, app_android_root, build_mode=='debug', ' '.join(str(e) for e in ndk_build_param))
+        ndk_module_path = 'NDK_MODULE_PATH=%s:%s/external:%s/cocos:%s/../..' % (cocos_root, cocos_root, cocos_root, app_android_root)
+	
+    num_of_cpu = get_num_of_cpu()
+	
+    if ndk_build_param == None:
+        command = '%s -j%d -C %s %s' % (ndk_path, num_of_cpu, app_android_root, ndk_module_path)
+    else:
+        command = '%s -j%d -C %s %s %s' % (ndk_path, num_of_cpu, app_android_root, ' '.join(str(e) for e in ndk_build_param), ndk_module_path)
     if os.system(command) != 0:
         raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
     elif android_platform is not None:
@@ -113,7 +132,7 @@ def build(ndk_build_param,android_platform,build_mode):
     select_toolchain_version()
 
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    cocos_root = os.path.join(current_dir, "../cocos2d")
+    cocos_root = os.path.join(current_dir, "../../../..")
 
     app_android_root = current_dir
     copy_resources(app_android_root)
@@ -143,7 +162,5 @@ if __name__ == '__main__':
     parser.add_option("-b", "--build", dest="build_mode", 
     help='the build mode for java project,debug[default] or release.Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
     (opts, args) = parser.parse_args()
-    
-    print "We will remove this script next version,you should use cocos console to build android project.\n"
     
     build(opts.ndk_build_param,opts.android_platform,opts.build_mode)
