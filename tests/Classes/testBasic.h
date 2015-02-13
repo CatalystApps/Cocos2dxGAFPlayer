@@ -35,7 +35,7 @@ public:
 
 #define DEFAULT_RESTART_ACTION static Layer* restartAction() { auto layer = (createFunctions[sceneIdx])(); return layer; }
 
-#define TEPLATE_CALLBACK_FUNCTION(__class__, __action__, __scene__) void __class__##::##__action__##Callback(Ref* sender) { \
+#define TEPLATE_CALLBACK_FUNCTION(__class__, __action__, __scene__) void __class__::__action__##Callback(Ref* sender) { \
     Scene *s = new (std::nothrow) __scene__(); \
     s->addChild(__action__##Action()); Director::getInstance()->replaceScene(s); s->release(); }
 

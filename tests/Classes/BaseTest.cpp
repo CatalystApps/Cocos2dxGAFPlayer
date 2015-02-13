@@ -37,7 +37,7 @@ void BaseTest::onEnter()
 	// add title and subtitle
     std::string str = title();
     const char * pTitle = str.c_str();
-    TTFConfig ttfConfig("fonts/arial.ttf", 32);
+    TTFConfig ttfConfig("fonts/arial.ttf", 54);
     auto label = Label::createWithTTF(ttfConfig,pTitle);
     addChild(label, 9999);
     label->setPosition(VisibleRect::center().x, VisibleRect::top().y - 30);
@@ -46,7 +46,7 @@ void BaseTest::onEnter()
     if( ! strSubtitle.empty() )
     {
         ttfConfig.fontFilePath = "fonts/Thonburi.ttf";
-        ttfConfig.fontSize = 16;
+        ttfConfig.fontSize = 32;
         auto l = Label::createWithTTF(ttfConfig,strSubtitle.c_str());
         addChild(l, 9999);
         l->setPosition(VisibleRect::center().x, VisibleRect::top().y - 60);

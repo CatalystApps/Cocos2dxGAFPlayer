@@ -41,7 +41,7 @@ Controller g_aTestNames[] = {
 
 static int g_testCount = sizeof(g_aTestNames) / sizeof(g_aTestNames[0]);
 static Controller *currentController = nullptr;
-#define LINE_SPACE          40
+#define LINE_SPACE          80
 
 static Vec2 s_tCurPos = Vec2::ZERO;
 
@@ -64,7 +64,7 @@ TestController::TestController()
     closeItem->setPosition(VisibleRect::right().x - 30, VisibleRect::top().y - 30);
 
     // add menu items for tests
-    TTFConfig ttfConfig("fonts/arial.ttf", 24);
+    TTFConfig ttfConfig("fonts/arial.ttf", 54);
     _itemMenu = Menu::create();
     for (int i = 0; i < g_testCount; ++i)
     {

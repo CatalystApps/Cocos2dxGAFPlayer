@@ -33,14 +33,14 @@ void TestScene::onEnter()
     Scene::onEnter();
 
     //add the menu item for back to main menu
-    TTFConfig ttfConfig("fonts/arial.ttf", 20);
+    TTFConfig ttfConfig("fonts/arial.ttf", 54);
     auto label = Label::createWithTTF(ttfConfig,"MainMenu");
 
     auto menuItem = MenuItemLabel::create(label, testScene_callback );
     auto menu = Menu::create(menuItem, nullptr);
 
     menu->setPosition( Vec2::ZERO );
-    menuItem->setPosition( Vec2( VisibleRect::right().x - 50, VisibleRect::bottom().y + 25) );
+    menuItem->setPosition( Vec2( VisibleRect::right().x - 150, VisibleRect::bottom().y + 25) );
 
     addChild(menu, 1);
 }
