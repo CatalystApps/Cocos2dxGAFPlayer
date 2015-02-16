@@ -55,3 +55,9 @@ Library/Sources/latex
 /js_bindings/tojs/userconf.ini
 /lua_bindings/tolua/userconf.ini
 *.pyc
+/tests/proj.win32/Debug.win32
+/tests/proj.android/assets
+/tests/proj.android/bin
+/tests/proj.android/gen
+/tests/proj.android/libs
+/tests/proj.android/obj
