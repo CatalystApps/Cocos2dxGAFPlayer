@@ -62,7 +62,8 @@ m_sceneFps(60),
 m_sceneWidth(0),
 m_sceneHeight(0),
 m_rootTimeline(nullptr),
-m_desiredAtlasScale(1.0f)
+m_desiredAtlasScale(1.0f),
+m_gafFileName("")
 {
     m_textureManager = new GAFAssetTextureManager();
     GAFShaderManager::Initialize();
@@ -114,6 +115,7 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
 {
     GAFLoader* loader = new GAFLoader();
 
+    m_gafFileName = zipFilePath;
     std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(zipFilePath);
 
     cocos2d::ZipFile bundle(fullfilePath);
@@ -140,6 +142,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
 {
     GAFLoader* loader = new GAFLoader();
 
+    m_gafFileName = filePath;
     std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
 
     bool isLoaded = loader->loadFile(fullfilePath, this);
@@ -304,6 +307,11 @@ void GAFAsset::setSceneHeight(unsigned int value)
 void GAFAsset::setSceneColor(const cocos2d::Color4B& value)
 {
     m_sceneColor = value;
+}
+
+const std::string& GAFAsset::getGAFFileName() const
+{
+    return m_gafFileName;
 }
 
 NS_GAF_END
