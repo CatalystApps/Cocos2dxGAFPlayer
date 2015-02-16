@@ -13,10 +13,11 @@ if(WIN32)
   set(GAF_PLATFORM_INCLUDE_DIR
     ${COCOS_ROOT}/../external/${PLATFORM_FOLDER}-specific/gles/include/OGLES
   )
-elseif(MACOSX OR APPLE)
-  set(PLATFORM_FOLDER mac)
 elseif(IOS)
   add_definitions(-DCC_TARGET_OS_IPHONE)
+  set(PLATFORM_FOLDER ios)
+elseif(MACOSX OR APPLE)
+  set(PLATFORM_FOLDER mac)
 elseif(LINUX)
   add_definitions(-DLINUX)
   set(PLATFORM_FOLDER linux)
