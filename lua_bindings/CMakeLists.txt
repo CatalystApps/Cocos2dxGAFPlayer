@@ -2,6 +2,8 @@
 
 cmake_minimum_required(VERSION 2.6)
 
+cmake_policy(SET CMP0011 NEW)
+
 project(GAFLuaBindings)
 
 set(COCOS_ROOT ${CMAKE_SOURCE_DIR}/../../../cocos)
