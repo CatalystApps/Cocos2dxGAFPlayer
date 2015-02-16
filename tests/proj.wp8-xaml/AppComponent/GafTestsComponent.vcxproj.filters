@@ -19,11 +19,32 @@
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Classes\HelloWorldScene.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\pch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\BaseTest.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\controller.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\testBasic.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\VisibleRect.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\FiltersTest\FiltersTest.cpp">
+      <Filter>Classes\FiltersTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\FlipTest\FlipTest.cpp">
+      <Filter>Classes\FlipTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\FramePlaybackTest\FramePlaybackTest.cpp">
+      <Filter>Classes\FramePlaybackTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\MaskTimelineTest\MaskTimelineTest.cpp">
+      <Filter>Classes\MaskTimelineTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -48,11 +69,38 @@
     <ClInclude Include="..\..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Classes\HelloWorldScene.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="src\pch.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\BaseTest.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\controller.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\testBasic.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\testResource.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\tests.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\VisibleRect.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\FiltersTest\FiltersTest.h">
+      <Filter>Classes\FiltersTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\FlipTest\FlipTest.h">
+      <Filter>Classes\FlipTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\FramePlaybackTest\FramePlaybackTest.h">
+      <Filter>Classes\FramePlaybackTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\MaskTimelineTest\MaskTimelineTest.h">
+      <Filter>Classes\MaskTimelineTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +109,18 @@
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{6fcff44b-bb9f-4ed9-8553-558855bc91e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\FiltersTest">
+      <UniqueIdentifier>{e9fcf33a-5a50-45a0-a9f3-2a65e9616cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\FlipTest">
+      <UniqueIdentifier>{ee2455fd-06dd-4e8e-92e1-fb73da680f7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\FramePlaybackTest">
+      <UniqueIdentifier>{c808e8b0-7c88-4b9d-bb50-2c643bb7246e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\MaskTimelineTest">
+      <UniqueIdentifier>{6086b7fa-e723-4e76-bbe7-084f2e8219dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
