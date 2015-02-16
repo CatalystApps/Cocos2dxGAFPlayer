@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
-		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -22,8 +20,6 @@
 		46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
-		46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
-		46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -59,6 +55,30 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		B64AB6D11A91F7DA000F62EC /* gaf in Resources */ = {isa = PBXBuildFile; fileRef = B64AB6D01A91F7DA000F62EC /* gaf */; };
+		B64AB6D21A91F7DA000F62EC /* gaf in Resources */ = {isa = PBXBuildFile; fileRef = B64AB6D01A91F7DA000F62EC /* gaf */; };
+		B64AB6D81A91F7E2000F62EC /* Images in Resources */ = {isa = PBXBuildFile; fileRef = B64AB6D71A91F7E2000F62EC /* Images */; };
+		B64AB6D91A91F7E2000F62EC /* Images in Resources */ = {isa = PBXBuildFile; fileRef = B64AB6D71A91F7E2000F62EC /* Images */; };
+		B64AB6DA1A91F8DC000F62EC /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B666009E1A8E5F5E005FBAC2 /* libcocos2d Mac.a */; };
+		B64AB6DB1A91F8E0000F62EC /* libgafplayer Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B66600BF1A8E6232005FBAC2 /* libgafplayer Mac.a */; };
+		B64AB6DC1A91FA07000F62EC /* controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600A31A8E604A005FBAC2 /* controller.cpp */; };
+		B64AB6DD1A91FA23000F62EC /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600AD1A8E604A005FBAC2 /* VisibleRect.cpp */; };
+		B64AB6DE1A91FA25000F62EC /* testBasic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600A91A8E604A005FBAC2 /* testBasic.cpp */; };
+		B64AB6DF1A91FA2B000F62EC /* BaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600A11A8E604A005FBAC2 /* BaseTest.cpp */; };
+		B64AB6E01A91FA2E000F62EC /* FlipTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600D01A8E66A8005FBAC2 /* FlipTest.cpp */; };
+		B64AB6E11A91FA30000F62EC /* FiltersTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600CD1A8E669A005FBAC2 /* FiltersTest.cpp */; };
+		B64AB6E21A91FA33000F62EC /* FramePlaybackTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600CA1A8E6683005FBAC2 /* FramePlaybackTest.cpp */; };
+		B64AB6E31A91FA36000F62EC /* MaskTimelineTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600C71A8E6670005FBAC2 /* MaskTimelineTest.cpp */; };
+		B66600AF1A8E604A005FBAC2 /* BaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600A11A8E604A005FBAC2 /* BaseTest.cpp */; };
+		B66600B01A8E604A005FBAC2 /* controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600A31A8E604A005FBAC2 /* controller.cpp */; };
+		B66600B51A8E604A005FBAC2 /* testBasic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600A91A8E604A005FBAC2 /* testBasic.cpp */; };
+		B66600B61A8E604A005FBAC2 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600AD1A8E604A005FBAC2 /* VisibleRect.cpp */; };
+		B66600C01A8E624A005FBAC2 /* libgafplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B66600BD1A8E6232005FBAC2 /* libgafplayer.a */; };
+		B66600C11A8E62B9005FBAC2 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B66600A01A8E5F5E005FBAC2 /* libcocos2d iOS.a */; };
+		B66600C91A8E6670005FBAC2 /* MaskTimelineTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600C71A8E6670005FBAC2 /* MaskTimelineTest.cpp */; };
+		B66600CC1A8E6683005FBAC2 /* FramePlaybackTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600CA1A8E6683005FBAC2 /* FramePlaybackTest.cpp */; };
+		B66600CF1A8E669A005FBAC2 /* FiltersTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600CD1A8E669A005FBAC2 /* FiltersTest.cpp */; };
+		B66600D21A8E66A8005FBAC2 /* FlipTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600D01A8E66A8005FBAC2 /* FlipTest.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -69,38 +89,38 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1AC6FAF8180E9839004C840B /* PBXContainerItemProxy */ = {
+		B666009D1A8E5F5E005FBAC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 1551A33F158F2AB200E66CFE;
-			remoteInfo = "cocos2dx Mac";
+			remoteInfo = "libcocos2d Mac";
 		};
-		1AC6FB06180E9839004C840B /* PBXContainerItemProxy */ = {
+		B666009F1A8E5F5E005FBAC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A07A4D641783777C0073F6A7;
-			remoteInfo = "cocos2dx iOS";
+			remoteInfo = "libcocos2d iOS";
 		};
-		1AC6FB15180E9959004C840B /* PBXContainerItemProxy */ = {
+		B66600BC1A8E6232005FBAC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 1551A33E158F2AB200E66CFE;
-			remoteInfo = "cocos2dx Mac";
+			containerPortal = B66600B71A8E6232005FBAC2 /* GAFPlayer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1A2FBEC1192DEF8700631FE9;
+			remoteInfo = gafplayer;
 		};
-		1AC6FB24180E99E1004C840B /* PBXContainerItemProxy */ = {
+		B66600BE1A8E6232005FBAC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A07A4C241783777C0073F6A7;
-			remoteInfo = "cocos2dx iOS";
+			containerPortal = B66600B71A8E6232005FBAC2 /* GAFPlayer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 29CC58251A36113E00B31D72;
+			remoteInfo = "gafplayer Mac";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
+		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../../../../build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* GafTests iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GafTests iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,8 +132,6 @@
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorldScene.cpp; sourceTree = "<group>"; };
-		46880B8719C43A87006E1F66 /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -150,6 +168,27 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		B64AB6D01A91F7DA000F62EC /* gaf */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gaf; sourceTree = "<group>"; };
+		B64AB6D71A91F7E2000F62EC /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		B66600A11A8E604A005FBAC2 /* BaseTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseTest.cpp; sourceTree = "<group>"; };
+		B66600A21A8E604A005FBAC2 /* BaseTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTest.h; sourceTree = "<group>"; };
+		B66600A31A8E604A005FBAC2 /* controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controller.cpp; sourceTree = "<group>"; };
+		B66600A41A8E604A005FBAC2 /* controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = controller.h; sourceTree = "<group>"; };
+		B66600A91A8E604A005FBAC2 /* testBasic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testBasic.cpp; sourceTree = "<group>"; };
+		B66600AA1A8E604A005FBAC2 /* testBasic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testBasic.h; sourceTree = "<group>"; };
+		B66600AB1A8E604A005FBAC2 /* testResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testResource.h; sourceTree = "<group>"; };
+		B66600AC1A8E604A005FBAC2 /* tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tests.h; sourceTree = "<group>"; };
+		B66600AD1A8E604A005FBAC2 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VisibleRect.cpp; sourceTree = "<group>"; };
+		B66600AE1A8E604A005FBAC2 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisibleRect.h; sourceTree = "<group>"; };
+		B66600B71A8E6232005FBAC2 /* GAFPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GAFPlayer.xcodeproj; path = ../../Library/GAFPlayer.xcodeproj; sourceTree = "<group>"; };
+		B66600C71A8E6670005FBAC2 /* MaskTimelineTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaskTimelineTest.cpp; path = MaskTimelineTest/MaskTimelineTest.cpp; sourceTree = "<group>"; };
+		B66600C81A8E6670005FBAC2 /* MaskTimelineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaskTimelineTest.h; path = MaskTimelineTest/MaskTimelineTest.h; sourceTree = "<group>"; };
+		B66600CA1A8E6683005FBAC2 /* FramePlaybackTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FramePlaybackTest.cpp; path = FramePlaybackTest/FramePlaybackTest.cpp; sourceTree = "<group>"; };
+		B66600CB1A8E6683005FBAC2 /* FramePlaybackTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FramePlaybackTest.h; path = FramePlaybackTest/FramePlaybackTest.h; sourceTree = "<group>"; };
+		B66600CD1A8E669A005FBAC2 /* FiltersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FiltersTest.cpp; path = FiltersTest/FiltersTest.cpp; sourceTree = "<group>"; };
+		B66600CE1A8E669A005FBAC2 /* FiltersTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiltersTest.h; path = FiltersTest/FiltersTest.h; sourceTree = "<group>"; };
+		B66600D01A8E66A8005FBAC2 /* FlipTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlipTest.cpp; path = FlipTest/FlipTest.cpp; sourceTree = "<group>"; };
+		B66600D11A8E66A8005FBAC2 /* FlipTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlipTest.h; path = FlipTest/FlipTest.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -164,8 +203,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66600C11A8E62B9005FBAC2 /* libcocos2d iOS.a in Frameworks */,
+				B66600C01A8E624A005FBAC2 /* libgafplayer.a in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
-				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -183,7 +223,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */,
+				B64AB6DB1A91F8E0000F62EC /* libgafplayer Mac.a in Frameworks */,
+				B64AB6DA1A91F8DC000F62EC /* libcocos2d Mac.a in Frameworks */,
 				5087E76717EB910900C73F5D /* libz.dylib in Frameworks */,
 				503AE11B17EB9C5A00D1A890 /* IOKit.framework in Frameworks */,
 				5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */,
@@ -223,20 +264,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1AC6FAE6180E9839004C840B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */,
-				1AC6FB07180E9839004C840B /* libcocos2d iOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
+				B66600B71A8E6232005FBAC2 /* GAFPlayer.xcodeproj */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				080E96DDFE201D6D7F000001 /* ios */,
@@ -272,6 +305,8 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B64AB6D71A91F7E2000F62EC /* Images */,
+				B64AB6D01A91F7DA000F62EC /* gaf */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
@@ -285,10 +320,22 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B66600C61A8E6662005FBAC2 /* MaskTimelineTest */,
+				B66600C51A8E6655005FBAC2 /* FramePlaybackTest */,
+				B66600C41A8E663A005FBAC2 /* FiltersTest */,
+				B66600C31A8E6625005FBAC2 /* FlipTest */,
+				B66600A11A8E604A005FBAC2 /* BaseTest.cpp */,
+				B66600A21A8E604A005FBAC2 /* BaseTest.h */,
+				B66600A31A8E604A005FBAC2 /* controller.cpp */,
+				B66600A41A8E604A005FBAC2 /* controller.h */,
+				B66600A91A8E604A005FBAC2 /* testBasic.cpp */,
+				B66600AA1A8E604A005FBAC2 /* testBasic.h */,
+				B66600AB1A8E604A005FBAC2 /* testResource.h */,
+				B66600AC1A8E604A005FBAC2 /* tests.h */,
+				B66600AD1A8E604A005FBAC2 /* VisibleRect.cpp */,
+				B66600AE1A8E604A005FBAC2 /* VisibleRect.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
-				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -341,6 +388,60 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
+		B66600991A8E5F5E005FBAC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B666009E1A8E5F5E005FBAC2 /* libcocos2d Mac.a */,
+				B66600A01A8E5F5E005FBAC2 /* libcocos2d iOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B66600B81A8E6232005FBAC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B66600BD1A8E6232005FBAC2 /* libgafplayer.a */,
+				B66600BF1A8E6232005FBAC2 /* libgafplayer Mac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B66600C31A8E6625005FBAC2 /* FlipTest */ = {
+			isa = PBXGroup;
+			children = (
+				B66600D01A8E66A8005FBAC2 /* FlipTest.cpp */,
+				B66600D11A8E66A8005FBAC2 /* FlipTest.h */,
+			);
+			name = FlipTest;
+			sourceTree = "<group>";
+		};
+		B66600C41A8E663A005FBAC2 /* FiltersTest */ = {
+			isa = PBXGroup;
+			children = (
+				B66600CD1A8E669A005FBAC2 /* FiltersTest.cpp */,
+				B66600CE1A8E669A005FBAC2 /* FiltersTest.h */,
+			);
+			name = FiltersTest;
+			sourceTree = "<group>";
+		};
+		B66600C51A8E6655005FBAC2 /* FramePlaybackTest */ = {
+			isa = PBXGroup;
+			children = (
+				B66600CA1A8E6683005FBAC2 /* FramePlaybackTest.cpp */,
+				B66600CB1A8E6683005FBAC2 /* FramePlaybackTest.h */,
+			);
+			name = FramePlaybackTest;
+			sourceTree = "<group>";
+		};
+		B66600C61A8E6662005FBAC2 /* MaskTimelineTest */ = {
+			isa = PBXGroup;
+			children = (
+				B66600C71A8E6670005FBAC2 /* MaskTimelineTest.cpp */,
+				B66600C81A8E6670005FBAC2 /* MaskTimelineTest.h */,
+			);
+			name = MaskTimelineTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -355,7 +456,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				1AC6FB25180E99E1004C840B /* PBXTargetDependency */,
 			);
 			name = "GafTests iOS";
 			productName = iphone;
@@ -373,7 +473,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				1AC6FB16180E9959004C840B /* PBXTargetDependency */,
 			);
 			name = "GafTests Mac";
 			productName = iphone;
@@ -407,8 +506,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 1AC6FAE6180E9839004C840B /* Products */;
+					ProductGroup = B66600991A8E5F5E005FBAC2 /* Products */;
 					ProjectRef = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
+				},
+				{
+					ProductGroup = B66600B81A8E6232005FBAC2 /* Products */;
+					ProjectRef = B66600B71A8E6232005FBAC2 /* GAFPlayer.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -420,18 +523,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */ = {
+		B666009E1A8E5F5E005FBAC2 /* libcocos2d Mac.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libcocos2d Mac.a";
-			remoteRef = 1AC6FAF8180E9839004C840B /* PBXContainerItemProxy */;
+			remoteRef = B666009D1A8E5F5E005FBAC2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		1AC6FB07180E9839004C840B /* libcocos2d iOS.a */ = {
+		B66600A01A8E5F5E005FBAC2 /* libcocos2d iOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libcocos2d iOS.a";
-			remoteRef = 1AC6FB06180E9839004C840B /* PBXContainerItemProxy */;
+			remoteRef = B666009F1A8E5F5E005FBAC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B66600BD1A8E6232005FBAC2 /* libgafplayer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgafplayer.a;
+			remoteRef = B66600BC1A8E6232005FBAC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B66600BF1A8E6232005FBAC2 /* libgafplayer Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgafplayer Mac.a";
+			remoteRef = B66600BE1A8E6232005FBAC2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -441,6 +558,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B64AB6D81A91F7E2000F62EC /* Images in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
@@ -450,6 +568,7 @@
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				B64AB6D11A91F7DA000F62EC /* gaf in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
@@ -475,6 +594,8 @@
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
+				B64AB6D91A91F7E2000F62EC /* Images in Resources */,
+				B64AB6D21A91F7DA000F62EC /* gaf in Resources */,
 				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
 			);
@@ -487,9 +608,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66600D21A8E66A8005FBAC2 /* FlipTest.cpp in Sources */,
+				B66600CC1A8E6683005FBAC2 /* FramePlaybackTest.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
-				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				B66600B51A8E604A005FBAC2 /* testBasic.cpp in Sources */,
+				B66600AF1A8E604A005FBAC2 /* BaseTest.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				B66600C91A8E6670005FBAC2 /* MaskTimelineTest.cpp in Sources */,
+				B66600B61A8E604A005FBAC2 /* VisibleRect.cpp in Sources */,
+				B66600CF1A8E669A005FBAC2 /* FiltersTest.cpp in Sources */,
+				B66600B01A8E604A005FBAC2 /* controller.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
@@ -499,26 +627,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B64AB6DF1A91FA2B000F62EC /* BaseTest.cpp in Sources */,
+				B64AB6E11A91FA30000F62EC /* FiltersTest.cpp in Sources */,
+				B64AB6E21A91FA33000F62EC /* FramePlaybackTest.cpp in Sources */,
+				B64AB6DD1A91FA23000F62EC /* VisibleRect.cpp in Sources */,
+				B64AB6E31A91FA36000F62EC /* MaskTimelineTest.cpp in Sources */,
+				B64AB6E01A91FA2E000F62EC /* FlipTest.cpp in Sources */,
+				B64AB6DC1A91FA07000F62EC /* controller.cpp in Sources */,
+				B64AB6DE1A91FA25000F62EC /* testBasic.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1AC6FB16180E9959004C840B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "cocos2dx Mac";
-			targetProxy = 1AC6FB15180E9959004C840B /* PBXContainerItemProxy */;
-		};
-		1AC6FB25180E99E1004C840B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "cocos2dx iOS";
-			targetProxy = 1AC6FB24180E99E1004C840B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -540,8 +662,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
-					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../../../../cocos",
+					"$(SRCROOT)/../../../../cocos/platform/ios",
+					"$(SRCROOT)/../../../../cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../../Library/Sources",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -574,8 +698,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
-					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../../../../cocos",
+					"$(SRCROOT)/../../../../cocos/platform/ios",
+					"$(SRCROOT)/../../../../cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../../Library/Sources",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -611,8 +737,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
-					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
+					"$(SRCROOT)/../../../../cocos",
+					"$(SRCROOT)/../../../../cocos/platform/mac",
+					"$(SRCROOT)/../../../glfw3/include/mac",
+					"$(SRCROOT)/../../Library/Sources",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -642,8 +770,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
-					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
+					"$(SRCROOT)/../../../../cocos",
+					"$(SRCROOT)/../../../../cocos/platform/mac",
+					"$(SRCROOT)/../../../glfw3/include/mac",
+					"$(SRCROOT)/../../Library/Sources",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";

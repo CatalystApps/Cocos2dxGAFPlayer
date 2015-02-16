@@ -21,7 +21,6 @@
 #include <io.h>
 #include <WS2tcpip.h>
 #endif
-#include "cocostudio/CocoStudio.h"
 
 typedef struct _Controller{
 	const char *test_name;
@@ -301,7 +300,6 @@ void TestController::addConsoleAutoTest()
                     scene->addChild(layer);
                     layer->release();
                     Director::getInstance()->replaceScene(scene);
-                    cocostudio::ArmatureDataManager::destroyInstance();
                 } );
                 return;
             }
