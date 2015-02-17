@@ -77,7 +77,7 @@ void GAFAssetTextureManager::loadImages(const std::string& dir, GAFTextureLoadDe
 
 			if (delegate)
 			{
-				delegate(&path);
+                path = delegate(path);
 			}
 
 			if (!bundle)
