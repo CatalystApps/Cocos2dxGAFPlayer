@@ -89,7 +89,7 @@ public:
     void setSceneHeight(unsigned int);
     void setSceneColor(const cocos2d::Color4B&);
 
-    const std::string& GAFAsset::getGAFFileName() const;
+    const std::string&          getGAFFileName() const;
 };
 
 NS_GAF_END
