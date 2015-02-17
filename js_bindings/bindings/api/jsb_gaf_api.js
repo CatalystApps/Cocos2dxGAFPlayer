@@ -61,6 +61,16 @@ color4b
 },
 
 /**
+ * @method getGAFFileName
+ * @return {String}
+ */
+getGAFFileName : function (
+)
+{
+    return ;
+},
+
+/**
  * @method createObjectAndRun
  * @param {bool} arg0
  * @return {gaf::GAFObject}
@@ -516,8 +526,10 @@ resumeAnimation : function (
 /**
  * @method setReversed
  * @param {bool} arg0
+ * @param {bool} arg1
  */
 setReversed : function (
+bool, 
 bool 
 )
 {

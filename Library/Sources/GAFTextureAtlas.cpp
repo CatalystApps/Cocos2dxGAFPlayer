@@ -74,7 +74,7 @@ void GAFTextureAtlas::loadImages(const std::string& dir, GAFTextureLoadDelegate_
 
             if (dlg)
             {
-                dlg(&path);
+                path = dlg(path);
             }
 
             if (!bundle)

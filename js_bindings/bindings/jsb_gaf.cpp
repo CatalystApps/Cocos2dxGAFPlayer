@@ -153,6 +153,23 @@ bool js_gaf_GAFAsset_setSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFAsset_setSceneColor : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
+bool js_gaf_GAFAsset_getGAFFileName(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getGAFFileName : Invalid Native Object");
+    if (argc == 0) {
+        const std::string& ret = cobj->getGAFFileName();
+        jsval jsret = JSVAL_NULL;
+        jsret = std_string_to_jsval(cx, ret);
+        JS_SET_RVAL(cx, vp, jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFAsset_getGAFFileName : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
 bool js_gaf_GAFAsset_createObjectAndRun(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
@@ -253,59 +270,6 @@ bool js_gaf_GAFAsset_desiredAtlasScale(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFAsset_desiredAtlasScale : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
-bool js_gaf_GAFAsset_initWithGAFBundle(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_initWithGAFBundle : Invalid Native Object");
-    if (argc == 3) {
-        std::string arg0;
-        std::string arg1;
-        std::function<void (std::basic_string<char> *)> arg2;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        ok &= jsval_to_std_string(cx, argv[1], &arg1);
-        do {
-		    if(JS_TypeOfValue(cx, argv[2]) == JSTYPE_FUNCTION)
-		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[2]));
-		        auto lambda = [=](std::basic_string<char>* larg0) -> void {
-		            jsval largv[1];
-		            do {
-		            if (larg0) {
-		                js_proxy_t *jsProxy = js_get_or_create_proxy<std::basic_string<char>>(cx, (std::basic_string<char>*)larg0);
-		                largv[0] = OBJECT_TO_JSVAL(jsProxy->obj);
-		            } else {
-		                largv[0] = JSVAL_NULL;
-		            }
-		        } while (0);
-		            jsval rval;
-		            bool ok = func->invoke(1, &largv[0], rval);
-		            if (!ok && JS_IsExceptionPending(cx)) {
-		                JS_ReportPendingException(cx);
-		            }
-		        };
-		        arg2 = lambda;
-		    }
-		    else
-		    {
-		        arg2 = nullptr;
-		    }
-		} while(0)
-		;
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_initWithGAFBundle : Error processing arguments");
-        bool ret = cobj->initWithGAFBundle(arg0, arg1, arg2);
-        jsval jsret = JSVAL_NULL;
-        jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFAsset_initWithGAFBundle : wrong number of arguments: %d, was expecting %d", argc, 3);
-    return false;
-}
 bool js_gaf_GAFAsset_setSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
@@ -324,57 +288,6 @@ bool js_gaf_GAFAsset_setSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
     }
 
     JS_ReportError(cx, "js_gaf_GAFAsset_setSceneWidth : wrong number of arguments: %d, was expecting %d", argc, 1);
-    return false;
-}
-bool js_gaf_GAFAsset_initWithGAFFile(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
-    js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_initWithGAFFile : Invalid Native Object");
-    if (argc == 2) {
-        std::string arg0;
-        std::function<void (std::basic_string<char> *)> arg1;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        do {
-		    if(JS_TypeOfValue(cx, argv[1]) == JSTYPE_FUNCTION)
-		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[1]));
-		        auto lambda = [=](std::basic_string<char>* larg0) -> void {
-		            jsval largv[1];
-		            do {
-		            if (larg0) {
-		                js_proxy_t *jsProxy = js_get_or_create_proxy<std::basic_string<char>>(cx, (std::basic_string<char>*)larg0);
-		                largv[0] = OBJECT_TO_JSVAL(jsProxy->obj);
-		            } else {
-		                largv[0] = JSVAL_NULL;
-		            }
-		        } while (0);
-		            jsval rval;
-		            bool ok = func->invoke(1, &largv[0], rval);
-		            if (!ok && JS_IsExceptionPending(cx)) {
-		                JS_ReportPendingException(cx);
-		            }
-		        };
-		        arg1 = lambda;
-		    }
-		    else
-		    {
-		        arg1 = nullptr;
-		    }
-		} while(0)
-		;
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_initWithGAFFile : Error processing arguments");
-        bool ret = cobj->initWithGAFFile(arg0, arg1);
-        jsval jsret = JSVAL_NULL;
-        jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-
-    JS_ReportError(cx, "js_gaf_GAFAsset_initWithGAFFile : wrong number of arguments: %d, was expecting %d", argc, 2);
     return false;
 }
 bool js_gaf_GAFAsset_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
@@ -439,139 +352,6 @@ bool js_gaf_GAFAsset_isAssetVersionPlayable(JSContext *cx, uint32_t argc, jsval 
     return false;
 }
 
-bool js_gaf_GAFAsset_create(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, argv[0], &arg0);
-            if (!ok) { ok = true; break; }
-            gaf::GAFAsset* ret = gaf::GAFAsset::create(arg0);
-            jsval jsret = JSVAL_NULL;
-            do {
-                if (ret) {
-                    js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFAsset>(cx, (gaf::GAFAsset*)ret);
-                    jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-                } else {
-                    jsret = JSVAL_NULL;
-                }
-            } while (0);
-            JS_SET_RVAL(cx, vp, jsret);
-            return true;
-        }
-    } while (0);
-    
-    do {
-        if (argc == 2) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, argv[0], &arg0);
-            if (!ok) { ok = true; break; }
-            std::function<void (std::basic_string<char> *)> arg1;
-            do {
-			    if(JS_TypeOfValue(cx, argv[1]) == JSTYPE_FUNCTION)
-			    {
-			        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[1]));
-			        auto lambda = [=](std::basic_string<char>* larg0) -> void {
-			            jsval largv[1];
-			            do {
-			            if (larg0) {
-			                js_proxy_t *jsProxy = js_get_or_create_proxy<std::basic_string<char>>(cx, (std::basic_string<char>*)larg0);
-			                largv[0] = OBJECT_TO_JSVAL(jsProxy->obj);
-			            } else {
-			                largv[0] = JSVAL_NULL;
-			            }
-			        } while (0);
-			            jsval rval;
-			            bool ok = func->invoke(1, &largv[0], rval);
-			            if (!ok && JS_IsExceptionPending(cx)) {
-			                JS_ReportPendingException(cx);
-			            }
-			        };
-			        arg1 = lambda;
-			    }
-			    else
-			    {
-			        arg1 = nullptr;
-			    }
-			} while(0)
-			;
-            if (!ok) { ok = true; break; }
-            gaf::GAFAsset* ret = gaf::GAFAsset::create(arg0, arg1);
-            jsval jsret = JSVAL_NULL;
-            do {
-                if (ret) {
-                    js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFAsset>(cx, (gaf::GAFAsset*)ret);
-                    jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-                } else {
-                    jsret = JSVAL_NULL;
-                }
-            } while (0);
-            JS_SET_RVAL(cx, vp, jsret);
-            return true;
-        }
-    } while (0);
-    JS_ReportError(cx, "js_gaf_GAFAsset_create : wrong number of arguments");
-    return false;
-}
-bool js_gaf_GAFAsset_createWithBundle(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    jsval *argv = JS_ARGV(cx, vp);
-    bool ok = true;
-    if (argc == 3) {
-        std::string arg0;
-        std::string arg1;
-        std::function<void (std::basic_string<char> *)> arg2;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        ok &= jsval_to_std_string(cx, argv[1], &arg1);
-        do {
-		    if(JS_TypeOfValue(cx, argv[2]) == JSTYPE_FUNCTION)
-		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[2]));
-		        auto lambda = [=](std::basic_string<char>* larg0) -> void {
-		            jsval largv[1];
-		            do {
-		            if (larg0) {
-		                js_proxy_t *jsProxy = js_get_or_create_proxy<std::basic_string<char>>(cx, (std::basic_string<char>*)larg0);
-		                largv[0] = OBJECT_TO_JSVAL(jsProxy->obj);
-		            } else {
-		                largv[0] = JSVAL_NULL;
-		            }
-		        } while (0);
-		            jsval rval;
-		            bool ok = func->invoke(1, &largv[0], rval);
-		            if (!ok && JS_IsExceptionPending(cx)) {
-		                JS_ReportPendingException(cx);
-		            }
-		        };
-		        arg2 = lambda;
-		    }
-		    else
-		    {
-		        arg2 = nullptr;
-		    }
-		} while(0)
-		;
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_createWithBundle : Error processing arguments");
-        gaf::GAFAsset* ret = gaf::GAFAsset::createWithBundle(arg0, arg1, arg2);
-        jsval jsret = JSVAL_NULL;
-        do {
-        if (ret) {
-            js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFAsset>(cx, (gaf::GAFAsset*)ret);
-            jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-        } else {
-            jsret = JSVAL_NULL;
-        }
-    } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
-        return true;
-    }
-    JS_ReportError(cx, "js_gaf_GAFAsset_createWithBundle : wrong number of arguments");
-    return false;
-}
-
 bool js_gaf_GAFAsset_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
@@ -628,14 +408,13 @@ void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
         JS_FN("setSceneHeight", js_gaf_GAFAsset_setSceneHeight, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getSceneColor", js_gaf_GAFAsset_getSceneColor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setSceneColor", js_gaf_GAFAsset_setSceneColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getGAFFileName", js_gaf_GAFAsset_getGAFFileName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("createObjectAndRun", js_gaf_GAFAsset_createObjectAndRun, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setDesiredAtlasScale", js_gaf_GAFAsset_setDesiredAtlasScale, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getSceneWidth", js_gaf_GAFAsset_getSceneWidth, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getSceneFps", js_gaf_GAFAsset_getSceneFps, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("desiredAtlasScale", js_gaf_GAFAsset_desiredAtlasScale, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("initWithGAFBundle", js_gaf_GAFAsset_initWithGAFBundle, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setSceneWidth", js_gaf_GAFAsset_setSceneWidth, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("initWithGAFFile", js_gaf_GAFAsset_initWithGAFFile, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setSceneFps", js_gaf_GAFAsset_setSceneFps, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("createObject", js_gaf_GAFAsset_createObject, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
@@ -643,8 +422,6 @@ void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
 
     static JSFunctionSpec st_funcs[] = {
         JS_FN("isAssetVersionPlayable", js_gaf_GAFAsset_isAssetVersionPlayable, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("create", js_gaf_GAFAsset_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("createWithBundle", js_gaf_GAFAsset_createWithBundle, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 
@@ -1438,6 +1215,16 @@ bool js_gaf_GAFObject_setReversed(JSContext *cx, uint32_t argc, jsval *vp)
         arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setReversed : Error processing arguments");
         cobj->setReversed(arg0);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return true;
+    }
+    if (argc == 2) {
+        bool arg0;
+        bool arg1;
+        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setReversed : Error processing arguments");
+        cobj->setReversed(arg0, arg1);
         JS_SET_RVAL(cx, vp, JSVAL_VOID);
         return true;
     }
