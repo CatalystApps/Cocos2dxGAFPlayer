@@ -34,6 +34,7 @@ Controller g_aTestNames[] = {
     //
     { "Filters", []() { return new FiltersTestScene(); } },
     { "General: Flip", []() { return new FlipTestScene(); } },
+    { "General: Multiple timelines", []() { return new MultipleTimelineTestScene(); } },
     { "General: Playback", []() { return new FramePlaybackTestScene(); } },
     { "Masks: Timelines", []() { return new MaskTimelineTestScene(); } },
 };

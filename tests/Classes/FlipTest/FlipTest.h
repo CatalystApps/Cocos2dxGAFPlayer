@@ -9,7 +9,7 @@ public:
     CREATE_FUNC(BaseFlipTest);
 
     ~BaseFlipTest();
-    virtual bool init();
+    virtual bool init() override;
 
     virtual std::string title() const override;
     virtual std::string subtitle() const override;
@@ -19,7 +19,7 @@ public:
 
     DEFAULT_ACTION_CALLBACKS(FramePlaybackTestScene);
 
-    void onTouchesBegan(const std::vector<Touch*>& touches, Event *event);
+    void onTouchesBegan(const std::vector<Touch*>& touches, Event *event) override;
 
 private:
     gaf::GAFObject* m_gafObject;

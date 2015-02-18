@@ -146,6 +146,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\FlipTest\FlipTest.cpp" />
     <ClCompile Include="..\Classes\FramePlaybackTest\FramePlaybackTest.cpp" />
     <ClCompile Include="..\Classes\MaskTimelineTest\MaskTimelineTest.cpp" />
+    <ClCompile Include="..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp" />
     <ClCompile Include="..\Classes\testBasic.cpp" />
     <ClCompile Include="..\Classes\VisibleRect.cpp" />
     <ClCompile Include="main.cpp" />
@@ -158,6 +159,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\FlipTest\FlipTest.h" />
     <ClInclude Include="..\Classes\FramePlaybackTest\FramePlaybackTest.h" />
     <ClInclude Include="..\Classes\MaskTimelineTest\MaskTimelineTest.h" />
+    <ClInclude Include="..\Classes\MultipleTimelineTest\MultipleTimelineTest.h" />
     <ClInclude Include="..\Classes\testBasic.h" />
     <ClInclude Include="..\Classes\testResource.h" />
     <ClInclude Include="..\Classes\tests.h" />
@@ -180,6 +182,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ProjectReference Include="..\..\Library\GAFPlayer.vcxproj">
       <Project>{4e240210-2d26-4d4c-9329-e912fdac94cc}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

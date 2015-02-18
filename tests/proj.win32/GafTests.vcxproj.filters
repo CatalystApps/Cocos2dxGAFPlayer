@@ -22,6 +22,9 @@
     <Filter Include="src\FiltersTest">
       <UniqueIdentifier>{618400b2-6898-4892-a7e0-d836e61ce597}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\MultipleTimelineTest">
+      <UniqueIdentifier>{cbb935c9-9a20-4bc9-9644-3ccd396ccdd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\FiltersTest\FiltersTest.cpp">
       <Filter>src\FiltersTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp">
+      <Filter>src\MultipleTimelineTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\FiltersTest\FiltersTest.h">
       <Filter>src\FiltersTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MultipleTimelineTest\MultipleTimelineTest.h">
+      <Filter>src\MultipleTimelineTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

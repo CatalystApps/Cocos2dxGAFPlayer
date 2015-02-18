@@ -4,3 +4,4 @@
 #include "FramePlaybackTest/FramePlaybackTest.h"
 #include "MaskTimelineTest/MaskTimelineTest.h"
 #include "FiltersTest/FiltersTest.h"
+#include "MultipleTimelineTest/MultipleTimelineTest.h"

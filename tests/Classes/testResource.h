@@ -18,5 +18,6 @@ static const char s_gafMaskSample[] = "gaf/mask_test/mask_sample.gaf";
 static const char s_gafFiltersSample[] = "gaf/filters_test/filters.gaf";
 static const char s_gafFiltersAlpha[] = "gaf/filters_test/filters_alpha.gaf";
 static const char s_gafFiltersTint[] = "gaf/filters_test/filters_tint.gaf";
+static const char s_gafMultipleTimelines[] = "gaf/timelines_test/multiple_timelines.gaf";
 
 #endif
