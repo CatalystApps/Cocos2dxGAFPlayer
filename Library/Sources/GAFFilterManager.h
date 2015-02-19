@@ -22,6 +22,8 @@ public:
     cocos2d::Texture2D* applyFilter(cocos2d::Sprite*, GAFFilterData*);
 
     void update(float dt);
+
+    static void setCacheSize(size_t newSize);
     
 private:
     GAFFilterManager() {}

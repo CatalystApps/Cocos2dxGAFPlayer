@@ -22,6 +22,11 @@ GAFFilterManager::Cache_t GAFFilterManager::s_cache;
 GAFFilterManager* GAFFilterManager::s_instance = nullptr;
 size_t GAFFilterManager::s_maxCacheSize = 1024 * 1024 * 4;
 
+/*static*/ void GAFFilterManager::setCacheSize(size_t newSize)
+{
+    s_maxCacheSize = newSize;
+}
+
 bool GAFFilterManager::init()
 {
     //Director::getInstance()->getScheduler()->scheduleUpdate(this, 0, false);
