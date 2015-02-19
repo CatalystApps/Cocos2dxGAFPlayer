@@ -116,6 +116,7 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     GAFLoader* loader = new GAFLoader();
 
     m_gafFileName = zipFilePath;
+    m_gafFileName.append(entryFile);
     std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(zipFilePath);
 
     cocos2d::ZipFile bundle(fullfilePath);
