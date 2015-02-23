@@ -188,6 +188,7 @@
 -- @function [parent=#GAFObject] setReversed 
 -- @param self
 -- @param #bool reversed
+-- @param #bool fromCurrentFrame
         
 --------------------------------
 -- 

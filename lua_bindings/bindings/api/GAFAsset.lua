@@ -30,6 +30,12 @@
         
 --------------------------------
 -- 
+-- @function [parent=#GAFAsset] getGAFFileName 
+-- @param self
+-- @return string#string ret (return value: string)
+        
+--------------------------------
+-- 
 -- @function [parent=#GAFAsset] createObjectAndRun 
 -- @param self
 -- @param #bool looped
