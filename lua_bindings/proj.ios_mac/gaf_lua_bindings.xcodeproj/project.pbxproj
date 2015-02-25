@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B6E0DD3D1A9CC9FA00B95002 /* lua_gaf_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E0DD391A9CC9FA00B95002 /* lua_gaf_main.cpp */; };
+		B6E0DD3E1A9CC9FA00B95002 /* lua_gaf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E0DD3B1A9CC9FA00B95002 /* lua_gaf.cpp */; };
+		B6E0DD961A9DDA0800B95002 /* lua_gaf_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E0DD391A9CC9FA00B95002 /* lua_gaf_main.cpp */; };
+		B6E0DD971A9DDA0B00B95002 /* lua_gaf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E0DD3B1A9CC9FA00B95002 /* lua_gaf.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B6E0DD1F1A9CC9D800B95002 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B6E0DD211A9CC9D800B95002 /* libgaf_lua_bindings iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgaf_lua_bindings iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6E0DD391A9CC9FA00B95002 /* lua_gaf_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lua_gaf_main.cpp; path = ../bindings/lua_gaf_main.cpp; sourceTree = "<group>"; };
+		B6E0DD3A1A9CC9FA00B95002 /* lua_gaf_main.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lua_gaf_main.hpp; path = ../bindings/lua_gaf_main.hpp; sourceTree = "<group>"; };
+		B6E0DD3B1A9CC9FA00B95002 /* lua_gaf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lua_gaf.cpp; path = ../bindings/lua_gaf.cpp; sourceTree = "<group>"; };
+		B6E0DD3C1A9CC9FA00B95002 /* lua_gaf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lua_gaf.hpp; path = ../bindings/lua_gaf.hpp; sourceTree = "<group>"; };
+		B6E0DD7F1A9DD9E300B95002 /* libgaf_lua_bindings Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgaf_lua_bindings Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B6E0DD1E1A9CC9D800B95002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E0DD7C1A9DD9E300B95002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B6E0DD131A9CC9AA00B95002 = {
+			isa = PBXGroup;
+			children = (
+				B6E0DD391A9CC9FA00B95002 /* lua_gaf_main.cpp */,
+				B6E0DD3A1A9CC9FA00B95002 /* lua_gaf_main.hpp */,
+				B6E0DD3B1A9CC9FA00B95002 /* lua_gaf.cpp */,
+				B6E0DD3C1A9CC9FA00B95002 /* lua_gaf.hpp */,
+				B6E0DD221A9CC9D800B95002 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B6E0DD221A9CC9D800B95002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B6E0DD211A9CC9D800B95002 /* libgaf_lua_bindings iOS.a */,
+				B6E0DD7F1A9DD9E300B95002 /* libgaf_lua_bindings Mac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B6E0DD7D1A9DD9E300B95002 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		B6E0DD201A9CC9D800B95002 /* gaf_lua_bindings iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6E0DD331A9CC9D800B95002 /* Build configuration list for PBXNativeTarget "gaf_lua_bindings iOS" */;
+			buildPhases = (
+				B6E0DD1D1A9CC9D800B95002 /* Sources */,
+				B6E0DD1E1A9CC9D800B95002 /* Frameworks */,
+				B6E0DD1F1A9CC9D800B95002 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "gaf_lua_bindings iOS";
+			productName = "gaf_lua_bindings iOS";
+			productReference = B6E0DD211A9CC9D800B95002 /* libgaf_lua_bindings iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B6E0DD7E1A9DD9E300B95002 /* gaf_lua_bindings Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6E0DD901A9DD9E400B95002 /* Build configuration list for PBXNativeTarget "gaf_lua_bindings Mac" */;
+			buildPhases = (
+				B6E0DD7B1A9DD9E300B95002 /* Sources */,
+				B6E0DD7C1A9DD9E300B95002 /* Frameworks */,
+				B6E0DD7D1A9DD9E300B95002 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "gaf_lua_bindings Mac";
+			productName = "gaf_lua_bindings Mac";
+			productReference = B6E0DD7F1A9DD9E300B95002 /* libgaf_lua_bindings Mac.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B6E0DD141A9CC9AA00B95002 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				TargetAttributes = {
+					B6E0DD201A9CC9D800B95002 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					B6E0DD7E1A9DD9E300B95002 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = B6E0DD171A9CC9AA00B95002 /* Build configuration list for PBXProject "gaf_lua_bindings" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B6E0DD131A9CC9AA00B95002;
+			productRefGroup = B6E0DD221A9CC9D800B95002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B6E0DD201A9CC9D800B95002 /* gaf_lua_bindings iOS */,
+				B6E0DD7E1A9DD9E300B95002 /* gaf_lua_bindings Mac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B6E0DD1D1A9CC9D800B95002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6E0DD3D1A9CC9FA00B95002 /* lua_gaf_main.cpp in Sources */,
+				B6E0DD3E1A9CC9FA00B95002 /* lua_gaf.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E0DD7B1A9DD9E300B95002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6E0DD961A9DDA0800B95002 /* lua_gaf_main.cpp in Sources */,
+				B6E0DD971A9DDA0B00B95002 /* lua_gaf.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B6E0DD181A9CC9AA00B95002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		B6E0DD191A9CC9AA00B95002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		B6E0DD341A9CC9D800B95002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../";
+				CCX_ROOT2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CC_TARGET_OS_IPHONE,
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"\"$(CCX_ROOT)/cocos\"",
+					"\"$(CCX_ROOT2)/cocos\"",
+					"\"$(CCX_ROOT)/external/lua/tolua\"",
+					"\"$(CCX_ROOT2)/external/lua/tolua\"",
+					"\"$(CCX_ROOT)/external/lua/lua\"",
+					"\"$(CCX_ROOT2)/external/lua/lua\"",
+					"\"$(CCX_ROOT)/cocos/scripting/lua-bindings/manual\"",
+					"\"$(CCX_ROOT2)/cocos/scripting/lua-bindings/manual\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B6E0DD351A9CC9D800B95002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../";
+				CCX_ROOT2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = CC_TARGET_OS_IPHONE;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"\"$(CCX_ROOT)/cocos\"",
+					"\"$(CCX_ROOT2)/cocos\"",
+					"\"$(CCX_ROOT)/external/lua/tolua\"",
+					"\"$(CCX_ROOT2)/external/lua/tolua\"",
+					"\"$(CCX_ROOT)/external/lua/lua\"",
+					"\"$(CCX_ROOT2)/external/lua/lua\"",
+					"\"$(CCX_ROOT)/cocos/scripting/lua-bindings/manual\"",
+					"\"$(CCX_ROOT2)/cocos/scripting/lua-bindings/manual\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B6E0DD911A9DD9E400B95002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../";
+				CCX_ROOT2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"\"$(CCX_ROOT)/cocos\"",
+					"\"$(CCX_ROOT2)/cocos\"",
+					"\"$(CCX_ROOT)/external/lua/tolua\"",
+					"\"$(CCX_ROOT2)/external/lua/tolua\"",
+					"\"$(CCX_ROOT)/external/lua/lua\"",
+					"\"$(CCX_ROOT2)/external/lua/lua\"",
+					"\"$(CCX_ROOT)/cocos/scripting/lua-bindings/manual\"",
+					"\"$(CCX_ROOT2)/cocos/scripting/lua-bindings/manual\"",
+					"\"$(CCX_ROOT)/external/glfw3/include/mac\"",
+					"\"$(CCX_ROOT2)/external/glfw3/include/mac\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B6E0DD921A9DD9E400B95002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../";
+				CCX_ROOT2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"\"$(CCX_ROOT)/cocos\"",
+					"\"$(CCX_ROOT2)/cocos\"",
+					"\"$(CCX_ROOT)/external/lua/tolua\"",
+					"\"$(CCX_ROOT2)/external/lua/tolua\"",
+					"\"$(CCX_ROOT)/external/lua/lua\"",
+					"\"$(CCX_ROOT2)/external/lua/lua\"",
+					"\"$(CCX_ROOT)/cocos/scripting/lua-bindings/manual\"",
+					"\"$(CCX_ROOT2)/cocos/scripting/lua-bindings/manual\"",
+					"\"$(CCX_ROOT)/external/glfw3/include/mac\"",
+					"\"$(CCX_ROOT2)/external/glfw3/include/mac\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B6E0DD171A9CC9AA00B95002 /* Build configuration list for PBXProject "gaf_lua_bindings" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E0DD181A9CC9AA00B95002 /* Debug */,
+				B6E0DD191A9CC9AA00B95002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6E0DD331A9CC9D800B95002 /* Build configuration list for PBXNativeTarget "gaf_lua_bindings iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E0DD341A9CC9D800B95002 /* Debug */,
+				B6E0DD351A9CC9D800B95002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6E0DD901A9DD9E400B95002 /* Build configuration list for PBXNativeTarget "gaf_lua_bindings Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E0DD911A9DD9E400B95002 /* Debug */,
+				B6E0DD921A9DD9E400B95002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B6E0DD141A9CC9AA00B95002 /* Project object */;
+}
