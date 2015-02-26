@@ -25,7 +25,7 @@ public:
 
         float m_letterSpacing; // !! unused
 
-        cocos2d::Color4B m_color;
+        cocos2d::Color4F m_color;
 
         uint32_t m_blockIndent; // !! unused
         uint32_t m_indent; // !! unused

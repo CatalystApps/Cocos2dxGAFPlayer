@@ -46,7 +46,8 @@ void TagDefineTextField::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timel
             format.m_isBold = in->readUByte() ? true : false;
             format.m_isBullet = in->readUByte() ? true : false;
 
-            PrimitiveDeserializer::deserialize(in, &format.m_color);
+            unsigned int clr = in->readU32();
+            PrimitiveDeserializer::translateColor(format.m_color, clr);
 
             in->readString(&format.m_font);
             format.m_indent = in->readU32();

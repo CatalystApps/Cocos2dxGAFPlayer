@@ -23,6 +23,8 @@ void GAFTextField::initWithTextData(GAFTextData const* data)
     m_label->setColor(cocos2d::Color3B(data->m_textFormat.m_color));
     m_label->setHorizontalAlignment(data->m_textFormat.getTextAlignForCocos());
 
+    cocos2d::Point anchor = cocos2d::Point(data->m_pivot.x / data->m_width, 1 - data->m_pivot.y / data->m_height);
+    m_label->setAnchorPoint(anchor);
 
     addChild(m_label);
 }
