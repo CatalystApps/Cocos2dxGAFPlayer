@@ -116,7 +116,7 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     GAFLoader* loader = new GAFLoader();
 
     m_gafFileName = zipFilePath;
-    m_gafFileName.append(entryFile);
+    m_gafFileName.append("/" + entryFile);
     std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(zipFilePath);
 
     cocos2d::ZipFile bundle(fullfilePath);
@@ -131,7 +131,7 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     }
     if (isLoaded)
     {
-        loadTextures(fullfilePath, delegate);
+        loadTextures(entryFile, delegate, &bundle);
     }
 
     delete loader;
@@ -163,7 +163,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     return isLoaded;
 }
 
-void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate)
+void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle /*= nullptr*/)
 {
     for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; i++)
     {
@@ -177,7 +177,7 @@ void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_
     }
 
     m_textureLoadDelegate = delegate;
-    m_textureManager->loadImages(filePath, m_textureLoadDelegate);
+    m_textureManager->loadImages(filePath, m_textureLoadDelegate, bundle);
 }
 
 /*GAFTextureAtlas* GAFAsset::getTextureAtlas()

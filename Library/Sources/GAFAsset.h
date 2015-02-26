@@ -23,7 +23,7 @@ private:
 
     void setRootTimeline(GAFTimeline* tl);
 
-    void loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate);
+    void loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle = nullptr);
     GAFTextureLoadDelegate_t m_textureLoadDelegate;
 	GAFAssetTextureManager*	m_textureManager;
 
