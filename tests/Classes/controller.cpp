@@ -33,6 +33,7 @@ Controller g_aTestNames[] = {
     //     violators will be prosecuted
     //
     { "Filters", []() { return new FiltersTestScene(); } },
+    { "General: Bundles", []() { return new BundlesTestScene(); } },
     { "General: Flip", []() { return new FlipTestScene(); } },
     { "General: Multiple timelines", []() { return new MultipleTimelineTestScene(); } },
     { "General: Playback", []() { return new FramePlaybackTestScene(); } },

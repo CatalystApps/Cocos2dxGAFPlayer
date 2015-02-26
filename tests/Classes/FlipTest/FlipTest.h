@@ -45,6 +45,16 @@ public:
     virtual gaf::GAFObject* gaf_object() override;
 };
 
+class ScaleFlipTest : public BaseFlipTest
+{
+public:
+    CREATE_FUNC(ScaleFlipTest);
+
+    virtual std::string subtitle() const override;
+
+    virtual gaf::GAFObject* gaf_object() override;
+};
+
 ////////////////////////////////////////////
 class FlipTestScene : public TestScene
 {

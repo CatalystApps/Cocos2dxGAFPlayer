@@ -4,6 +4,7 @@
 static std::function<Layer*()> createFunctions[] = {
     CL(DefaultCsfFlipTest),
     CL(Csf2FlipTest),
+    CL(ScaleFlipTest),
 };
 
 static int sceneIdx = -1;
@@ -105,6 +106,22 @@ gaf::GAFObject* Csf2FlipTest::gaf_object()
     auto object = asset->createObjectAndRun(true);
     object->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     object->setPosition(Director::getInstance()->getVisibleSize() / 2);
+
+    return object;
+}
+
+std::string ScaleFlipTest::subtitle() const
+{
+    return "Scale = 0.75";
+}
+
+gaf::GAFObject* ScaleFlipTest::gaf_object()
+{
+    auto asset = gaf::GAFAsset::create(s_gafStandart1);
+    auto object = asset->createObjectAndRun(true);
+    object->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    object->setPosition(Director::getInstance()->getVisibleSize() / 2);
+    object->setScale(0.75);
 
     return object;
 }

@@ -25,6 +25,9 @@
     <Filter Include="src\MultipleTimelineTest">
       <UniqueIdentifier>{cbb935c9-9a20-4bc9-9644-3ccd396ccdd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\BundlesTest">
+      <UniqueIdentifier>{1a0581a9-fa95-4187-9c14-8fed9cedd2bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp">
       <Filter>src\MultipleTimelineTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BundlesTest\BundlesTest.cpp">
+      <Filter>src\BundlesTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MultipleTimelineTest\MultipleTimelineTest.h">
       <Filter>src\MultipleTimelineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BundlesTest\BundlesTest.h">
+      <Filter>src\BundlesTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

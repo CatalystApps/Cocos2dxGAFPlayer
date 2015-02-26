@@ -5,3 +5,4 @@
 #include "MaskTimelineTest/MaskTimelineTest.h"
 #include "FiltersTest/FiltersTest.h"
 #include "MultipleTimelineTest/MultipleTimelineTest.h"
+#include "BundlesTest/BundlesTest.h"
