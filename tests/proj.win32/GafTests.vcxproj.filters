@@ -28,6 +28,9 @@
     <Filter Include="src\BundlesTest">
       <UniqueIdentifier>{1a0581a9-fa95-4187-9c14-8fed9cedd2bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\UITest">
+      <UniqueIdentifier>{b484ca76-465b-4a3f-b8f5-8a531a1236b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\BundlesTest\BundlesTest.cpp">
       <Filter>src\BundlesTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UITest\UITest.cpp">
+      <Filter>src\UITest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BundlesTest\BundlesTest.h">
       <Filter>src\BundlesTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UITest\UITest.h">
+      <Filter>src\UITest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

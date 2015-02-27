@@ -149,6 +149,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MaskTimelineTest\MaskTimelineTest.cpp" />
     <ClCompile Include="..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp" />
     <ClCompile Include="..\Classes\testBasic.cpp" />
+    <ClCompile Include="..\Classes\UITest\UITest.cpp" />
     <ClCompile Include="..\Classes\VisibleRect.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -165,6 +166,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\testBasic.h" />
     <ClInclude Include="..\Classes\testResource.h" />
     <ClInclude Include="..\Classes\tests.h" />
+    <ClInclude Include="..\Classes\UITest\UITest.h" />
     <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
