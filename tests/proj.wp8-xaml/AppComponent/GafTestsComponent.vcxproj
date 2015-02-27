@@ -178,12 +178,15 @@
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\..\Classes\BaseTest.cpp" />
+    <ClCompile Include="..\..\Classes\BundlesTest\BundlesTest.cpp" />
     <ClCompile Include="..\..\Classes\controller.cpp" />
     <ClCompile Include="..\..\Classes\FiltersTest\FiltersTest.cpp" />
     <ClCompile Include="..\..\Classes\FlipTest\FlipTest.cpp" />
     <ClCompile Include="..\..\Classes\FramePlaybackTest\FramePlaybackTest.cpp" />
     <ClCompile Include="..\..\Classes\MaskTimelineTest\MaskTimelineTest.cpp" />
+    <ClCompile Include="..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp" />
     <ClCompile Include="..\..\Classes\testBasic.cpp" />
+    <ClCompile Include="..\..\Classes\UITest\UITest.cpp" />
     <ClCompile Include="..\..\Classes\VisibleRect.cpp" />
     <ClCompile Include="src\Cocos2dRenderer.cpp" />
     <ClCompile Include="src\Direct3DContentProvider.cpp" />
@@ -200,14 +203,17 @@
   <ItemGroup>
     <ClInclude Include="..\..\Classes\AppDelegate.h" />
     <ClInclude Include="..\..\Classes\BaseTest.h" />
+    <ClInclude Include="..\..\Classes\BundlesTest\BundlesTest.h" />
     <ClInclude Include="..\..\Classes\controller.h" />
     <ClInclude Include="..\..\Classes\FiltersTest\FiltersTest.h" />
     <ClInclude Include="..\..\Classes\FlipTest\FlipTest.h" />
     <ClInclude Include="..\..\Classes\FramePlaybackTest\FramePlaybackTest.h" />
     <ClInclude Include="..\..\Classes\MaskTimelineTest\MaskTimelineTest.h" />
+    <ClInclude Include="..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.h" />
     <ClInclude Include="..\..\Classes\testBasic.h" />
     <ClInclude Include="..\..\Classes\testResource.h" />
     <ClInclude Include="..\..\Classes\tests.h" />
+    <ClInclude Include="..\..\Classes\UITest\UITest.h" />
     <ClInclude Include="..\..\Classes\VisibleRect.h" />
     <ClInclude Include="src\Cocos2dRenderer.h" />
     <ClInclude Include="src\Direct3DContentProvider.h" />

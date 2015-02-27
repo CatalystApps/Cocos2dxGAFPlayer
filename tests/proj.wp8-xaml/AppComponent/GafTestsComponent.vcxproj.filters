@@ -46,6 +46,15 @@
     <ClCompile Include="..\..\Classes\MaskTimelineTest\MaskTimelineTest.cpp">
       <Filter>Classes\MaskTimelineTest</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Classes\UITest\UITest.cpp">
+      <Filter>Classes\UITest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp">
+      <Filter>Classes\MultipleTimelineTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\BundlesTest\BundlesTest.cpp">
+      <Filter>Classes\BundlesTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Cocos2dRenderer.h">
@@ -102,6 +111,15 @@
     <ClInclude Include="..\..\Classes\MaskTimelineTest\MaskTimelineTest.h">
       <Filter>Classes\MaskTimelineTest</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\UITest\UITest.h">
+      <Filter>Classes\UITest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.h">
+      <Filter>Classes\MultipleTimelineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\BundlesTest\BundlesTest.h">
+      <Filter>Classes\BundlesTest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -121,6 +139,15 @@
     </Filter>
     <Filter Include="Classes\MaskTimelineTest">
       <UniqueIdentifier>{6086b7fa-e723-4e76-bbe7-084f2e8219dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\BundlesTest">
+      <UniqueIdentifier>{bd058d10-9459-4fb2-bfe3-79204b08856b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\MultipleTimelineTest">
+      <UniqueIdentifier>{34600950-a9f2-4af3-b188-1f09fcaf4364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\UITest">
+      <UniqueIdentifier>{6f796e27-dae5-46e0-94f4-bf9f78e40fbe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

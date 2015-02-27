@@ -35,6 +35,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\FlipTest\FlipTest.cpp">
       <Filter>Classes\FlipTest</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BundlesTest\BundlesTest.cpp">
+      <Filter>Classes\BundlesTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp">
+      <Filter>Classes\MultipleTimelineTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\UITest.cpp">
+      <Filter>Classes\UITest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -54,6 +63,15 @@
     </Filter>
     <Filter Include="Classes\FiltersTest">
       <UniqueIdentifier>{1b09993f-af68-4482-9939-a5049a1f49ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\UITest">
+      <UniqueIdentifier>{66716162-b6d9-4e66-b3d9-3273a288587f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\MultipleTimelineTest">
+      <UniqueIdentifier>{7e1af457-83d3-48ea-9842-2ea1b7794bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\BundlesTest">
+      <UniqueIdentifier>{a31258a0-e749-45fe-b71b-c50b855afa93}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +112,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\FlipTest\FlipTest.h">
       <Filter>Classes\FlipTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BundlesTest\BundlesTest.h">
+      <Filter>Classes\BundlesTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.h">
+      <Filter>Classes\MultipleTimelineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\UITest.h">
+      <Filter>Classes\UITest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
