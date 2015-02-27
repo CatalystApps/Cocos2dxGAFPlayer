@@ -175,6 +175,8 @@ public:
 
     cocos2d::Rect getBoundingBoxForCurrentFrame();
 
+    const AnimationSequences_t& getSequences() const;
+
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
 
     //////////////////////////////////////////////////////////////////////////
