@@ -66,7 +66,7 @@ gaf::GAFObject* MultipleTimelineTest::gaf_object()
         asset->setRootTimeline("timeline2");
         break;
     case SCENE_COUNT:
-        assert(false, "Wrong scene switch logic");
+        CCASSERT(false, "Wrong scene switch logic");
         break;
     case SCENE_DEFAULT:
     default:

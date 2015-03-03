@@ -18,12 +18,15 @@
     </ApplicationDefinition>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\AppDelegate.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseTest.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BundlesTest\BundlesTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\controller.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\FiltersTest\FiltersTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\FlipTest\FlipTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\FramePlaybackTest\FramePlaybackTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\MaskTimelineTest\MaskTimelineTest.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\testBasic.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\UITest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\VisibleRect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)App.xaml.cpp">
       <DependentUpon>$(MSBuildThisFileDirectory)App.xaml</DependentUpon>
@@ -36,14 +39,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\AppDelegate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\AppMacros.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseTest.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BundlesTest\BundlesTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\controller.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\FiltersTest\FiltersTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\FlipTest\FlipTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\FramePlaybackTest\FramePlaybackTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\MaskTimelineTest\MaskTimelineTest.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\MultipleTimelineTest\MultipleTimelineTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\testBasic.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\testResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\tests.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\UITest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\VisibleRect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)App.xaml.h">
       <DependentUpon>$(MSBuildThisFileDirectory)App.xaml</DependentUpon>
