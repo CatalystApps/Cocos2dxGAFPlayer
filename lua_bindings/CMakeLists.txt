@@ -42,16 +42,16 @@ include_directories(
   /System/Library/Frameworks/
   ${GAF_PLATFORM_INCLUDE_DIR}
   ${GAF_ROOT}/Sources
-  ${COCOS_ROOT}/../external/lua/tolua
-  ${COCOS_ROOT}/../external/lua/lua
-  ${COCOS_ROOT}/scripting/lua-bindings/manual
   ${COCOS_ROOT}
   ${COCOS_ROOT}/2d
+  ${COCOS_ROOT}/base
+  ${COCOS_ROOT}/math
+  ${COCOS_ROOT}/scripting/lua-bindings/manual
   ${COCOS_ROOT}/platform/${PLATFORM_FOLDER}
   ${COCOS_ROOT}/../external/${PLATFORM_FOLDER}-specific/zlib/include
   ${COCOS_ROOT}/../external/glfw3/include/${PLATFORM_FOLDER}
-  ${COCOS_ROOT}/base
-  ${COCOS_ROOT}/math
+  ${COCOS_ROOT}/../external/lua/tolua
+  ${COCOS_ROOT}/../external/lua/lua
 )
 
 file(GLOB_RECURSE gaf_binding_files
@@ -60,7 +60,7 @@ file(GLOB_RECURSE gaf_source_files
   "${GAF_ROOT}/Sources/*.cpp")
 
 add_library(gafluabindings ${gaf_binding_files} ${gaf_source_files})
-#target_link_libraries(gafluabindings LINK_INTERFACE_LIBRARIES gafplayer)
+
 #install .a file
 INSTALL(
   TARGETS gafluabindings
@@ -68,10 +68,3 @@ INSTALL(
   LIBRARY DESTINATION lib
   COMPONENT library
 )
-
-#target_link_libraries(gafluabindings gafplayer)
-#set_target_properties(gafluabindings
-#    PROPERTIES
-#    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-#    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-#)
