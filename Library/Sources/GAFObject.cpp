@@ -18,6 +18,8 @@
 
 NS_GAF_BEGIN
 
+static const AnimationSequences_t s_emptySequences = AnimationSequences_t();
+
 cocos2d::AffineTransform GAFObject::GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform)
 {
     cocos2d::AffineTransform transform = aTransform;
@@ -631,6 +633,13 @@ uint32_t GAFObject::nextFrame()
 bool GAFObject::hasSequences() const
 {
     return !m_timeline->getAnimationSequences().empty();
+}
+
+const AnimationSequences_t& GAFObject::getSequences() const
+{
+    if (m_timeline)
+        return m_timeline->getAnimationSequences();
+    return s_emptySequences;
 }
 
 static cocos2d::Rect GAFCCRectUnion(const cocos2d::Rect& src1, const cocos2d::Rect& src2)
