@@ -14,7 +14,7 @@ public:
 
     TagDefineTimeline(GAFLoader*);
 
-    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
+    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*) override;
 
 };
 

@@ -26,10 +26,10 @@ class GAFSprite : public cocos2d::Sprite
 public:
     GAFSprite();
 
-    virtual bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame);
-    bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
+    virtual bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame) override;
+    virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated) override;
 
-    void setTexture(cocos2d::Texture2D *texture);
+    void setTexture(cocos2d::Texture2D *texture) override;
     void setExternalTransform(const cocos2d::AffineTransform& transform);
     const cocos2d::AffineTransform& getExternalTransform() const;
 

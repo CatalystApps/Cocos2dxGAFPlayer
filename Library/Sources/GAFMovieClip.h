@@ -35,7 +35,7 @@ public:
     GAFMovieClip();
     virtual ~GAFMovieClip();
 
-    virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated);
+    virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated) override;
 
     void setColorTransform(const GLfloat * mults, const GLfloat * offsets);
     void setColorTransform(const GLfloat * colorTransform);

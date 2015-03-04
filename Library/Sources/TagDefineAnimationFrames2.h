@@ -17,7 +17,7 @@ public:
 	
     ~TagDefineAnimationFrames2();
     
-    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
+    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*) override;
 
 };
 

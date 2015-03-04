@@ -8,7 +8,7 @@ class TagDefineAtlas : public DefinitionTagBase
 {
 public:
 
-    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*);
+    virtual void read(GAFStream*, GAFAsset*, GAFTimeline*) override;
 };
 
 NS_GAF_END

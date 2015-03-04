@@ -30,7 +30,7 @@ public:
     cocos2d::Size blurSize;
     GAFBlurFilterData();
 
-    virtual void apply(GAFMovieClip*);
+    virtual void apply(GAFMovieClip*) override;
 };
 
 class GAFColorColorMatrixFilterData : public GAFFilterData
@@ -40,7 +40,7 @@ public:
     float matrix2[4];
     GAFColorColorMatrixFilterData();
 
-    virtual void apply(GAFMovieClip*);
+    virtual void apply(GAFMovieClip*) override;
 };
 
 class GAFGlowFilterData : public GAFFilterData
@@ -53,7 +53,7 @@ public:
     bool        knockout;
 
     GAFGlowFilterData();
-    virtual void apply(GAFMovieClip*);
+    virtual void apply(GAFMovieClip*) override;
 };
 
 class GAFDropShadowFilterData : public GAFFilterData
@@ -68,7 +68,7 @@ public:
     bool            knockout;
 
     GAFDropShadowFilterData();
-    virtual void apply(GAFMovieClip*);
+    virtual void apply(GAFMovieClip*) override;
 
     static void reset(GAFMovieClip*);
 };

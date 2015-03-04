@@ -65,9 +65,6 @@ protected:
     void    processAnimations(float dt);
 
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
-    
-    void    instantiateAnimatedObjects(const AnimationObjects_t &objs, int max);
-    void    instantiateMasks(const AnimationMasks_t& masks);
 
     GAFObject*   encloseNewTimeline(uint32_t reference);
 
