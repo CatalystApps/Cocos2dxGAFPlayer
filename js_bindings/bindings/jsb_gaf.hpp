@@ -10,8 +10,8 @@ extern JSObject *jsb_gaf_GAFAsset_prototype;
 
 bool js_gaf_GAFAsset_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_gaf_GAFAsset_finalize(JSContext *cx, JSObject *obj);
-void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global);
-void register_all_gaf(JSContext* cx, JSObject* obj);
+void js_register_gaf_GAFAsset(JSContext *cx, JS::HandleObject global);
+void register_all_gaf(JSContext* cx, JS::HandleObject obj);
 bool js_gaf_GAFAsset_getSceneHeight(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_setRootTimeline(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFAsset_setSceneHeight(JSContext *cx, uint32_t argc, jsval *vp);
@@ -34,16 +34,16 @@ extern JSObject *jsb_gaf_GAFSprite_prototype;
 
 bool js_gaf_GAFSprite_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_gaf_GAFSprite_finalize(JSContext *cx, JSObject *obj);
-void js_register_gaf_GAFSprite(JSContext *cx, JSObject *global);
-void register_all_gaf(JSContext* cx, JSObject* obj);
+void js_register_gaf_GAFSprite(JSContext *cx, JS::HandleObject global);
+void register_all_gaf(JSContext* cx, JS::HandleObject obj);
 
 extern JSClass  *jsb_gaf_GAFObject_class;
 extern JSObject *jsb_gaf_GAFObject_prototype;
 
 bool js_gaf_GAFObject_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_gaf_GAFObject_finalize(JSContext *cx, JSObject *obj);
-void js_register_gaf_GAFObject(JSContext *cx, JSObject *global);
-void register_all_gaf(JSContext* cx, JSObject* obj);
+void js_register_gaf_GAFObject(JSContext *cx, JS::HandleObject global);
+void register_all_gaf(JSContext* cx, JS::HandleObject obj);
 bool js_gaf_GAFObject_setAnimationStartedNextLoopDelegate(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_setAnimationFinishedPlayDelegate(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_gaf_GAFObject_getBoundingBoxForCurrentFrame(JSContext *cx, uint32_t argc, jsval *vp);

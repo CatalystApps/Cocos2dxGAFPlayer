@@ -4,10 +4,11 @@
 
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     JS::RootedValue initializing(cx);
     bool isNewValid = true;
-    JSObject* global = ScriptingCore::getInstance()->getGlobalObject();
-    isNewValid = JS_GetProperty(cx, global, "initializing", &initializing) && JSVAL_TO_BOOLEAN(initializing);
+    JS::RootedObject global(cx, ScriptingCore::getInstance()->getGlobalObject());
+    isNewValid = JS_GetProperty(cx, global, "initializing", &initializing) && initializing.toBoolean();
     if (isNewValid)
     {
         TypeTest<T> t;
@@ -18,8 +19,11 @@ static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
         typeClass = typeMapIter->second;
         CCASSERT(typeClass, "The value is null.");
 
-        JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-        JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
+        JS::RootedObject proto(cx, typeClass->proto.get());
+        JS::RootedObject parent(cx, typeClass->parentProto.get());
+        JS::RootedObject _tmp(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
+        
+        args.rval().set(OBJECT_TO_JSVAL(_tmp));
         return true;
     }
 
@@ -31,9 +35,10 @@ static bool empty_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
     return false;
 }
 
-static bool js_is_native_obj(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS::MutableHandleValue vp)
+static bool js_is_native_obj(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    vp.set(BOOLEAN_TO_JSVAL(true));
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    args.rval().setBoolean(true);
     return true;    
 }
 JSClass  *jsb_gaf_GAFAsset_class;
@@ -41,7 +46,8 @@ JSObject *jsb_gaf_GAFAsset_prototype;
 
 bool js_gaf_GAFAsset_getSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getSceneHeight : Invalid Native Object");
@@ -49,7 +55,7 @@ bool js_gaf_GAFAsset_getSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
         const unsigned int ret = cobj->getSceneHeight();
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -58,24 +64,24 @@ bool js_gaf_GAFAsset_getSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_setRootTimeline(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
 
-    JSObject *obj = NULL;
+    JS::RootedObject obj(cx);
     gaf::GAFAsset* cobj = NULL;
-    obj = JS_THIS_OBJECT(cx, vp);
+    obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setRootTimeline : Invalid Native Object");
     do {
         if (argc == 1) {
             unsigned int arg0;
-            ok &= jsval_to_uint32(cx, argv[0], &arg0);
+            ok &= jsval_to_uint32(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             bool ret = cobj->setRootTimeline(arg0);
             jsval jsret = JSVAL_NULL;
             jsret = BOOLEAN_TO_JSVAL(ret);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -83,12 +89,12 @@ bool js_gaf_GAFAsset_setRootTimeline(JSContext *cx, uint32_t argc, jsval *vp)
     do {
         if (argc == 1) {
             std::string arg0;
-            ok &= jsval_to_std_string(cx, argv[0], &arg0);
+            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             bool ret = cobj->setRootTimeline(arg0);
             jsval jsret = JSVAL_NULL;
             jsret = BOOLEAN_TO_JSVAL(ret);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -98,18 +104,18 @@ bool js_gaf_GAFAsset_setRootTimeline(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_setSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setSceneHeight : Invalid Native Object");
     if (argc == 1) {
         unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
+        ok &= jsval_to_uint32(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setSceneHeight : Error processing arguments");
         cobj->setSceneHeight(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -118,7 +124,8 @@ bool js_gaf_GAFAsset_setSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_getSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getSceneColor : Invalid Native Object");
@@ -126,7 +133,7 @@ bool js_gaf_GAFAsset_getSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
         const cocos2d::Color4B& ret = cobj->getSceneColor();
         jsval jsret = JSVAL_NULL;
         jsret = cccolor4b_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -135,18 +142,18 @@ bool js_gaf_GAFAsset_getSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_setSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setSceneColor : Invalid Native Object");
     if (argc == 1) {
         cocos2d::Color4B arg0;
-        ok &= jsval_to_cccolor4b(cx, argv[0], &arg0);
+        ok &= jsval_to_cccolor4b(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setSceneColor : Error processing arguments");
         cobj->setSceneColor(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -155,7 +162,8 @@ bool js_gaf_GAFAsset_setSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_getGAFFileName(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getGAFFileName : Invalid Native Object");
@@ -163,7 +171,7 @@ bool js_gaf_GAFAsset_getGAFFileName(JSContext *cx, uint32_t argc, jsval *vp)
         const std::string& ret = cobj->getGAFFileName();
         jsval jsret = JSVAL_NULL;
         jsret = std_string_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -172,15 +180,15 @@ bool js_gaf_GAFAsset_getGAFFileName(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_createObjectAndRun(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_createObjectAndRun : Invalid Native Object");
     if (argc == 1) {
         bool arg0;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        arg0 = JS::ToBoolean(args.get(0));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_createObjectAndRun : Error processing arguments");
         gaf::GAFObject* ret = cobj->createObjectAndRun(arg0);
         jsval jsret = JSVAL_NULL;
@@ -192,7 +200,7 @@ bool js_gaf_GAFAsset_createObjectAndRun(JSContext *cx, uint32_t argc, jsval *vp)
                 jsret = JSVAL_NULL;
             }
         } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -201,18 +209,18 @@ bool js_gaf_GAFAsset_createObjectAndRun(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_setDesiredAtlasScale(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setDesiredAtlasScale : Invalid Native Object");
     if (argc == 1) {
         double arg0;
-        ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[0]), &arg0);
+        ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setDesiredAtlasScale : Error processing arguments");
         cobj->setDesiredAtlasScale(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -221,7 +229,8 @@ bool js_gaf_GAFAsset_setDesiredAtlasScale(JSContext *cx, uint32_t argc, jsval *v
 }
 bool js_gaf_GAFAsset_getSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getSceneWidth : Invalid Native Object");
@@ -229,7 +238,7 @@ bool js_gaf_GAFAsset_getSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
         const unsigned int ret = cobj->getSceneWidth();
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -238,7 +247,8 @@ bool js_gaf_GAFAsset_getSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_getSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getSceneFps : Invalid Native Object");
@@ -246,7 +256,7 @@ bool js_gaf_GAFAsset_getSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
         const unsigned int ret = cobj->getSceneFps();
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -255,7 +265,8 @@ bool js_gaf_GAFAsset_getSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_desiredAtlasScale(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_desiredAtlasScale : Invalid Native Object");
@@ -263,7 +274,7 @@ bool js_gaf_GAFAsset_desiredAtlasScale(JSContext *cx, uint32_t argc, jsval *vp)
         double ret = cobj->desiredAtlasScale();
         jsval jsret = JSVAL_NULL;
         jsret = DOUBLE_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -272,18 +283,18 @@ bool js_gaf_GAFAsset_desiredAtlasScale(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_setSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setSceneWidth : Invalid Native Object");
     if (argc == 1) {
         unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
+        ok &= jsval_to_uint32(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setSceneWidth : Error processing arguments");
         cobj->setSceneWidth(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -292,18 +303,18 @@ bool js_gaf_GAFAsset_setSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setSceneFps : Invalid Native Object");
     if (argc == 1) {
         unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
+        ok &= jsval_to_uint32(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setSceneFps : Error processing arguments");
         cobj->setSceneFps(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -312,7 +323,8 @@ bool js_gaf_GAFAsset_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_createObject : Invalid Native Object");
@@ -327,7 +339,7 @@ bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp)
                 jsret = JSVAL_NULL;
             }
         } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -336,16 +348,16 @@ bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFAsset_isAssetVersionPlayable(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 1) {
         const char* arg0;
-        std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
+        std::string arg0_tmp; ok &= jsval_to_std_string(cx, args.get(0), &arg0_tmp); arg0 = arg0_tmp.c_str();
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_isAssetVersionPlayable : Error processing arguments");
         bool ret = gaf::GAFAsset::isAssetVersionPlayable(arg0);
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
     JS_ReportError(cx, "js_gaf_GAFAsset_isAssetVersionPlayable : wrong number of arguments");
@@ -354,7 +366,7 @@ bool js_gaf_GAFAsset_isAssetVersionPlayable(JSContext *cx, uint32_t argc, jsval 
 
 bool js_gaf_GAFAsset_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     gaf::GAFAsset* cobj = new (std::nothrow) gaf::GAFAsset();
     cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
@@ -368,13 +380,16 @@ bool js_gaf_GAFAsset_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-    JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::RootedObject proto(cx, typeClass->proto.get());
+    JS::RootedObject parent(cx, typeClass->parentProto.get());
+    JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
+    args.rval().set(OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "gaf::GAFAsset");
+    AddNamedObjectRoot(cx, &p->obj, "gaf::GAFAsset");
     if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
     return true;
 }
 
@@ -384,7 +399,7 @@ void js_gaf_GAFAsset_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (GAFAsset)", obj);
 }
 
-void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
+void js_register_gaf_GAFAsset(JSContext *cx, JS::HandleObject global) {
     jsb_gaf_GAFAsset_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_gaf_GAFAsset_class->name = "Asset";
     jsb_gaf_GAFAsset_class->addProperty = JS_PropertyStub;
@@ -398,8 +413,8 @@ void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
     jsb_gaf_GAFAsset_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
     static JSPropertySpec properties[] = {
-        {"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
-        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+        JS_PSG("__nativeObj", js_is_native_obj, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_PS_END
     };
 
     static JSFunctionSpec funcs[] = {
@@ -427,7 +442,7 @@ void js_register_gaf_GAFAsset(JSContext *cx, JSObject *global) {
 
     jsb_gaf_GAFAsset_prototype = JS_InitClass(
         cx, global,
-        NULL, // parent proto
+        JS::NullPtr(), // parent proto
         jsb_gaf_GAFAsset_class,
         js_gaf_GAFAsset_constructor, 0, // constructor
         properties,
@@ -463,7 +478,7 @@ void js_gaf_GAFSprite_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (GAFSprite)", obj);
 }
 
-void js_register_gaf_GAFSprite(JSContext *cx, JSObject *global) {
+void js_register_gaf_GAFSprite(JSContext *cx, JS::HandleObject global) {
     jsb_gaf_GAFSprite_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_gaf_GAFSprite_class->name = "Sprite";
     jsb_gaf_GAFSprite_class->addProperty = JS_PropertyStub;
@@ -477,8 +492,8 @@ void js_register_gaf_GAFSprite(JSContext *cx, JSObject *global) {
     jsb_gaf_GAFSprite_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
     static JSPropertySpec properties[] = {
-        {"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
-        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+        JS_PSG("__nativeObj", js_is_native_obj, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_PS_END
     };
 
     static JSFunctionSpec funcs[] = {
@@ -489,7 +504,7 @@ void js_register_gaf_GAFSprite(JSContext *cx, JSObject *global) {
 
     jsb_gaf_GAFSprite_prototype = JS_InitClass(
         cx, global,
-        jsb_cocos2d_Sprite_prototype,
+        JS::RootedObject(cx, jsb_cocos2d_Sprite_prototype),
         jsb_gaf_GAFSprite_class,
         empty_constructor, 0,
         properties,
@@ -520,19 +535,20 @@ JSObject *jsb_gaf_GAFObject_prototype;
 
 bool js_gaf_GAFObject_setAnimationStartedNextLoopDelegate(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setAnimationStartedNextLoopDelegate : Invalid Native Object");
     if (argc == 1) {
         std::function<void (gaf::GAFObject *)> arg0;
         do {
-		    if(JS_TypeOfValue(cx, argv[0]) == JSTYPE_FUNCTION)
+		    if(JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
 		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
+		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, args.thisv().toObjectOrNull(), args.get(0)));
 		        auto lambda = [=](gaf::GAFObject* larg0) -> void {
+		            JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 		            jsval largv[1];
 		            do {
 		            if (larg0) {
@@ -542,8 +558,8 @@ bool js_gaf_GAFObject_setAnimationStartedNextLoopDelegate(JSContext *cx, uint32_
 		                largv[0] = JSVAL_NULL;
 		            }
 		        } while (0);
-		            jsval rval;
-		            bool ok = func->invoke(1, &largv[0], rval);
+		            JS::RootedValue rval(cx);
+		            bool ok = func->invoke(1, &largv[0], &rval);
 		            if (!ok && JS_IsExceptionPending(cx)) {
 		                JS_ReportPendingException(cx);
 		            }
@@ -558,7 +574,7 @@ bool js_gaf_GAFObject_setAnimationStartedNextLoopDelegate(JSContext *cx, uint32_
 		;
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setAnimationStartedNextLoopDelegate : Error processing arguments");
         cobj->setAnimationStartedNextLoopDelegate(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -567,19 +583,20 @@ bool js_gaf_GAFObject_setAnimationStartedNextLoopDelegate(JSContext *cx, uint32_
 }
 bool js_gaf_GAFObject_setAnimationFinishedPlayDelegate(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setAnimationFinishedPlayDelegate : Invalid Native Object");
     if (argc == 1) {
         std::function<void (gaf::GAFObject *)> arg0;
         do {
-		    if(JS_TypeOfValue(cx, argv[0]) == JSTYPE_FUNCTION)
+		    if(JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
 		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
+		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, args.thisv().toObjectOrNull(), args.get(0)));
 		        auto lambda = [=](gaf::GAFObject* larg0) -> void {
+		            JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 		            jsval largv[1];
 		            do {
 		            if (larg0) {
@@ -589,8 +606,8 @@ bool js_gaf_GAFObject_setAnimationFinishedPlayDelegate(JSContext *cx, uint32_t a
 		                largv[0] = JSVAL_NULL;
 		            }
 		        } while (0);
-		            jsval rval;
-		            bool ok = func->invoke(1, &largv[0], rval);
+		            JS::RootedValue rval(cx);
+		            bool ok = func->invoke(1, &largv[0], &rval);
 		            if (!ok && JS_IsExceptionPending(cx)) {
 		                JS_ReportPendingException(cx);
 		            }
@@ -605,7 +622,7 @@ bool js_gaf_GAFObject_setAnimationFinishedPlayDelegate(JSContext *cx, uint32_t a
 		;
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setAnimationFinishedPlayDelegate : Error processing arguments");
         cobj->setAnimationFinishedPlayDelegate(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -614,7 +631,8 @@ bool js_gaf_GAFObject_setAnimationFinishedPlayDelegate(JSContext *cx, uint32_t a
 }
 bool js_gaf_GAFObject_getBoundingBoxForCurrentFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getBoundingBoxForCurrentFrame : Invalid Native Object");
@@ -622,7 +640,7 @@ bool js_gaf_GAFObject_getBoundingBoxForCurrentFrame(JSContext *cx, uint32_t argc
         cocos2d::Rect ret = cobj->getBoundingBoxForCurrentFrame();
         jsval jsret = JSVAL_NULL;
         jsret = ccrect_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -631,18 +649,18 @@ bool js_gaf_GAFObject_getBoundingBoxForCurrentFrame(JSContext *cx, uint32_t argc
 }
 bool js_gaf_GAFObject_setFps(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setFps : Invalid Native Object");
     if (argc == 1) {
         unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
+        ok &= jsval_to_uint32(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setFps : Error processing arguments");
         cobj->setFps(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -651,19 +669,19 @@ bool js_gaf_GAFObject_setFps(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_getObjectByName(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
 
-    JSObject *obj = NULL;
+    JS::RootedObject obj(cx);
     gaf::GAFObject* cobj = NULL;
-    obj = JS_THIS_OBJECT(cx, vp);
+    obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getObjectByName : Invalid Native Object");
     do {
         if (argc == 1) {
             std::string arg0;
-            ok &= jsval_to_std_string(cx, argv[0], &arg0);
+            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             const gaf::GAFObject* ret = cobj->getObjectByName(arg0);
             jsval jsret = JSVAL_NULL;
@@ -675,7 +693,7 @@ bool js_gaf_GAFObject_getObjectByName(JSContext *cx, uint32_t argc, jsval *vp)
                 jsret = JSVAL_NULL;
             }
         } while (0);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -683,7 +701,7 @@ bool js_gaf_GAFObject_getObjectByName(JSContext *cx, uint32_t argc, jsval *vp)
     do {
         if (argc == 1) {
             std::string arg0;
-            ok &= jsval_to_std_string(cx, argv[0], &arg0);
+            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             gaf::GAFObject* ret = cobj->getObjectByName(arg0);
             jsval jsret = JSVAL_NULL;
@@ -695,7 +713,7 @@ bool js_gaf_GAFObject_getObjectByName(JSContext *cx, uint32_t argc, jsval *vp)
                 jsret = JSVAL_NULL;
             }
         } while (0);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -705,13 +723,14 @@ bool js_gaf_GAFObject_getObjectByName(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_clearSequence(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_clearSequence : Invalid Native Object");
     if (argc == 0) {
         cobj->clearSequence();
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -720,7 +739,8 @@ bool js_gaf_GAFObject_clearSequence(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_getIsAnimationRunning(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getIsAnimationRunning : Invalid Native Object");
@@ -728,7 +748,7 @@ bool js_gaf_GAFObject_getIsAnimationRunning(JSContext *cx, uint32_t argc, jsval 
         bool ret = cobj->getIsAnimationRunning();
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -737,24 +757,24 @@ bool js_gaf_GAFObject_getIsAnimationRunning(JSContext *cx, uint32_t argc, jsval 
 }
 bool js_gaf_GAFObject_gotoAndStop(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
 
-    JSObject *obj = NULL;
+    JS::RootedObject obj(cx);
     gaf::GAFObject* cobj = NULL;
-    obj = JS_THIS_OBJECT(cx, vp);
+    obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_gotoAndStop : Invalid Native Object");
     do {
         if (argc == 1) {
             unsigned int arg0;
-            ok &= jsval_to_uint32(cx, argv[0], &arg0);
+            ok &= jsval_to_uint32(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             bool ret = cobj->gotoAndStop(arg0);
             jsval jsret = JSVAL_NULL;
             jsret = BOOLEAN_TO_JSVAL(ret);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -762,12 +782,12 @@ bool js_gaf_GAFObject_gotoAndStop(JSContext *cx, uint32_t argc, jsval *vp)
     do {
         if (argc == 1) {
             std::string arg0;
-            ok &= jsval_to_std_string(cx, argv[0], &arg0);
+            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             bool ret = cobj->gotoAndStop(arg0);
             jsval jsret = JSVAL_NULL;
             jsret = BOOLEAN_TO_JSVAL(ret);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -777,20 +797,20 @@ bool js_gaf_GAFObject_gotoAndStop(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_getStartFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getStartFrame : Invalid Native Object");
     if (argc == 1) {
         std::string arg0;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_getStartFrame : Error processing arguments");
         unsigned int ret = cobj->getStartFrame(arg0);
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -799,19 +819,20 @@ bool js_gaf_GAFObject_getStartFrame(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_setFramePlayedDelegate(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setFramePlayedDelegate : Invalid Native Object");
     if (argc == 1) {
         std::function<void (gaf::GAFObject *, unsigned int)> arg0;
         do {
-		    if(JS_TypeOfValue(cx, argv[0]) == JSTYPE_FUNCTION)
+		    if(JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
 		    {
-		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
+		        std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, args.thisv().toObjectOrNull(), args.get(0)));
 		        auto lambda = [=](gaf::GAFObject* larg0, unsigned int larg1) -> void {
+		            JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 		            jsval largv[2];
 		            do {
 		            if (larg0) {
@@ -822,8 +843,8 @@ bool js_gaf_GAFObject_setFramePlayedDelegate(JSContext *cx, uint32_t argc, jsval
 		            }
 		        } while (0);
 		            largv[1] = uint32_to_jsval(cx, larg1);
-		            jsval rval;
-		            bool ok = func->invoke(2, &largv[0], rval);
+		            JS::RootedValue rval(cx);
+		            bool ok = func->invoke(2, &largv[0], &rval);
 		            if (!ok && JS_IsExceptionPending(cx)) {
 		                JS_ReportPendingException(cx);
 		            }
@@ -838,7 +859,7 @@ bool js_gaf_GAFObject_setFramePlayedDelegate(JSContext *cx, uint32_t argc, jsval
 		;
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setFramePlayedDelegate : Error processing arguments");
         cobj->setFramePlayedDelegate(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -847,7 +868,8 @@ bool js_gaf_GAFObject_setFramePlayedDelegate(JSContext *cx, uint32_t argc, jsval
 }
 bool js_gaf_GAFObject_getCurrentFrameIndex(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getCurrentFrameIndex : Invalid Native Object");
@@ -855,7 +877,7 @@ bool js_gaf_GAFObject_getCurrentFrameIndex(JSContext *cx, uint32_t argc, jsval *
         unsigned int ret = cobj->getCurrentFrameIndex();
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -864,7 +886,8 @@ bool js_gaf_GAFObject_getCurrentFrameIndex(JSContext *cx, uint32_t argc, jsval *
 }
 bool js_gaf_GAFObject_getTotalFrameCount(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getTotalFrameCount : Invalid Native Object");
@@ -872,7 +895,7 @@ bool js_gaf_GAFObject_getTotalFrameCount(JSContext *cx, uint32_t argc, jsval *vp
         unsigned int ret = cobj->getTotalFrameCount();
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -881,13 +904,14 @@ bool js_gaf_GAFObject_getTotalFrameCount(JSContext *cx, uint32_t argc, jsval *vp
 }
 bool js_gaf_GAFObject_start(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_start : Invalid Native Object");
     if (argc == 0) {
         cobj->start();
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -896,9 +920,9 @@ bool js_gaf_GAFObject_start(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_init : Invalid Native Object");
@@ -906,17 +930,17 @@ bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp)
         gaf::GAFAsset* arg0;
         gaf::GAFTimeline* arg1;
         do {
-            if (!argv[0].isObject()) { ok = false; break; }
+            if (!args.get(0).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+            JSObject *tmpObj = args.get(0).toObjectOrNull();
             jsProxy = jsb_get_js_proxy(tmpObj);
             arg0 = (gaf::GAFAsset*)(jsProxy ? jsProxy->ptr : NULL);
             JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
         } while (0);
         do {
-            if (!argv[1].isObject()) { ok = false; break; }
+            if (!args.get(1).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+            JSObject *tmpObj = args.get(1).toObjectOrNull();
             jsProxy = jsb_get_js_proxy(tmpObj);
             arg1 = (gaf::GAFTimeline*)(jsProxy ? jsProxy->ptr : NULL);
             JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -925,7 +949,7 @@ bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp)
         bool ret = cobj->init(arg0, arg1);
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -934,7 +958,8 @@ bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_isDone(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_isDone : Invalid Native Object");
@@ -942,7 +967,7 @@ bool js_gaf_GAFObject_isDone(JSContext *cx, uint32_t argc, jsval *vp)
         bool ret = cobj->isDone();
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -951,36 +976,36 @@ bool js_gaf_GAFObject_isDone(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_playSequence : Invalid Native Object");
     if (argc == 2) {
         std::string arg0;
         bool arg1;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        arg1 = JS::ToBoolean(args.get(1));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_playSequence : Error processing arguments");
         bool ret = cobj->playSequence(arg0, arg1);
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
     if (argc == 3) {
         std::string arg0;
         bool arg1;
         bool arg2;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
-        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
-        arg2 = JS::ToBoolean(JS::RootedValue(cx, argv[2]));
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        arg1 = JS::ToBoolean(args.get(1));
+        arg2 = JS::ToBoolean(args.get(2));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_playSequence : Error processing arguments");
         bool ret = cobj->playSequence(arg0, arg1, arg2);
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -989,13 +1014,14 @@ bool js_gaf_GAFObject_playSequence(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_stop : Invalid Native Object");
     if (argc == 0) {
         cobj->stop();
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -1004,20 +1030,20 @@ bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_setAnimationRunning(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setAnimationRunning : Invalid Native Object");
     if (argc == 2) {
         bool arg0;
         bool arg1;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
-        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        arg0 = JS::ToBoolean(args.get(0));
+        arg1 = JS::ToBoolean(args.get(1));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setAnimationRunning : Error processing arguments");
         cobj->setAnimationRunning(arg0, arg1);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -1026,7 +1052,8 @@ bool js_gaf_GAFObject_setAnimationRunning(JSContext *cx, uint32_t argc, jsval *v
 }
 bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_isReversed : Invalid Native Object");
@@ -1034,7 +1061,7 @@ bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp)
         bool ret = cobj->isReversed();
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -1043,20 +1070,20 @@ bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_setFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setFrame : Invalid Native Object");
     if (argc == 1) {
         unsigned int arg0;
-        ok &= jsval_to_uint32(cx, argv[0], &arg0);
+        ok &= jsval_to_uint32(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setFrame : Error processing arguments");
         bool ret = cobj->setFrame(arg0);
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -1065,28 +1092,28 @@ bool js_gaf_GAFObject_setFrame(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_setLooped(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setLooped : Invalid Native Object");
     if (argc == 1) {
         bool arg0;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        arg0 = JS::ToBoolean(args.get(0));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
         cobj->setLooped(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
     if (argc == 2) {
         bool arg0;
         bool arg1;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
-        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        arg0 = JS::ToBoolean(args.get(0));
+        arg1 = JS::ToBoolean(args.get(1));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setLooped : Error processing arguments");
         cobj->setLooped(arg0, arg1);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -1095,20 +1122,20 @@ bool js_gaf_GAFObject_setLooped(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_getEndFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getEndFrame : Invalid Native Object");
     if (argc == 1) {
         std::string arg0;
-        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_getEndFrame : Error processing arguments");
         unsigned int ret = cobj->getEndFrame(arg0);
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -1117,13 +1144,14 @@ bool js_gaf_GAFObject_getEndFrame(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_pauseAnimation(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_pauseAnimation : Invalid Native Object");
     if (argc == 0) {
         cobj->pauseAnimation();
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -1132,24 +1160,24 @@ bool js_gaf_GAFObject_pauseAnimation(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_gotoAndPlay(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
 
-    JSObject *obj = NULL;
+    JS::RootedObject obj(cx);
     gaf::GAFObject* cobj = NULL;
-    obj = JS_THIS_OBJECT(cx, vp);
+    obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_gotoAndPlay : Invalid Native Object");
     do {
         if (argc == 1) {
             unsigned int arg0;
-            ok &= jsval_to_uint32(cx, argv[0], &arg0);
+            ok &= jsval_to_uint32(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             bool ret = cobj->gotoAndPlay(arg0);
             jsval jsret = JSVAL_NULL;
             jsret = BOOLEAN_TO_JSVAL(ret);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -1157,12 +1185,12 @@ bool js_gaf_GAFObject_gotoAndPlay(JSContext *cx, uint32_t argc, jsval *vp)
     do {
         if (argc == 1) {
             std::string arg0;
-            ok &= jsval_to_std_string(cx, argv[0], &arg0);
+            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             bool ret = cobj->gotoAndPlay(arg0);
             jsval jsret = JSVAL_NULL;
             jsret = BOOLEAN_TO_JSVAL(ret);
-            JS_SET_RVAL(cx, vp, jsret);
+            args.rval().set(jsret);
             return true;
         }
     } while(0);
@@ -1172,7 +1200,8 @@ bool js_gaf_GAFObject_gotoAndPlay(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_isLooped(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_isLooped : Invalid Native Object");
@@ -1180,7 +1209,7 @@ bool js_gaf_GAFObject_isLooped(JSContext *cx, uint32_t argc, jsval *vp)
         bool ret = cobj->isLooped();
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -1189,13 +1218,14 @@ bool js_gaf_GAFObject_isLooped(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_resumeAnimation(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_resumeAnimation : Invalid Native Object");
     if (argc == 0) {
         cobj->resumeAnimation();
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -1204,28 +1234,28 @@ bool js_gaf_GAFObject_resumeAnimation(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_setReversed(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setReversed : Invalid Native Object");
     if (argc == 1) {
         bool arg0;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
+        arg0 = JS::ToBoolean(args.get(0));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setReversed : Error processing arguments");
         cobj->setReversed(arg0);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
     if (argc == 2) {
         bool arg0;
         bool arg1;
-        arg0 = JS::ToBoolean(JS::RootedValue(cx, argv[0]));
-        arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+        arg0 = JS::ToBoolean(args.get(0));
+        arg1 = JS::ToBoolean(args.get(1));
         JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setReversed : Error processing arguments");
         cobj->setReversed(arg0, arg1);
-        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        args.rval().setUndefined();
         return true;
     }
 
@@ -1234,7 +1264,8 @@ bool js_gaf_GAFObject_setReversed(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_hasSequences(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_hasSequences : Invalid Native Object");
@@ -1242,7 +1273,7 @@ bool js_gaf_GAFObject_hasSequences(JSContext *cx, uint32_t argc, jsval *vp)
         bool ret = cobj->hasSequences();
         jsval jsret = JSVAL_NULL;
         jsret = BOOLEAN_TO_JSVAL(ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -1251,7 +1282,8 @@ bool js_gaf_GAFObject_hasSequences(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_getFps(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getFps : Invalid Native Object");
@@ -1259,7 +1291,7 @@ bool js_gaf_GAFObject_getFps(JSContext *cx, uint32_t argc, jsval *vp)
         unsigned int ret = cobj->getFps();
         jsval jsret = JSVAL_NULL;
         jsret = uint32_to_jsval(cx, ret);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
 
@@ -1268,23 +1300,23 @@ bool js_gaf_GAFObject_getFps(JSContext *cx, uint32_t argc, jsval *vp)
 }
 bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 2) {
         gaf::GAFAsset* arg0;
         gaf::GAFTimeline* arg1;
         do {
-            if (!argv[0].isObject()) { ok = false; break; }
+            if (!args.get(0).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+            JSObject *tmpObj = args.get(0).toObjectOrNull();
             jsProxy = jsb_get_js_proxy(tmpObj);
             arg0 = (gaf::GAFAsset*)(jsProxy ? jsProxy->ptr : NULL);
             JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
         } while (0);
         do {
-            if (!argv[1].isObject()) { ok = false; break; }
+            if (!args.get(1).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+            JSObject *tmpObj = args.get(1).toObjectOrNull();
             jsProxy = jsb_get_js_proxy(tmpObj);
             arg1 = (gaf::GAFTimeline*)(jsProxy ? jsProxy->ptr : NULL);
             JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -1300,7 +1332,7 @@ bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
             jsret = JSVAL_NULL;
         }
     } while (0);
-        JS_SET_RVAL(cx, vp, jsret);
+        args.rval().set(jsret);
         return true;
     }
     JS_ReportError(cx, "js_gaf_GAFObject_create : wrong number of arguments");
@@ -1309,7 +1341,7 @@ bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
 
 bool js_gaf_GAFObject_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     gaf::GAFObject* cobj = new (std::nothrow) gaf::GAFObject();
     cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
@@ -1323,13 +1355,16 @@ bool js_gaf_GAFObject_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-    JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::RootedObject proto(cx, typeClass->proto.get());
+    JS::RootedObject parent(cx, typeClass->parentProto.get());
+    JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
+    args.rval().set(OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "gaf::GAFObject");
+    AddNamedObjectRoot(cx, &p->obj, "gaf::GAFObject");
     if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
     return true;
 }
 
@@ -1342,21 +1377,21 @@ void js_gaf_GAFObject_finalize(JSFreeOp *fop, JSObject *obj) {
 
 static bool js_gaf_GAFObject_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    jsval *argv = JS_ARGV(cx, vp);
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     gaf::GAFObject *nobj = new (std::nothrow) gaf::GAFObject();
     if (nobj) {
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "gaf::GAFObject");
+    AddNamedObjectRoot(cx, &p->obj, "gaf::GAFObject");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound) && isFound)
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
-    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+    args.rval().setUndefined();
     return true;
 }
-void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
+void js_register_gaf_GAFObject(JSContext *cx, JS::HandleObject global) {
     jsb_gaf_GAFObject_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_gaf_GAFObject_class->name = "Object";
     jsb_gaf_GAFObject_class->addProperty = JS_PropertyStub;
@@ -1370,8 +1405,8 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
     jsb_gaf_GAFObject_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
     static JSPropertySpec properties[] = {
-        {"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
-        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+        JS_PSG("__nativeObj", js_is_native_obj, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_PS_END
     };
 
     static JSFunctionSpec funcs[] = {
@@ -1415,7 +1450,7 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
 
     jsb_gaf_GAFObject_prototype = JS_InitClass(
         cx, global,
-        jsb_gaf_GAFSprite_prototype,
+        JS::RootedObject(cx, jsb_gaf_GAFSprite_prototype),
         jsb_gaf_GAFObject_class,
         js_gaf_GAFObject_constructor, 0, // constructor
         properties,
@@ -1441,22 +1476,22 @@ void js_register_gaf_GAFObject(JSContext *cx, JSObject *global) {
     }
 }
 
-void register_all_gaf(JSContext* cx, JSObject* obj) {
+void register_all_gaf(JSContext* cx, JS::HandleObject obj) {
     // first, try to get the ns
     JS::RootedValue nsval(cx);
     JS::RootedObject ns(cx);
     JS_GetProperty(cx, obj, "gaf", &nsval);
     if (nsval == JSVAL_VOID) {
-        ns = JS_NewObject(cx, NULL, NULL, NULL);
+        ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
         nsval = OBJECT_TO_JSVAL(ns);
         JS_SetProperty(cx, obj, "gaf", nsval);
     } else {
         JS_ValueToObject(cx, nsval, &ns);
     }
-    obj = ns;
+    //obj = ns;
 
-    js_register_gaf_GAFAsset(cx, obj);
-    js_register_gaf_GAFSprite(cx, obj);
-    js_register_gaf_GAFObject(cx, obj);
+    js_register_gaf_GAFAsset(cx, ns);
+    js_register_gaf_GAFSprite(cx, ns);
+    js_register_gaf_GAFObject(cx, ns);
 }
 
