@@ -123,22 +123,6 @@ desiredAtlasScale : function (
 },
 
 /**
- * @method initWithGAFBundle
- * @param {String} arg0
- * @param {String} arg1
- * @param {function} arg2
- * @return {bool}
- */
-initWithGAFBundle : function (
-str, 
-str, 
-func 
-)
-{
-    return false;
-},
-
-/**
  * @method setSceneWidth
  * @param {unsigned int} arg0
  */
@@ -146,20 +130,6 @@ setSceneWidth : function (
 int 
 )
 {
-},
-
-/**
- * @method initWithGAFFile
- * @param {String} arg0
- * @param {function} arg1
- * @return {bool}
- */
-initWithGAFFile : function (
-str, 
-func 
-)
-{
-    return false;
 },
 
 /**
@@ -192,36 +162,6 @@ char
 )
 {
     return false;
-},
-
-/**
- * @method create
-* @param {String|String} str
-* @param {function} func
-* @return {gaf::GAFAsset|gaf::GAFAsset}
-*/
-create : function(
-str,
-func 
-)
-{
-    return gaf::GAFAsset;
-},
-
-/**
- * @method createWithBundle
- * @param {String} arg0
- * @param {String} arg1
- * @param {function} arg2
- * @return {gaf::GAFAsset}
- */
-createWithBundle : function (
-str, 
-str, 
-func 
-)
-{
-    return gaf::GAFAsset;
 },
 
 /**
