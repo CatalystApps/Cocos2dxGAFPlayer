@@ -7,7 +7,11 @@
     <GAF_SOURCES_ROOT>$(MSBuildThisFileDirectory)Sources\</GAF_SOURCES_ROOT>
   </PropertyGroup>
   <PropertyGroup />
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/cocos;$(CCX_ROOT_2)/cocos;$(CCX_ROOT)/cocos/base;$(CCX_ROOT_2)/cocos/base;$(CCX_ROOT)/external/chipmunk/include/chipmunk;$(CCX_ROOT_2)/external/chipmunk/include/chipmunk;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT_2)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT_2)/external/glfw3/include/win32/;$(CCX_ROOT)/external/win32-specific/zlib/include;$(CCX_ROOT_2)/external/win32-specific/zlib/include;$(CCX_ROOT)/../bindings/manual;$(CCX_ROOT_2)/../bindings/manual;$(CCX_ROOT)/../external/spidermonkey/include/win32;$(CCX_ROOT_2)/../external/spidermonkey/include/win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="CCX_ROOT">
       <Value>$(CCX_ROOT)</Value>

@@ -9,5 +9,115 @@
     <ClCompile Include="..\bindings\jsb_gaf.cpp" />
     <ClCompile Include="..\bindings\js_gaf_manual_conversions.cpp" />
     <ClCompile Include="..\bindings\jsb_gaf_manual.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFAnimationFrame.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFAnimationSequence.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFAsset.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFAssetTextureManager.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFCachedTexture.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFFile.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFFilterData.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFFilterManager.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFLoader.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFMask.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFMovieClip.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFPrecompiled.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFQuadCommand.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFShaderManager.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFSprite.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFStream.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFSubobjectState.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFTextData.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFTextField.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFTextureAtlas.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFTextureAtlasElement.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFTimeline.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\GAFTimelineAction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\PrimitiveDeserializer.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationFrames.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationFrames2.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationMasks.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationObjects.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineAtlas.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineNamedParts.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineSequences.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineStage.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineTextField.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Library\Sources\TagDefineTimeline.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Library">
+      <UniqueIdentifier>{1171ce4a-fdfe-4199-8e56-12e452c3c7bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

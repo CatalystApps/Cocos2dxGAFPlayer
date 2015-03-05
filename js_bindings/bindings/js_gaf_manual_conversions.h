@@ -7,6 +7,8 @@
 USING_NS_GAF;
 
 jsval GAFHeader_to_jsval(JSContext *cx, const GAFHeader& v);
+jsval GAFAnimationSequence_to_jsval(JSContext *cx, const GAFAnimationSequence& v);
+jsval GAFAnimationSequences_to_jsval(JSContext *cx, const AnimationSequences_t& v);
 
 #endif
 

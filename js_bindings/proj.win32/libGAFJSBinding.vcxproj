@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -33,20 +33,24 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="Library.props" />
+    <Import Project="..\..\Library\Library.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\Library\Library.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>
       </SDLCheck>
-      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/../external/spidermonkey/include/win32;$(CCX_ROOT)/cocos;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT)/../bindings/manual;$(CCX_ROOT)/cocos/base;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT)/external/chipmunk/include/chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/../external/spidermonkey/include/win32;$(CCX_ROOT)/cocos;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT)/../bindings/manual;$(CCX_ROOT)/cocos/base;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT)/external/chipmunk/include/chipmunk;$(CCX_ROOT)/external/win32-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_WINDOWS;WIN32;COCOS2D_DEBUG=1;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -72,6 +76,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Library\Sources\GAFAnimationFrame.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFAnimationSequence.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFAsset.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFAssetTextureManager.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFCachedTexture.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFFile.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFFilterData.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFFilterManager.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFLoader.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFMask.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFMovieClip.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFObject.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFPrecompiled.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFQuadCommand.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFShaderManager.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFSprite.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFStream.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFSubobjectState.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFTextData.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFTextField.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFTextureAtlas.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFTextureAtlasElement.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFTimeline.cpp" />
+    <ClCompile Include="..\..\Library\Sources\GAFTimelineAction.cpp" />
+    <ClCompile Include="..\..\Library\Sources\PrimitiveDeserializer.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationFrames.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationFrames2.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationMasks.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineAnimationObjects.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineAtlas.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineNamedParts.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineSequences.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineStage.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineTextField.cpp" />
+    <ClCompile Include="..\..\Library\Sources\TagDefineTimeline.cpp" />
     <ClCompile Include="..\bindings\jsb_gaf.cpp" />
     <ClCompile Include="..\bindings\jsb_gaf_manual.cpp" />
     <ClCompile Include="..\bindings\js_gaf_manual_conversions.cpp" />
@@ -82,8 +121,8 @@
     <ClInclude Include="..\bindings\js_gaf_manual_conversions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="GAFPlayer.vcxproj">
-      <Project>{4e240210-2d26-4d4c-9329-e912fdac94cc}</Project>
+    <ProjectReference Include="..\..\..\cocos2d-x\cocos\2d\libcocos2d.vcxproj">
+      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
