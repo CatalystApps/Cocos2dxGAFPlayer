@@ -50,15 +50,9 @@ include_directories(
   ${GAF_PLATFORM_INCLUDE_DIR}
   ${COCOS_ROOT}/../external/glfw3/include/${PLATFORM_FOLDER}
   ${COCOS_ROOT}/../external/${PLATFORM_FOLDER}-specific/zlib/include
-  ${COCOS_ROOT}/../../bindings/manual}
+  ${COCOS_ROOT}/../../bindings/manual
   ${COCOS_ROOT}/../../external/spidermonkey/include/${PLATFORM_FOLDER}
   ${GAF_ROOT}/Sources
-)
-
-set(additionaasdfjghajkdfg
-  ${COCOS_ROOT}/2d
-  ${COCOS_ROOT}/platform/${PLATFORM_FOLDER}
-  ${COCOS_ROOT}/math
 )
 
 file(GLOB_RECURSE gaf_binding_files
