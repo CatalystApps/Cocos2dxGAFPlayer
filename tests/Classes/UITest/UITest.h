@@ -39,5 +39,5 @@ class UITestScene : public TestScene
 public:
     CREATE_FUNC(UITestScene);
 
-    virtual void runThisTest();
+    virtual void runThisTest() override;
 };

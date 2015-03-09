@@ -1,5 +1,4 @@
-#ifndef _CONTROLLER_H_
-#define _CONTROLLER_H_
+#pragma once
 
 #include "cocos2d.h"
 
@@ -28,5 +27,3 @@ private:
     Menu* _itemMenu;
     bool _exitThread;
 };
-
-#endif

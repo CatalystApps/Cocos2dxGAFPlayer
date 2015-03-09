@@ -9,7 +9,7 @@ public:
     CREATE_FUNC(BaseFramePlaybackTest);
 
     ~BaseFramePlaybackTest();
-    virtual bool init();
+    virtual bool init() override;
 
     virtual std::string title() const override;
     virtual std::string subtitle() const override;
@@ -46,5 +46,5 @@ class FramePlaybackTestScene : public TestScene
 public:
     CREATE_FUNC(FramePlaybackTestScene);
 
-    virtual void runThisTest();
+    virtual void runThisTest() override;
 };

@@ -61,5 +61,5 @@ class FlipTestScene : public TestScene
 public:
     CREATE_FUNC(FlipTestScene);
 
-    virtual void runThisTest();
+    virtual void runThisTest() override;
 };

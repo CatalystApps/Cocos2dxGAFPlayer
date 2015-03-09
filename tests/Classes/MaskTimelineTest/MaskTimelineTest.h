@@ -9,7 +9,7 @@ public:
     CREATE_FUNC(BaseMaskTimelineTest);
 
     ~BaseMaskTimelineTest();
-    virtual bool init();
+    virtual bool init() override;
 
     virtual std::string title() const override;
     virtual std::string subtitle() const override;
@@ -56,5 +56,5 @@ class MaskTimelineTestScene : public TestScene
 public:
     CREATE_FUNC(MaskTimelineTestScene);
 
-    virtual void runThisTest();
+    virtual void runThisTest() override;
 };

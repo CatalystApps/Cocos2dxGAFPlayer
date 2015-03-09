@@ -1,5 +1,4 @@
-#ifndef __VISIBLERECT_H__
-#define __VISIBLERECT_H__
+#pragma once
 
 #include "cocos2d.h"
 
@@ -21,5 +20,3 @@ private:
     static void lazyInit();
     static cocos2d::Rect s_visibleRect;
 };
-
-#endif /* __VISIBLERECT_H__ */

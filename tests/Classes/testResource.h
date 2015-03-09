@@ -1,5 +1,4 @@
-#ifndef _TEST_RESOURCE_H_
-#define _TEST_RESOURCE_H_
+#pragma once
 
 static const char s_pathB1[] = "Images/b1.png"; 
 static const char s_pathB2[] = "Images/b2.png"; 
@@ -22,5 +21,3 @@ static const char s_gafFiltersTint[] = "gaf/filters_test/filters_tint.gaf";
 static const char s_gafMultipleTimelines[] = "gaf/timelines_test/multiple_timelines.gaf";
 
 static const char s_gafUITextField[] = "gaf/textfield_test/tf.gaf";
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef _TEST_BASIC_H_
-#define _TEST_BASIC_H_
+#pragma once
 
 #include "cocos2d.h"
 #include "audio/include/SimpleAudioEngine.h"
@@ -40,5 +39,3 @@ public:
     s->addChild(__action__##Action()); Director::getInstance()->replaceScene(s); s->release(); }
 
 #define DEFAULT_ACTION_CALLBACKS(__scene__) void backCallback(Ref* sender); void nextCallback(Ref* sender); void restartCallback(Ref* sender);
-
-#endif

@@ -39,5 +39,5 @@ class BundlesTestScene : public TestScene
 public:
     CREATE_FUNC(BundlesTestScene);
 
-    virtual void runThisTest();
+    virtual void runThisTest() override;
 };
