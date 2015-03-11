@@ -26,7 +26,7 @@ public:
         csf = _csf;
     }
 
-    bool operator==(GAFResourcesInfoTexture &other)
+    bool operator==(const GAFResourcesInfoTexture &other)
     {
         return source.compare(other.source) == 0 && fabs(csf - other.csf) < std::numeric_limits<float>::epsilon();
     }
@@ -45,7 +45,7 @@ public:
         name = _name;
     }
 
-    bool operator==(GAFResourcesInfoFont &other)
+    bool operator==(const GAFResourcesInfoFont &other)
     {
         return name.compare(other.name) == 0;
     }
