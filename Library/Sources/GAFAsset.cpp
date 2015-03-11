@@ -2,6 +2,7 @@
 #include "GAFAsset.h"
 #include "GAFTextureAtlas.h"
 #include "GAFTextureAtlasElement.h"
+#include "GAFTextData.h"
 #include "GAFObject.h"
 #include "GAFAssetTextureManager.h"
 #include "GAFShaderManager.h"
@@ -63,7 +64,8 @@ m_sceneWidth(0),
 m_sceneHeight(0),
 m_rootTimeline(nullptr),
 m_desiredAtlasScale(1.0f),
-m_gafFileName("")
+m_gafFileName(""),
+m_state(State::Normal)
 {
     m_textureManager = new GAFAssetTextureManager();
     GAFShaderManager::Initialize();
@@ -111,7 +113,31 @@ GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::
     return nullptr;
 }
 
-bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate /*= NULL*/)
+void GAFAsset::getResourceReferences(const std::string& gafFilePath, std::vector<GAFResourcesInfo*> &dest)
+{
+    GAFAsset * asset = new GAFAsset();
+    asset->m_state = State::DryRun;
+    if (asset && asset->initWithGAFFile(gafFilePath, nullptr))
+    {
+        asset->parseReferences(dest);
+    }
+    CC_SAFE_RELEASE(asset);
+    return;
+}
+
+void GAFAsset::getResourceReferencesFromBundle(const std::string& zipfilePath, const std::string& entryFile, std::vector<GAFResourcesInfo*>& dest)
+{
+    GAFAsset * asset = new GAFAsset();
+    asset->m_state = State::DryRun;
+    if (asset && asset->initWithGAFBundle(zipfilePath, entryFile, nullptr))
+    {
+        asset->parseReferences(dest);
+    }
+    CC_SAFE_RELEASE(asset);
+    return;
+}
+
+bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate)
 {
     GAFLoader* loader = new GAFLoader();
 
@@ -129,7 +155,7 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     {
         isLoaded = loader->loadData(gafData, sz, this);
     }
-    if (isLoaded)
+    if (isLoaded && m_state == State::Normal)
     {
         loadTextures(entryFile, delegate, &bundle);
     }
@@ -153,7 +179,7 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
         delete loader;
         return false;
     }
-    if (isLoaded)
+    if (isLoaded && m_state == State::Normal)
     {
         loadTextures(fullfilePath, delegate);
     }
@@ -161,6 +187,77 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     delete loader;
 
     return isLoaded;
+}
+
+void GAFAsset::parseReferences(std::vector<GAFResourcesInfo*>& dest)
+{
+    for (auto i = m_timelines.begin(), e = m_timelines.end(); i != e; ++i)
+    {
+        // textures
+        auto atlases = i->second->getTextureAtlases();
+        for (auto i_atlas = atlases.begin(), e_atlas = atlases.end(); i_atlas != e_atlas; ++i_atlas)
+        {
+            auto atlasInfos = (*i_atlas)->getAtlasInfos();
+            for (auto i_info = atlasInfos.begin(), e_info = atlasInfos.end(); i_info != e_info; ++i_info)
+            {
+                for (uint32_t j = 0; j < (*i_info).m_sources.size(); ++j)
+                {
+                    auto& aiSource = (*i_info).m_sources[j];
+                    
+                    GAFResourcesInfoTexture compareTexture(aiSource.source, aiSource.csf);
+                    // check duplicates
+                    bool present = false;
+                    for (auto i_res = dest.begin(), e_res = dest.end(); i_res != e_res; ++i_res)
+                    {
+                        if ((*i_res)->id == GAFResourcesInfo::ResourceId::Texture)
+                        {
+                            GAFResourcesInfoTexture *presentTexture = reinterpret_cast<GAFResourcesInfoTexture*>(*i_res);
+                            
+                            if (*presentTexture == compareTexture)
+                            {
+                                present = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!present)
+                    {
+                        dest.push_back(new GAFResourcesInfoTexture(compareTexture));
+                    }
+                }
+            }
+        }
+
+        // fonts
+        auto textDatas = i->second->getTextsData();
+        for (auto i_text = textDatas.begin(), e_text = textDatas.end(); i_text != e_text; ++i_text)
+        {
+            GAFResourcesInfoFont compareFont(i_text->second->m_textFormat.m_font);
+            // check duplicates
+            bool present = false;
+            for (auto i_res = dest.begin(), e_res = dest.end(); i_res != e_res; ++i_res)
+            {
+                if ((*i_res)->id == GAFResourcesInfo::ResourceId::Font)
+                {
+                    GAFResourcesInfoFont *presentFont = reinterpret_cast<GAFResourcesInfoFont*>(*i_res);
+
+                    if (*presentFont == compareFont)
+                    {
+                        present = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!present)
+            {
+                dest.push_back(new GAFResourcesInfoFont(compareFont));
+            }
+        }
+
+        // sounds - TODO
+    }
 }
 
 void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle /*= nullptr*/)

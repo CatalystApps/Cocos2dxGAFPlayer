@@ -254,5 +254,8 @@
     <ClInclude Include="Sources\GAFPrecompiled.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\GAFResourcesInfo.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

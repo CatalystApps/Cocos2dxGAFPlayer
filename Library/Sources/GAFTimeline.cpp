@@ -116,6 +116,11 @@ TextsData_t const& GAFTimeline::getTextsData() const
     return m_textsData;
 }
 
+const TextureAtlases_t& GAFTimeline::getTextureAtlases() const
+{
+    return m_textureAtlases;
+}
+
 const GAFAnimationSequence* GAFTimeline::getSequence(const std::string& name) const
 {
     AnimationSequences_t::const_iterator it = m_animationSequences.find(name);
