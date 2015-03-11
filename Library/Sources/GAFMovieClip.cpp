@@ -34,7 +34,8 @@ m_glowFilterData(nullptr),
 m_blurFilterData(nullptr),
 m_programBase(nullptr),
 m_programNoCtx(nullptr),
-m_ctxDirty(false)
+m_ctxDirty(false),
+m_isStencil(false)
 {
     m_objectType = GAFObjectType::MovieClip;
     m_charType = GAFCharacterType::Texture;
@@ -43,7 +44,8 @@ m_ctxDirty(false)
 GAFMovieClip::~GAFMovieClip()
 {
     CC_SAFE_RELEASE(m_initialTexture);
-    _glProgramState = nullptr; // Should be treated here as weak pointer
+    if (!m_isStencil)
+        _glProgramState = nullptr; // Should be treated here as weak pointer
     CC_SAFE_RELEASE(m_programBase);
     CC_SAFE_RELEASE(m_programNoCtx);
 }
@@ -80,6 +82,26 @@ bool GAFMovieClip::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::
     }
 }
 
+void GAFMovieClip::setGLProgram(GLProgram *glProgram)
+{
+    if (_glProgramState == nullptr || (_glProgramState && _glProgramState->getGLProgram() != glProgram))
+    {
+        GLProgram *alphaTest = GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV);
+        if (glProgram == alphaTest)
+        {
+            // This node is set as stencil
+            handleStencilProgram();
+        }
+        CCNode::setGLProgram(glProgram);
+    }
+}
+
+void GAFMovieClip::handleStencilProgram()
+{
+    _glProgramState = nullptr; // Weaken pointer;
+    m_isStencil = true; // Object can not stop being stencil
+}
+
 void GAFMovieClip::updateTextureWithEffects()
 {
     if (!m_blurFilterData && !m_glowFilterData)
@@ -113,6 +135,11 @@ void GAFMovieClip::updateTextureWithEffects()
 
 uint32_t GAFMovieClip::setUniforms()
 {
+    if (m_isStencil)
+    {
+        return GAFSprite::setUniforms();
+    }
+
 #if GAF_ENABLE_NEW_UNIFORM_SETTER
 #define getUniformId(x) GAFShaderManager::getUniformLocation(x)
 #else
@@ -182,6 +209,10 @@ uint32_t GAFMovieClip::setUniforms()
 }
 void GAFMovieClip::setColorTransform(const GLfloat * mults, const GLfloat * offsets)
 {
+    if (m_isStencil)
+    {
+        return;
+    }
     m_colorTransformMult = Vec4(mults);
     m_colorTransformOffsets = Vec4(offsets);
     _setBlendingFunc();
@@ -190,6 +221,10 @@ void GAFMovieClip::setColorTransform(const GLfloat * mults, const GLfloat * offs
 
 void GAFMovieClip::setColorTransform(const GLfloat * colorTransform)
 {
+    if (m_isStencil)
+    {
+        return;
+    }
     m_colorTransformMult = Vec4(colorTransform);
     m_colorTransformOffsets = Vec4(&colorTransform[4]);
     _setBlendingFunc();
@@ -208,7 +243,7 @@ void GAFMovieClip::setColorMarixFilterData(GAFColorColorMatrixFilterData* data)
 
 void GAFMovieClip::setGlowFilterData(GAFGlowFilterData* data)
 {
-    if (m_glowFilterData != data)
+    if (!m_isStencil && (m_glowFilterData != data))
     {
         m_glowFilterData = data;
         updateTextureWithEffects();
@@ -217,7 +252,7 @@ void GAFMovieClip::setGlowFilterData(GAFGlowFilterData* data)
 
 void GAFMovieClip::setBlurFilterData(GAFBlurFilterData* data)
 {
-    if (m_blurFilterData != data)
+    if (!m_isStencil && (m_blurFilterData != data))
     {
         m_blurFilterData = data;
         updateTextureWithEffects();
@@ -236,6 +271,10 @@ const cocos2d::Rect& GAFMovieClip::getInitialTextureRect() const
 
 void GAFMovieClip::updateCtx()
 {
+    if (m_isStencil)
+    {
+        return;
+    }
     m_ctxDirty = false;
     if (!m_colorTransformOffsets.isZero() || m_colorMatrixFilterData)
     {
