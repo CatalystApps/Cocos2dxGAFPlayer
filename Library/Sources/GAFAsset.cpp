@@ -67,15 +67,16 @@ m_desiredAtlasScale(1.0f),
 m_gafFileName(""),
 m_state(State::Normal)
 {
-    m_textureManager = new GAFAssetTextureManager();
-    GAFShaderManager::Initialize();
 }
 
 GAFAsset::~GAFAsset()
 {
     GAF_RELEASE_MAP(Timelines_t, m_timelines);
     //CC_SAFE_RELEASE(m_rootTimeline);
-    m_textureManager->release();
+    if (m_state == State::Normal)
+    {
+        m_textureManager->release();
+    }
 }
 
 bool GAFAsset::isAssetVersionPlayable(const char * version)
@@ -157,6 +158,8 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
     }
     if (isLoaded && m_state == State::Normal)
     {
+        m_textureManager = new GAFAssetTextureManager();
+        GAFShaderManager::Initialize();
         loadTextures(entryFile, delegate, &bundle);
     }
 
@@ -181,6 +184,8 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
     }
     if (isLoaded && m_state == State::Normal)
     {
+        m_textureManager = new GAFAssetTextureManager();
+        GAFShaderManager::Initialize();
         loadTextures(fullfilePath, delegate);
     }
 
