@@ -70,6 +70,7 @@
     <ClInclude Include="Sources\GAFObject.h" />
     <ClInclude Include="Sources\GAFPrecompiled.h" />
     <ClInclude Include="Sources\GAFQuadCommand.h" />
+    <ClInclude Include="Sources\GAFResourcesInfo.h" />
     <ClInclude Include="Sources\GAFShaderManager.h" />
     <ClInclude Include="Sources\GAFSprite.h" />
     <ClInclude Include="Sources\GAFStream.h" />

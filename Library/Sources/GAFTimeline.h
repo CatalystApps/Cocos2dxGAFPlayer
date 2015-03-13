@@ -67,6 +67,7 @@ public:
     const AnimationSequences_t& getAnimationSequences() const;
     const NamedParts_t&         getNamedParts() const;
     const TextsData_t&          getTextsData() const;
+    const TextureAtlases_t&     getTextureAtlases() const;
     uint32_t                    getFramesCount() const;
 
     const cocos2d::Rect         getRect() const;

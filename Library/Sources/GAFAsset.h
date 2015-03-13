@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GAFCollections.h"
+#include "GAFResourcesInfo.h"
 #include "GAFHeader.h"
 #include "GAFTimeline.h"
 
@@ -23,6 +24,7 @@ private:
 
     void setRootTimeline(GAFTimeline* tl);
 
+    void parseReferences(std::vector<GAFResourcesInfo*> &dest);
     void loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle = nullptr);
     GAFTextureLoadDelegate_t m_textureLoadDelegate;
 	GAFAssetTextureManager*	m_textureManager;
@@ -35,6 +37,14 @@ private:
     float                   m_desiredAtlasScale;
 
     std::string             m_gafFileName;
+
+    enum class State : uint8_t
+    {
+        Normal = 0,
+        DryRun
+    };
+    State                   m_state; // avoid to pass this parameter to public methods to prevent usage
+
 private:
     int _majorVersion;
     int _minorVersion;
@@ -61,6 +71,9 @@ public:
     static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate);
     static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate);
     static GAFAsset*            create(const std::string& gafFilePath);
+
+    static void                 getResourceReferences(const std::string& gafFilePath, std::vector<GAFResourcesInfo*> &dest);
+    static void                 getResourceReferencesFromBundle(const std::string& zipfilePath, const std::string& entryFile, std::vector<GAFResourcesInfo*> &dest);
 
     GAFAsset();
     ~GAFAsset();
