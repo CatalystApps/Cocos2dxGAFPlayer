@@ -1,0 +1,879 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A1735791AB7425C001EFD55 /* js_gaf_manual_conversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735731AB7425C001EFD55 /* js_gaf_manual_conversions.cpp */; };
+		1A17357A1AB7425C001EFD55 /* js_gaf_manual_conversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735731AB7425C001EFD55 /* js_gaf_manual_conversions.cpp */; };
+		1A17357B1AB7425C001EFD55 /* js_gaf_manual_conversions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735741AB7425C001EFD55 /* js_gaf_manual_conversions.h */; };
+		1A17357C1AB7425C001EFD55 /* jsb_gaf_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735751AB7425C001EFD55 /* jsb_gaf_manual.cpp */; };
+		1A17357D1AB7425C001EFD55 /* jsb_gaf_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735751AB7425C001EFD55 /* jsb_gaf_manual.cpp */; };
+		1A17357E1AB7425C001EFD55 /* jsb_gaf_manual.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735761AB7425C001EFD55 /* jsb_gaf_manual.h */; };
+		1A17357F1AB7425C001EFD55 /* jsb_gaf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735771AB7425C001EFD55 /* jsb_gaf.cpp */; };
+		1A1735801AB7425C001EFD55 /* jsb_gaf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735771AB7425C001EFD55 /* jsb_gaf.cpp */; };
+		1A1735811AB7425C001EFD55 /* jsb_gaf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735781AB7425C001EFD55 /* jsb_gaf.hpp */; };
+		1A1735BE1AB74272001EFD55 /* GAF_JS.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735821AB74272001EFD55 /* GAF_JS.h */; };
+		1A1735BF1AB74272001EFD55 /* GAF_LUA.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735831AB74272001EFD55 /* GAF_LUA.h */; };
+		1A1735C01AB74272001EFD55 /* GAF.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735841AB74272001EFD55 /* GAF.h */; };
+		1A1735C11AB74272001EFD55 /* GAFAnimationFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735851AB74272001EFD55 /* GAFAnimationFrame.cpp */; };
+		1A1735C21AB74272001EFD55 /* GAFAnimationFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735851AB74272001EFD55 /* GAFAnimationFrame.cpp */; };
+		1A1735C31AB74272001EFD55 /* GAFAnimationFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735861AB74272001EFD55 /* GAFAnimationFrame.h */; };
+		1A1735C41AB74272001EFD55 /* GAFAnimationSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735871AB74272001EFD55 /* GAFAnimationSequence.cpp */; };
+		1A1735C51AB74272001EFD55 /* GAFAnimationSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735871AB74272001EFD55 /* GAFAnimationSequence.cpp */; };
+		1A1735C61AB74272001EFD55 /* GAFAnimationSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735881AB74272001EFD55 /* GAFAnimationSequence.h */; };
+		1A1735C71AB74272001EFD55 /* GAFAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735891AB74272001EFD55 /* GAFAsset.cpp */; };
+		1A1735C81AB74272001EFD55 /* GAFAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735891AB74272001EFD55 /* GAFAsset.cpp */; };
+		1A1735C91AB74272001EFD55 /* GAFAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17358A1AB74272001EFD55 /* GAFAsset.h */; };
+		1A1735CA1AB74272001EFD55 /* GAFAssetTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17358B1AB74272001EFD55 /* GAFAssetTextureManager.cpp */; };
+		1A1735CB1AB74272001EFD55 /* GAFAssetTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17358B1AB74272001EFD55 /* GAFAssetTextureManager.cpp */; };
+		1A1735CC1AB74272001EFD55 /* GAFAssetTextureManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17358C1AB74272001EFD55 /* GAFAssetTextureManager.h */; };
+		1A1735CD1AB74272001EFD55 /* GAFCachedTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17358D1AB74272001EFD55 /* GAFCachedTexture.cpp */; };
+		1A1735CE1AB74272001EFD55 /* GAFCachedTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17358D1AB74272001EFD55 /* GAFCachedTexture.cpp */; };
+		1A1735CF1AB74272001EFD55 /* GAFCachedTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17358E1AB74272001EFD55 /* GAFCachedTexture.h */; };
+		1A1735D01AB74272001EFD55 /* GAFCollections.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17358F1AB74272001EFD55 /* GAFCollections.h */; };
+		1A1735D11AB74272001EFD55 /* GAFDelegates.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735901AB74272001EFD55 /* GAFDelegates.h */; };
+		1A1735D21AB74272001EFD55 /* GAFFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735911AB74272001EFD55 /* GAFFile.cpp */; };
+		1A1735D31AB74272001EFD55 /* GAFFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735911AB74272001EFD55 /* GAFFile.cpp */; };
+		1A1735D41AB74272001EFD55 /* GAFFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735921AB74272001EFD55 /* GAFFile.h */; };
+		1A1735D51AB74272001EFD55 /* GAFFilterData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735931AB74272001EFD55 /* GAFFilterData.cpp */; };
+		1A1735D61AB74272001EFD55 /* GAFFilterData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735931AB74272001EFD55 /* GAFFilterData.cpp */; };
+		1A1735D71AB74272001EFD55 /* GAFFilterData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735941AB74272001EFD55 /* GAFFilterData.h */; };
+		1A1735D81AB74272001EFD55 /* GAFFilterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735951AB74272001EFD55 /* GAFFilterManager.cpp */; };
+		1A1735D91AB74272001EFD55 /* GAFFilterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735951AB74272001EFD55 /* GAFFilterManager.cpp */; };
+		1A1735DA1AB74272001EFD55 /* GAFFilterManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735961AB74272001EFD55 /* GAFFilterManager.h */; };
+		1A1735DB1AB74272001EFD55 /* GAFHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735971AB74272001EFD55 /* GAFHeader.h */; };
+		1A1735DC1AB74272001EFD55 /* GAFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735981AB74272001EFD55 /* GAFLoader.cpp */; };
+		1A1735DD1AB74272001EFD55 /* GAFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735981AB74272001EFD55 /* GAFLoader.cpp */; };
+		1A1735DE1AB74272001EFD55 /* GAFLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735991AB74272001EFD55 /* GAFLoader.h */; };
+		1A1735DF1AB74272001EFD55 /* GAFMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17359A1AB74272001EFD55 /* GAFMacros.h */; };
+		1A1735E01AB74272001EFD55 /* GAFMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17359B1AB74272001EFD55 /* GAFMask.cpp */; };
+		1A1735E11AB74272001EFD55 /* GAFMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17359B1AB74272001EFD55 /* GAFMask.cpp */; };
+		1A1735E21AB74272001EFD55 /* GAFMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17359C1AB74272001EFD55 /* GAFMask.h */; };
+		1A1735E31AB74272001EFD55 /* GAFMovieClip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17359D1AB74272001EFD55 /* GAFMovieClip.cpp */; };
+		1A1735E41AB74272001EFD55 /* GAFMovieClip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17359D1AB74272001EFD55 /* GAFMovieClip.cpp */; };
+		1A1735E51AB74272001EFD55 /* GAFMovieClip.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17359E1AB74272001EFD55 /* GAFMovieClip.h */; };
+		1A1735E61AB74272001EFD55 /* GAFObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17359F1AB74272001EFD55 /* GAFObject.cpp */; };
+		1A1735E71AB74272001EFD55 /* GAFObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17359F1AB74272001EFD55 /* GAFObject.cpp */; };
+		1A1735E81AB74272001EFD55 /* GAFObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735A01AB74272001EFD55 /* GAFObject.h */; };
+		1A1735E91AB74272001EFD55 /* GAFPlayer-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735A11AB74272001EFD55 /* GAFPlayer-Prefix.pch */; };
+		1A1735EA1AB74272001EFD55 /* GAFPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A21AB74272001EFD55 /* GAFPrecompiled.cpp */; };
+		1A1735EB1AB74272001EFD55 /* GAFPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A21AB74272001EFD55 /* GAFPrecompiled.cpp */; };
+		1A1735EC1AB74272001EFD55 /* GAFPrecompiled.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735A31AB74272001EFD55 /* GAFPrecompiled.h */; };
+		1A1735ED1AB74272001EFD55 /* GAFQuadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A41AB74272001EFD55 /* GAFQuadCommand.cpp */; };
+		1A1735EE1AB74272001EFD55 /* GAFQuadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A41AB74272001EFD55 /* GAFQuadCommand.cpp */; };
+		1A1735EF1AB74272001EFD55 /* GAFQuadCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735A51AB74272001EFD55 /* GAFQuadCommand.h */; };
+		1A1735F01AB74272001EFD55 /* GAFResourcesInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735A61AB74272001EFD55 /* GAFResourcesInfo.h */; };
+		1A1735F11AB74272001EFD55 /* GAFShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A71AB74272001EFD55 /* GAFShaderManager.cpp */; };
+		1A1735F21AB74272001EFD55 /* GAFShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A71AB74272001EFD55 /* GAFShaderManager.cpp */; };
+		1A1735F31AB74272001EFD55 /* GAFShaderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735A81AB74272001EFD55 /* GAFShaderManager.h */; };
+		1A1735F41AB74272001EFD55 /* GAFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A91AB74272001EFD55 /* GAFSprite.cpp */; };
+		1A1735F51AB74272001EFD55 /* GAFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735A91AB74272001EFD55 /* GAFSprite.cpp */; };
+		1A1735F61AB74272001EFD55 /* GAFSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735AA1AB74272001EFD55 /* GAFSprite.h */; };
+		1A1735F71AB74272001EFD55 /* GAFStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735AB1AB74272001EFD55 /* GAFStream.cpp */; };
+		1A1735F81AB74272001EFD55 /* GAFStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735AB1AB74272001EFD55 /* GAFStream.cpp */; };
+		1A1735F91AB74272001EFD55 /* GAFStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735AC1AB74272001EFD55 /* GAFStream.h */; };
+		1A1735FA1AB74272001EFD55 /* GAFSubobjectState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735AD1AB74272001EFD55 /* GAFSubobjectState.cpp */; };
+		1A1735FB1AB74272001EFD55 /* GAFSubobjectState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735AD1AB74272001EFD55 /* GAFSubobjectState.cpp */; };
+		1A1735FC1AB74272001EFD55 /* GAFSubobjectState.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735AE1AB74272001EFD55 /* GAFSubobjectState.h */; };
+		1A1735FD1AB74272001EFD55 /* GAFTextData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735AF1AB74272001EFD55 /* GAFTextData.cpp */; };
+		1A1735FE1AB74272001EFD55 /* GAFTextData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735AF1AB74272001EFD55 /* GAFTextData.cpp */; };
+		1A1735FF1AB74272001EFD55 /* GAFTextData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735B01AB74272001EFD55 /* GAFTextData.h */; };
+		1A1736001AB74272001EFD55 /* GAFTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B11AB74272001EFD55 /* GAFTextField.cpp */; };
+		1A1736011AB74272001EFD55 /* GAFTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B11AB74272001EFD55 /* GAFTextField.cpp */; };
+		1A1736021AB74272001EFD55 /* GAFTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735B21AB74272001EFD55 /* GAFTextField.h */; };
+		1A1736031AB74272001EFD55 /* GAFTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B31AB74272001EFD55 /* GAFTextureAtlas.cpp */; };
+		1A1736041AB74272001EFD55 /* GAFTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B31AB74272001EFD55 /* GAFTextureAtlas.cpp */; };
+		1A1736051AB74272001EFD55 /* GAFTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735B41AB74272001EFD55 /* GAFTextureAtlas.h */; };
+		1A1736061AB74272001EFD55 /* GAFTextureAtlasElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B51AB74272001EFD55 /* GAFTextureAtlasElement.cpp */; };
+		1A1736071AB74272001EFD55 /* GAFTextureAtlasElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B51AB74272001EFD55 /* GAFTextureAtlasElement.cpp */; };
+		1A1736081AB74272001EFD55 /* GAFTextureAtlasElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735B61AB74272001EFD55 /* GAFTextureAtlasElement.h */; };
+		1A1736091AB74272001EFD55 /* GAFTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B71AB74272001EFD55 /* GAFTimeline.cpp */; };
+		1A17360A1AB74272001EFD55 /* GAFTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B71AB74272001EFD55 /* GAFTimeline.cpp */; };
+		1A17360B1AB74272001EFD55 /* GAFTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735B81AB74272001EFD55 /* GAFTimeline.h */; };
+		1A17360C1AB74272001EFD55 /* GAFTimelineAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B91AB74272001EFD55 /* GAFTimelineAction.cpp */; };
+		1A17360D1AB74272001EFD55 /* GAFTimelineAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735B91AB74272001EFD55 /* GAFTimelineAction.cpp */; };
+		1A17360E1AB74272001EFD55 /* GAFTimelineAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735BA1AB74272001EFD55 /* GAFTimelineAction.h */; };
+		1A17360F1AB74272001EFD55 /* PrimitiveDeserializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735BC1AB74272001EFD55 /* PrimitiveDeserializer.cpp */; };
+		1A1736101AB74272001EFD55 /* PrimitiveDeserializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1735BC1AB74272001EFD55 /* PrimitiveDeserializer.cpp */; };
+		1A1736111AB74272001EFD55 /* PrimitiveDeserializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1735BD1AB74272001EFD55 /* PrimitiveDeserializer.h */; };
+		1A1736271AB74282001EFD55 /* TagDefineAnimationFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736121AB74282001EFD55 /* TagDefineAnimationFrames.cpp */; };
+		1A1736281AB74282001EFD55 /* TagDefineAnimationFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736121AB74282001EFD55 /* TagDefineAnimationFrames.cpp */; };
+		1A1736291AB74282001EFD55 /* TagDefineAnimationFrames.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736131AB74282001EFD55 /* TagDefineAnimationFrames.h */; };
+		1A17362A1AB74282001EFD55 /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736141AB74282001EFD55 /* TagDefineAnimationFrames2.cpp */; };
+		1A17362B1AB74282001EFD55 /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736141AB74282001EFD55 /* TagDefineAnimationFrames2.cpp */; };
+		1A17362C1AB74282001EFD55 /* TagDefineAnimationFrames2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736151AB74282001EFD55 /* TagDefineAnimationFrames2.h */; };
+		1A17362D1AB74282001EFD55 /* TagDefineAnimationMasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736161AB74282001EFD55 /* TagDefineAnimationMasks.cpp */; };
+		1A17362E1AB74282001EFD55 /* TagDefineAnimationMasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736161AB74282001EFD55 /* TagDefineAnimationMasks.cpp */; };
+		1A17362F1AB74282001EFD55 /* TagDefineAnimationMasks.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736171AB74282001EFD55 /* TagDefineAnimationMasks.h */; };
+		1A1736301AB74282001EFD55 /* TagDefineAnimationObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736181AB74282001EFD55 /* TagDefineAnimationObjects.cpp */; };
+		1A1736311AB74282001EFD55 /* TagDefineAnimationObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736181AB74282001EFD55 /* TagDefineAnimationObjects.cpp */; };
+		1A1736321AB74282001EFD55 /* TagDefineAnimationObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736191AB74282001EFD55 /* TagDefineAnimationObjects.h */; };
+		1A1736331AB74282001EFD55 /* TagDefineAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17361A1AB74282001EFD55 /* TagDefineAtlas.cpp */; };
+		1A1736341AB74282001EFD55 /* TagDefineAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17361A1AB74282001EFD55 /* TagDefineAtlas.cpp */; };
+		1A1736351AB74282001EFD55 /* TagDefineAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17361B1AB74282001EFD55 /* TagDefineAtlas.h */; };
+		1A1736361AB74282001EFD55 /* TagDefineNamedParts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17361C1AB74282001EFD55 /* TagDefineNamedParts.cpp */; };
+		1A1736371AB74282001EFD55 /* TagDefineNamedParts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17361C1AB74282001EFD55 /* TagDefineNamedParts.cpp */; };
+		1A1736381AB74282001EFD55 /* TagDefineNamedParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17361D1AB74282001EFD55 /* TagDefineNamedParts.h */; };
+		1A1736391AB74282001EFD55 /* TagDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A17361E1AB74282001EFD55 /* TagDefines.h */; };
+		1A17363A1AB74282001EFD55 /* TagDefineSequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17361F1AB74282001EFD55 /* TagDefineSequences.cpp */; };
+		1A17363B1AB74282001EFD55 /* TagDefineSequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A17361F1AB74282001EFD55 /* TagDefineSequences.cpp */; };
+		1A17363C1AB74282001EFD55 /* TagDefineSequences.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736201AB74282001EFD55 /* TagDefineSequences.h */; };
+		1A17363D1AB74282001EFD55 /* TagDefineStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736211AB74282001EFD55 /* TagDefineStage.cpp */; };
+		1A17363E1AB74282001EFD55 /* TagDefineStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736211AB74282001EFD55 /* TagDefineStage.cpp */; };
+		1A17363F1AB74282001EFD55 /* TagDefineStage.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736221AB74282001EFD55 /* TagDefineStage.h */; };
+		1A1736401AB74282001EFD55 /* TagDefineTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736231AB74282001EFD55 /* TagDefineTextField.cpp */; };
+		1A1736411AB74282001EFD55 /* TagDefineTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736231AB74282001EFD55 /* TagDefineTextField.cpp */; };
+		1A1736421AB74282001EFD55 /* TagDefineTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736241AB74282001EFD55 /* TagDefineTextField.h */; };
+		1A1736431AB74282001EFD55 /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736251AB74282001EFD55 /* TagDefineTimeline.cpp */; };
+		1A1736441AB74282001EFD55 /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1736251AB74282001EFD55 /* TagDefineTimeline.cpp */; };
+		1A1736451AB74282001EFD55 /* TagDefineTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736261AB74282001EFD55 /* TagDefineTimeline.h */; };
+		1A1736471AB7428F001EFD55 /* DefinitionTagBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1736461AB7428F001EFD55 /* DefinitionTagBase.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B6E0DD1F1A9CC9D800B95002 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1A1735731AB7425C001EFD55 /* js_gaf_manual_conversions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = js_gaf_manual_conversions.cpp; path = ../bindings/js_gaf_manual_conversions.cpp; sourceTree = "<group>"; };
+		1A1735741AB7425C001EFD55 /* js_gaf_manual_conversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = js_gaf_manual_conversions.h; path = ../bindings/js_gaf_manual_conversions.h; sourceTree = "<group>"; };
+		1A1735751AB7425C001EFD55 /* jsb_gaf_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jsb_gaf_manual.cpp; path = ../bindings/jsb_gaf_manual.cpp; sourceTree = "<group>"; };
+		1A1735761AB7425C001EFD55 /* jsb_gaf_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jsb_gaf_manual.h; path = ../bindings/jsb_gaf_manual.h; sourceTree = "<group>"; };
+		1A1735771AB7425C001EFD55 /* jsb_gaf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jsb_gaf.cpp; path = ../bindings/jsb_gaf.cpp; sourceTree = "<group>"; };
+		1A1735781AB7425C001EFD55 /* jsb_gaf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = jsb_gaf.hpp; path = ../bindings/jsb_gaf.hpp; sourceTree = "<group>"; };
+		1A1735821AB74272001EFD55 /* GAF_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAF_JS.h; path = ../../Library/Sources/GAF_JS.h; sourceTree = "<group>"; };
+		1A1735831AB74272001EFD55 /* GAF_LUA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAF_LUA.h; path = ../../Library/Sources/GAF_LUA.h; sourceTree = "<group>"; };
+		1A1735841AB74272001EFD55 /* GAF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAF.h; path = ../../Library/Sources/GAF.h; sourceTree = "<group>"; };
+		1A1735851AB74272001EFD55 /* GAFAnimationFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAnimationFrame.cpp; path = ../../Library/Sources/GAFAnimationFrame.cpp; sourceTree = "<group>"; };
+		1A1735861AB74272001EFD55 /* GAFAnimationFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAnimationFrame.h; path = ../../Library/Sources/GAFAnimationFrame.h; sourceTree = "<group>"; };
+		1A1735871AB74272001EFD55 /* GAFAnimationSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAnimationSequence.cpp; path = ../../Library/Sources/GAFAnimationSequence.cpp; sourceTree = "<group>"; };
+		1A1735881AB74272001EFD55 /* GAFAnimationSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAnimationSequence.h; path = ../../Library/Sources/GAFAnimationSequence.h; sourceTree = "<group>"; };
+		1A1735891AB74272001EFD55 /* GAFAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAsset.cpp; path = ../../Library/Sources/GAFAsset.cpp; sourceTree = "<group>"; };
+		1A17358A1AB74272001EFD55 /* GAFAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAsset.h; path = ../../Library/Sources/GAFAsset.h; sourceTree = "<group>"; };
+		1A17358B1AB74272001EFD55 /* GAFAssetTextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAssetTextureManager.cpp; path = ../../Library/Sources/GAFAssetTextureManager.cpp; sourceTree = "<group>"; };
+		1A17358C1AB74272001EFD55 /* GAFAssetTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAssetTextureManager.h; path = ../../Library/Sources/GAFAssetTextureManager.h; sourceTree = "<group>"; };
+		1A17358D1AB74272001EFD55 /* GAFCachedTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFCachedTexture.cpp; path = ../../Library/Sources/GAFCachedTexture.cpp; sourceTree = "<group>"; };
+		1A17358E1AB74272001EFD55 /* GAFCachedTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFCachedTexture.h; path = ../../Library/Sources/GAFCachedTexture.h; sourceTree = "<group>"; };
+		1A17358F1AB74272001EFD55 /* GAFCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFCollections.h; path = ../../Library/Sources/GAFCollections.h; sourceTree = "<group>"; };
+		1A1735901AB74272001EFD55 /* GAFDelegates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFDelegates.h; path = ../../Library/Sources/GAFDelegates.h; sourceTree = "<group>"; };
+		1A1735911AB74272001EFD55 /* GAFFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFFile.cpp; path = ../../Library/Sources/GAFFile.cpp; sourceTree = "<group>"; };
+		1A1735921AB74272001EFD55 /* GAFFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFFile.h; path = ../../Library/Sources/GAFFile.h; sourceTree = "<group>"; };
+		1A1735931AB74272001EFD55 /* GAFFilterData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFFilterData.cpp; path = ../../Library/Sources/GAFFilterData.cpp; sourceTree = "<group>"; };
+		1A1735941AB74272001EFD55 /* GAFFilterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFFilterData.h; path = ../../Library/Sources/GAFFilterData.h; sourceTree = "<group>"; };
+		1A1735951AB74272001EFD55 /* GAFFilterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFFilterManager.cpp; path = ../../Library/Sources/GAFFilterManager.cpp; sourceTree = "<group>"; };
+		1A1735961AB74272001EFD55 /* GAFFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFFilterManager.h; path = ../../Library/Sources/GAFFilterManager.h; sourceTree = "<group>"; };
+		1A1735971AB74272001EFD55 /* GAFHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFHeader.h; path = ../../Library/Sources/GAFHeader.h; sourceTree = "<group>"; };
+		1A1735981AB74272001EFD55 /* GAFLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFLoader.cpp; path = ../../Library/Sources/GAFLoader.cpp; sourceTree = "<group>"; };
+		1A1735991AB74272001EFD55 /* GAFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFLoader.h; path = ../../Library/Sources/GAFLoader.h; sourceTree = "<group>"; };
+		1A17359A1AB74272001EFD55 /* GAFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFMacros.h; path = ../../Library/Sources/GAFMacros.h; sourceTree = "<group>"; };
+		1A17359B1AB74272001EFD55 /* GAFMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFMask.cpp; path = ../../Library/Sources/GAFMask.cpp; sourceTree = "<group>"; };
+		1A17359C1AB74272001EFD55 /* GAFMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFMask.h; path = ../../Library/Sources/GAFMask.h; sourceTree = "<group>"; };
+		1A17359D1AB74272001EFD55 /* GAFMovieClip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFMovieClip.cpp; path = ../../Library/Sources/GAFMovieClip.cpp; sourceTree = "<group>"; };
+		1A17359E1AB74272001EFD55 /* GAFMovieClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFMovieClip.h; path = ../../Library/Sources/GAFMovieClip.h; sourceTree = "<group>"; };
+		1A17359F1AB74272001EFD55 /* GAFObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFObject.cpp; path = ../../Library/Sources/GAFObject.cpp; sourceTree = "<group>"; };
+		1A1735A01AB74272001EFD55 /* GAFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFObject.h; path = ../../Library/Sources/GAFObject.h; sourceTree = "<group>"; };
+		1A1735A11AB74272001EFD55 /* GAFPlayer-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GAFPlayer-Prefix.pch"; path = "../../Library/Sources/GAFPlayer-Prefix.pch"; sourceTree = "<group>"; };
+		1A1735A21AB74272001EFD55 /* GAFPrecompiled.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFPrecompiled.cpp; path = ../../Library/Sources/GAFPrecompiled.cpp; sourceTree = "<group>"; };
+		1A1735A31AB74272001EFD55 /* GAFPrecompiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFPrecompiled.h; path = ../../Library/Sources/GAFPrecompiled.h; sourceTree = "<group>"; };
+		1A1735A41AB74272001EFD55 /* GAFQuadCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFQuadCommand.cpp; path = ../../Library/Sources/GAFQuadCommand.cpp; sourceTree = "<group>"; };
+		1A1735A51AB74272001EFD55 /* GAFQuadCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFQuadCommand.h; path = ../../Library/Sources/GAFQuadCommand.h; sourceTree = "<group>"; };
+		1A1735A61AB74272001EFD55 /* GAFResourcesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFResourcesInfo.h; path = ../../Library/Sources/GAFResourcesInfo.h; sourceTree = "<group>"; };
+		1A1735A71AB74272001EFD55 /* GAFShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFShaderManager.cpp; path = ../../Library/Sources/GAFShaderManager.cpp; sourceTree = "<group>"; };
+		1A1735A81AB74272001EFD55 /* GAFShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFShaderManager.h; path = ../../Library/Sources/GAFShaderManager.h; sourceTree = "<group>"; };
+		1A1735A91AB74272001EFD55 /* GAFSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFSprite.cpp; path = ../../Library/Sources/GAFSprite.cpp; sourceTree = "<group>"; };
+		1A1735AA1AB74272001EFD55 /* GAFSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFSprite.h; path = ../../Library/Sources/GAFSprite.h; sourceTree = "<group>"; };
+		1A1735AB1AB74272001EFD55 /* GAFStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFStream.cpp; path = ../../Library/Sources/GAFStream.cpp; sourceTree = "<group>"; };
+		1A1735AC1AB74272001EFD55 /* GAFStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFStream.h; path = ../../Library/Sources/GAFStream.h; sourceTree = "<group>"; };
+		1A1735AD1AB74272001EFD55 /* GAFSubobjectState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFSubobjectState.cpp; path = ../../Library/Sources/GAFSubobjectState.cpp; sourceTree = "<group>"; };
+		1A1735AE1AB74272001EFD55 /* GAFSubobjectState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFSubobjectState.h; path = ../../Library/Sources/GAFSubobjectState.h; sourceTree = "<group>"; };
+		1A1735AF1AB74272001EFD55 /* GAFTextData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextData.cpp; path = ../../Library/Sources/GAFTextData.cpp; sourceTree = "<group>"; };
+		1A1735B01AB74272001EFD55 /* GAFTextData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextData.h; path = ../../Library/Sources/GAFTextData.h; sourceTree = "<group>"; };
+		1A1735B11AB74272001EFD55 /* GAFTextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextField.cpp; path = ../../Library/Sources/GAFTextField.cpp; sourceTree = "<group>"; };
+		1A1735B21AB74272001EFD55 /* GAFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextField.h; path = ../../Library/Sources/GAFTextField.h; sourceTree = "<group>"; };
+		1A1735B31AB74272001EFD55 /* GAFTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextureAtlas.cpp; path = ../../Library/Sources/GAFTextureAtlas.cpp; sourceTree = "<group>"; };
+		1A1735B41AB74272001EFD55 /* GAFTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextureAtlas.h; path = ../../Library/Sources/GAFTextureAtlas.h; sourceTree = "<group>"; };
+		1A1735B51AB74272001EFD55 /* GAFTextureAtlasElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextureAtlasElement.cpp; path = ../../Library/Sources/GAFTextureAtlasElement.cpp; sourceTree = "<group>"; };
+		1A1735B61AB74272001EFD55 /* GAFTextureAtlasElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextureAtlasElement.h; path = ../../Library/Sources/GAFTextureAtlasElement.h; sourceTree = "<group>"; };
+		1A1735B71AB74272001EFD55 /* GAFTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTimeline.cpp; path = ../../Library/Sources/GAFTimeline.cpp; sourceTree = "<group>"; };
+		1A1735B81AB74272001EFD55 /* GAFTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTimeline.h; path = ../../Library/Sources/GAFTimeline.h; sourceTree = "<group>"; };
+		1A1735B91AB74272001EFD55 /* GAFTimelineAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTimelineAction.cpp; path = ../../Library/Sources/GAFTimelineAction.cpp; sourceTree = "<group>"; };
+		1A1735BA1AB74272001EFD55 /* GAFTimelineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTimelineAction.h; path = ../../Library/Sources/GAFTimelineAction.h; sourceTree = "<group>"; };
+		1A1735BB1AB74272001EFD55 /* mainpage.dox */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mainpage.dox; path = ../../Library/Sources/mainpage.dox; sourceTree = "<group>"; };
+		1A1735BC1AB74272001EFD55 /* PrimitiveDeserializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrimitiveDeserializer.cpp; path = ../../Library/Sources/PrimitiveDeserializer.cpp; sourceTree = "<group>"; };
+		1A1735BD1AB74272001EFD55 /* PrimitiveDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrimitiveDeserializer.h; path = ../../Library/Sources/PrimitiveDeserializer.h; sourceTree = "<group>"; };
+		1A1736121AB74282001EFD55 /* TagDefineAnimationFrames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineAnimationFrames.cpp; path = ../../Library/Sources/TagDefineAnimationFrames.cpp; sourceTree = "<group>"; };
+		1A1736131AB74282001EFD55 /* TagDefineAnimationFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineAnimationFrames.h; path = ../../Library/Sources/TagDefineAnimationFrames.h; sourceTree = "<group>"; };
+		1A1736141AB74282001EFD55 /* TagDefineAnimationFrames2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineAnimationFrames2.cpp; path = ../../Library/Sources/TagDefineAnimationFrames2.cpp; sourceTree = "<group>"; };
+		1A1736151AB74282001EFD55 /* TagDefineAnimationFrames2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineAnimationFrames2.h; path = ../../Library/Sources/TagDefineAnimationFrames2.h; sourceTree = "<group>"; };
+		1A1736161AB74282001EFD55 /* TagDefineAnimationMasks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineAnimationMasks.cpp; path = ../../Library/Sources/TagDefineAnimationMasks.cpp; sourceTree = "<group>"; };
+		1A1736171AB74282001EFD55 /* TagDefineAnimationMasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineAnimationMasks.h; path = ../../Library/Sources/TagDefineAnimationMasks.h; sourceTree = "<group>"; };
+		1A1736181AB74282001EFD55 /* TagDefineAnimationObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineAnimationObjects.cpp; path = ../../Library/Sources/TagDefineAnimationObjects.cpp; sourceTree = "<group>"; };
+		1A1736191AB74282001EFD55 /* TagDefineAnimationObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineAnimationObjects.h; path = ../../Library/Sources/TagDefineAnimationObjects.h; sourceTree = "<group>"; };
+		1A17361A1AB74282001EFD55 /* TagDefineAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineAtlas.cpp; path = ../../Library/Sources/TagDefineAtlas.cpp; sourceTree = "<group>"; };
+		1A17361B1AB74282001EFD55 /* TagDefineAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineAtlas.h; path = ../../Library/Sources/TagDefineAtlas.h; sourceTree = "<group>"; };
+		1A17361C1AB74282001EFD55 /* TagDefineNamedParts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineNamedParts.cpp; path = ../../Library/Sources/TagDefineNamedParts.cpp; sourceTree = "<group>"; };
+		1A17361D1AB74282001EFD55 /* TagDefineNamedParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineNamedParts.h; path = ../../Library/Sources/TagDefineNamedParts.h; sourceTree = "<group>"; };
+		1A17361E1AB74282001EFD55 /* TagDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefines.h; path = ../../Library/Sources/TagDefines.h; sourceTree = "<group>"; };
+		1A17361F1AB74282001EFD55 /* TagDefineSequences.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineSequences.cpp; path = ../../Library/Sources/TagDefineSequences.cpp; sourceTree = "<group>"; };
+		1A1736201AB74282001EFD55 /* TagDefineSequences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineSequences.h; path = ../../Library/Sources/TagDefineSequences.h; sourceTree = "<group>"; };
+		1A1736211AB74282001EFD55 /* TagDefineStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineStage.cpp; path = ../../Library/Sources/TagDefineStage.cpp; sourceTree = "<group>"; };
+		1A1736221AB74282001EFD55 /* TagDefineStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineStage.h; path = ../../Library/Sources/TagDefineStage.h; sourceTree = "<group>"; };
+		1A1736231AB74282001EFD55 /* TagDefineTextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineTextField.cpp; path = ../../Library/Sources/TagDefineTextField.cpp; sourceTree = "<group>"; };
+		1A1736241AB74282001EFD55 /* TagDefineTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineTextField.h; path = ../../Library/Sources/TagDefineTextField.h; sourceTree = "<group>"; };
+		1A1736251AB74282001EFD55 /* TagDefineTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TagDefineTimeline.cpp; path = ../../Library/Sources/TagDefineTimeline.cpp; sourceTree = "<group>"; };
+		1A1736261AB74282001EFD55 /* TagDefineTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagDefineTimeline.h; path = ../../Library/Sources/TagDefineTimeline.h; sourceTree = "<group>"; };
+		1A1736461AB7428F001EFD55 /* DefinitionTagBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionTagBase.h; path = ../../Library/Sources/DefinitionTagBase.h; sourceTree = "<group>"; };
+		B6E0DD211A9CC9D800B95002 /* libgaf_js_bindings iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgaf_js_bindings iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6E0DD7F1A9DD9E300B95002 /* libgaf_js_bindings Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgaf_js_bindings Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B6E0DD1E1A9CC9D800B95002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E0DD7C1A9DD9E300B95002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B6E0DD131A9CC9AA00B95002 = {
+			isa = PBXGroup;
+			children = (
+				1A1736461AB7428F001EFD55 /* DefinitionTagBase.h */,
+				1A1736121AB74282001EFD55 /* TagDefineAnimationFrames.cpp */,
+				1A1736131AB74282001EFD55 /* TagDefineAnimationFrames.h */,
+				1A1736141AB74282001EFD55 /* TagDefineAnimationFrames2.cpp */,
+				1A1736151AB74282001EFD55 /* TagDefineAnimationFrames2.h */,
+				1A1736161AB74282001EFD55 /* TagDefineAnimationMasks.cpp */,
+				1A1736171AB74282001EFD55 /* TagDefineAnimationMasks.h */,
+				1A1736181AB74282001EFD55 /* TagDefineAnimationObjects.cpp */,
+				1A1736191AB74282001EFD55 /* TagDefineAnimationObjects.h */,
+				1A17361A1AB74282001EFD55 /* TagDefineAtlas.cpp */,
+				1A17361B1AB74282001EFD55 /* TagDefineAtlas.h */,
+				1A17361C1AB74282001EFD55 /* TagDefineNamedParts.cpp */,
+				1A17361D1AB74282001EFD55 /* TagDefineNamedParts.h */,
+				1A17361E1AB74282001EFD55 /* TagDefines.h */,
+				1A17361F1AB74282001EFD55 /* TagDefineSequences.cpp */,
+				1A1736201AB74282001EFD55 /* TagDefineSequences.h */,
+				1A1736211AB74282001EFD55 /* TagDefineStage.cpp */,
+				1A1736221AB74282001EFD55 /* TagDefineStage.h */,
+				1A1736231AB74282001EFD55 /* TagDefineTextField.cpp */,
+				1A1736241AB74282001EFD55 /* TagDefineTextField.h */,
+				1A1736251AB74282001EFD55 /* TagDefineTimeline.cpp */,
+				1A1736261AB74282001EFD55 /* TagDefineTimeline.h */,
+				1A1735821AB74272001EFD55 /* GAF_JS.h */,
+				1A1735831AB74272001EFD55 /* GAF_LUA.h */,
+				1A1735841AB74272001EFD55 /* GAF.h */,
+				1A1735851AB74272001EFD55 /* GAFAnimationFrame.cpp */,
+				1A1735861AB74272001EFD55 /* GAFAnimationFrame.h */,
+				1A1735871AB74272001EFD55 /* GAFAnimationSequence.cpp */,
+				1A1735881AB74272001EFD55 /* GAFAnimationSequence.h */,
+				1A1735891AB74272001EFD55 /* GAFAsset.cpp */,
+				1A17358A1AB74272001EFD55 /* GAFAsset.h */,
+				1A17358B1AB74272001EFD55 /* GAFAssetTextureManager.cpp */,
+				1A17358C1AB74272001EFD55 /* GAFAssetTextureManager.h */,
+				1A17358D1AB74272001EFD55 /* GAFCachedTexture.cpp */,
+				1A17358E1AB74272001EFD55 /* GAFCachedTexture.h */,
+				1A17358F1AB74272001EFD55 /* GAFCollections.h */,
+				1A1735901AB74272001EFD55 /* GAFDelegates.h */,
+				1A1735911AB74272001EFD55 /* GAFFile.cpp */,
+				1A1735921AB74272001EFD55 /* GAFFile.h */,
+				1A1735931AB74272001EFD55 /* GAFFilterData.cpp */,
+				1A1735941AB74272001EFD55 /* GAFFilterData.h */,
+				1A1735951AB74272001EFD55 /* GAFFilterManager.cpp */,
+				1A1735961AB74272001EFD55 /* GAFFilterManager.h */,
+				1A1735971AB74272001EFD55 /* GAFHeader.h */,
+				1A1735981AB74272001EFD55 /* GAFLoader.cpp */,
+				1A1735991AB74272001EFD55 /* GAFLoader.h */,
+				1A17359A1AB74272001EFD55 /* GAFMacros.h */,
+				1A17359B1AB74272001EFD55 /* GAFMask.cpp */,
+				1A17359C1AB74272001EFD55 /* GAFMask.h */,
+				1A17359D1AB74272001EFD55 /* GAFMovieClip.cpp */,
+				1A17359E1AB74272001EFD55 /* GAFMovieClip.h */,
+				1A17359F1AB74272001EFD55 /* GAFObject.cpp */,
+				1A1735A01AB74272001EFD55 /* GAFObject.h */,
+				1A1735A11AB74272001EFD55 /* GAFPlayer-Prefix.pch */,
+				1A1735A21AB74272001EFD55 /* GAFPrecompiled.cpp */,
+				1A1735A31AB74272001EFD55 /* GAFPrecompiled.h */,
+				1A1735A41AB74272001EFD55 /* GAFQuadCommand.cpp */,
+				1A1735A51AB74272001EFD55 /* GAFQuadCommand.h */,
+				1A1735A61AB74272001EFD55 /* GAFResourcesInfo.h */,
+				1A1735A71AB74272001EFD55 /* GAFShaderManager.cpp */,
+				1A1735A81AB74272001EFD55 /* GAFShaderManager.h */,
+				1A1735A91AB74272001EFD55 /* GAFSprite.cpp */,
+				1A1735AA1AB74272001EFD55 /* GAFSprite.h */,
+				1A1735AB1AB74272001EFD55 /* GAFStream.cpp */,
+				1A1735AC1AB74272001EFD55 /* GAFStream.h */,
+				1A1735AD1AB74272001EFD55 /* GAFSubobjectState.cpp */,
+				1A1735AE1AB74272001EFD55 /* GAFSubobjectState.h */,
+				1A1735AF1AB74272001EFD55 /* GAFTextData.cpp */,
+				1A1735B01AB74272001EFD55 /* GAFTextData.h */,
+				1A1735B11AB74272001EFD55 /* GAFTextField.cpp */,
+				1A1735B21AB74272001EFD55 /* GAFTextField.h */,
+				1A1735B31AB74272001EFD55 /* GAFTextureAtlas.cpp */,
+				1A1735B41AB74272001EFD55 /* GAFTextureAtlas.h */,
+				1A1735B51AB74272001EFD55 /* GAFTextureAtlasElement.cpp */,
+				1A1735B61AB74272001EFD55 /* GAFTextureAtlasElement.h */,
+				1A1735B71AB74272001EFD55 /* GAFTimeline.cpp */,
+				1A1735B81AB74272001EFD55 /* GAFTimeline.h */,
+				1A1735B91AB74272001EFD55 /* GAFTimelineAction.cpp */,
+				1A1735BA1AB74272001EFD55 /* GAFTimelineAction.h */,
+				1A1735BB1AB74272001EFD55 /* mainpage.dox */,
+				1A1735BC1AB74272001EFD55 /* PrimitiveDeserializer.cpp */,
+				1A1735BD1AB74272001EFD55 /* PrimitiveDeserializer.h */,
+				1A1735731AB7425C001EFD55 /* js_gaf_manual_conversions.cpp */,
+				1A1735741AB7425C001EFD55 /* js_gaf_manual_conversions.h */,
+				1A1735751AB7425C001EFD55 /* jsb_gaf_manual.cpp */,
+				1A1735761AB7425C001EFD55 /* jsb_gaf_manual.h */,
+				1A1735771AB7425C001EFD55 /* jsb_gaf.cpp */,
+				1A1735781AB7425C001EFD55 /* jsb_gaf.hpp */,
+				B6E0DD221A9CC9D800B95002 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B6E0DD221A9CC9D800B95002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B6E0DD211A9CC9D800B95002 /* libgaf_js_bindings iOS.a */,
+				B6E0DD7F1A9DD9E300B95002 /* libgaf_js_bindings Mac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B6E0DD7D1A9DD9E300B95002 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1735EC1AB74272001EFD55 /* GAFPrecompiled.h in Headers */,
+				1A1735FF1AB74272001EFD55 /* GAFTextData.h in Headers */,
+				1A1736111AB74272001EFD55 /* PrimitiveDeserializer.h in Headers */,
+				1A1735DB1AB74272001EFD55 /* GAFHeader.h in Headers */,
+				1A1736471AB7428F001EFD55 /* DefinitionTagBase.h in Headers */,
+				1A1736051AB74272001EFD55 /* GAFTextureAtlas.h in Headers */,
+				1A1735EF1AB74272001EFD55 /* GAFQuadCommand.h in Headers */,
+				1A1735BF1AB74272001EFD55 /* GAF_LUA.h in Headers */,
+				1A1735D41AB74272001EFD55 /* GAFFile.h in Headers */,
+				1A1736391AB74282001EFD55 /* TagDefines.h in Headers */,
+				1A1735E91AB74272001EFD55 /* GAFPlayer-Prefix.pch in Headers */,
+				1A1735C31AB74272001EFD55 /* GAFAnimationFrame.h in Headers */,
+				1A17362C1AB74282001EFD55 /* TagDefineAnimationFrames2.h in Headers */,
+				1A1735F01AB74272001EFD55 /* GAFResourcesInfo.h in Headers */,
+				1A1735BE1AB74272001EFD55 /* GAF_JS.h in Headers */,
+				1A1735D11AB74272001EFD55 /* GAFDelegates.h in Headers */,
+				1A1735DE1AB74272001EFD55 /* GAFLoader.h in Headers */,
+				1A1735C61AB74272001EFD55 /* GAFAnimationSequence.h in Headers */,
+				1A1736081AB74272001EFD55 /* GAFTextureAtlasElement.h in Headers */,
+				1A1735E81AB74272001EFD55 /* GAFObject.h in Headers */,
+				1A17360E1AB74272001EFD55 /* GAFTimelineAction.h in Headers */,
+				1A1735CC1AB74272001EFD55 /* GAFAssetTextureManager.h in Headers */,
+				1A1735DA1AB74272001EFD55 /* GAFFilterManager.h in Headers */,
+				1A1735DF1AB74272001EFD55 /* GAFMacros.h in Headers */,
+				1A1736451AB74282001EFD55 /* TagDefineTimeline.h in Headers */,
+				1A1736291AB74282001EFD55 /* TagDefineAnimationFrames.h in Headers */,
+				1A1736381AB74282001EFD55 /* TagDefineNamedParts.h in Headers */,
+				1A17363C1AB74282001EFD55 /* TagDefineSequences.h in Headers */,
+				1A17357B1AB7425C001EFD55 /* js_gaf_manual_conversions.h in Headers */,
+				1A1736351AB74282001EFD55 /* TagDefineAtlas.h in Headers */,
+				1A1735F91AB74272001EFD55 /* GAFStream.h in Headers */,
+				1A1735C01AB74272001EFD55 /* GAF.h in Headers */,
+				1A1735E51AB74272001EFD55 /* GAFMovieClip.h in Headers */,
+				1A1735D71AB74272001EFD55 /* GAFFilterData.h in Headers */,
+				1A17360B1AB74272001EFD55 /* GAFTimeline.h in Headers */,
+				1A1736321AB74282001EFD55 /* TagDefineAnimationObjects.h in Headers */,
+				1A1735CF1AB74272001EFD55 /* GAFCachedTexture.h in Headers */,
+				1A1735811AB7425C001EFD55 /* jsb_gaf.hpp in Headers */,
+				1A1735C91AB74272001EFD55 /* GAFAsset.h in Headers */,
+				1A1735F31AB74272001EFD55 /* GAFShaderManager.h in Headers */,
+				1A1735E21AB74272001EFD55 /* GAFMask.h in Headers */,
+				1A1736021AB74272001EFD55 /* GAFTextField.h in Headers */,
+				1A17357E1AB7425C001EFD55 /* jsb_gaf_manual.h in Headers */,
+				1A1735FC1AB74272001EFD55 /* GAFSubobjectState.h in Headers */,
+				1A17362F1AB74282001EFD55 /* TagDefineAnimationMasks.h in Headers */,
+				1A1735F61AB74272001EFD55 /* GAFSprite.h in Headers */,
+				1A1735D01AB74272001EFD55 /* GAFCollections.h in Headers */,
+				1A1736421AB74282001EFD55 /* TagDefineTextField.h in Headers */,
+				1A17363F1AB74282001EFD55 /* TagDefineStage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		B6E0DD201A9CC9D800B95002 /* gaf_js_bindings iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6E0DD331A9CC9D800B95002 /* Build configuration list for PBXNativeTarget "gaf_js_bindings iOS" */;
+			buildPhases = (
+				B6E0DD1D1A9CC9D800B95002 /* Sources */,
+				B6E0DD1E1A9CC9D800B95002 /* Frameworks */,
+				B6E0DD1F1A9CC9D800B95002 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "gaf_js_bindings iOS";
+			productName = "gaf_js_bindings iOS";
+			productReference = B6E0DD211A9CC9D800B95002 /* libgaf_js_bindings iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B6E0DD7E1A9DD9E300B95002 /* gaf_js_bindings Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6E0DD901A9DD9E400B95002 /* Build configuration list for PBXNativeTarget "gaf_js_bindings Mac" */;
+			buildPhases = (
+				B6E0DD7B1A9DD9E300B95002 /* Sources */,
+				B6E0DD7C1A9DD9E300B95002 /* Frameworks */,
+				B6E0DD7D1A9DD9E300B95002 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "gaf_js_bindings Mac";
+			productName = "gaf_js_bindings Mac";
+			productReference = B6E0DD7F1A9DD9E300B95002 /* libgaf_js_bindings Mac.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B6E0DD141A9CC9AA00B95002 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				TargetAttributes = {
+					B6E0DD201A9CC9D800B95002 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					B6E0DD7E1A9DD9E300B95002 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = B6E0DD171A9CC9AA00B95002 /* Build configuration list for PBXProject "gaf_js_bindings" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B6E0DD131A9CC9AA00B95002;
+			productRefGroup = B6E0DD221A9CC9D800B95002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B6E0DD201A9CC9D800B95002 /* gaf_js_bindings iOS */,
+				B6E0DD7E1A9DD9E300B95002 /* gaf_js_bindings Mac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B6E0DD1D1A9CC9D800B95002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1735F71AB74272001EFD55 /* GAFStream.cpp in Sources */,
+				1A1735D81AB74272001EFD55 /* GAFFilterManager.cpp in Sources */,
+				1A1735E31AB74272001EFD55 /* GAFMovieClip.cpp in Sources */,
+				1A17363A1AB74282001EFD55 /* TagDefineSequences.cpp in Sources */,
+				1A17357C1AB7425C001EFD55 /* jsb_gaf_manual.cpp in Sources */,
+				1A1736361AB74282001EFD55 /* TagDefineNamedParts.cpp in Sources */,
+				1A1736271AB74282001EFD55 /* TagDefineAnimationFrames.cpp in Sources */,
+				1A1735C71AB74272001EFD55 /* GAFAsset.cpp in Sources */,
+				1A17357F1AB7425C001EFD55 /* jsb_gaf.cpp in Sources */,
+				1A17360F1AB74272001EFD55 /* PrimitiveDeserializer.cpp in Sources */,
+				1A1735FA1AB74272001EFD55 /* GAFSubobjectState.cpp in Sources */,
+				1A1736091AB74272001EFD55 /* GAFTimeline.cpp in Sources */,
+				1A1735FD1AB74272001EFD55 /* GAFTextData.cpp in Sources */,
+				1A1736031AB74272001EFD55 /* GAFTextureAtlas.cpp in Sources */,
+				1A1736431AB74282001EFD55 /* TagDefineTimeline.cpp in Sources */,
+				1A1736061AB74272001EFD55 /* GAFTextureAtlasElement.cpp in Sources */,
+				1A1736401AB74282001EFD55 /* TagDefineTextField.cpp in Sources */,
+				1A1735EA1AB74272001EFD55 /* GAFPrecompiled.cpp in Sources */,
+				1A1736331AB74282001EFD55 /* TagDefineAtlas.cpp in Sources */,
+				1A1735CA1AB74272001EFD55 /* GAFAssetTextureManager.cpp in Sources */,
+				1A1735F11AB74272001EFD55 /* GAFShaderManager.cpp in Sources */,
+				1A1735ED1AB74272001EFD55 /* GAFQuadCommand.cpp in Sources */,
+				1A1735E01AB74272001EFD55 /* GAFMask.cpp in Sources */,
+				1A1735CD1AB74272001EFD55 /* GAFCachedTexture.cpp in Sources */,
+				1A17363D1AB74282001EFD55 /* TagDefineStage.cpp in Sources */,
+				1A1735791AB7425C001EFD55 /* js_gaf_manual_conversions.cpp in Sources */,
+				1A1735F41AB74272001EFD55 /* GAFSprite.cpp in Sources */,
+				1A1735DC1AB74272001EFD55 /* GAFLoader.cpp in Sources */,
+				1A17362D1AB74282001EFD55 /* TagDefineAnimationMasks.cpp in Sources */,
+				1A1735E61AB74272001EFD55 /* GAFObject.cpp in Sources */,
+				1A17362A1AB74282001EFD55 /* TagDefineAnimationFrames2.cpp in Sources */,
+				1A1736001AB74272001EFD55 /* GAFTextField.cpp in Sources */,
+				1A1735D51AB74272001EFD55 /* GAFFilterData.cpp in Sources */,
+				1A1735C11AB74272001EFD55 /* GAFAnimationFrame.cpp in Sources */,
+				1A1735D21AB74272001EFD55 /* GAFFile.cpp in Sources */,
+				1A1735C41AB74272001EFD55 /* GAFAnimationSequence.cpp in Sources */,
+				1A17360C1AB74272001EFD55 /* GAFTimelineAction.cpp in Sources */,
+				1A1736301AB74282001EFD55 /* TagDefineAnimationObjects.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E0DD7B1A9DD9E300B95002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1735F81AB74272001EFD55 /* GAFStream.cpp in Sources */,
+				1A1735D91AB74272001EFD55 /* GAFFilterManager.cpp in Sources */,
+				1A1735E41AB74272001EFD55 /* GAFMovieClip.cpp in Sources */,
+				1A17363B1AB74282001EFD55 /* TagDefineSequences.cpp in Sources */,
+				1A17357D1AB7425C001EFD55 /* jsb_gaf_manual.cpp in Sources */,
+				1A1736371AB74282001EFD55 /* TagDefineNamedParts.cpp in Sources */,
+				1A1736281AB74282001EFD55 /* TagDefineAnimationFrames.cpp in Sources */,
+				1A1735C81AB74272001EFD55 /* GAFAsset.cpp in Sources */,
+				1A1735801AB7425C001EFD55 /* jsb_gaf.cpp in Sources */,
+				1A1736101AB74272001EFD55 /* PrimitiveDeserializer.cpp in Sources */,
+				1A1735FB1AB74272001EFD55 /* GAFSubobjectState.cpp in Sources */,
+				1A17360A1AB74272001EFD55 /* GAFTimeline.cpp in Sources */,
+				1A1735FE1AB74272001EFD55 /* GAFTextData.cpp in Sources */,
+				1A1736041AB74272001EFD55 /* GAFTextureAtlas.cpp in Sources */,
+				1A1736441AB74282001EFD55 /* TagDefineTimeline.cpp in Sources */,
+				1A1736071AB74272001EFD55 /* GAFTextureAtlasElement.cpp in Sources */,
+				1A1736411AB74282001EFD55 /* TagDefineTextField.cpp in Sources */,
+				1A1735EB1AB74272001EFD55 /* GAFPrecompiled.cpp in Sources */,
+				1A1736341AB74282001EFD55 /* TagDefineAtlas.cpp in Sources */,
+				1A1735CB1AB74272001EFD55 /* GAFAssetTextureManager.cpp in Sources */,
+				1A1735F21AB74272001EFD55 /* GAFShaderManager.cpp in Sources */,
+				1A1735EE1AB74272001EFD55 /* GAFQuadCommand.cpp in Sources */,
+				1A1735E11AB74272001EFD55 /* GAFMask.cpp in Sources */,
+				1A1735CE1AB74272001EFD55 /* GAFCachedTexture.cpp in Sources */,
+				1A17363E1AB74282001EFD55 /* TagDefineStage.cpp in Sources */,
+				1A17357A1AB7425C001EFD55 /* js_gaf_manual_conversions.cpp in Sources */,
+				1A1735F51AB74272001EFD55 /* GAFSprite.cpp in Sources */,
+				1A1735DD1AB74272001EFD55 /* GAFLoader.cpp in Sources */,
+				1A17362E1AB74282001EFD55 /* TagDefineAnimationMasks.cpp in Sources */,
+				1A1735E71AB74272001EFD55 /* GAFObject.cpp in Sources */,
+				1A17362B1AB74282001EFD55 /* TagDefineAnimationFrames2.cpp in Sources */,
+				1A1736011AB74272001EFD55 /* GAFTextField.cpp in Sources */,
+				1A1735D61AB74272001EFD55 /* GAFFilterData.cpp in Sources */,
+				1A1735C21AB74272001EFD55 /* GAFAnimationFrame.cpp in Sources */,
+				1A1735D31AB74272001EFD55 /* GAFFile.cpp in Sources */,
+				1A1735C51AB74272001EFD55 /* GAFAnimationSequence.cpp in Sources */,
+				1A17360D1AB74272001EFD55 /* GAFTimelineAction.cpp in Sources */,
+				1A1736311AB74282001EFD55 /* TagDefineAnimationObjects.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B6E0DD181A9CC9AA00B95002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"COCOS2D_DEBUG=1",
+					USE_FILE32API,
+					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
+				);
+			};
+			name = Debug;
+		};
+		B6E0DD191A9CC9AA00B95002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
+					NDEBUG,
+					USE_FILE32API,
+				);
+			};
+			name = Release;
+		};
+		B6E0DD341A9CC9D800B95002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../../";
+				CCX_ROOT_2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					COCOS2D_JAVASCRIPT,
+					CC_TARGET_OS_IPHONE,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"$(CCX_ROOT)/cocos",
+					"$(CCX_ROOT_2)/cocos",
+					"$(CCX_ROOT)/../external/spidermonkey/include/ios",
+					"$(CCX_ROOT_2)/../external/spidermonkey/include/ios",
+					"$(CCX_ROOT)/../bindings/manual",
+					"$(CCX_ROOT_2)/../bindings/manual",
+					"$(CCX_ROOT)/cocos/base",
+					"$(CCX_ROOT_2)/cocos/base",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B6E0DD351A9CC9D800B95002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../../";
+				CCX_ROOT_2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					COCOS2D_JAVASCRIPT,
+					CC_TARGET_OS_IPHONE,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"$(CCX_ROOT)/cocos",
+					"$(CCX_ROOT_2)/cocos",
+					"$(CCX_ROOT)/../external/spidermonkey/include/ios",
+					"$(CCX_ROOT_2)/../external/spidermonkey/include/ios",
+					"$(CCX_ROOT)/../bindings/manual",
+					"$(CCX_ROOT_2)/../bindings/manual",
+					"$(CCX_ROOT)/cocos/base",
+					"$(CCX_ROOT_2)/cocos/base",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B6E0DD911A9DD9E400B95002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../../";
+				CCX_ROOT_2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					COCOS2D_JAVASCRIPT,
+					CC_TARGET_OS_MAC,
+					CC_KEYBOARD_SUPPORT,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"\"$(CCX_ROOT)/cocos\"",
+					"\"$(CCX_ROOT_2)/cocos\"",
+					"$(CCX_ROOT)/../external/spidermonkey/include/mac",
+					"$(CCX_ROOT_2)/../external/spidermonkey/include/mac",
+					"$(CCX_ROOT)/external/glfw3/include/mac",
+					"$(CCX_ROOT_2)/external/glfw3/include/mac",
+					"$(CCX_ROOT)/../bindings/manual",
+					"$(CCX_ROOT_2)/../bindings/manual",
+					"$(CCX_ROOT)/cocos/base",
+					"$(CCX_ROOT_2)/cocos/base",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B6E0DD921A9DD9E400B95002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CCX_ROOT = "$(SRCROOT)/../../../../";
+				CCX_ROOT_2 = "$(SRCROOT)/../../../cocos2d-x/";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					COCOS2D_JAVASCRIPT,
+					CC_TARGET_OS_MAC,
+					CC_KEYBOARD_SUPPORT,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../Library/Sources\"",
+					"\"$(CCX_ROOT)/cocos\"",
+					"\"$(CCX_ROOT_2)/cocos\"",
+					"$(CCX_ROOT)/../external/spidermonkey/include/mac",
+					"$(CCX_ROOT_2)/../external/spidermonkey/include/mac",
+					"$(CCX_ROOT)/external/glfw3/include/mac",
+					"$(CCX_ROOT_2)/external/glfw3/include/mac",
+					"$(CCX_ROOT)/../bindings/manual",
+					"$(CCX_ROOT_2)/../bindings/manual",
+					"$(CCX_ROOT)/cocos/base",
+					"$(CCX_ROOT_2)/cocos/base",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B6E0DD171A9CC9AA00B95002 /* Build configuration list for PBXProject "gaf_js_bindings" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E0DD181A9CC9AA00B95002 /* Debug */,
+				B6E0DD191A9CC9AA00B95002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6E0DD331A9CC9D800B95002 /* Build configuration list for PBXNativeTarget "gaf_js_bindings iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E0DD341A9CC9D800B95002 /* Debug */,
+				B6E0DD351A9CC9D800B95002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6E0DD901A9DD9E400B95002 /* Build configuration list for PBXNativeTarget "gaf_js_bindings Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E0DD911A9DD9E400B95002 /* Debug */,
+				B6E0DD921A9DD9E400B95002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B6E0DD141A9CC9AA00B95002 /* Project object */;
+}
