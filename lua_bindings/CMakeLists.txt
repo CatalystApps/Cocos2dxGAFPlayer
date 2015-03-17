@@ -7,6 +7,10 @@ cmake_policy(SET CMP0011 NEW)
 project(GAFLuaBindings)
 
 set(COCOS_ROOT ${CMAKE_SOURCE_DIR}/../../../cocos)
+if(NOT EXISTS "${COCOS_ROOT}")
+  set(COCOS_ROOT ${CMAKE_SOURCE_DIR}/../../cocos2d-x/cocos)
+endif()
+
 set(GAF_ROOT ${CMAKE_SOURCE_DIR}/../Library)
 
 if(WIN32)
