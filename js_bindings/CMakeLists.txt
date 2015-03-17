@@ -53,6 +53,7 @@ include_directories(
   ${COCOS_ROOT}/../../bindings/manual
   ${COCOS_ROOT}/../../external/spidermonkey/include/${PLATFORM_FOLDER}
   ${GAF_ROOT}/Sources
+  ${GAF_ROOT}/../js_bindings/bindings
 )
 
 file(GLOB_RECURSE gaf_binding_files
