@@ -3,6 +3,10 @@
 #include "GAFAssetTextureManager.h"
 #include "GAFAsset.h"
 
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+#include "renderer/CCTextureCache.h"
+#endif
+
 NS_GAF_BEGIN
 
 GAFAssetTextureManager::GAFAssetTextureManager():
@@ -133,6 +137,9 @@ cocos2d::Texture2D* GAFAssetTextureManager::getTextureById(uint32_t id)
 			cocos2d::Texture2D * texture = new cocos2d::Texture2D();
 			texture->initWithImage(imagesIt->second);
 			m_textures[id] = texture;
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+            cocos2d::VolatileTextureMgr::addImage(texture, imagesIt->second);
+#endif
             imagesIt->second->release();
 			m_images.erase(imagesIt);
 			return texture;
