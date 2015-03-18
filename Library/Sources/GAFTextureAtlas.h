@@ -1,7 +1,5 @@
 #pragma once
 
-#include "GAFDelegates.h"
-
 NS_GAF_BEGIN
 
 class GAFTextureAtlasElement;
@@ -24,7 +22,7 @@ public:
         unsigned int id;
     };
 
-	static bool compareAtlasesById(const AtlasInfo& ai1, const AtlasInfo& ai2);
+    static bool compareAtlasesById(const AtlasInfo& ai1, const AtlasInfo& ai2);
 
     typedef std::vector<AtlasInfo> AtlasInfos_t;
     typedef std::map<unsigned int, GAFTextureAtlasElement*> Elements_t;

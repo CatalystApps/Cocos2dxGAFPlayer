@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GAFTextureAtlas.h"
+#include "GAFDelegates.h"
 
 NS_GAF_BEGIN
 
