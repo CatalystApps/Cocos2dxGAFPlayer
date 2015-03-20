@@ -24,6 +24,7 @@ $(CCX_ROOT_2)/cocos/platform/android \
 $(CCX_ROOT_2)/plugin/jsbindings/manual \
 $(CCX_ROOT_2)/../bindings/manual \
 $(GAF_LIB_SOURCES) \
+$(GAF_BINDINGS_SOURCES) \
 
 LOCAL_STATIC_LIBRARIES := spidermonkey_static
 
