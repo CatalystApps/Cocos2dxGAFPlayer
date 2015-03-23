@@ -34,7 +34,7 @@ public:
     const cocos2d::AffineTransform& getExternalTransform() const;
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
-    cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
+    virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
 #if COCOS2D_VERSION < 0x00030200
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
 #else

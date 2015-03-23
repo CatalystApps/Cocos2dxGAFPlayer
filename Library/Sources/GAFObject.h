@@ -175,6 +175,7 @@ public:
     const AnimationSequences_t& getSequences() const;
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
+    virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
 
     //////////////////////////////////////////////////////////////////////////
     // Accessors

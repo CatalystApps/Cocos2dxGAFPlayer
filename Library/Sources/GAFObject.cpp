@@ -718,6 +718,14 @@ cocos2d::Mat4 const& GAFObject::getNodeToParentTransform() const
         return GAFSprite::getNodeToParentTransform();
 }
 
+cocos2d::AffineTransform GAFObject::getNodeToParentAffineTransform() const
+{
+    if (m_charType == GAFCharacterType::Timeline)
+        return cocos2d::Node::getNodeToParentAffineTransform();
+    else
+        return GAFSprite::getNodeToParentAffineTransform();
+}
+
 void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex)
 {
     cocos2d::Node* parent = child->getParent();
