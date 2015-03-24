@@ -115,7 +115,7 @@ bool GAFObject::init(GAFAsset * anAnimationData, GAFTimeline* timeline)
 
 void GAFObject::constructObject()
 {
-    cocos2d::Rect size = m_asset->getHeader().frameSize;
+    cocos2d::Rect size = m_timeline->getRect();
 
     setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
 
