@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libGAFLuaBinding", "libGAFLuaBinding.vcxproj", "{5EA5AFB5-56AF-4768-BD8B-DADC01DA760E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GAFPlayer", "..\..\Library\GAFPlayer.vcxproj", "{4E240210-2D26-4D4C-9329-E912FDAC94CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EA5AFB5-56AF-4768-BD8B-DADC01DA760E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5EA5AFB5-56AF-4768-BD8B-DADC01DA760E}.Debug|Win32.Build.0 = Debug|Win32
+		{5EA5AFB5-56AF-4768-BD8B-DADC01DA760E}.Release|Win32.ActiveCfg = Release|Win32
+		{5EA5AFB5-56AF-4768-BD8B-DADC01DA760E}.Release|Win32.Build.0 = Release|Win32
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Debug|Win32.Build.0 = Debug|Win32
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Release|Win32.ActiveCfg = Release|Win32
+		{4E240210-2D26-4D4C-9329-E912FDAC94CC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -65,6 +65,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;_WINDOWS;WIN32;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/cocos;$(CCX_ROOT_2)/cocos;$(CCX_ROOT)/cocos/base;$(CCX_ROOT_2)/cocos/base;$(CCX_ROOT)/cocos/platform/win32/;$(CCX_ROOT_2)/cocos/platform/win32/;$(CCX_ROOT)/cocos/scripting/lua-bindings/manual;$(CCX_ROOT_2)/cocos/scripting/lua-bindings/manual;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT_2)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT_2)/external/glfw3/include/win32/;$(CCX_ROOT)/external/lua/lua;$(CCX_ROOT_2)/external/lua/lua;$(CCX_ROOT)/external/lua/tolua;$(CCX_ROOT_2)/external/lua/tolua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -83,6 +84,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Library\GAFPlayer.vcxproj">
       <Project>{4e240210-2d26-4d4c-9329-e912fdac94cc}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
