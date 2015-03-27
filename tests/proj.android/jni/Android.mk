@@ -19,6 +19,7 @@ LOCAL_SRC_FILES := gaftests/main.cpp \
 ../../Classes/BundlesTest/BundlesTest.cpp \
 ../../Classes/MultipleTimelineTest/MultipleTimelineTest.cpp \
 ../../Classes/UITest/UITest.cpp \
+../../Classes/EventsTest/EventsTest.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					$(LOCAL_PATH)/../../../Library \

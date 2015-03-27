@@ -55,6 +55,9 @@
     <ClCompile Include="..\..\Classes\BundlesTest\BundlesTest.cpp">
       <Filter>Classes\BundlesTest</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Classes\EventsTest\EventsTest.cpp">
+      <Filter>Classes\EventsTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Cocos2dRenderer.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="..\..\Classes\BundlesTest\BundlesTest.h">
       <Filter>Classes\BundlesTest</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\EventsTest\EventsTest.h">
+      <Filter>Classes\EventsTest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -148,6 +154,9 @@
     </Filter>
     <Filter Include="Classes\UITest">
       <UniqueIdentifier>{6f796e27-dae5-46e0-94f4-bf9f78e40fbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\EventsTest">
+      <UniqueIdentifier>{3b333561-7e4c-48f7-b07b-625fdcf1377f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

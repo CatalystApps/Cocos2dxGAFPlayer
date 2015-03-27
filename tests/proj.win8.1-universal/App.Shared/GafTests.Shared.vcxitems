@@ -20,6 +20,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BundlesTest\BundlesTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\controller.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\EventsTest\EventsTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\FiltersTest\FiltersTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\FlipTest\FlipTest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\FramePlaybackTest\FramePlaybackTest.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BundlesTest\BundlesTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\controller.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\EventsTest\EventsTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\FiltersTest\FiltersTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\FlipTest\FlipTest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\FramePlaybackTest\FramePlaybackTest.h" />

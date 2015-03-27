@@ -44,6 +44,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\UITest.cpp">
       <Filter>Classes\UITest</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\EventsTest\EventsTest.cpp">
+      <Filter>Classes\EventsTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -72,6 +75,9 @@
     </Filter>
     <Filter Include="Classes\BundlesTest">
       <UniqueIdentifier>{a31258a0-e749-45fe-b71b-c50b855afa93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\EventsTest">
+      <UniqueIdentifier>{0e96ef87-4e7e-421b-81cb-c5630ceac15c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\UITest.h">
       <Filter>Classes\UITest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\EventsTest\EventsTest.h">
+      <Filter>Classes\EventsTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
