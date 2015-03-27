@@ -143,6 +143,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BaseTest.cpp" />
     <ClCompile Include="..\Classes\BundlesTest\BundlesTest.cpp" />
     <ClCompile Include="..\Classes\controller.cpp" />
+    <ClCompile Include="..\Classes\EventsTest\EventsTest.cpp" />
     <ClCompile Include="..\Classes\FiltersTest\FiltersTest.cpp" />
     <ClCompile Include="..\Classes\FlipTest\FlipTest.cpp" />
     <ClCompile Include="..\Classes\FramePlaybackTest\FramePlaybackTest.cpp" />
@@ -158,6 +159,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BaseTest.h" />
     <ClInclude Include="..\Classes\BundlesTest\BundlesTest.h" />
     <ClInclude Include="..\Classes\controller.h" />
+    <ClInclude Include="..\Classes\EventsTest\EventsTest.h" />
     <ClInclude Include="..\Classes\FiltersTest\FiltersTest.h" />
     <ClInclude Include="..\Classes\FlipTest\FlipTest.h" />
     <ClInclude Include="..\Classes\FramePlaybackTest\FramePlaybackTest.h" />

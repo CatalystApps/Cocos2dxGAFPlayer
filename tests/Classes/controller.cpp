@@ -32,6 +32,7 @@ Controller g_aTestNames[] = {
     // TESTS MUST BE ORDERED ALPHABETICALLY
     //     violators will be prosecuted
     //
+    { "Events", []() { return new EventsTestScene(); } },
     { "Filters", []() { return new FiltersTestScene(); } },
     { "General: Bundles", []() { return new BundlesTestScene(); } },
     { "General: Flip", []() { return new FlipTestScene(); } },

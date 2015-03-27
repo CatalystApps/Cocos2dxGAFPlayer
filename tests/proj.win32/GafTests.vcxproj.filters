@@ -31,6 +31,9 @@
     <Filter Include="src\UITest">
       <UniqueIdentifier>{b484ca76-465b-4a3f-b8f5-8a531a1236b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\EventsTest">
+      <UniqueIdentifier>{83ce8a78-ca8f-46ef-8313-a75454b1ac8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\UITest\UITest.cpp">
       <Filter>src\UITest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EventsTest\EventsTest.cpp">
+      <Filter>src\EventsTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\UITest\UITest.h">
       <Filter>src\UITest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EventsTest\EventsTest.h">
+      <Filter>src\EventsTest</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

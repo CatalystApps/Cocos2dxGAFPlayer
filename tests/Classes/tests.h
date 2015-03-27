@@ -7,3 +7,4 @@
 #include "MultipleTimelineTest/MultipleTimelineTest.h"
 #include "BundlesTest/BundlesTest.h"
 #include "UITest/UITest.h"
+#include "EventsTest/EventsTest.h"

@@ -19,5 +19,6 @@ static const char s_gafFiltersSample[] = "gaf/filters_test/filters.gaf";
 static const char s_gafFiltersAlpha[] = "gaf/filters_test/filters_alpha.gaf";
 static const char s_gafFiltersTint[] = "gaf/filters_test/filters_tint.gaf";
 static const char s_gafMultipleTimelines[] = "gaf/timelines_test/multiple_timelines.gaf";
+static const char s_gafEvents[] = "gaf/event_test/custom_event.gaf";
 
 static const char s_gafUITextField[] = "gaf/textfield_test/tf.gaf";
