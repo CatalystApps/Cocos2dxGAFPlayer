@@ -729,6 +729,7 @@ cocos2d::AffineTransform GAFObject::getNodeToParentAffineTransform() const
 void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex)
 {
     cocos2d::Node* parent = child->getParent();
+    child->setCameraMask(getCameraMask());
     if (parent != out)
     {
         child->removeFromParentAndCleanup(false);
