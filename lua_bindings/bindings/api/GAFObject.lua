@@ -212,6 +212,12 @@
         
 --------------------------------
 -- 
+-- @function [parent=#GAFObject] getNodeToParentAffineTransform 
+-- @param self
+-- @return AffineTransform#AffineTransform ret (return value: cc.AffineTransform)
+        
+--------------------------------
+-- 
 -- @function [parent=#GAFObject] getNodeToParentTransform 
 -- @param self
 -- @return mat4_table#mat4_table ret (return value: mat4_table)

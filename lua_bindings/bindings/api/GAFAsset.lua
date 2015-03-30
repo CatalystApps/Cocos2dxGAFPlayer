@@ -142,14 +142,15 @@
 -- @return GAFAsset#GAFAsset ret (return value: gaf.GAFAsset)
 
 --------------------------------
--- 
--- @function [parent=#GAFAsset] createWithBundle 
+-- @overload self, string, string         
+-- @overload self, string, string, function         
+-- @function [parent=#GAFAsset] createWithBundle
 -- @param self
 -- @param #string zipfilePath
 -- @param #string entryFile
 -- @param #function delegate
 -- @return GAFAsset#GAFAsset ret (return value: gaf.GAFAsset)
-        
+
 --------------------------------
 -- 
 -- @function [parent=#GAFAsset] GAFAsset 

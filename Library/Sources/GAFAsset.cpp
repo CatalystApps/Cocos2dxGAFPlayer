@@ -114,6 +114,11 @@ GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::
     return nullptr;
 }
 
+GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::string& entryFile)
+{
+    return createWithBundle(zipfilePath, entryFile, nullptr);
+}
+
 void GAFAsset::getResourceReferences(const std::string& gafFilePath, std::vector<GAFResourcesInfo*> &dest)
 {
     GAFAsset * asset = new GAFAsset();
