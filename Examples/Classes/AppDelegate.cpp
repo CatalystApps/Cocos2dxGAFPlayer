@@ -31,7 +31,14 @@ bool AppDelegate::applicationDidFinishLaunching()
 {
     // initialize director
     std::vector<std::string> paths;
+
     paths.push_back("Resources");
+
+    // Ugly hardcode for cocos2d-x v3.5, but copying 'Resources' directory to 'Debug.win32'-like is BAD idea
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 && COCOS2D_VERSION >= 0x00030500
+    paths.push_back("../Examples/Resources");
+#endif
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
     paths.push_back("../Resources");
 #endif
@@ -96,15 +103,21 @@ void AppDelegate::applicationWillEnterForeground()
 
 #ifdef _WIN32
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
-int WINAPI WinMain(__in HINSTANCE hInstance,
-    __in_opt HINSTANCE hPrevInstance,
-    __in LPSTR lpCmdLine,
-    __in int nShowCmd
-    )
+
+#include <tchar.h>
+
+int APIENTRY _tWinMain(HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPTSTR    lpCmdLine,
+    int       nCmdShow)
 {
+    UNREFERENCED_PARAMETER(hPrevInstance);
+    UNREFERENCED_PARAMETER(lpCmdLine);
+
+    // create the application instance
     AppDelegate app;
 
-    return cocos2d::Application::getInstance()->run();
+    return Application::getInstance()->run();
 }
 #endif
 #endif
