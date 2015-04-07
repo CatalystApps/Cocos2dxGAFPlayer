@@ -79,6 +79,14 @@
 		B66600CC1A8E6683005FBAC2 /* FramePlaybackTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600CA1A8E6683005FBAC2 /* FramePlaybackTest.cpp */; };
 		B66600CF1A8E669A005FBAC2 /* FiltersTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600CD1A8E669A005FBAC2 /* FiltersTest.cpp */; };
 		B66600D21A8E66A8005FBAC2 /* FlipTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66600D01A8E66A8005FBAC2 /* FlipTest.cpp */; };
+		B672ACE11AC9751B00E9ECB2 /* UITest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACDF1AC9751B00E9ECB2 /* UITest.cpp */; };
+		B672ACE21AC9751B00E9ECB2 /* UITest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACDF1AC9751B00E9ECB2 /* UITest.cpp */; };
+		B672ACE51AC9753000E9ECB2 /* EventsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACE31AC9753000E9ECB2 /* EventsTest.cpp */; };
+		B672ACE61AC9753000E9ECB2 /* EventsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACE31AC9753000E9ECB2 /* EventsTest.cpp */; };
+		B672ACE91AC9753900E9ECB2 /* BundlesTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACE71AC9753900E9ECB2 /* BundlesTest.cpp */; };
+		B672ACEA1AC9753900E9ECB2 /* BundlesTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACE71AC9753900E9ECB2 /* BundlesTest.cpp */; };
+		B672ACF01AC9754900E9ECB2 /* MultipleTimelineTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACEE1AC9754900E9ECB2 /* MultipleTimelineTest.cpp */; };
+		B672ACF11AC9754900E9ECB2 /* MultipleTimelineTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B672ACEE1AC9754900E9ECB2 /* MultipleTimelineTest.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -189,6 +197,14 @@
 		B66600CE1A8E669A005FBAC2 /* FiltersTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiltersTest.h; path = FiltersTest/FiltersTest.h; sourceTree = "<group>"; };
 		B66600D01A8E66A8005FBAC2 /* FlipTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlipTest.cpp; path = FlipTest/FlipTest.cpp; sourceTree = "<group>"; };
 		B66600D11A8E66A8005FBAC2 /* FlipTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlipTest.h; path = FlipTest/FlipTest.h; sourceTree = "<group>"; };
+		B672ACDF1AC9751B00E9ECB2 /* UITest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UITest.cpp; path = UITest/UITest.cpp; sourceTree = "<group>"; };
+		B672ACE01AC9751B00E9ECB2 /* UITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UITest.h; path = UITest/UITest.h; sourceTree = "<group>"; };
+		B672ACE31AC9753000E9ECB2 /* EventsTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventsTest.cpp; path = EventsTest/EventsTest.cpp; sourceTree = "<group>"; };
+		B672ACE41AC9753000E9ECB2 /* EventsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsTest.h; path = EventsTest/EventsTest.h; sourceTree = "<group>"; };
+		B672ACE71AC9753900E9ECB2 /* BundlesTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BundlesTest.cpp; path = BundlesTest/BundlesTest.cpp; sourceTree = "<group>"; };
+		B672ACE81AC9753900E9ECB2 /* BundlesTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BundlesTest.h; path = BundlesTest/BundlesTest.h; sourceTree = "<group>"; };
+		B672ACEE1AC9754900E9ECB2 /* MultipleTimelineTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MultipleTimelineTest.cpp; path = MultipleTimelineTest/MultipleTimelineTest.cpp; sourceTree = "<group>"; };
+		B672ACEF1AC9754900E9ECB2 /* MultipleTimelineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultipleTimelineTest.h; path = MultipleTimelineTest/MultipleTimelineTest.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -320,6 +336,10 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B672ACDC1AC974FB00E9ECB2 /* MultipleTimelineTest */,
+				B672ACDB1AC974E500E9ECB2 /* BundlesTest */,
+				B672ACDA1AC974D900E9ECB2 /* EventsTest */,
+				B672ACD51AC974B300E9ECB2 /* UITest */,
 				B66600C61A8E6662005FBAC2 /* MaskTimelineTest */,
 				B66600C51A8E6655005FBAC2 /* FramePlaybackTest */,
 				B66600C41A8E663A005FBAC2 /* FiltersTest */,
@@ -440,6 +460,42 @@
 				B66600C81A8E6670005FBAC2 /* MaskTimelineTest.h */,
 			);
 			name = MaskTimelineTest;
+			sourceTree = "<group>";
+		};
+		B672ACD51AC974B300E9ECB2 /* UITest */ = {
+			isa = PBXGroup;
+			children = (
+				B672ACDF1AC9751B00E9ECB2 /* UITest.cpp */,
+				B672ACE01AC9751B00E9ECB2 /* UITest.h */,
+			);
+			name = UITest;
+			sourceTree = "<group>";
+		};
+		B672ACDA1AC974D900E9ECB2 /* EventsTest */ = {
+			isa = PBXGroup;
+			children = (
+				B672ACE31AC9753000E9ECB2 /* EventsTest.cpp */,
+				B672ACE41AC9753000E9ECB2 /* EventsTest.h */,
+			);
+			name = EventsTest;
+			sourceTree = "<group>";
+		};
+		B672ACDB1AC974E500E9ECB2 /* BundlesTest */ = {
+			isa = PBXGroup;
+			children = (
+				B672ACE71AC9753900E9ECB2 /* BundlesTest.cpp */,
+				B672ACE81AC9753900E9ECB2 /* BundlesTest.h */,
+			);
+			name = BundlesTest;
+			sourceTree = "<group>";
+		};
+		B672ACDC1AC974FB00E9ECB2 /* MultipleTimelineTest */ = {
+			isa = PBXGroup;
+			children = (
+				B672ACEE1AC9754900E9ECB2 /* MultipleTimelineTest.cpp */,
+				B672ACEF1AC9754900E9ECB2 /* MultipleTimelineTest.h */,
+			);
+			name = MultipleTimelineTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -618,8 +674,12 @@
 				B66600B61A8E604A005FBAC2 /* VisibleRect.cpp in Sources */,
 				B66600CF1A8E669A005FBAC2 /* FiltersTest.cpp in Sources */,
 				B66600B01A8E604A005FBAC2 /* controller.cpp in Sources */,
+				B672ACE51AC9753000E9ECB2 /* EventsTest.cpp in Sources */,
+				B672ACE11AC9751B00E9ECB2 /* UITest.cpp in Sources */,
+				B672ACF01AC9754900E9ECB2 /* MultipleTimelineTest.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				B672ACE91AC9753900E9ECB2 /* BundlesTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,11 +691,15 @@
 				B64AB6E11A91FA30000F62EC /* FiltersTest.cpp in Sources */,
 				B64AB6E21A91FA33000F62EC /* FramePlaybackTest.cpp in Sources */,
 				B64AB6DD1A91FA23000F62EC /* VisibleRect.cpp in Sources */,
+				B672ACEA1AC9753900E9ECB2 /* BundlesTest.cpp in Sources */,
+				B672ACE61AC9753000E9ECB2 /* EventsTest.cpp in Sources */,
+				B672ACE21AC9751B00E9ECB2 /* UITest.cpp in Sources */,
 				B64AB6E31A91FA36000F62EC /* MaskTimelineTest.cpp in Sources */,
 				B64AB6E01A91FA2E000F62EC /* FlipTest.cpp in Sources */,
 				B64AB6DC1A91FA07000F62EC /* controller.cpp in Sources */,
 				B64AB6DE1A91FA25000F62EC /* testBasic.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				B672ACF11AC9754900E9ECB2 /* MultipleTimelineTest.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
