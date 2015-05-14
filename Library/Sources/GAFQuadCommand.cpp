@@ -16,7 +16,7 @@ void GAFQuadCommand::init(float globalOrder, GLuint textureID, GLProgramState* g
     CCASSERT(glProgramState, "Invalid GLProgramState");
     CCASSERT(glProgramState->getVertexAttribsFlags() == 0, "No custom attributes are supported in QuadCommand");
 
-    QuadCommand::init(globalOrder, textureID, glProgramState, blendType, quad, quadCount, mv);
+    QuadCommand::init(globalOrder, textureID, glProgramState, blendType, quad, quadCount, mv, 0);
 
     if (_materialID != materialId) 
     {

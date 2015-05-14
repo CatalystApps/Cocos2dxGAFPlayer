@@ -11,7 +11,7 @@
 
 NS_GAF_BEGIN
 
-static float  _desiredCsf = 1.f;
+//static float  _desiredCsf = 1.f;
 
 float GAFAsset::desiredAtlasScale()
 {

@@ -937,7 +937,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
         }
         else if (subObject->m_charType == GAFCharacterType::TextField)
         {
-            GAFTextField *tf = static_cast<GAFTextField*>(subObject);
+            //GAFTextField *tf = static_cast<GAFTextField*>(subObject);
             rearrangeSubobject(out, subObject, state->zIndex);
 
             cocos2d::AffineTransform stateTransform = state->affineTransform;

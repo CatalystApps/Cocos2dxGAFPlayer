@@ -29,7 +29,7 @@ public:
 
     bool                 isEOF() const;
 
-    unsigned int         readString(std::string* dst); // function reads lenght prefixed string
+    size_t               readString(std::string* dst); // function reads lenght prefixed string
     void                 readBytes(void* dst, unsigned int len);
 
     void                 close();

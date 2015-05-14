@@ -65,7 +65,7 @@ unsigned int GAFFilterManager::hash(Sprite* sprite, GAFFilterData* filter)
     };
 
     Hash hash;
-    memset(&hash, 0, sizeof(Hash));
+    memset((void*)&hash, 0, sizeof(Hash));
 
     hash.texture = sprite->getTexture()->getName();
     hash.rect = sprite->getTextureRect();
