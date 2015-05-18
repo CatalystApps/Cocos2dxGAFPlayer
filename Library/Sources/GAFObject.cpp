@@ -117,7 +117,7 @@ void GAFObject::constructObject()
 {
     cocos2d::Rect size = m_timeline->getRect();
 
-    setContentSize(cocos2d::Size(size.size.width + size.origin.x * 2, size.size.height + size.origin.y * 2));
+    setContentSize(cocos2d::Size(size.size.width, size.size.height));
 
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(DisplayList_t, m_displayList);
 
