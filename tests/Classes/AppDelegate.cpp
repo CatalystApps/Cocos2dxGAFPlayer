@@ -54,6 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 {
     std::vector<std::string> paths;
     paths.push_back("../Resources");
+    paths.push_back("../../Resources");
     FileUtils::getInstance()->setSearchPaths(paths);
 
     // initialize director
