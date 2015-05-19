@@ -85,10 +85,10 @@ bool GAFAsset::isAssetVersionPlayable(const char * version)
     return true;
 }
 
-GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate)
+GAFAsset* GAFAsset::create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader /*= nullptr*/)
 {
     GAFAsset * ret = new GAFAsset();
-    if (ret && ret->initWithGAFFile(gafFilePath, delegate))
+    if (ret && ret->initWithGAFFile(gafFilePath, delegate, customLoader))
     {
         ret->autorelease();
         return ret;
@@ -102,10 +102,10 @@ GAFAsset* GAFAsset::create(const std::string& gafFilePath)
     return create(gafFilePath, nullptr);
 }
 
-GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate /*= NULL*/)
+GAFAsset* GAFAsset::createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader /*= nullptr*/)
 {
     GAFAsset * ret = new GAFAsset();
-    if (ret && ret->initWithGAFBundle(zipfilePath, entryFile, delegate))
+    if (ret && ret->initWithGAFBundle(zipfilePath, entryFile, delegate, customLoader))
     {
         ret->autorelease();
         return ret;
@@ -143,10 +143,8 @@ void GAFAsset::getResourceReferencesFromBundle(const std::string& zipfilePath, c
     return;
 }
 
-bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate)
+bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader /*= nullptr*/)
 {
-    GAFLoader* loader = new GAFLoader();
-
     m_gafFileName = zipFilePath;
     m_gafFileName.append("/" + entryFile);
     std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(zipFilePath);
@@ -159,7 +157,16 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
 
     if (gafData && sz)
     {
-        isLoaded = loader->loadData(gafData, sz, this);
+        if (customLoader)
+        {
+            customLoader->loadData(gafData, sz, this);
+        }
+        else
+        {
+            GAFLoader* loader = new GAFLoader();
+            isLoaded = loader->loadData(gafData, sz, this);
+            delete loader;
+        }
     }
     if (isLoaded && m_state == State::Normal)
     {
@@ -168,23 +175,28 @@ bool GAFAsset::initWithGAFBundle(const std::string& zipFilePath, const std::stri
         loadTextures(entryFile, delegate, &bundle);
     }
 
-    delete loader;
-
     return isLoaded;
 }
 
-bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate_t delegate)
+bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader /*= nullptr*/)
 {
-    GAFLoader* loader = new GAFLoader();
-
     m_gafFileName = filePath;
     std::string fullfilePath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
 
-    bool isLoaded = loader->loadFile(fullfilePath, this);
+    bool isLoaded = false;
+    if (customLoader)
+    {
+        isLoaded = customLoader->loadFile(fullfilePath, this);
+    }
+    else
+    {
+        GAFLoader* loader = new GAFLoader();
+        isLoaded = loader->loadFile(fullfilePath, this);
+        delete loader;
+    }
 
     if (m_timelines.empty())
     {
-        delete loader;
         return false;
     }
     if (isLoaded && m_state == State::Normal)
@@ -193,8 +205,6 @@ bool GAFAsset::initWithGAFFile(const std::string& filePath, GAFTextureLoadDelega
         GAFShaderManager::Initialize();
         loadTextures(fullfilePath, delegate);
     }
-
-    delete loader;
 
     return isLoaded;
 }

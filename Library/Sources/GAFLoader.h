@@ -24,11 +24,11 @@ private:
     void                 _registerTagLoadersCommon();
     void                 _registerTagLoadersV4();
 
-    void                 _processLoad(GAFFile* file, GAFAsset*);
-
-    typedef std::map<Tags::Enum, DefinitionTagBase*> TagLoaders_t;
-
+protected:
+    typedef std::map</*Tags::Enum*/ uint32_t, DefinitionTagBase*> TagLoaders_t;
     TagLoaders_t         m_tagLoaders;
+
+    virtual void         _processLoad(GAFFile* file, GAFAsset*);
 
 public:
     GAFLoader();

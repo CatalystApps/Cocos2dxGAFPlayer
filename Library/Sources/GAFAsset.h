@@ -51,9 +51,9 @@ private:
 public:
     /// Initializes asset with bGAF data
 
-    bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate_t delegate);
+    bool                        initWithGAFFile(const std::string& filePath, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader = nullptr);
 
-    bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate);
+    bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader = nullptr);
 
 	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
 
@@ -68,9 +68,9 @@ public:
 	const Timelines_t&			getTimelines() const;
     Timelines_t&                getTimelines();
 
-    static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate);
+    static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader = nullptr);
     static GAFAsset*            createWithBundle(const std::string& zipfilePath, const std::string& entryFile);
-    static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate);
+    static GAFAsset*            create(const std::string& gafFilePath, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader = nullptr);
     static GAFAsset*            create(const std::string& gafFilePath);
 
     static void                 getResourceReferences(const std::string& gafFilePath, std::vector<GAFResourcesInfo*> &dest);
