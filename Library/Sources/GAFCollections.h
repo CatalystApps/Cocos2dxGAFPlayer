@@ -51,6 +51,19 @@ enum
     GAFFirstFrameIndex = 0
 };
 
+class GAFAnyInterface
+{
+public:
+    ~GAFAnyInterface() = default;
+};
+
+template <typename T>
+class GAFAny : public GAFAnyInterface {
+public:
+    explicit GAFAny(const T& data) : data(data) {}
+    T data;
+};
+
 typedef std::tuple<uint32_t, GAFCharacterType>              AnimationObjectEx_t;
 typedef std::vector<GAFTextureAtlas*>                       TextureAtlases_t;
 typedef std::unordered_map<uint32_t, AnimationObjectEx_t>   AnimationMasks_t;      // Object id -> Element Atlas Id, Type

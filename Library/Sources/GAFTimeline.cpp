@@ -242,20 +242,4 @@ float GAFTimeline::usedAtlasScale() const
     return m_usedAtlasContentScaleFactor;
 }
 
-void GAFTimeline::appendUserData(std::string K, void* V)
-{
-    m_userData[K] = V;
-}
-
-void* GAFTimeline::getUserData(std::string K)
-{
-    CustomData_t::const_iterator it = m_userData.find(K);
-    if (it == m_userData.end())
-    {
-        return nullptr;
-    }
-
-    return it->second;
-}
-
 NS_GAF_END
