@@ -24,6 +24,7 @@ GAFTimeline::~GAFTimeline()
     GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     GAF_RELEASE_ARRAY(AnimationFrames_t, m_animationFrames);
     GAF_RELEASE_MAP(TextsData_t, m_textsData);
+    GAF_RELEASE_MAP(CustomData_t, m_userData);
 }
 
 void GAFTimeline::pushTextureAtlas(GAFTextureAtlas* atlas)
@@ -239,6 +240,22 @@ void GAFTimeline::_chooseTextureAtlas(float desiredAtlasScale)
 float GAFTimeline::usedAtlasScale() const
 {
     return m_usedAtlasContentScaleFactor;
+}
+
+void GAFTimeline::appendUserData(std::string K, void* V)
+{
+    m_userData[K] = V;
+}
+
+void* GAFTimeline::getUserData(std::string K)
+{
+    CustomData_t::const_iterator it = m_userData.find(K);
+    if (it == m_userData.end())
+    {
+        return nullptr;
+    }
+
+    return it->second;
 }
 
 NS_GAF_END

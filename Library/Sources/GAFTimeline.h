@@ -40,6 +40,9 @@ private:
 
     GAFTimeline*            m_parent; // weak
 
+    typedef std::unordered_map<std::string, void*> CustomData_t;
+    CustomData_t m_userData;
+
     void                    _chooseTextureAtlas(float desiredAtlasScale);
 public:
 
@@ -88,6 +91,10 @@ public:
     void                        loadImages(float desiredAtlasScale);
 
     float                       usedAtlasScale() const;
+
+    void appendUserData(std::string K, void* V);
+    void* getUserData(std::string K);
+    template<class T> T* getUserDataCasted(std::string K) { return static_cast<T*>(getUserData(K)); }
 };
 
 NS_GAF_END
