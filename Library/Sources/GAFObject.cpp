@@ -914,6 +914,19 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                 t = AffineTransformConcat(t, flipCenterTransform);
             }
 
+            cocos2d::Point curPos = subObject->getPosition();
+            if (curPos != cocos2d::Vec2::ZERO)
+            {
+                t.tx += curPos.x;
+                t.ty += curPos.y;
+            }
+            float curScale = subObject->getScale();
+            if (fabs(curScale - 1.0) > std::numeric_limits<float>::epsilon())
+            {
+                t.a *= curScale;
+                t.d *= curScale;
+            }
+
             subObject->setExternalTransform(t);
 
             if (subObject->m_objectType == GAFObjectType::MovieClip)
