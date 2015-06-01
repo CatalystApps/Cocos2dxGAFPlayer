@@ -25,7 +25,7 @@ public:
     static bool compareAtlasesById(const AtlasInfo& ai1, const AtlasInfo& ai2);
 
     typedef std::vector<AtlasInfo> AtlasInfos_t;
-    typedef std::map<unsigned int, GAFTextureAtlasElement*> Elements_t;
+    typedef std::map<uint32_t, GAFTextureAtlasElement*> Elements_t;
 
     GAFTextureAtlas();
 private:
@@ -37,7 +37,8 @@ public:
     ~GAFTextureAtlas();
 
     void    pushAtlasInfo(const AtlasInfo& ai);
-    void    pushElement(unsigned int idx, GAFTextureAtlasElement* el);
+    void    pushElement(uint32_t idx, GAFTextureAtlasElement* el);
+    bool    swapElement(uint32_t idx, GAFTextureAtlasElement* el);
 
     void    setScale(float val);
     float   getScale() const;

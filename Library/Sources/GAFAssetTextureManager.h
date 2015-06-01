@@ -14,6 +14,8 @@ public:
 	void					appendInfoFromTextureAtlas(GAFTextureAtlas* atlas);
 	void					loadImages(const std::string& dir, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle = nullptr);
 	cocos2d::Texture2D*		getTextureById(uint32_t id);
+    bool                    swapTexture(uint32_t id, cocos2d::Texture2D* texture);
+    
 	uint32_t				getMemoryConsumptionStat() const;
 
 private:

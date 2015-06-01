@@ -152,6 +152,31 @@ cocos2d::Texture2D* GAFAssetTextureManager::getTextureById(uint32_t id)
     return nullptr;
 }
 
+bool GAFAssetTextureManager::swapTexture(uint32_t id, cocos2d::Texture2D *texture)
+{
+    TexturesMap_t::const_iterator txIt = m_textures.find(id);
+    if (txIt != m_textures.end())
+    {
+        txIt->second->release();
+        m_textures.erase(txIt);
+    }
+    
+    ImagesMap_t::const_iterator imagesIt = m_images.find(id);
+    if (imagesIt != m_images.end())
+    {
+        imagesIt->second->release();
+        m_images.erase(imagesIt);
+    }
+    
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+    // NOTE: this should not work with cocos2d::VolatileTextureMgr
+    //cocos2d::VolatileTextureMgr::addImage(texture, imagesIt->second);
+#endif
+    
+    m_textures[id] = texture;
+    return true;
+}
+
 uint32_t GAFAssetTextureManager::getMemoryConsumptionStat() const
 {
 	return m_memoryConsumption;

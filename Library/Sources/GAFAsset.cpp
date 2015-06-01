@@ -297,10 +297,21 @@ void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_
     m_textureManager->loadImages(filePath, m_textureLoadDelegate, bundle);
 }
 
-/*GAFTextureAtlas* GAFAsset::getTextureAtlas()
+void GAFAsset::useExternalTextureAtlas(std::vector<cocos2d::Texture2D *> &textures, GAFTextureAtlas::Elements_t& elements)
 {
-return m_currentTextureAtlas;
-}*/
+    for (size_t i = 0, e = textures.size(); i < e; i++)
+    {
+        m_textureManager->swapTexture(static_cast<uint32_t>(i), textures[i]);
+    }
+    
+    for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; ++i)
+    {
+        for (auto& element : elements)
+        {
+            i->second->getTextureAtlas()->swapElement(element.first, element.second);
+        }
+    }
+}
 
 void GAFAsset::setRootTimeline(GAFTimeline *tl)
 {

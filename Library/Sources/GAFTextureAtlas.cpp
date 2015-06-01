@@ -35,9 +35,22 @@ void GAFTextureAtlas::pushAtlasInfo(const AtlasInfo& ai)
     m_atlasInfos.push_back(ai);
 }
 
-void GAFTextureAtlas::pushElement(unsigned int idx, GAFTextureAtlasElement* el)
+void GAFTextureAtlas::pushElement(uint32_t idx, GAFTextureAtlasElement* el)
 {
     m_elements[idx] = el;
+}
+
+bool GAFTextureAtlas::swapElement(uint32_t idx, GAFTextureAtlasElement *el)
+{
+    Elements_t::iterator it = m_elements.find(idx);
+    if (it != m_elements.end())
+    {
+        delete it->second;
+        m_elements.erase(it);
+    }
+    
+    pushElement(idx, el);
+    return true;
 }
 
 const GAFTextureAtlas::Elements_t& GAFTextureAtlas::getElements() const

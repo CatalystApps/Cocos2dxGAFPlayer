@@ -104,7 +104,7 @@ void GAFLoader::loadTags(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
         }
         else
         {
-            // TODO: show warning
+            CCLOG("No tag parser for %d. Custom loader needed", tag);
         }
 
         in->closeTag();

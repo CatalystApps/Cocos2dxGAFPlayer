@@ -4,6 +4,7 @@
 #include "GAFResourcesInfo.h"
 #include "GAFHeader.h"
 #include "GAFTimeline.h"
+#include "GAFTextureAtlas.h"
 
 #include "GAFDelegates.h"
 
@@ -75,6 +76,8 @@ public:
 
     static void                 getResourceReferences(const std::string& gafFilePath, std::vector<GAFResourcesInfo*> &dest);
     static void                 getResourceReferencesFromBundle(const std::string& zipfilePath, const std::string& entryFile, std::vector<GAFResourcesInfo*> &dest);
+    
+    void                        useExternalTextureAtlas(std::vector<cocos2d::Texture2D*>& textures, GAFTextureAtlas::Elements_t& elements);
 
     GAFAsset();
     ~GAFAsset();
