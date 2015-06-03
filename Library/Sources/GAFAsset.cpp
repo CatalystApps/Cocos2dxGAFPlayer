@@ -301,7 +301,7 @@ void GAFAsset::useExternalTextureAtlas(std::vector<cocos2d::Texture2D *> &textur
 {
     for (size_t i = 0, e = textures.size(); i < e; i++)
     {
-        m_textureManager->swapTexture(static_cast<uint32_t>(i), textures[i]);
+        m_textureManager->swapTexture(static_cast<uint32_t>(i+1), textures[i]);
     }
     
     for (Timelines_t::iterator i = m_timelines.begin(), e = m_timelines.end(); i != e; ++i)
