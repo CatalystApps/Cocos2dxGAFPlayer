@@ -3,6 +3,7 @@
 #include "GAFDelegates.h"
 #include "GAFSprite.h"
 #include "GAFCollections.h"
+#include "GAFTextureAtlas.h"
 
 NS_GAF_BEGIN
 
@@ -103,6 +104,8 @@ public:
         (void)renderer;
         (void)transform;
     }
+
+    void useExternalTextureAtlas(std::vector<cocos2d::Texture2D*>& textures, GAFTextureAtlas::Elements_t& elements);
 public:
     // Playback accessing
     void        start();

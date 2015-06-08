@@ -247,6 +247,11 @@ GAFObject* GAFObject::encloseNewTimeline(uint32_t reference)
     return newObject;
 }
 
+void GAFObject::useExternalTextureAtlas(std::vector<cocos2d::Texture2D*>& textures, GAFTextureAtlas::Elements_t& elements)
+{
+    m_asset->useExternalTextureAtlas(textures, elements);
+}
+
 void GAFObject::processAnimation()
 {
     realizeFrame(m_container, m_currentFrame);
