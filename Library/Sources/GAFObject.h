@@ -177,6 +177,9 @@ public:
     cocos2d::Rect getBoundingBoxForCurrentFrame();
 
     const AnimationSequences_t& getSequences() const;
+    GAFTimeline* getTimeLine() { return m_timeline; }
+    DisplayList_t& getDisplayList() { return m_displayList; }
+    const DisplayList_t& getDisplayList() const { return m_displayList; }
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
     virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
