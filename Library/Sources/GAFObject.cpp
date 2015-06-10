@@ -42,6 +42,7 @@ m_isLooped(false),
 m_isReversed(false),
 m_timeDelta(0.0),
 m_fps(0),
+m_skipFpsCheck(false),
 m_asset(nullptr),
 m_timeline(nullptr),
 m_currentFrame(GAFFirstFrameIndex),
@@ -322,16 +323,27 @@ void GAFObject::stop()
 
 void GAFObject::processAnimations(float dt)
 {
-    m_timeDelta += dt;
-    double frameTime = 1.0 / m_fps;
-    while (m_timeDelta >= frameTime)
+    if (m_skipFpsCheck)
     {
-        m_timeDelta -= frameTime;
         step();
-
         if (m_framePlayedDelegate)
         {
             m_framePlayedDelegate(this, m_currentFrame);
+        }
+    }
+    else
+    {
+        m_timeDelta += dt;
+        double frameTime = 1.0 / m_fps;
+        while (m_timeDelta >= frameTime)
+        {
+            m_timeDelta -= frameTime;
+            step();
+
+            if (m_framePlayedDelegate)
+            {
+                m_framePlayedDelegate(this, m_currentFrame);
+            }
         }
     }
 }
@@ -1021,6 +1033,11 @@ void GAFObject::setFps(uint32_t value)
 {
     CCASSERT(value, "Error! Fps is set to zero.");
     m_fps = value;
+}
+
+void GAFObject::setFpsLimitations(bool fpsLimitations)
+{
+    m_skipFpsCheck = !fpsLimitations;
 }
 
 GAFObject* GAFObject::getObjectByName(const std::string& name)

@@ -37,6 +37,7 @@ private:
 
     double                                  m_timeDelta;
     uint32_t                                m_fps;
+    bool                                    m_skipFpsCheck;
 
     bool                                    m_animationsSelectorScheduled;
 
@@ -196,6 +197,8 @@ public:
     uint32_t getFps() const;
 
     void setFps(uint32_t value);
+
+    void setFpsLimitations(bool fpsLimitations);
 };
 
 NS_GAF_END
