@@ -938,10 +938,10 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             {
                 GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
                 float colorMults[4] = {
-                    state->colorMults()[0] * m_parentColorTransforms[0].x,
-                    state->colorMults()[1] * m_parentColorTransforms[0].y,
-                    state->colorMults()[2] * m_parentColorTransforms[0].z,
-                    state->colorMults()[3] * m_parentColorTransforms[0].w
+                    state->colorMults()[0] * m_parentColorTransforms[0].x * _displayedColor.r / 255,
+                    state->colorMults()[1] * m_parentColorTransforms[0].y * _displayedColor.g / 255,
+                    state->colorMults()[2] * m_parentColorTransforms[0].z * _displayedColor.b / 255,
+                    state->colorMults()[3] * m_parentColorTransforms[0].w * _displayedOpacity / 255
                 };
                 float colorOffsets[4] = {
                     state->colorOffsets()[0] + m_parentColorTransforms[1].x,
