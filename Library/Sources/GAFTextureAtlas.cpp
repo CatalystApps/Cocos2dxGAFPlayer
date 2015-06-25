@@ -45,7 +45,7 @@ bool GAFTextureAtlas::swapElement(uint32_t idx, GAFTextureAtlasElement *el)
     Elements_t::iterator it = m_elements.find(idx);
     if (it != m_elements.end())
     {
-        delete it->second;
+        CC_SAFE_DELETE(it->second);
         m_elements.erase(it);
     }
     

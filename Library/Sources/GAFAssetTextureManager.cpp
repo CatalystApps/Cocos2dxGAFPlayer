@@ -173,6 +173,7 @@ bool GAFAssetTextureManager::swapTexture(uint32_t id, cocos2d::Texture2D *textur
     //cocos2d::VolatileTextureMgr::addImage(texture, imagesIt->second);
 #endif
     
+    texture->retain();
     m_textures[id] = texture;
     return true;
 }
