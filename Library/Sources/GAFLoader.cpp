@@ -147,7 +147,7 @@ void GAFLoader::_processLoad(GAFFile* file, GAFAsset* context)
     GAFHeader& header = m_stream->getInput()->getHeader();
 
 	GAFTimeline *timeline = nullptr;
-    if (header.getMajorVersion() == 4)
+    if (header.getMajorVersion() >= 4)
     {
         _readHeaderEndV4(header);
         _registerTagLoadersV4();
