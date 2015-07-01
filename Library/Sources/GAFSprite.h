@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GAFQuadCommand.h"
+#include "GAFCollections.h"
 
 NS_GAF_BEGIN
 
@@ -26,10 +27,15 @@ class GAFSprite : public cocos2d::Sprite
 public:
     GAFSprite();
 
+    bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, GAFRotation rotation);
     virtual bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame) override;
     virtual bool initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect& rect, bool rotated) override;
-
     void setTexture(cocos2d::Texture2D *texture) override;
+
+    virtual void setVertexRect(const cocos2d::Rect& rect) override;
+    virtual void setTextureRect(const cocos2d::Rect& rect, bool rotated, const cocos2d::Size& untrimmedSize) override;
+    virtual void setTextureCoords(cocos2d::Rect rect) override;
+
     void setExternalTransform(const cocos2d::AffineTransform& transform);
     const cocos2d::AffineTransform& getExternalTransform() const;
 
@@ -98,6 +104,8 @@ private:
     gafBlendFuncSeparate    m_blendFuncSeparate;
     bool                    m_useSeparateBlendFunc;
     GLint                   m_blendEquation;
+
+    GAFRotation             m_rotation;
 };
 
 NS_GAF_END

@@ -7,7 +7,7 @@
 NS_GAF_BEGIN
 
 GAFBlurFilterData::GAFBlurFilterData():
-GAFFilterData(GAFFilterType::GFT_Blur)
+GAFFilterData(GAFFilterType::Blur)
 {
 
 }
@@ -18,7 +18,7 @@ void GAFBlurFilterData::apply(GAFMovieClip* subObject)
 }
 
 GAFColorColorMatrixFilterData::GAFColorColorMatrixFilterData():
-GAFFilterData(GAFFilterType::GFT_ColorMatrix)
+GAFFilterData(GAFFilterType::ColorMatrix)
 {
 
 }
@@ -29,7 +29,7 @@ void GAFColorColorMatrixFilterData::apply(GAFMovieClip* subObject)
 }
 
 GAFGlowFilterData::GAFGlowFilterData():
-GAFFilterData(GAFFilterType::GFT_Glow)
+GAFFilterData(GAFFilterType::Glow)
 {
 
 }
@@ -40,7 +40,7 @@ void GAFGlowFilterData::apply(GAFMovieClip* subObject)
 }
 
 GAFDropShadowFilterData::GAFDropShadowFilterData():
-GAFFilterData(GAFFilterType::GFT_DropShadow)
+GAFFilterData(GAFFilterType::DropShadow)
 {
 
 }

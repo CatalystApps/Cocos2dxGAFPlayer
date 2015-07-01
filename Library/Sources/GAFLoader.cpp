@@ -10,6 +10,7 @@
 #include "PrimitiveDeserializer.h"
 
 #include "TagDefineAtlas.h"
+#include "TagDefineAtlas3.h"
 #include "TagDefineAnimationMasks.h"
 #include "TagDefineAnimationObjects.h"
 #include "TagDefineAnimationFrames.h"
@@ -64,6 +65,7 @@ void GAFLoader::_registerTagLoadersV4()
     m_tagLoaders[Tags::TagDefineAnimationObjects2] = new TagDefineAnimationObjects();
     m_tagLoaders[Tags::TagDefineAnimationMasks2] = new TagDefineAnimationMasks();
     m_tagLoaders[Tags::TagDefineAtlas2] = new TagDefineAtlas();
+    m_tagLoaders[Tags::TagDefineAtlas3] = new TagDefineAtlas3();
     m_tagLoaders[Tags::TagDefineTextFields] = new TagDefineTextField();
     m_tagLoaders[Tags::TagDefineTimeline] = new TagDefineTimeline(this);
 }
@@ -104,7 +106,10 @@ void GAFLoader::loadTags(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
         }
         else
         {
-            CCLOG("No tag parser for %d. Custom loader needed", tag);
+            if (tag != Tags::TagEnd)
+            {
+                CCLOG("No tag parser for %d. Custom loader needed", tag);
+            }
         }
 
         in->closeTag();

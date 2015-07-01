@@ -70,15 +70,15 @@ unsigned int GAFFilterManager::hash(Sprite* sprite, GAFFilterData* filter)
     hash.texture = sprite->getTexture()->getName();
     hash.rect = sprite->getTextureRect();
 
-    if (filter->getType() == GAFFilterType::GFT_Blur)
+    if (filter->getType() == GAFFilterType::Blur)
     {
         hash.blur = *static_cast<GAFBlurFilterData*>(filter);
     }
-    else if (filter->getType() == GAFFilterType::GFT_Glow)
+    else if (filter->getType() == GAFFilterType::Glow)
     {
         hash.glow = *static_cast<GAFGlowFilterData*>(filter);
     }
-    else if (filter->getType() == GAFFilterType::GFT_DropShadow)
+    else if (filter->getType() == GAFFilterType::DropShadow)
     {
         hash.shadow = *static_cast<GAFDropShadowFilterData*>(filter);
     }
@@ -344,15 +344,15 @@ cocos2d::Texture2D* GAFFilterManager::renderShadowTexture(cocos2d::Sprite* sprit
 Texture2D* GAFFilterManager::renderFilteredTexture(Sprite* sprite, GAFFilterData* filter, unsigned int id)
 {
     Texture2D* texture = nullptr;
-    if (filter->getType() == GAFFilterType::GFT_Blur)
+    if (filter->getType() == GAFFilterType::Blur)
     {
         texture = renderBlurTexture(sprite, static_cast<GAFBlurFilterData*>(filter));
     }
-    else if (filter->getType() == GAFFilterType::GFT_Glow)
+    else if (filter->getType() == GAFFilterType::Glow)
     {
         texture = renderGlowTexture(sprite, static_cast<GAFGlowFilterData*>(filter));
     }
-    else if (filter->getType() == GAFFilterType::GFT_DropShadow)
+    else if (filter->getType() == GAFFilterType::DropShadow)
     {
         texture = renderShadowTexture(sprite, static_cast<GAFDropShadowFilterData*>(filter));
     }

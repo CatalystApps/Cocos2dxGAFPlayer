@@ -1,5 +1,5 @@
 #include "GAFPrecompiled.h"
-#include "TagDefineAtlas.h"
+#include "TagDefineAtlas3.h"
 
 #include "GAFFile.h"
 #include "GAFHeader.h"
@@ -13,7 +13,7 @@
 
 NS_GAF_BEGIN
 
-void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
+void TagDefineAtlas3::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
     (void)asset;
     GAFTextureAtlas* txAtlas = new GAFTextureAtlas();
@@ -52,9 +52,7 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
         PrimitiveDeserializer::deserialize(in, &element->pivotPoint);
         cocos2d::Vect origin;
         PrimitiveDeserializer::deserialize(in, &origin);
-        float scale = in->readFloat();
-        element->setScale(scale);
-
+        
         // TODO: Optimize this to read CCRect
         float width = in->readFloat();
         float height = in->readFloat();
@@ -73,18 +71,22 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 
         txAtlas->pushElement(element->elementAtlasIdx, element);
 
-        if (in->getInput()->getHeader().getMajorVersion() >= 4)
-        {
-            element->setScale(element->getScale() * txAtlas->getScale());
-            
-            char hasScale9Grid = in->readUByte();
+        char hasScale9Grid = in->readUByte();
 
-            if (hasScale9Grid)
-            {
-                cocos2d::Rect scale9GridRect;
-                PrimitiveDeserializer::deserialize(in, &scale9GridRect);
-            }
+        if (hasScale9Grid)
+        {
+            cocos2d::Rect scale9GridRect;
+            PrimitiveDeserializer::deserialize(in, &scale9GridRect);
         }
+
+        float scaleX = in->readFloat();
+        float scaleY = in->readFloat();
+        element->setScaleX(scaleX * txAtlas->getScale());
+        element->setScaleY(scaleY * txAtlas->getScale());
+        int8_t rotation = in->readSByte();
+        element->rotation = static_cast<GAFRotation>(rotation);
+        in->readString(&element->name);
+        
     }
 
     timeline->pushTextureAtlas(txAtlas);
