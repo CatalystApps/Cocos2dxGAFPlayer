@@ -180,9 +180,9 @@ GAFObject* GAFObject::_instantiateObject(uint32_t id, GAFCharacterType type, uin
                 0 + (1 - (txElemet->pivotPoint.y / result->getContentSize().height)));
             result->setAnchorPoint(pt);
 
-            if (txElemet->scale != 1.0f)
+            if (txElemet->getScale() != 1.0f)
             {
-                result->setAtlasScale(1.0f / txElemet->scale);
+                result->setAtlasScale(1.0f / txElemet->getScale());
             }
             result->setBlendFunc(cocos2d::BlendFunc::ALPHA_PREMULTIPLIED);
         }

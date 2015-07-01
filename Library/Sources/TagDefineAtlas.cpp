@@ -52,7 +52,8 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
         PrimitiveDeserializer::deserialize(in, &element->pivotPoint);
         cocos2d::Vect origin;
         PrimitiveDeserializer::deserialize(in, &origin);
-        element->scale = in->readFloat();
+        float scale = in->readFloat();
+        element->setScale(scale);
 
         // TODO: Optimize this to read CCRect
         float width = in->readFloat();
@@ -74,7 +75,7 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 
         if (in->getInput()->getHeader().getMajorVersion() >= 4)
         {
-            element->scale *= txAtlas->getScale();
+            element->setScale(element->getScale() * txAtlas->getScale());
             
             char hasScale9Grid = in->readUByte();
 

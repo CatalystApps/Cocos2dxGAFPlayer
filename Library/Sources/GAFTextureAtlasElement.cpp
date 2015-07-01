@@ -4,13 +4,25 @@
 NS_GAF_BEGIN
 
 GAFTextureAtlasElement::GAFTextureAtlasElement()
+: rotation(0)
+, name("")
 {
 
 }
 
-bool GAFTextureAtlasElement::init()
+void GAFTextureAtlasElement::setScale(float s)
 {
-    return true;
+    scale = scaleX = scaleY = s;
+}
+
+void GAFTextureAtlasElement::setScaleX(float s)
+{
+    scale = scaleX = s;
+}
+
+void GAFTextureAtlasElement::setScaleY(float s)
+{
+    scale = scaleY = s;
 }
 
 NS_GAF_END
