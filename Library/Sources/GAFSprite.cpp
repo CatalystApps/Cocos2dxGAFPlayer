@@ -16,13 +16,13 @@ USING_NS_CC;
 NS_GAF_BEGIN
 
 GAFSprite::GAFSprite()
-:
-objectIdRef(IDNONE),
-m_useSeparateBlendFunc(false),
-m_isLocator(false),
-m_blendEquation(-1),
-m_atlasScale(1.0f),
-m_externalTransform(AffineTransform::IDENTITY)
+: objectIdRef(IDNONE)
+, m_useSeparateBlendFunc(false)
+, m_isLocator(false)
+, m_blendEquation(-1)
+, m_atlasScale(1.0f)
+, m_externalTransform(AffineTransform::IDENTITY)
+, m_rotation(GAFRotation::NONE)
 {
 #if COCOS2D_VERSION < 0x00030300
     _batchNode = nullptr; // this will fix a bug in cocos2dx 3.2 tag
@@ -30,6 +30,12 @@ m_externalTransform(AffineTransform::IDENTITY)
     setFlippedX(false); // Fix non-inited vars in cocos
     setFlippedY(false);
     _rectRotated = false;
+}
+
+bool GAFSprite::initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, GAFRotation rotation)
+{
+    m_rotation = rotation;
+    return initWithSpriteFrame(spriteFrame);
 }
 
 bool GAFSprite::initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)
@@ -68,6 +74,129 @@ void GAFSprite::setTexture(cocos2d::Texture2D *texture)
         CC_SAFE_RELEASE(_texture);
         _texture = texture;
         updateBlendFunc();
+    }
+}
+
+void GAFSprite::setVertexRect(const cocos2d::Rect& rect)
+{
+    _rect = rect;
+    if (m_rotation != GAFRotation::NONE)
+    {
+        std::swap(_rect.size.width, _rect.size.height);
+    }
+}
+
+void GAFSprite::setTextureRect(const cocos2d::Rect& rect, bool rotated, const cocos2d::Size& untrimmedSize)
+{
+    cocos2d::Size rotatedSize = untrimmedSize;
+    if (m_rotation != GAFRotation::NONE)
+    {
+        rotatedSize = cocos2d::Size(rotatedSize.height, rotatedSize.width);
+    }
+    cocos2d::Sprite::setTextureRect(rect, rotated, rotatedSize);
+}
+
+void GAFSprite::setTextureCoords(cocos2d::Rect rect)
+{
+    rect = CC_RECT_POINTS_TO_PIXELS(rect);
+
+    cocos2d::Texture2D *tex = _batchNode ? _textureAtlas->getTexture() : _texture;
+    if (!tex)
+    {
+        return;
+    }
+
+    float atlasWidth = (float)tex->getPixelsWide();
+    float atlasHeight = (float)tex->getPixelsHigh();
+
+    float left, right, top, bottom;
+
+    switch (m_rotation)
+    {
+    case gaf::GAFRotation::CCW_90:
+    {
+        left = rect.origin.x / atlasWidth;
+        right = (rect.origin.x + rect.size.height) / atlasWidth;
+        top = rect.origin.y / atlasHeight;
+        bottom = (rect.origin.y + rect.size.width) / atlasHeight;
+
+        if (_flippedX)
+        {
+            std::swap(top, bottom);
+        }
+
+        if (_flippedY)
+        {
+            std::swap(left, right);
+        }
+
+        _quad.bl.texCoords.u = left;
+        _quad.bl.texCoords.v = top;
+        _quad.br.texCoords.u = left;
+        _quad.br.texCoords.v = bottom;
+        _quad.tl.texCoords.u = right;
+        _quad.tl.texCoords.v = top;
+        _quad.tr.texCoords.u = right;
+        _quad.tr.texCoords.v = bottom;
+    }
+        break;
+
+    case gaf::GAFRotation::CW_90:
+    {
+        left = rect.origin.x / atlasWidth;
+        right = (rect.origin.x + rect.size.width) / atlasWidth;
+        top = rect.origin.y / atlasHeight;
+        bottom = (rect.origin.y + rect.size.height) / atlasHeight;
+
+        if (_flippedX)
+        {
+            std::swap(top, bottom);
+        }
+
+        if (_flippedY)
+        {
+            std::swap(left, right);
+        }
+
+        _quad.bl.texCoords.u = left;
+        _quad.bl.texCoords.v = top;
+        _quad.br.texCoords.u = left;
+        _quad.br.texCoords.v = bottom;
+        _quad.tl.texCoords.u = right;
+        _quad.tl.texCoords.v = top;
+        _quad.tr.texCoords.u = right;
+        _quad.tr.texCoords.v = bottom;
+    }
+        break;
+
+    case gaf::GAFRotation::NONE:
+    default:
+    {
+        left = rect.origin.x / atlasWidth;
+        right = (rect.origin.x + rect.size.width) / atlasWidth;
+        top = rect.origin.y / atlasHeight;
+        bottom = (rect.origin.y + rect.size.height) / atlasHeight;
+
+        if (_flippedX)
+        {
+            std::swap(left, right);
+        }
+
+        if (_flippedY)
+        {
+            std::swap(top, bottom);
+        }
+
+        _quad.bl.texCoords.u = left;
+        _quad.bl.texCoords.v = bottom;
+        _quad.br.texCoords.u = right;
+        _quad.br.texCoords.v = bottom;
+        _quad.tl.texCoords.u = left;
+        _quad.tl.texCoords.v = top;
+        _quad.tr.texCoords.u = right;
+        _quad.tr.texCoords.v = top;
+    }
+        break;
     }
 }
 

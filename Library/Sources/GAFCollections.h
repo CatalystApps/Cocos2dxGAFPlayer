@@ -15,10 +15,10 @@ class GAFObject;
 
 enum class GAFFilterType : uint32_t
 {
-    GFT_DropShadow = 0,
-    GFT_Blur = 1,
-    GFT_Glow = 2,
-    GFT_ColorMatrix = 6
+    DropShadow = 0,
+    Blur = 1,
+    Glow = 2,
+    ColorMatrix = 6
 };
 
 enum class GAFCharacterType : uint32_t
@@ -33,6 +33,13 @@ enum class GAFObjectType : uint32_t
     None = 0,
     MovieClip,
     Mask
+};
+
+enum class GAFRotation : int8_t
+{
+    CCW_90 = -1,
+    NONE = 0,
+    CW_90 = 1,
 };
 
 enum class GAFActionType : int32_t

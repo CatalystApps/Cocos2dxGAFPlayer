@@ -4,7 +4,7 @@
 NS_GAF_BEGIN
 
 GAFTextureAtlasElement::GAFTextureAtlasElement()
-: rotation(0)
+: rotation(GAFRotation::NONE)
 , name("")
 {
 

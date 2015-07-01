@@ -134,7 +134,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
         {
             GAFFilterType type = static_cast<GAFFilterType>(in->readU32());
 
-            if (type == GAFFilterType::GFT_Blur)
+            if (type == GAFFilterType::Blur)
             {
                 cocos2d::Size p;
                 PrimitiveDeserializer::deserialize(in, &p);
@@ -142,7 +142,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
                 blurFilter->blurSize = p;
                 state->pushFilter(blurFilter);
             }
-            else if (type == GAFFilterType::GFT_ColorMatrix)
+            else if (type == GAFFilterType::ColorMatrix)
             {
                 GAFColorColorMatrixFilterData* colorFilter = new GAFColorColorMatrixFilterData();
                 for (unsigned int i = 0; i < 4; ++i)
@@ -157,7 +157,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
 
                 state->pushFilter(colorFilter);
             }
-            else if (type == GAFFilterType::GFT_Glow)
+            else if (type == GAFFilterType::Glow)
             {
                 GAFGlowFilterData* filter = new GAFGlowFilterData();
                 unsigned int clr = in->readU32();
@@ -172,7 +172,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
 
                 state->pushFilter(filter);
             }
-            else if (type == GAFFilterType::GFT_DropShadow)
+            else if (type == GAFFilterType::DropShadow)
             {
                 GAFDropShadowFilterData* filter = new GAFDropShadowFilterData();
                 unsigned int clr = in->readU32();

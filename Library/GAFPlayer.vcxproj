@@ -44,6 +44,7 @@
     <ClCompile Include="Sources\TagDefineAnimationMasks.cpp" />
     <ClCompile Include="Sources\TagDefineAnimationObjects.cpp" />
     <ClCompile Include="Sources\TagDefineAtlas.cpp" />
+    <ClCompile Include="Sources\TagDefineAtlas3.cpp" />
     <ClCompile Include="Sources\TagDefineNamedParts.cpp" />
     <ClCompile Include="Sources\TagDefineSequences.cpp" />
     <ClCompile Include="Sources\TagDefineStage.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="Sources\TagDefineAnimationMasks.h" />
     <ClInclude Include="Sources\TagDefineAnimationObjects.h" />
     <ClInclude Include="Sources\TagDefineAtlas.h" />
+    <ClInclude Include="Sources\TagDefineAtlas3.h" />
     <ClInclude Include="Sources\TagDefineNamedParts.h" />
     <ClInclude Include="Sources\TagDefines.h" />
     <ClInclude Include="Sources\TagDefineSequences.h" />

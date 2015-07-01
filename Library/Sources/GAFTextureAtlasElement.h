@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GAFCollections.h"
+
 NS_GAF_BEGIN
 
 class GAFTextureAtlasElement
@@ -12,7 +14,7 @@ public:
     unsigned int       atlasIdx;
     unsigned int       elementAtlasIdx;
 
-    uint8_t            rotation; // -1 90 CCW, 0 - no rotation, 1 - 90 CW
+    GAFRotation        rotation; // -1 90 CCW, 0 - no rotation, 1 - 90 CW
 
     GAFTextureAtlasElement();  
 

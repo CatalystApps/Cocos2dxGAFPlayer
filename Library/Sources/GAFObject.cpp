@@ -174,7 +174,7 @@ GAFObject* GAFObject::_instantiateObject(uint32_t id, GAFCharacterType type, uin
                 result = new GAFMovieClip();
             else
                 result = new GAFMask();
-            result->initWithSpriteFrame(spriteFrame);
+            result->initWithSpriteFrame(spriteFrame, txElemet->rotation);
             result->objectIdRef = id;
             cocos2d::Vect pt = cocos2d::Vect(0 - (0 - (txElemet->pivotPoint.x / result->getContentSize().width)),
                 0 + (1 - (txElemet->pivotPoint.y / result->getContentSize().height)));
@@ -864,22 +864,22 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                     filter->apply(mc);
                 }
 
-                if (!filter || filter->getType() != GAFFilterType::GFT_Blur)
+                if (!filter || filter->getType() != GAFFilterType::Blur)
                 {
                     mc->setBlurFilterData(nullptr);
                 }
 
-                if (!filter || filter->getType() != GAFFilterType::GFT_ColorMatrix)
+                if (!filter || filter->getType() != GAFFilterType::ColorMatrix)
                 {
                     mc->setColorMarixFilterData(nullptr);
                 }
 
-                if (!filter || filter->getType() != GAFFilterType::GFT_Glow)
+                if (!filter || filter->getType() != GAFFilterType::Glow)
                 {
                     mc->setGlowFilterData(nullptr);
                 }
 
-                if (!filter || filter->getType() != GAFFilterType::GFT_DropShadow)
+                if (!filter || filter->getType() != GAFFilterType::DropShadow)
                 {
                     GAFDropShadowFilterData::reset(mc);
                 }
