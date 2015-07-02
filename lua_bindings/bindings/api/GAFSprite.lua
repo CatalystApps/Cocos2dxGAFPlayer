@@ -9,6 +9,7 @@
 -- @function [parent=#GAFSprite] setLocator 
 -- @param self
 -- @param #bool locator
+-- @return GAFSprite#GAFSprite self (return value: gaf.GAFSprite)
         
 --------------------------------
 -- 
@@ -24,7 +25,15 @@
         
 --------------------------------
 -- 
+-- @function [parent=#GAFSprite] setVertexRect 
+-- @param self
+-- @param #rect_table rect
+-- @return GAFSprite#GAFSprite self (return value: gaf.GAFSprite)
+        
+--------------------------------
+-- 
 -- @function [parent=#GAFSprite] GAFSprite 
 -- @param self
+-- @return GAFSprite#GAFSprite self (return value: gaf.GAFSprite)
         
 return nil

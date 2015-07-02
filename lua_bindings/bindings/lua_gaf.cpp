@@ -156,7 +156,8 @@ int lua_gaf_GAFAsset_setSceneHeight(lua_State* tolua_S)
             return 0;
         }
         cobj->setSceneHeight(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:setSceneHeight",argc, 1);
     return 0;
@@ -252,7 +253,8 @@ int lua_gaf_GAFAsset_setSceneColor(lua_State* tolua_S)
             return 0;
         }
         cobj->setSceneColor(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:setSceneColor",argc, 1);
     return 0;
@@ -398,7 +400,8 @@ int lua_gaf_GAFAsset_setDesiredAtlasScale(lua_State* tolua_S)
             return 0;
         }
         cobj->setDesiredAtlasScale(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:setDesiredAtlasScale",argc, 1);
     return 0;
@@ -648,6 +651,33 @@ int lua_gaf_GAFAsset_initWithGAFBundle(lua_State* tolua_S)
         tolua_pushboolean(tolua_S,(bool)ret);
         return 1;
     }
+    if (argc == 4) 
+    {
+        std::string arg0;
+        std::string arg1;
+        std::function<std::basic_string<char> (const std::basic_string<char> &)> arg2;
+        gaf::GAFLoader* arg3;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+        do {
+			// Lambda binding for lua is not supported.
+			assert(false);
+		} while(0)
+		;
+
+        ok &= luaval_to_object<gaf::GAFLoader>(tolua_S, 5, "gaf.GAFLoader",&arg3);
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFAsset_initWithGAFBundle'", nullptr);
+            return 0;
+        }
+        bool ret = cobj->initWithGAFBundle(arg0, arg1, arg2, arg3);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:initWithGAFBundle",argc, 3);
     return 0;
 
@@ -695,7 +725,8 @@ int lua_gaf_GAFAsset_setSceneWidth(lua_State* tolua_S)
             return 0;
         }
         cobj->setSceneWidth(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:setSceneWidth",argc, 1);
     return 0;
@@ -748,7 +779,8 @@ int lua_gaf_GAFAsset_setTextureLoadDelegate(lua_State* tolua_S)
             return 0;
         }
         cobj->setTextureLoadDelegate(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:setTextureLoadDelegate",argc, 1);
     return 0;
@@ -807,6 +839,30 @@ int lua_gaf_GAFAsset_initWithGAFFile(lua_State* tolua_S)
         tolua_pushboolean(tolua_S,(bool)ret);
         return 1;
     }
+    if (argc == 3) 
+    {
+        std::string arg0;
+        std::function<std::basic_string<char> (const std::basic_string<char> &)> arg1;
+        gaf::GAFLoader* arg2;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        do {
+			// Lambda binding for lua is not supported.
+			assert(false);
+		} while(0)
+		;
+
+        ok &= luaval_to_object<gaf::GAFLoader>(tolua_S, 4, "gaf.GAFLoader",&arg2);
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFAsset_initWithGAFFile'", nullptr);
+            return 0;
+        }
+        bool ret = cobj->initWithGAFFile(arg0, arg1, arg2);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:initWithGAFFile",argc, 2);
     return 0;
 
@@ -854,7 +910,8 @@ int lua_gaf_GAFAsset_setSceneFps(lua_State* tolua_S)
             return 0;
         }
         cobj->setSceneFps(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAsset:setSceneFps",argc, 1);
     return 0;
@@ -1093,6 +1150,29 @@ int lua_gaf_GAFAsset_create(lua_State* tolua_S)
         }
     } while (0);
     ok  = true;
+    do 
+    {
+        if (argc == 3)
+        {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+            if (!ok) { break; }
+            std::function<std::basic_string<char> (const std::basic_string<char> &)> arg1;
+            do {
+			// Lambda binding for lua is not supported.
+			assert(false);
+		} while(0)
+		;
+            if (!ok) { break; }
+            gaf::GAFLoader* arg2;
+            ok &= luaval_to_object<gaf::GAFLoader>(tolua_S, 4, "gaf.GAFLoader",&arg2);
+            if (!ok) { break; }
+            gaf::GAFAsset* ret = gaf::GAFAsset::create(arg0, arg1, arg2);
+            object_to_luaval<gaf::GAFAsset>(tolua_S, "gaf.GAFAsset",(gaf::GAFAsset*)ret);
+            return 1;
+        }
+    } while (0);
+    ok  = true;
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d", "gaf.GAFAsset:create",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
@@ -1149,6 +1229,32 @@ int lua_gaf_GAFAsset_createWithBundle(lua_State* tolua_S)
 		;
             if (!ok) { break; }
             gaf::GAFAsset* ret = gaf::GAFAsset::createWithBundle(arg0, arg1, arg2);
+            object_to_luaval<gaf::GAFAsset>(tolua_S, "gaf.GAFAsset",(gaf::GAFAsset*)ret);
+            return 1;
+        }
+    } while (0);
+    ok  = true;
+    do 
+    {
+        if (argc == 4)
+        {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+            if (!ok) { break; }
+            std::string arg1;
+            ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+            if (!ok) { break; }
+            std::function<std::basic_string<char> (const std::basic_string<char> &)> arg2;
+            do {
+			// Lambda binding for lua is not supported.
+			assert(false);
+		} while(0)
+		;
+            if (!ok) { break; }
+            gaf::GAFLoader* arg3;
+            ok &= luaval_to_object<gaf::GAFLoader>(tolua_S, 5, "gaf.GAFLoader",&arg3);
+            if (!ok) { break; }
+            gaf::GAFAsset* ret = gaf::GAFAsset::createWithBundle(arg0, arg1, arg2, arg3);
             object_to_luaval<gaf::GAFAsset>(tolua_S, "gaf.GAFAsset",(gaf::GAFAsset*)ret);
             return 1;
         }
@@ -1278,7 +1384,8 @@ int lua_gaf_GAFSprite_setLocator(lua_State* tolua_S)
             return 0;
         }
         cobj->setLocator(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFSprite:setLocator",argc, 1);
     return 0;
@@ -1389,7 +1496,8 @@ int lua_gaf_GAFObject_setAnimationStartedNextLoopDelegate(lua_State* tolua_S)
             return 0;
         }
         cobj->setAnimationStartedNextLoopDelegate(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setAnimationStartedNextLoopDelegate",argc, 1);
     return 0;
@@ -1442,7 +1550,8 @@ int lua_gaf_GAFObject_setAnimationFinishedPlayDelegate(lua_State* tolua_S)
             return 0;
         }
         cobj->setAnimationFinishedPlayDelegate(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setAnimationFinishedPlayDelegate",argc, 1);
     return 0;
@@ -1538,7 +1647,8 @@ int lua_gaf_GAFObject_setFps(lua_State* tolua_S)
             return 0;
         }
         cobj->setFps(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setFps",argc, 1);
     return 0;
@@ -1639,7 +1749,8 @@ int lua_gaf_GAFObject_clearSequence(lua_State* tolua_S)
             return 0;
         }
         cobj->clearSequence();
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:clearSequence",argc, 0);
     return 0;
@@ -1844,7 +1955,8 @@ int lua_gaf_GAFObject_setFramePlayedDelegate(lua_State* tolua_S)
             return 0;
         }
         cobj->setFramePlayedDelegate(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setFramePlayedDelegate",argc, 1);
     return 0;
@@ -1984,7 +2096,8 @@ int lua_gaf_GAFObject_start(lua_State* tolua_S)
             return 0;
         }
         cobj->start();
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:start",argc, 0);
     return 0;
@@ -2253,7 +2366,8 @@ int lua_gaf_GAFObject_enableTick(lua_State* tolua_S)
             return 0;
         }
         cobj->enableTick(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:enableTick",argc, 1);
     return 0;
@@ -2299,7 +2413,8 @@ int lua_gaf_GAFObject_stop(lua_State* tolua_S)
             return 0;
         }
         cobj->stop();
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:stop",argc, 0);
     return 0;
@@ -2351,7 +2466,8 @@ int lua_gaf_GAFObject_setAnimationRunning(lua_State* tolua_S)
             return 0;
         }
         cobj->setAnimationRunning(arg0, arg1);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setAnimationRunning",argc, 2);
     return 0;
@@ -2497,7 +2613,8 @@ int lua_gaf_GAFObject_setLooped(lua_State* tolua_S)
             return 0;
         }
         cobj->setLooped(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     if (argc == 2) 
     {
@@ -2513,7 +2630,8 @@ int lua_gaf_GAFObject_setLooped(lua_State* tolua_S)
             return 0;
         }
         cobj->setLooped(arg0, arg1);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setLooped",argc, 1);
     return 0;
@@ -2609,7 +2727,8 @@ int lua_gaf_GAFObject_pauseAnimation(lua_State* tolua_S)
             return 0;
         }
         cobj->pauseAnimation();
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:pauseAnimation",argc, 0);
     return 0;
@@ -2757,7 +2876,8 @@ int lua_gaf_GAFObject_resumeAnimation(lua_State* tolua_S)
             return 0;
         }
         cobj->resumeAnimation();
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:resumeAnimation",argc, 0);
     return 0;
@@ -2806,7 +2926,8 @@ int lua_gaf_GAFObject_setReversed(lua_State* tolua_S)
             return 0;
         }
         cobj->setReversed(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     if (argc == 2) 
     {
@@ -2822,7 +2943,8 @@ int lua_gaf_GAFObject_setReversed(lua_State* tolua_S)
             return 0;
         }
         cobj->setReversed(arg0, arg1);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setReversed",argc, 1);
     return 0;
@@ -2830,6 +2952,56 @@ int lua_gaf_GAFObject_setReversed(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFObject_setReversed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_gaf_GAFObject_setFpsLimitations(lua_State* tolua_S)
+{
+    int argc = 0;
+    gaf::GAFObject* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"gaf.GAFObject",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (gaf::GAFObject*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_gaf_GAFObject_setFpsLimitations'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFObject_setFpsLimitations'", nullptr);
+            return 0;
+        }
+        cobj->setFpsLimitations(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:setFpsLimitations",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFObject_setFpsLimitations'.",&tolua_err);
 #endif
 
     return 0;
@@ -2924,6 +3096,53 @@ int lua_gaf_GAFObject_getFps(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFObject_getFps'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_gaf_GAFObject_getTimeLine(lua_State* tolua_S)
+{
+    int argc = 0;
+    gaf::GAFObject* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"gaf.GAFObject",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (gaf::GAFObject*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_gaf_GAFObject_getTimeLine'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFObject_getTimeLine'", nullptr);
+            return 0;
+        }
+        gaf::GAFTimeline* ret = cobj->getTimeLine();
+        object_to_luaval<gaf::GAFTimeline>(tolua_S, "gaf.GAFTimeline",(gaf::GAFTimeline*)ret);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFObject:getTimeLine",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFObject_getTimeLine'.",&tolua_err);
 #endif
 
     return 0;
@@ -3045,8 +3264,10 @@ int lua_register_gaf_GAFObject(lua_State* tolua_S)
         tolua_function(tolua_S,"isLooped",lua_gaf_GAFObject_isLooped);
         tolua_function(tolua_S,"resumeAnimation",lua_gaf_GAFObject_resumeAnimation);
         tolua_function(tolua_S,"setReversed",lua_gaf_GAFObject_setReversed);
+        tolua_function(tolua_S,"setFpsLimitations",lua_gaf_GAFObject_setFpsLimitations);
         tolua_function(tolua_S,"hasSequences",lua_gaf_GAFObject_hasSequences);
         tolua_function(tolua_S,"getFps",lua_gaf_GAFObject_getFps);
+        tolua_function(tolua_S,"getTimeLine",lua_gaf_GAFObject_getTimeLine);
         tolua_function(tolua_S,"create", lua_gaf_GAFObject_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(gaf::GAFObject).name();
@@ -3055,6 +3276,59 @@ int lua_register_gaf_GAFObject(lua_State* tolua_S)
     return 1;
 }
 
+int lua_gaf_GAFAssetTextureManager_swapTexture(lua_State* tolua_S)
+{
+    int argc = 0;
+    gaf::GAFAssetTextureManager* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"gaf.GAFAssetTextureManager",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (gaf::GAFAssetTextureManager*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_gaf_GAFAssetTextureManager_swapTexture'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        unsigned int arg0;
+        cocos2d::Texture2D* arg1;
+
+        ok &= luaval_to_uint32(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_object<cocos2d::Texture2D>(tolua_S, 3, "cc.Texture2D",&arg1);
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_gaf_GAFAssetTextureManager_swapTexture'", nullptr);
+            return 0;
+        }
+        bool ret = cobj->swapTexture(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFAssetTextureManager:swapTexture",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_gaf_GAFAssetTextureManager_swapTexture'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_gaf_GAFAssetTextureManager_getMemoryConsumptionStat(lua_State* tolua_S)
 {
     int argc = 0;
@@ -3152,6 +3426,7 @@ int lua_register_gaf_GAFAssetTextureManager(lua_State* tolua_S)
 
     tolua_beginmodule(tolua_S,"GAFAssetTextureManager");
         tolua_function(tolua_S,"new",lua_gaf_GAFAssetTextureManager_constructor);
+        tolua_function(tolua_S,"swapTexture",lua_gaf_GAFAssetTextureManager_swapTexture);
         tolua_function(tolua_S,"getMemoryConsumptionStat",lua_gaf_GAFAssetTextureManager_getMemoryConsumptionStat);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(gaf::GAFAssetTextureManager).name();
@@ -3197,7 +3472,8 @@ int lua_gaf_GAFMovieClip_setGLProgram(lua_State* tolua_S)
             return 0;
         }
         cobj->setGLProgram(arg0);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
     luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "gaf.GAFMovieClip:setGLProgram",argc, 1);
     return 0;

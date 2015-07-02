@@ -15,6 +15,7 @@
 -- @function [parent=#GAFAsset] setSceneHeight 
 -- @param self
 -- @param #unsigned int 
+-- @return GAFAsset#GAFAsset self (return value: gaf.GAFAsset)
         
 --------------------------------
 -- 
@@ -27,6 +28,7 @@
 -- @function [parent=#GAFAsset] setSceneColor 
 -- @param self
 -- @param #color4b_table 
+-- @return GAFAsset#GAFAsset self (return value: gaf.GAFAsset)
         
 --------------------------------
 -- 
@@ -46,6 +48,7 @@
 -- @function [parent=#GAFAsset] setDesiredAtlasScale 
 -- @param self
 -- @param #float scale
+-- @return GAFAsset#GAFAsset self (return value: gaf.GAFAsset)
         
 --------------------------------
 -- 
@@ -78,6 +81,7 @@
 -- @param #string zipfilePath
 -- @param #string entryFile
 -- @param #function delegate
+-- @param #gaf.GAFLoader customLoader
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
@@ -85,12 +89,14 @@
 -- @function [parent=#GAFAsset] setSceneWidth 
 -- @param self
 -- @param #unsigned int 
+-- @return GAFAsset#GAFAsset self (return value: gaf.GAFAsset)
         
 --------------------------------
 -- 
 -- @function [parent=#GAFAsset] setTextureLoadDelegate 
 -- @param self
 -- @param #function delegate
+-- @return GAFAsset#GAFAsset self (return value: gaf.GAFAsset)
         
 --------------------------------
 -- / Initializes asset with bGAF data
@@ -98,6 +104,7 @@
 -- @param self
 -- @param #string filePath
 -- @param #function delegate
+-- @param #gaf.GAFLoader customLoader
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
@@ -105,6 +112,7 @@
 -- @function [parent=#GAFAsset] setSceneFps 
 -- @param self
 -- @param #unsigned int 
+-- @return GAFAsset#GAFAsset self (return value: gaf.GAFAsset)
         
 --------------------------------
 -- 
@@ -134,26 +142,29 @@
         
 --------------------------------
 -- @overload self, string         
--- @overload self, string, function         
+-- @overload self, string, function, gaf.GAFLoader         
 -- @function [parent=#GAFAsset] create
 -- @param self
 -- @param #string gafFilePath
 -- @param #function delegate
+-- @param #gaf.GAFLoader customLoader
 -- @return GAFAsset#GAFAsset ret (return value: gaf.GAFAsset)
 
 --------------------------------
 -- @overload self, string, string         
--- @overload self, string, string, function         
+-- @overload self, string, string, function, gaf.GAFLoader         
 -- @function [parent=#GAFAsset] createWithBundle
 -- @param self
 -- @param #string zipfilePath
 -- @param #string entryFile
 -- @param #function delegate
+-- @param #gaf.GAFLoader customLoader
 -- @return GAFAsset#GAFAsset ret (return value: gaf.GAFAsset)
 
 --------------------------------
 -- 
 -- @function [parent=#GAFAsset] GAFAsset 
 -- @param self
+-- @return GAFAsset#GAFAsset self (return value: gaf.GAFAsset)
         
 return nil

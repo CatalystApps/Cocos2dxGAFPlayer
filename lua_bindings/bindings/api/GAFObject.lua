@@ -9,12 +9,14 @@
 -- @function [parent=#GAFObject] setAnimationStartedNextLoopDelegate 
 -- @param self
 -- @param #function delegate
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- / @note do not forget to call setAnimationFinishedPlayDelegate(nullptr) before deleting your subscriber
 -- @function [parent=#GAFObject] setAnimationFinishedPlayDelegate 
 -- @param self
 -- @param #function delegate
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -27,6 +29,7 @@
 -- @function [parent=#GAFObject] setFps 
 -- @param self
 -- @param #unsigned int value
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- @overload self, string         
@@ -40,6 +43,7 @@
 -- / Stops playing an animation as a sequence
 -- @function [parent=#GAFObject] clearSequence 
 -- @param self
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -67,6 +71,7 @@
 -- @function [parent=#GAFObject] setFramePlayedDelegate 
 -- @param self
 -- @param #function delegate
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -84,6 +89,7 @@
 -- 
 -- @function [parent=#GAFObject] start 
 -- @param self
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -119,11 +125,13 @@
 -- @function [parent=#GAFObject] enableTick 
 -- @param self
 -- @param #bool val
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
 -- @function [parent=#GAFObject] stop 
 -- @param self
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -131,6 +139,7 @@
 -- @param self
 -- @param #bool value
 -- @param #bool recurcive
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -151,6 +160,7 @@
 -- @param self
 -- @param #bool looped
 -- @param #bool recursive
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -163,6 +173,7 @@
 -- / Pauses animation including enclosed timelines
 -- @function [parent=#GAFObject] pauseAnimation 
 -- @param self
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- @overload self, unsigned int         
@@ -182,6 +193,7 @@
 -- / Resumes animation including enclosed timelines
 -- @function [parent=#GAFObject] resumeAnimation 
 -- @param self
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -189,6 +201,14 @@
 -- @param self
 -- @param #bool reversed
 -- @param #bool fromCurrentFrame
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
+        
+--------------------------------
+-- 
+-- @function [parent=#GAFObject] setFpsLimitations 
+-- @param self
+-- @param #bool fpsLimitations
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 --------------------------------
 -- 
@@ -201,6 +221,12 @@
 -- @function [parent=#GAFObject] getFps 
 -- @param self
 -- @return unsigned int#unsigned int ret (return value: unsigned int)
+        
+--------------------------------
+-- 
+-- @function [parent=#GAFObject] getTimeLine 
+-- @param self
+-- @return GAFTimeline#GAFTimeline ret (return value: gaf.GAFTimeline)
         
 --------------------------------
 -- 
@@ -226,5 +252,6 @@
 -- 
 -- @function [parent=#GAFObject] GAFObject 
 -- @param self
+-- @return GAFObject#GAFObject self (return value: gaf.GAFObject)
         
 return nil
