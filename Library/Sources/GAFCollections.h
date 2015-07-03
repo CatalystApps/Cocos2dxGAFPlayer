@@ -12,6 +12,7 @@ class GAFFilterData;
 class GAFTimeline;
 class GAFTextData;
 class GAFObject;
+class GAFSoundInfo;
 
 enum class GAFFilterType : uint32_t
 {
@@ -86,6 +87,7 @@ typedef std::unordered_map<uint32_t, int>                   CaptureObjects_t;   
 typedef std::unordered_map<std::string, GAFAnimationSequence>         AnimationSequences_t;
 typedef std::unordered_map<std::string, uint32_t>                     NamedParts_t;
 
+typedef std::unordered_map<uint32_t, GAFSoundInfo*>         SoundInfos_t;
 
 
 static const uint32_t IDNONE = UINT_MAX;

@@ -1014,7 +1014,17 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
             gotoAndPlay(action.getParam(GAFTimelineAction::PI_FRAME));
             break;
         case GAFActionType::DispatchEvent:
-            _eventDispatcher->dispatchCustomEvent(action.getParam(GAFTimelineAction::PI_EVENT_TYPE), &action);
+            {
+                std::string type = action.getParam(GAFTimelineAction::PI_EVENT_TYPE);
+                if (type.compare(GAFSoundInfo::SoundEvent) == 0)
+                {
+                    m_asset->soundEvent(&action);
+                }
+                else
+                {
+                    _eventDispatcher->dispatchCustomEvent(action.getParam(GAFTimelineAction::PI_EVENT_TYPE), &action);
+                }
+            }
             break;
 
         case GAFActionType::None:

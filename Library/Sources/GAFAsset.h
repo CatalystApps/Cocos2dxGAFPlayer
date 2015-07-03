@@ -13,15 +13,18 @@ NS_GAF_BEGIN
 class GAFTextureAtlas;
 class GAFObject;
 class GAFAssetTextureManager;
+class GAFTimelineAction;
 
 class GAFLoader;
 
 class GAFAsset : public cocos2d::Ref
 {
+    friend class GAFObject;
 private:
     GAFHeader               m_header;
 	Timelines_t				m_timelines;
     GAFTimeline*            m_rootTimeline;
+    SoundInfos_t            m_soundInfos;
 
     void setRootTimeline(GAFTimeline* tl);
 
@@ -29,6 +32,8 @@ private:
     void loadTextures(const std::string& filePath, GAFTextureLoadDelegate_t delegate, cocos2d::ZipFile* bundle = nullptr);
     GAFTextureLoadDelegate_t m_textureLoadDelegate;
 	GAFAssetTextureManager*	m_textureManager;
+
+    GAFSoundDelegate_t m_soundDelegate;
 
     unsigned int            m_sceneFps;
     unsigned int            m_sceneWidth;
@@ -57,6 +62,8 @@ public:
     bool                        initWithGAFBundle(const std::string& zipfilePath, const std::string& entryFile, GAFTextureLoadDelegate_t delegate, GAFLoader* customLoader = nullptr);
 
 	void						pushTimeline(uint32_t timelineIdRef, GAFTimeline* t);
+    void                        pushSound(uint32_t id, GAFSoundInfo* sound);
+    void                        soundEvent(GAFTimelineAction *action);
 
     void                        setHeader(GAFHeader& h);
     const GAFHeader&            getHeader() const;
@@ -94,8 +101,9 @@ public:
     void                        setDesiredAtlasScale(float scale);
 
     void                        setTextureLoadDelegate(GAFTextureLoadDelegate_t delegate);
-    
-	GAFAssetTextureManager*     getTextureManager();
+    void                        setSoundDelegate(GAFSoundDelegate_t delagate);
+
+    GAFAssetTextureManager*     getTextureManager();
 
     const unsigned int getSceneFps() const;
     const unsigned int getSceneWidth() const;

@@ -5,6 +5,8 @@ NS_GAF_BEGIN
 class GAFSoundInfo
 {
 public:
+    const static std::string SoundEvent;
+
     enum class Format : uint8_t
     {
         WAV = 0,
@@ -24,6 +26,13 @@ public:
     {
         Bit_8   = 0,
         Bit_16  = 1,
+    };
+
+    enum class SyncEvent : uint8_t
+    {
+        Stop        = 1,
+        Start       = 2,
+        Continue    = 3,
     };
 
     uint16_t id;

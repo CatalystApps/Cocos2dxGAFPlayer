@@ -6,8 +6,11 @@
 #include "GAFObject.h"
 #include "GAFAssetTextureManager.h"
 #include "GAFShaderManager.h"
+#include "GAFTimelineAction.h"
 
 #include "GAFLoader.h"
+
+#include "json/document.h"
 
 NS_GAF_BEGIN
 
@@ -57,21 +60,23 @@ GAFObject* GAFAsset::createObjectAndRun(bool looped)
     return res;
 }
 
-GAFAsset::GAFAsset() :
-m_textureLoadDelegate(nullptr),
-m_sceneFps(60),
-m_sceneWidth(0),
-m_sceneHeight(0),
-m_rootTimeline(nullptr),
-m_desiredAtlasScale(1.0f),
-m_gafFileName(""),
-m_state(State::Normal)
+GAFAsset::GAFAsset() 
+: m_textureLoadDelegate(nullptr)
+, m_soundDelegate(nullptr)
+, m_sceneFps(60)
+, m_sceneWidth(0)
+, m_sceneHeight(0)
+, m_rootTimeline(nullptr)
+, m_desiredAtlasScale(1.0f)
+, m_gafFileName("")
+, m_state(State::Normal)
 {
 }
 
 GAFAsset::~GAFAsset()
 {
     GAF_RELEASE_MAP(Timelines_t, m_timelines);
+    GAF_RELEASE_MAP(SoundInfos_t, m_soundInfos);
     //CC_SAFE_RELEASE(m_rootTimeline);
     if (m_state == State::Normal)
     {
@@ -368,6 +373,44 @@ void GAFAsset::pushTimeline(uint32_t timelineIdRef, GAFTimeline* t)
     t->retain();
 }
 
+void GAFAsset::pushSound(uint32_t id, GAFSoundInfo* sound)
+{
+    m_soundInfos[id] = sound;
+}
+
+void GAFAsset::soundEvent(GAFTimelineAction *action)
+{
+    if (!m_soundDelegate) return;
+
+    std::string soundParams = action->getParam(GAFTimelineAction::PI_EVENT_DATA);
+
+    uint32_t soundId;
+    GAFSoundInfo::SyncEvent syncEvent;
+    int32_t repeat = 1;
+
+    rapidjson::Document doc;
+    doc.Parse<0>(soundParams.c_str());
+
+    const rapidjson::Value& jsonSoundId = doc["id"];
+    soundId = jsonSoundId.GetInt();
+
+    const rapidjson::Value& jsonSyncEvent = doc["action"];
+    uint32_t tmpSyncEvent = jsonSyncEvent.GetInt();
+    syncEvent = static_cast<GAFSoundInfo::SyncEvent>(tmpSyncEvent);
+
+    if (doc.HasMember("repeat"))
+    {
+        const rapidjson::Value& jsonRepeat = doc["repeat"];
+        repeat = jsonRepeat.GetInt();
+        if (repeat == 0) repeat = 1;
+    }
+
+    SoundInfos_t::iterator it = m_soundInfos.find(soundId);
+    CC_ASSERT(it != m_soundInfos.end());
+
+    m_soundDelegate(it->second, repeat, syncEvent);
+}
+
 void GAFAsset::setHeader(GAFHeader& h)
 {
     m_header = h;
@@ -376,6 +419,11 @@ void GAFAsset::setHeader(GAFHeader& h)
 void GAFAsset::setTextureLoadDelegate(GAFTextureLoadDelegate_t delegate)
 {
     m_textureLoadDelegate = delegate;
+}
+
+void GAFAsset::setSoundDelegate(GAFSoundDelegate_t delegate)
+{
+    m_soundDelegate = delegate;
 }
 
 GAFAssetTextureManager* GAFAsset::getTextureManager()

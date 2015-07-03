@@ -1,6 +1,7 @@
 #include "GafFeatures.h"
 
 #include <audio/include/SimpleAudioEngine.h>
+#include "audio/include/AudioEngine.h"
 
 #include <iostream>
 
@@ -633,6 +634,7 @@ void GafFeatures::addObjectsToScene()
 
     if (m_asset)
     {
+        m_asset->setSoundDelegate(std::bind(&GafFeatures::onSoundEvent, this, _1, _2, _3));
         GAFObject *object = m_asset->createObject();
         
         object->setLocalZOrder(0);
@@ -712,4 +714,14 @@ void GafFeatures::onFramePlayed(GAFObject *object, uint32_t frame)
 void GafFeatures::onTexturePreLoad(std::string* path)
 {
     CCLOG("Loading texture %s", path->c_str());
+}
+
+void GafFeatures::onSoundEvent(GAFSoundInfo* sound, int32_t repeat, GAFSoundInfo::SyncEvent syncEvent)
+{
+    std::string path = m_asset->getGAFFileName();
+    int slashPos = path.find_last_of("/");
+    path = path.substr(0, slashPos + 1);
+    path.append(sound->source);
+
+    cocos2d::experimental::AudioEngine::play2d(path, repeat == -1);
 }

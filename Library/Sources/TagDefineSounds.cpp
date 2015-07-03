@@ -10,7 +10,8 @@ NS_GAF_BEGIN
 
 void TagDefineSounds::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
-    (void)asset;
+    (void)timeline;
+
     uint16_t count = in->readU16();
 
     for (uint16_t i = 0; i < count; ++i)
@@ -30,6 +31,7 @@ void TagDefineSounds::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline
 
         soundInfo->stereo = in->readBool();
         soundInfo->sampleCount = in->readU32();
+        asset->pushSound(soundInfo->id, soundInfo);
     }
 }
 
