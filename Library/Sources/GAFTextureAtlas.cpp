@@ -5,8 +5,7 @@
 NS_GAF_BEGIN
 
 GAFTextureAtlas::GAFTextureAtlas()
-:
-m_scale(1.f)
+: m_scale(1.f)
 {
 }
 

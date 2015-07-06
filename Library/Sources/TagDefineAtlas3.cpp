@@ -15,7 +15,6 @@ NS_GAF_BEGIN
 
 void TagDefineAtlas3::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
 {
-    (void)asset;
     GAFTextureAtlas* txAtlas = new GAFTextureAtlas();
 
     txAtlas->setScale(in->readFloat());
@@ -89,7 +88,14 @@ void TagDefineAtlas3::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline
         
     }
 
-    timeline->pushTextureAtlas(txAtlas);
+    if (timeline)
+    {
+        timeline->pushTextureAtlas(txAtlas);
+    }
+    else
+    {
+        asset->pushTextureAtlas(txAtlas);
+    }
 }
 
 NS_GAF_END

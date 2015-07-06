@@ -213,7 +213,6 @@ void GAFTimeline::loadImages(float desiredAtlasScale)
         return;
     }
     _chooseTextureAtlas(desiredAtlasScale);
-
 }
 
 void GAFTimeline::_chooseTextureAtlas(float desiredAtlasScale)

@@ -77,6 +77,7 @@ GAFAsset::~GAFAsset()
 {
     GAF_RELEASE_MAP(Timelines_t, m_timelines);
     GAF_RELEASE_MAP(SoundInfos_t, m_soundInfos);
+    GAF_RELEASE_ARRAY(TextureAtlases_t, m_textureAtlases);
     //CC_SAFE_RELEASE(m_rootTimeline);
     if (m_state == State::Normal)
     {
@@ -294,12 +295,94 @@ void GAFAsset::loadTextures(const std::string& filePath, GAFTextureLoadDelegate_
         if (i->second->getTextureAtlas())
         {
             m_textureManager->appendInfoFromTextureAtlas(i->second->getTextureAtlas());
-            //i->second->getTextureAtlas()->loadImages(fullfilePath, m_textureLoadDelegate);
         }
+    }
+
+    loadImages(m_desiredAtlasScale);
+    if (getTextureAtlas())
+    {
+        m_textureManager->appendInfoFromTextureAtlas(getTextureAtlas());
     }
 
     m_textureLoadDelegate = delegate;
     m_textureManager->loadImages(filePath, m_textureLoadDelegate, bundle);
+}
+
+void GAFAsset::loadImages(float desiredAtlasScale)
+{
+    if (m_textureAtlases.empty())
+    {
+        m_currentTextureAtlas = nullptr;
+        return;
+    }
+    _chooseTextureAtlas(desiredAtlasScale);
+}
+
+void GAFAsset::_chooseTextureAtlas(float desiredAtlasScale)
+{
+    float atlasScale = m_textureAtlases[0]->getScale();
+
+    m_currentTextureAtlas = m_textureAtlases[0];
+
+    const size_t count = m_textureAtlases.size();
+
+    for (size_t i = 1; i < count; ++i)
+    {
+        float as = m_textureAtlases[i]->getScale();
+        if (fabs(atlasScale - desiredAtlasScale) > fabs(as - desiredAtlasScale))
+        {
+            m_currentTextureAtlas = m_textureAtlases[i];
+            atlasScale = as;
+        }
+    }
+}
+
+GAFSprite* GAFAsset::getCustomRegion(const std::string& name)
+{
+    GAFTextureAtlas* atlas = getTextureAtlas();
+    const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
+    cocos2d::SpriteFrame * spriteFrame = nullptr;
+
+    GAFTextureAtlas::Elements_t::const_iterator elIt = std::find_if(
+        elementsMap.begin(),
+        elementsMap.end(),
+        [name](const std::pair<uint32_t, GAFTextureAtlasElement*>& pair) { return pair.second->name == name; }); // Search for atlas element by its xref
+    
+    assert(elIt != elementsMap.end());
+    const GAFTextureAtlasElement* txElemet = nullptr;
+    if (elIt != elementsMap.end())
+    {
+        txElemet = elIt->second;
+        GAFAssetTextureManager* txMgr = getTextureManager();
+        cocos2d::Texture2D * texture = txMgr->getTextureById(txElemet->atlasIdx + 1);
+        if (texture)
+        {
+            spriteFrame = cocos2d::SpriteFrame::createWithTexture(texture, txElemet->bounds);
+        }
+        else
+        {
+            CCLOGERROR("Cannot add sub object with name: %s, atlas with idx: %d not found.", name.c_str(), txElemet->atlasIdx);
+        }
+    }
+
+    GAFSprite* result = nullptr;
+    if (spriteFrame)
+    {
+        result = new GAFSprite();
+        
+        result->initWithSpriteFrame(spriteFrame, txElemet->rotation);
+        cocos2d::Vect pt = cocos2d::Vect(0 - (0 - (txElemet->pivotPoint.x / result->getContentSize().width)),
+            0 + (1 - (txElemet->pivotPoint.y / result->getContentSize().height)));
+        result->setAnchorPoint(pt);
+
+        if (txElemet->getScale() != 1.0f)
+        {
+            result->setAtlasScale(1.0f / txElemet->getScale());
+        }
+        result->setBlendFunc(cocos2d::BlendFunc::ALPHA_PREMULTIPLIED);
+    }
+
+    return result;
 }
 
 void GAFAsset::useExternalTextureAtlas(std::vector<cocos2d::Texture2D *> &textures, GAFTextureAtlas::Elements_t& elements)
@@ -378,6 +461,11 @@ void GAFAsset::pushSound(uint32_t id, GAFSoundInfo* sound)
     m_soundInfos[id] = sound;
 }
 
+void GAFAsset::pushTextureAtlas(GAFTextureAtlas* atlas)
+{
+    m_textureAtlases.push_back(atlas);
+}
+
 void GAFAsset::soundEvent(GAFTimelineAction *action)
 {
     if (!m_soundDelegate) return;
@@ -429,6 +517,11 @@ void GAFAsset::setSoundDelegate(GAFSoundDelegate_t delegate)
 GAFAssetTextureManager* GAFAsset::getTextureManager()
 {
     return m_textureManager;
+}
+
+GAFTextureAtlas* GAFAsset::getTextureAtlas()
+{
+    return m_currentTextureAtlas;
 }
 
 Timelines_t& GAFAsset::getTimelines()
