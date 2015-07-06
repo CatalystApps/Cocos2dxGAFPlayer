@@ -74,6 +74,12 @@
 		29CC58201A36113E00B31D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2FBEC3192DEF8700631FE9 /* Foundation.framework */; };
 		39869DB219532453004628D9 /* TagDefineAnimationFrames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DAE19532453004628D9 /* TagDefineAnimationFrames2.cpp */; };
 		39869DB319532453004628D9 /* TagDefineTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39869DB019532453004628D9 /* TagDefineTimeline.cpp */; };
+		B63C5A741B4A83E2001C8112 /* TagDefineAtlas3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63C5A701B4A83E2001C8112 /* TagDefineAtlas3.cpp */; };
+		B63C5A751B4A83E2001C8112 /* TagDefineAtlas3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63C5A701B4A83E2001C8112 /* TagDefineAtlas3.cpp */; };
+		B63C5A761B4A83E2001C8112 /* TagDefineSounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63C5A721B4A83E2001C8112 /* TagDefineSounds.cpp */; };
+		B63C5A771B4A83E2001C8112 /* TagDefineSounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63C5A721B4A83E2001C8112 /* TagDefineSounds.cpp */; };
+		B63C5A7A1B4A83F1001C8112 /* GAFSoundInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63C5A781B4A83F1001C8112 /* GAFSoundInfo.cpp */; };
+		B63C5A7B1B4A83F1001C8112 /* GAFSoundInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63C5A781B4A83F1001C8112 /* GAFSoundInfo.cpp */; };
 		B643F9E119B741E0005D2E26 /* GAFAssetTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B643F9DF19B741E0005D2E26 /* GAFAssetTextureManager.cpp */; };
 		B6AC347F1A03CBE5008BDF89 /* GAFTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AC347D1A03CBE5008BDF89 /* GAFTextField.cpp */; };
 		B6AC34821A03CBF0008BDF89 /* GAFTextData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AC34801A03CBF0008BDF89 /* GAFTextData.cpp */; };
@@ -179,6 +185,12 @@
 		39869DAF19532453004628D9 /* TagDefineAnimationFrames2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineAnimationFrames2.h; sourceTree = "<group>"; };
 		39869DB019532453004628D9 /* TagDefineTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineTimeline.cpp; sourceTree = "<group>"; };
 		39869DB119532453004628D9 /* TagDefineTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineTimeline.h; sourceTree = "<group>"; };
+		B63C5A701B4A83E2001C8112 /* TagDefineAtlas3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineAtlas3.cpp; sourceTree = "<group>"; };
+		B63C5A711B4A83E2001C8112 /* TagDefineAtlas3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineAtlas3.h; sourceTree = "<group>"; };
+		B63C5A721B4A83E2001C8112 /* TagDefineSounds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagDefineSounds.cpp; sourceTree = "<group>"; };
+		B63C5A731B4A83E2001C8112 /* TagDefineSounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDefineSounds.h; sourceTree = "<group>"; };
+		B63C5A781B4A83F1001C8112 /* GAFSoundInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFSoundInfo.cpp; sourceTree = "<group>"; };
+		B63C5A791B4A83F1001C8112 /* GAFSoundInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFSoundInfo.h; sourceTree = "<group>"; };
 		B643F9DF19B741E0005D2E26 /* GAFAssetTextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFAssetTextureManager.cpp; sourceTree = "<group>"; };
 		B643F9E019B741E0005D2E26 /* GAFAssetTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAFAssetTextureManager.h; sourceTree = "<group>"; };
 		B6AC347D1A03CBE5008BDF89 /* GAFTextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAFTextField.cpp; sourceTree = "<group>"; };
@@ -242,6 +254,8 @@
 		1A2FBF0B192E00C800631FE9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B63C5A781B4A83F1001C8112 /* GAFSoundInfo.cpp */,
+				B63C5A791B4A83F1001C8112 /* GAFSoundInfo.h */,
 				29977B471A2CAC1300A2243A /* GAF.h */,
 				29977B481A2CAC1300A2243A /* GAFMacros.h */,
 				29977B491A2CAC1300A2243A /* GAFPlayer-Prefix.pch */,
@@ -318,6 +332,10 @@
 		1A2FBF67192E00FB00631FE9 /* Tags */ = {
 			isa = PBXGroup;
 			children = (
+				B63C5A701B4A83E2001C8112 /* TagDefineAtlas3.cpp */,
+				B63C5A711B4A83E2001C8112 /* TagDefineAtlas3.h */,
+				B63C5A721B4A83E2001C8112 /* TagDefineSounds.cpp */,
+				B63C5A731B4A83E2001C8112 /* TagDefineSounds.h */,
 				B6AC34831A03CBF9008BDF89 /* TagDefineTextField.cpp */,
 				B6AC34841A03CBF9008BDF89 /* TagDefineTextField.h */,
 				39869DAE19532453004628D9 /* TagDefineAnimationFrames2.cpp */,
@@ -442,6 +460,8 @@
 				1A2FBF59192E00C800631FE9 /* GAFStream.cpp in Sources */,
 				1A2FBF4E192E00C800631FE9 /* GAFAnimationFrame.cpp in Sources */,
 				1A2FBF61192E00C800631FE9 /* TagDefineAnimationObjects.cpp in Sources */,
+				B63C5A741B4A83E2001C8112 /* TagDefineAtlas3.cpp in Sources */,
+				B63C5A7A1B4A83F1001C8112 /* GAFSoundInfo.cpp in Sources */,
 				1AB33DBE1949BA57006B92A0 /* GAFQuadCommand.cpp in Sources */,
 				1A2FBF5C192E00C800631FE9 /* GAFTextureAtlasElement.cpp in Sources */,
 				1A2FBF5B192E00C800631FE9 /* GAFTextureAtlas.cpp in Sources */,
@@ -457,6 +477,7 @@
 				1A2FBF60192E00C800631FE9 /* TagDefineAnimationMasks.cpp in Sources */,
 				B6AC347F1A03CBE5008BDF89 /* GAFTextField.cpp in Sources */,
 				1A2FBF65192E00C800631FE9 /* TagDefineStage.cpp in Sources */,
+				B63C5A761B4A83E2001C8112 /* TagDefineSounds.cpp in Sources */,
 				1A2FBF64192E00C800631FE9 /* TagDefineSequences.cpp in Sources */,
 				1A2FBF5E192E00C800631FE9 /* PrimitiveDeserializer.cpp in Sources */,
 				1A2FBF55192E00C800631FE9 /* GAFShaderManager.cpp in Sources */,
@@ -484,6 +505,8 @@
 				29CC58081A36113E00B31D72 /* GAFStream.cpp in Sources */,
 				29CC58091A36113E00B31D72 /* GAFAnimationFrame.cpp in Sources */,
 				29CC580A1A36113E00B31D72 /* TagDefineAnimationObjects.cpp in Sources */,
+				B63C5A751B4A83E2001C8112 /* TagDefineAtlas3.cpp in Sources */,
+				B63C5A7B1B4A83F1001C8112 /* GAFSoundInfo.cpp in Sources */,
 				29CC580B1A36113E00B31D72 /* GAFQuadCommand.cpp in Sources */,
 				29CC580C1A36113E00B31D72 /* GAFTextureAtlasElement.cpp in Sources */,
 				29CC580D1A36113E00B31D72 /* GAFTextureAtlas.cpp in Sources */,
@@ -499,6 +522,7 @@
 				29CC58171A36113E00B31D72 /* TagDefineAnimationMasks.cpp in Sources */,
 				29CC58181A36113E00B31D72 /* GAFTextField.cpp in Sources */,
 				29CC58191A36113E00B31D72 /* TagDefineStage.cpp in Sources */,
+				B63C5A771B4A83E2001C8112 /* TagDefineSounds.cpp in Sources */,
 				29CC581A1A36113E00B31D72 /* TagDefineSequences.cpp in Sources */,
 				29CC581B1A36113E00B31D72 /* PrimitiveDeserializer.cpp in Sources */,
 				29CC581C1A36113E00B31D72 /* GAFShaderManager.cpp in Sources */,
@@ -566,6 +590,7 @@
 					"$(CCX_ROOT)/cocos/2d",
 					"$(CCX_ROOT)/cocos/math",
 					"$(CCX_ROOT)/cocos/platform/ios",
+					"$(CCX_ROOT)/external/",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(CCX_ROOT_OVERRIDE)/cocos",
@@ -576,6 +601,7 @@
 					"$(CCX_ROOT2)/cocos/2d",
 					"$(CCX_ROOT2)/cocos/math",
 					"$(CCX_ROOT2)/cocos/platform/ios",
+					"$(CCX_ROOT2)/external/",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
@@ -624,6 +650,7 @@
 					"$(CCX_ROOT)/cocos/2d",
 					"$(CCX_ROOT)/cocos/math",
 					"$(CCX_ROOT)/cocos/platform/ios",
+					"$(CCX_ROOT)/external/",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(CCX_ROOT_OVERRIDE)/cocos",
@@ -634,6 +661,7 @@
 					"$(CCX_ROOT2)/cocos/2d",
 					"$(CCX_ROOT2)/cocos/math",
 					"$(CCX_ROOT2)/cocos/platform/ios",
+					"$(CCX_ROOT2)/external/",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -688,6 +716,7 @@
 					"$(CCX_ROOT)/cocos/2d",
 					"$(CCX_ROOT)/cocos/math",
 					"$(CCX_ROOT)/external/glfw3/include/mac",
+					"$(CCX_ROOT)/external/",
 					"$(CCX_ROOT)/cocos/platform/mac",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -699,6 +728,7 @@
 					"$(CCX_ROOT2)/cocos",
 					"$(CCX_ROOT2)/cocos/2d",
 					"$(CCX_ROOT2)/external/glfw3/include/mac",
+					"$(CCX_ROOT2)/external/",
 					"$(CCX_ROOT2)/cocos/math",
 					"$(CCX_ROOT2)/cocos/platform/mac",
 				);
@@ -750,6 +780,7 @@
 					"$(CCX_ROOT)/cocos/2d",
 					"$(CCX_ROOT)/cocos/math",
 					"$(CCX_ROOT)/external/glfw3/include/mac",
+					"$(CCX_ROOT)/external/",
 					"$(CCX_ROOT)/cocos/platform/mac",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -761,6 +792,7 @@
 					"$(CCX_ROOT2)/cocos",
 					"$(CCX_ROOT2)/cocos/2d",
 					"$(CCX_ROOT2)/external/glfw3/include/mac",
+					"$(CCX_ROOT2)/external/",
 					"$(CCX_ROOT2)/cocos/math",
 					"$(CCX_ROOT2)/cocos/platform/mac",
 				);
