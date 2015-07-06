@@ -296,6 +296,7 @@ void GafFeatures::generateGafFilesList()
 #endif // Platform
     searchGafFilesInDirectory(start_path);
 #else // SEARCH_ALL_GAF_FILES
+    m_files.push_back("SoundsExample_Tank/SoundsExample_Tank.gaf");
     m_files.push_back("cut_the_hope/cut_the_hope.gaf");
     m_files.push_back("biggreen/biggreen.gaf");
     m_files.push_back("bird_bezneba/bird_bezneba.gaf");
