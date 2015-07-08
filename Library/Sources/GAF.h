@@ -15,6 +15,6 @@
 #include "GAFDelegates.h"
 #include "GAFTimeline.h"
 
-#define GAF_VERSION 4.1
+#define GAF_VERSION 5.0
 
 #endif

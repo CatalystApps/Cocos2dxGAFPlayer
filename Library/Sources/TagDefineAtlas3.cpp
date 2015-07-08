@@ -94,7 +94,7 @@ void TagDefineAtlas3::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline
     }
     else
     {
-        asset->pushTextureAtlas(txAtlas);
+        asset->pushTextureAtlas(txAtlas); // custom regions
     }
 }
 
