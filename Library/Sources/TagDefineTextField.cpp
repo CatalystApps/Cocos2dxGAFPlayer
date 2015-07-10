@@ -48,6 +48,7 @@ void TagDefineTextField::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timel
 
             unsigned int clr = in->readU32();
             PrimitiveDeserializer::translateColor(format.m_color, clr);
+            format.m_color.a = 1.0f; // RGB without alpha format
 
             in->readString(&format.m_font);
             format.m_indent = in->readU32();
