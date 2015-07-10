@@ -198,6 +198,7 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
                 unsigned int clr = in->readU32();
 
                 PrimitiveDeserializer::translateColor(filter->color, clr);
+                filter->color.a = 1.f;
 
                 PrimitiveDeserializer::deserialize(in, &filter->blurSize);
 
@@ -214,6 +215,7 @@ GAFSubobjectState* TagDefineAnimationFrames2::extractState(GAFStream* in)
                 unsigned int clr = in->readU32();
 
                 PrimitiveDeserializer::translateColor(filter->color, clr);
+                filter->color.a = 1.f;
 
                 PrimitiveDeserializer::deserialize(in, &filter->blurSize);
                 filter->angle = in->readFloat();
