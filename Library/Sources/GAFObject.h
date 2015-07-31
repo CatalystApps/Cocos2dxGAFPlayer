@@ -43,6 +43,9 @@ private:
 
     bool                                    m_isInResetState;
 
+    bool                                    m_useManualPosition;
+    cocos2d::Point                          m_manualPosition;
+
 private:
     void constructObject();
     GAFObject* _instantiateObject(uint32_t id, GAFCharacterType type, uint32_t reference, bool isMask);
@@ -183,6 +186,9 @@ public:
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
     virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
+
+    const cocos2d::Point& getSubobjectPosition() const;
+    void setSubobjectPosition(const cocos2d::Point& position);
 
     //////////////////////////////////////////////////////////////////////////
     // Accessors
