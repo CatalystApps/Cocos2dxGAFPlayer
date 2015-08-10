@@ -210,6 +210,7 @@ void GAFTimeline::loadImages(float desiredAtlasScale)
     if (m_textureAtlases.empty())
     {
         m_currentTextureAtlas = nullptr;
+        m_usedAtlasContentScaleFactor = desiredAtlasScale;
         return;
     }
     _chooseTextureAtlas(desiredAtlasScale);

@@ -824,7 +824,14 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                 float csf = m_timeline->usedAtlasScale();
                 stateTransform.tx *= csf;
                 stateTransform.ty *= csf;
-                cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(state->affineTransform);
+                cocos2d::AffineTransform t = GAF_CGAffineTransformCocosFormatFromFlashFormat(stateTransform);
+                if (subObject->m_useManualPosition)
+                {
+                    t.tx = subObject->m_manualPosition.x;
+                    const float flipMul = isFlippedY() ? -2 : 2;
+                    t.ty = getAnchorPointInPoints().y * flipMul - subObject->m_manualPosition.y;
+                }
+                
                 subObject->setAdditionalTransform(t);
                 subObject->m_parentFilters.clear();
                 const Filters_t& filters = state->getFilters();
