@@ -109,17 +109,15 @@ void GAFSprite::setTextureCoords(cocos2d::Rect rect)
     float atlasWidth = (float)tex->getPixelsWide();
     float atlasHeight = (float)tex->getPixelsHigh();
 
-    float left, right, top, bottom;
+    float left = rect.origin.x / atlasWidth;
+    float right = (rect.origin.x + rect.size.width) / atlasWidth;
+    float top = rect.origin.y / atlasHeight;
+    float bottom = (rect.origin.y + rect.size.height) / atlasHeight;
 
     switch (m_rotation)
     {
     case gaf::GAFRotation::CCW_90:
     {
-        left = rect.origin.x / atlasWidth;
-        right = (rect.origin.x + rect.size.width) / atlasWidth;
-        top = rect.origin.y / atlasHeight;
-        bottom = (rect.origin.y + rect.size.height) / atlasHeight;
-
         if (_flippedX)
         {
             std::swap(top, bottom);
@@ -143,11 +141,6 @@ void GAFSprite::setTextureCoords(cocos2d::Rect rect)
 
     case gaf::GAFRotation::CW_90:
     {
-        left = rect.origin.x / atlasWidth;
-        right = (rect.origin.x + rect.size.width) / atlasWidth;
-        top = rect.origin.y / atlasHeight;
-        bottom = (rect.origin.y + rect.size.height) / atlasHeight;
-
         if (_flippedX)
         {
             std::swap(top, bottom);
@@ -172,11 +165,6 @@ void GAFSprite::setTextureCoords(cocos2d::Rect rect)
     case gaf::GAFRotation::NONE:
     default:
     {
-        left = rect.origin.x / atlasWidth;
-        right = (rect.origin.x + rect.size.width) / atlasWidth;
-        top = rect.origin.y / atlasHeight;
-        bottom = (rect.origin.y + rect.size.height) / atlasHeight;
-
         if (_flippedX)
         {
             std::swap(left, right);
