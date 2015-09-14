@@ -102,24 +102,58 @@ bool js_gaf_GAFAsset_setRootTimeline(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFAsset_setRootTimeline : wrong number of arguments");
     return false;
 }
-bool js_gaf_GAFAsset_setSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_gaf_GAFAsset_getCustomRegion(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setSceneHeight : Invalid Native Object");
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getCustomRegion : Invalid Native Object");
     if (argc == 1) {
-        unsigned int arg0;
-        ok &= jsval_to_uint32(cx, args.get(0), &arg0);
-        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setSceneHeight : Error processing arguments");
-        cobj->setSceneHeight(arg0);
-        args.rval().setUndefined();
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_getCustomRegion : Error processing arguments");
+        gaf::GAFSprite* ret = cobj->getCustomRegion(arg0);
+        jsval jsret = JSVAL_NULL;
+        do {
+            if (ret) {
+                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFSprite>(cx, (gaf::GAFSprite*)ret);
+                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
+            } else {
+                jsret = JSVAL_NULL;
+            }
+        } while (0);
+        args.rval().set(jsret);
         return true;
     }
 
-    JS_ReportError(cx, "js_gaf_GAFAsset_setSceneHeight : wrong number of arguments: %d, was expecting %d", argc, 1);
+    JS_ReportError(cx, "js_gaf_GAFAsset_getCustomRegion : wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
+bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_createObject : Invalid Native Object");
+    if (argc == 0) {
+        gaf::GAFObject* ret = cobj->createObject();
+        jsval jsret = JSVAL_NULL;
+        do {
+            if (ret) {
+                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFObject>(cx, (gaf::GAFObject*)ret);
+                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
+            } else {
+                jsret = JSVAL_NULL;
+            }
+        } while (0);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFAsset_createObject : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
 bool js_gaf_GAFAsset_getSceneColor(JSContext *cx, uint32_t argc, jsval *vp)
@@ -176,6 +210,26 @@ bool js_gaf_GAFAsset_getGAFFileName(JSContext *cx, uint32_t argc, jsval *vp)
     }
 
     JS_ReportError(cx, "js_gaf_GAFAsset_getGAFFileName : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
+bool js_gaf_GAFAsset_loadImages(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_loadImages : Invalid Native Object");
+    if (argc == 1) {
+        double arg0;
+        ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_loadImages : Error processing arguments");
+        cobj->loadImages(arg0);
+        args.rval().setUndefined();
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFAsset_loadImages : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
 bool js_gaf_GAFAsset_createObjectAndRun(JSContext *cx, uint32_t argc, jsval *vp)
@@ -245,6 +299,34 @@ bool js_gaf_GAFAsset_getSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFAsset_getSceneWidth : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+bool js_gaf_GAFAsset_soundEvent(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_soundEvent : Invalid Native Object");
+    if (argc == 1) {
+        gaf::GAFTimelineAction* arg0;
+        do {
+            if (args.get(0).isNull()) { arg0 = nullptr; break; }
+            if (!args.get(0).isObject()) { ok = false; break; }
+            js_proxy_t *jsProxy;
+            JSObject *tmpObj = args.get(0).toObjectOrNull();
+            jsProxy = jsb_get_js_proxy(tmpObj);
+            arg0 = (gaf::GAFTimelineAction*)(jsProxy ? jsProxy->ptr : NULL);
+            JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
+        } while (0);
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_soundEvent : Error processing arguments");
+        cobj->soundEvent(arg0);
+        args.rval().setUndefined();
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFAsset_soundEvent : wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
 bool js_gaf_GAFAsset_getSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -279,6 +361,26 @@ bool js_gaf_GAFAsset_desiredAtlasScale(JSContext *cx, uint32_t argc, jsval *vp)
     }
 
     JS_ReportError(cx, "js_gaf_GAFAsset_desiredAtlasScale : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
+bool js_gaf_GAFAsset_setSceneHeight(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_setSceneHeight : Invalid Native Object");
+    if (argc == 1) {
+        unsigned int arg0;
+        ok &= jsval_to_uint32(cx, args.get(0), &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFAsset_setSceneHeight : Error processing arguments");
+        cobj->setSceneHeight(arg0);
+        args.rval().setUndefined();
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFAsset_setSceneHeight : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
 bool js_gaf_GAFAsset_setSceneWidth(JSContext *cx, uint32_t argc, jsval *vp)
@@ -321,19 +423,19 @@ bool js_gaf_GAFAsset_setSceneFps(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFAsset_setSceneFps : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
-bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_gaf_GAFAsset_getTextureAtlas(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     gaf::GAFAsset* cobj = (gaf::GAFAsset *)(proxy ? proxy->ptr : NULL);
-    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_createObject : Invalid Native Object");
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFAsset_getTextureAtlas : Invalid Native Object");
     if (argc == 0) {
-        gaf::GAFObject* ret = cobj->createObject();
+        gaf::GAFTextureAtlas* ret = cobj->getTextureAtlas();
         jsval jsret = JSVAL_NULL;
         do {
             if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFObject>(cx, (gaf::GAFObject*)ret);
+                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFTextureAtlas>(cx, (gaf::GAFTextureAtlas*)ret);
                 jsret = OBJECT_TO_JSVAL(jsProxy->obj);
             } else {
                 jsret = JSVAL_NULL;
@@ -343,7 +445,7 @@ bool js_gaf_GAFAsset_createObject(JSContext *cx, uint32_t argc, jsval *vp)
         return true;
     }
 
-    JS_ReportError(cx, "js_gaf_GAFAsset_createObject : wrong number of arguments: %d, was expecting %d", argc, 0);
+    JS_ReportError(cx, "js_gaf_GAFAsset_getTextureAtlas : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
 bool js_gaf_GAFAsset_isAssetVersionPlayable(JSContext *cx, uint32_t argc, jsval *vp)
@@ -420,18 +522,22 @@ void js_register_gaf_GAFAsset(JSContext *cx, JS::HandleObject global) {
     static JSFunctionSpec funcs[] = {
         JS_FN("getSceneHeight", js_gaf_GAFAsset_getSceneHeight, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setRootTimeline", js_gaf_GAFAsset_setRootTimeline, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("setSceneHeight", js_gaf_GAFAsset_setSceneHeight, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getCustomRegion", js_gaf_GAFAsset_getCustomRegion, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("createObject", js_gaf_GAFAsset_createObject, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getSceneColor", js_gaf_GAFAsset_getSceneColor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setSceneColor", js_gaf_GAFAsset_setSceneColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getGAFFileName", js_gaf_GAFAsset_getGAFFileName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("loadImages", js_gaf_GAFAsset_loadImages, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("createObjectAndRun", js_gaf_GAFAsset_createObjectAndRun, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setDesiredAtlasScale", js_gaf_GAFAsset_setDesiredAtlasScale, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getSceneWidth", js_gaf_GAFAsset_getSceneWidth, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("soundEvent", js_gaf_GAFAsset_soundEvent, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getSceneFps", js_gaf_GAFAsset_getSceneFps, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("desiredAtlasScale", js_gaf_GAFAsset_desiredAtlasScale, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("setSceneHeight", js_gaf_GAFAsset_setSceneHeight, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setSceneWidth", js_gaf_GAFAsset_setSceneWidth, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setSceneFps", js_gaf_GAFAsset_setSceneFps, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("createObject", js_gaf_GAFAsset_createObject, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getTextureAtlas", js_gaf_GAFAsset_getTextureAtlas, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 
@@ -930,6 +1036,7 @@ bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp)
         gaf::GAFAsset* arg0;
         gaf::GAFTimeline* arg1;
         do {
+            if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
             JSObject *tmpObj = args.get(0).toObjectOrNull();
@@ -938,6 +1045,7 @@ bool js_gaf_GAFObject_init(JSContext *cx, uint32_t argc, jsval *vp)
             JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
         } while (0);
         do {
+            if (args.get(1).isNull()) { arg1 = nullptr; break; }
             if (!args.get(1).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
             JSObject *tmpObj = args.get(1).toObjectOrNull();
@@ -1028,6 +1136,26 @@ bool js_gaf_GAFObject_stop(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_stop : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+bool js_gaf_GAFObject_setSubobjectPosition(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setSubobjectPosition : Invalid Native Object");
+    if (argc == 1) {
+        cocos2d::Point arg0;
+        ok &= jsval_to_ccpoint(cx, args.get(0), &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setSubobjectPosition : Error processing arguments");
+        cobj->setSubobjectPosition(arg0);
+        args.rval().setUndefined();
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFObject_setSubobjectPosition : wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
 bool js_gaf_GAFObject_setAnimationRunning(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -1066,6 +1194,24 @@ bool js_gaf_GAFObject_isReversed(JSContext *cx, uint32_t argc, jsval *vp)
     }
 
     JS_ReportError(cx, "js_gaf_GAFObject_isReversed : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
+bool js_gaf_GAFObject_getSubobjectPosition(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getSubobjectPosition : Invalid Native Object");
+    if (argc == 0) {
+        const cocos2d::Point& ret = cobj->getSubobjectPosition();
+        jsval jsret = JSVAL_NULL;
+        jsret = ccpoint_to_jsval(cx, ret);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFObject_getSubobjectPosition : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
 bool js_gaf_GAFObject_setFrame(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1262,6 +1408,26 @@ bool js_gaf_GAFObject_setReversed(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_setReversed : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
+bool js_gaf_GAFObject_setFpsLimitations(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_setFpsLimitations : Invalid Native Object");
+    if (argc == 1) {
+        bool arg0;
+        arg0 = JS::ToBoolean(args.get(0));
+        JSB_PRECONDITION2(ok, cx, false, "js_gaf_GAFObject_setFpsLimitations : Error processing arguments");
+        cobj->setFpsLimitations(arg0);
+        args.rval().setUndefined();
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFObject_setFpsLimitations : wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
 bool js_gaf_GAFObject_hasSequences(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -1298,6 +1464,31 @@ bool js_gaf_GAFObject_getFps(JSContext *cx, uint32_t argc, jsval *vp)
     JS_ReportError(cx, "js_gaf_GAFObject_getFps : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+bool js_gaf_GAFObject_getTimeLine(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    gaf::GAFObject* cobj = (gaf::GAFObject *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_gaf_GAFObject_getTimeLine : Invalid Native Object");
+    if (argc == 0) {
+        gaf::GAFTimeline* ret = cobj->getTimeLine();
+        jsval jsret = JSVAL_NULL;
+        do {
+            if (ret) {
+                js_proxy_t *jsProxy = js_get_or_create_proxy<gaf::GAFTimeline>(cx, (gaf::GAFTimeline*)ret);
+                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
+            } else {
+                jsret = JSVAL_NULL;
+            }
+        } while (0);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_gaf_GAFObject_getTimeLine : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
 bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -1306,6 +1497,7 @@ bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
         gaf::GAFAsset* arg0;
         gaf::GAFTimeline* arg1;
         do {
+            if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
             JSObject *tmpObj = args.get(0).toObjectOrNull();
@@ -1314,6 +1506,7 @@ bool js_gaf_GAFObject_create(JSContext *cx, uint32_t argc, jsval *vp)
             JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
         } while (0);
         do {
+            if (args.get(1).isNull()) { arg1 = nullptr; break; }
             if (!args.get(1).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
             JSObject *tmpObj = args.get(1).toObjectOrNull();
@@ -1427,8 +1620,10 @@ void js_register_gaf_GAFObject(JSContext *cx, JS::HandleObject global) {
         JS_FN("isDone", js_gaf_GAFObject_isDone, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("playSequence", js_gaf_GAFObject_playSequence, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("stop", js_gaf_GAFObject_stop, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("setSubobjectPosition", js_gaf_GAFObject_setSubobjectPosition, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setAnimationRunning", js_gaf_GAFObject_setAnimationRunning, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isReversed", js_gaf_GAFObject_isReversed, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getSubobjectPosition", js_gaf_GAFObject_getSubobjectPosition, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setFrame", js_gaf_GAFObject_setFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setLooped", js_gaf_GAFObject_setLooped, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getEndFrame", js_gaf_GAFObject_getEndFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -1437,8 +1632,10 @@ void js_register_gaf_GAFObject(JSContext *cx, JS::HandleObject global) {
         JS_FN("isLooped", js_gaf_GAFObject_isLooped, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("resumeAnimation", js_gaf_GAFObject_resumeAnimation, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setReversed", js_gaf_GAFObject_setReversed, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("setFpsLimitations", js_gaf_GAFObject_setFpsLimitations, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("hasSequences", js_gaf_GAFObject_hasSequences, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getFps", js_gaf_GAFObject_getFps, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getTimeLine", js_gaf_GAFObject_getTimeLine, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_gaf_GAFObject_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
@@ -1477,18 +1674,9 @@ void js_register_gaf_GAFObject(JSContext *cx, JS::HandleObject global) {
 }
 
 void register_all_gaf(JSContext* cx, JS::HandleObject obj) {
-    // first, try to get the ns
-    JS::RootedValue nsval(cx);
+    // Get the ns
     JS::RootedObject ns(cx);
-    JS_GetProperty(cx, obj, "gaf", &nsval);
-    if (nsval == JSVAL_VOID) {
-        ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
-        nsval = OBJECT_TO_JSVAL(ns);
-        JS_SetProperty(cx, obj, "gaf", nsval);
-    } else {
-        JS_ValueToObject(cx, nsval, &ns);
-    }
-    //obj = ns;
+    get_or_create_js_obj(cx, obj, "gaf", &ns);
 
     js_register_gaf_GAFAsset(cx, ns);
     js_register_gaf_GAFSprite(cx, ns);
