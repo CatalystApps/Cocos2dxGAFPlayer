@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2a6ad8a8-2b40-4276-8a38-73551b94ef8c}</ProjectGuid>
+    <Keyword>StaticLibrary</Keyword>
+    <ProjectName>libGafPlayer</ProjectName>
+    <RootNamespace>libGafPlayer</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Library.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Library.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Library.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Library.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Library.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Library.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINRT;_CRT_SECURE_NO_WARNINGS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CCX_ROOT)/external/win10-specific/angle/include;$(CCX_ROOT)/cocos/platform/winrt;$(CCX_ROOT)/external/;$(CCX_ROOT)/external/xxhash;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <ForcedUsingFiles>%(ForcedUsingFiles)</ForcedUsingFiles>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINRT;_CRT_SECURE_NO_WARNINGS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CCX_ROOT)/external/win10-specific/angle/include;$(CCX_ROOT)/cocos/platform/winrt;$(CCX_ROOT)/external/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINRT;_CRT_SECURE_NO_WARNINGS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CCX_ROOT)/external/win10-specific/angle/include;$(CCX_ROOT)/cocos/platform/winrt;$(CCX_ROOT)/external/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\xxhash\xxhash.h" />
+    <ClInclude Include="..\Sources\DefinitionTagBase.h" />
+    <ClInclude Include="..\Sources\GAF.h" />
+    <ClInclude Include="..\Sources\GAFAnimationFrame.h" />
+    <ClInclude Include="..\Sources\GAFAnimationSequence.h" />
+    <ClInclude Include="..\Sources\GAFAsset.h" />
+    <ClInclude Include="..\Sources\GAFAssetTextureManager.h" />
+    <ClInclude Include="..\Sources\GAFCachedTexture.h" />
+    <ClInclude Include="..\Sources\GAFCollections.h" />
+    <ClInclude Include="..\Sources\GAFDelegates.h" />
+    <ClInclude Include="..\Sources\GAFFile.h" />
+    <ClInclude Include="..\Sources\GAFFilterData.h" />
+    <ClInclude Include="..\Sources\GAFFilterManager.h" />
+    <ClInclude Include="..\Sources\GAFHeader.h" />
+    <ClInclude Include="..\Sources\GAFLoader.h" />
+    <ClInclude Include="..\Sources\GAFMacros.h" />
+    <ClInclude Include="..\Sources\GAFMask.h" />
+    <ClInclude Include="..\Sources\GAFMovieClip.h" />
+    <ClInclude Include="..\Sources\GAFObject.h" />
+    <ClInclude Include="..\Sources\GAFPrecompiled.h" />
+    <ClInclude Include="..\Sources\GAFQuadCommand.h" />
+    <ClInclude Include="..\Sources\GAFResourcesInfo.h" />
+    <ClInclude Include="..\Sources\GAFShaderManager.h" />
+    <ClInclude Include="..\Sources\GAFSoundInfo.h" />
+    <ClInclude Include="..\Sources\GAFSprite.h" />
+    <ClInclude Include="..\Sources\GAFStream.h" />
+    <ClInclude Include="..\Sources\GAFSubobjectState.h" />
+    <ClInclude Include="..\Sources\GAFTextData.h" />
+    <ClInclude Include="..\Sources\GAFTextField.h" />
+    <ClInclude Include="..\Sources\GAFTextureAtlas.h" />
+    <ClInclude Include="..\Sources\GAFTextureAtlasElement.h" />
+    <ClInclude Include="..\Sources\GAFTimeline.h" />
+    <ClInclude Include="..\Sources\GAFTimelineAction.h" />
+    <ClInclude Include="..\Sources\PrimitiveDeserializer.h" />
+    <ClInclude Include="..\Sources\ShadersPrecompiled\GAFPrecompiledShaders.h" />
+    <ClInclude Include="..\Sources\TagDefineAnimationFrames.h" />
+    <ClInclude Include="..\Sources\TagDefineAnimationFrames2.h" />
+    <ClInclude Include="..\Sources\TagDefineAnimationMasks.h" />
+    <ClInclude Include="..\Sources\TagDefineAnimationObjects.h" />
+    <ClInclude Include="..\Sources\TagDefineAtlas.h" />
+    <ClInclude Include="..\Sources\TagDefineAtlas3.h" />
+    <ClInclude Include="..\Sources\TagDefineNamedParts.h" />
+    <ClInclude Include="..\Sources\TagDefines.h" />
+    <ClInclude Include="..\Sources\TagDefineSequences.h" />
+    <ClInclude Include="..\Sources\TagDefineSounds.h" />
+    <ClInclude Include="..\Sources\TagDefineStage.h" />
+    <ClInclude Include="..\Sources\TagDefineTextField.h" />
+    <ClInclude Include="..\Sources\TagDefineTimeline.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\xxhash\xxhash.c" />
+    <ClCompile Include="..\Sources\GAFAnimationFrame.cpp" />
+    <ClCompile Include="..\Sources\GAFAnimationSequence.cpp" />
+    <ClCompile Include="..\Sources\GAFAsset.cpp" />
+    <ClCompile Include="..\Sources\GAFAssetTextureManager.cpp" />
+    <ClCompile Include="..\Sources\GAFCachedTexture.cpp" />
+    <ClCompile Include="..\Sources\GAFFile.cpp" />
+    <ClCompile Include="..\Sources\GAFFilterData.cpp" />
+    <ClCompile Include="..\Sources\GAFFilterManager.cpp" />
+    <ClCompile Include="..\Sources\GAFLoader.cpp" />
+    <ClCompile Include="..\Sources\GAFMask.cpp" />
+    <ClCompile Include="..\Sources\GAFMovieClip.cpp" />
+    <ClCompile Include="..\Sources\GAFObject.cpp" />
+    <ClCompile Include="..\Sources\GAFPrecompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GAFQuadCommand.cpp" />
+    <ClCompile Include="..\Sources\GAFShaderManager.cpp" />
+    <ClCompile Include="..\Sources\GAFSoundInfo.cpp" />
+    <ClCompile Include="..\Sources\GAFSprite.cpp" />
+    <ClCompile Include="..\Sources\GAFStream.cpp" />
+    <ClCompile Include="..\Sources\GAFSubobjectState.cpp" />
+    <ClCompile Include="..\Sources\GAFTextData.cpp" />
+    <ClCompile Include="..\Sources\GAFTextField.cpp" />
+    <ClCompile Include="..\Sources\GAFTextureAtlas.cpp" />
+    <ClCompile Include="..\Sources\GAFTextureAtlasElement.cpp" />
+    <ClCompile Include="..\Sources\GAFTimeline.cpp" />
+    <ClCompile Include="..\Sources\GAFTimelineAction.cpp" />
+    <ClCompile Include="..\Sources\PrimitiveDeserializer.cpp" />
+    <ClCompile Include="..\Sources\TagDefineAnimationFrames.cpp" />
+    <ClCompile Include="..\Sources\TagDefineAnimationFrames2.cpp" />
+    <ClCompile Include="..\Sources\TagDefineAnimationMasks.cpp" />
+    <ClCompile Include="..\Sources\TagDefineAnimationObjects.cpp" />
+    <ClCompile Include="..\Sources\TagDefineAtlas.cpp" />
+    <ClCompile Include="..\Sources\TagDefineAtlas3.cpp" />
+    <ClCompile Include="..\Sources\TagDefineNamedParts.cpp" />
+    <ClCompile Include="..\Sources\TagDefineSequences.cpp" />
+    <ClCompile Include="..\Sources\TagDefineSounds.cpp" />
+    <ClCompile Include="..\Sources\TagDefineStage.cpp" />
+    <ClCompile Include="..\Sources\TagDefineTextField.cpp" />
+    <ClCompile Include="..\Sources\TagDefineTimeline.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
