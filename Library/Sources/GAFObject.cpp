@@ -635,6 +635,11 @@ bool GAFObject::isCurrentFrameLastInSequence() const
 
 uint32_t GAFObject::nextFrame()
 {
+    if (!getIsAnimationRunning())
+    {
+        return m_currentFrame;
+    }
+
     if (isCurrentFrameLastInSequence())
     {
         if (!m_isLooped)
