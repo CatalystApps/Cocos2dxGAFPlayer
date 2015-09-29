@@ -13,7 +13,8 @@ class GAFTimeline;
 class GAFObject : public GAFSprite
 {
 private:
-    cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform);
+    const cocos2d::AffineTransform& AffineTransformFlashToCocos(const cocos2d::AffineTransform& aTransform);
+    const cocos2d::AffineTransform& AffineTransformFlashToCocosWithPosition(const cocos2d::AffineTransform& aTransform, const cocos2d::Point aPos);
 
 public:
 
