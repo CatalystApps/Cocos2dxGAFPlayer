@@ -92,7 +92,7 @@ void GAFMovieClip::setGLProgram(GLProgram *glProgram)
             // This node is set as stencil
             handleStencilProgram();
         }
-        CCNode::setGLProgram(glProgram);
+        Node::setGLProgram(glProgram);
     }
 }
 

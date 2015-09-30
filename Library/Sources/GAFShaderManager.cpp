@@ -67,7 +67,7 @@ NS_GAF_BEGIN
 #else
             const std::string eventName = EVENT_RENDERER_RECREATED;
 #endif
-            CCDirector::getInstance()->getEventDispatcher()->addCustomEventListener(eventName, GAFShaderManager::renderRecreate);
+            Director::getInstance()->getEventDispatcher()->addCustomEventListener(eventName, GAFShaderManager::renderRecreate);
         }
 
         bool skip = !force && s_initialized;

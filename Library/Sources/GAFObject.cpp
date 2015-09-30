@@ -20,7 +20,7 @@ NS_GAF_BEGIN
 
 static const AnimationSequences_t s_emptySequences = AnimationSequences_t();
 
-const cocos2d::AffineTransform& GAFObject::AffineTransformFlashToCocos(const cocos2d::AffineTransform& aTransform)
+const cocos2d::AffineTransform GAFObject::AffineTransformFlashToCocos(const cocos2d::AffineTransform& aTransform)
 {
     cocos2d::AffineTransform transform = aTransform;
     transform.b = -transform.b;
@@ -30,7 +30,7 @@ const cocos2d::AffineTransform& GAFObject::AffineTransformFlashToCocos(const coc
     return transform;
 }
 
-const cocos2d::AffineTransform& GAFObject::AffineTransformFlashToCocosWithPosition(const cocos2d::AffineTransform& aTransform, const cocos2d::Point aPos)
+const cocos2d::AffineTransform GAFObject::AffineTransformFlashToCocosWithPosition(const cocos2d::AffineTransform& aTransform, const cocos2d::Point aPos)
 {
     cocos2d::AffineTransform transform = aTransform;
     transform.tx = aPos.x;
@@ -759,7 +759,7 @@ cocos2d::AffineTransform GAFObject::getNodeToParentAffineTransform() const
         return GAFSprite::getNodeToParentAffineTransform();
 }
 
-const cocos2d::Point& GAFObject::getSubobjectPosition() const
+const cocos2d::Point GAFObject::getSubobjectPosition() const
 {
     if (m_useManualPosition)
     {
