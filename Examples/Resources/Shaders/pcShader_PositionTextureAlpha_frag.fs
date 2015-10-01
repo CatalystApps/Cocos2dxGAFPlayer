@@ -17,7 +17,7 @@ uniform sampler2D u_texture;
 
 void main()
 {
-    const float kMinimalAlphaAllowed = 0.01;
+    const float kMinimalAlphaAllowed = 0.001;
 
     vec4 texColor = texture2D(u_texture, v_texCoord);
     
