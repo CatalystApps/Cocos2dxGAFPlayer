@@ -470,14 +470,15 @@ bool GAFObject::gotoAndStop(const std::string& frameLabel)
         {
             return false;
         }
-        return gotoAndStop(frameNumber - 1);
+        return gotoAndStop(frameNumber);
     }
     return gotoAndStop(f);
 }
 
 bool GAFObject::gotoAndStop(uint32_t frameNumber)
 {
-    if (setFrame(frameNumber))
+    CCAssert(frameNumber > 0, "Frame numerating starts from 1");
+    if (setFrame(frameNumber - 1))
     {
         m_isRunning = false;
         return true;
@@ -495,14 +496,15 @@ bool GAFObject::gotoAndPlay(const std::string& frameLabel)
         {
             return false;
         }
-        return gotoAndPlay(frameNumber - 1);
+        return gotoAndPlay(frameNumber);
     }
     return gotoAndPlay(f);
 }
 
 bool GAFObject::gotoAndPlay(uint32_t frameNumber)
 {
-    if (setFrame(frameNumber))
+    CCAssert(frameNumber > 0, "Frame numerating starts from 1");
+    if (setFrame(frameNumber - 1))
     {
         m_isRunning = true;
         return true;

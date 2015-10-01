@@ -16,8 +16,8 @@ void TagDefineSequences::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timel
     {
         std::string id;
         in->readString(&id);
-        int start = in->readU16() - 1;
-        int end = in->readU16(); // It is not actually the last frame, but the frame after the last, like an STL iterator
+        int start = in->readU16();
+        int end = in->readU16() + 1; // It is not actually the last frame, but the frame after the last, like an STL iterator
 
         timeline->pushAnimationSequence(id, start, end);
     }

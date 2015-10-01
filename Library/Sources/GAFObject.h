@@ -140,11 +140,13 @@ public:
     /// Plays specified frame and then stops excluding enclosed timelines
     bool        gotoAndStop(const std::string& frameLabel);
     /// Plays specified frame and then stops excluding enclosed timelines
+    /// NOTE: Flash numerating (starts from 1)
     bool        gotoAndStop(uint32_t frameNumber);
 
     /// Plays animation from specified frame excluding enclosed timelines
     bool        gotoAndPlay(const std::string& frameLabel);
     /// Plays animation from specified frame excluding enclosed timelines
+    /// NOTE: Flash numerating (starts from 1)
     bool        gotoAndPlay(uint32_t frameNumber);
 
     uint32_t    getStartFrame(const std::string& frameLabel);
