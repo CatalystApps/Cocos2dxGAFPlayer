@@ -5,7 +5,7 @@
 
 NS_GAF_BEGIN
 
-void PrimitiveDeserializer::deserialize(GAFStream* in, cocos2d::Vect* out)
+void PrimitiveDeserializer::deserialize(GAFStream* in, cocos2d::Vec2* out)
 {
     out->x = in->readFloat();
     out->y = in->readFloat();

@@ -187,7 +187,7 @@ GAFObject* GAFObject::_instantiateObject(uint32_t id, GAFCharacterType type, uin
                 result = new GAFMask();
             result->initWithSpriteFrame(spriteFrame, txElemet->rotation);
             result->objectIdRef = id;
-            cocos2d::Vect pt = cocos2d::Vect(0 - (0 - (txElemet->pivotPoint.x / result->getContentSize().width)),
+            cocos2d::Vec2 pt = cocos2d::Vec2(0 - (0 - (txElemet->pivotPoint.x / result->getContentSize().width)),
                 0 + (1 - (txElemet->pivotPoint.y / result->getContentSize().height)));
             result->setAnchorPoint(pt);
 
@@ -889,7 +889,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
         }
         else if (subObject->m_charType == GAFCharacterType::Texture)
         {
-            cocos2d::Vect prevAP = subObject->getAnchorPoint();
+            cocos2d::Vec2 prevAP = subObject->getAnchorPoint();
             cocos2d::Size  prevCS = subObject->getContentSize();
 
 #if ENABLE_RUNTIME_FILTERS
@@ -938,7 +938,7 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 #endif
 
             cocos2d::Size newCS = subObject->getContentSize();
-            cocos2d::Vect newAP = cocos2d::Vect(((prevAP.x - 0.5f) * prevCS.width) / newCS.width + 0.5f,
+            cocos2d::Vec2 newAP = cocos2d::Vec2(((prevAP.x - 0.5f) * prevCS.width) / newCS.width + 0.5f,
                 ((prevAP.y - 0.5f) * prevCS.height) / newCS.height + 0.5f);
             subObject->setAnchorPoint(newAP);
 

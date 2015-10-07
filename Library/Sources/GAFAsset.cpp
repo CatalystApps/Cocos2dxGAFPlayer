@@ -371,7 +371,7 @@ GAFSprite* GAFAsset::getCustomRegion(const std::string& name)
         result = new GAFSprite();
         
         result->initWithSpriteFrame(spriteFrame, txElemet->rotation);
-        cocos2d::Vect pt = cocos2d::Vect(0 - (0 - (txElemet->pivotPoint.x / result->getContentSize().width)),
+        cocos2d::Vec2 pt = cocos2d::Vec2(0 - (0 - (txElemet->pivotPoint.x / result->getContentSize().width)),
             0 + (1 - (txElemet->pivotPoint.y / result->getContentSize().height)));
         result->setAnchorPoint(pt);
 

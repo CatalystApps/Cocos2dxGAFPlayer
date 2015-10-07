@@ -11,7 +11,7 @@ class PrimitiveDeserializer
         unsigned char b, g, r, a;
     };
 public:
-    static void deserialize(GAFStream* in, cocos2d::Vect* out);
+    static void deserialize(GAFStream* in, cocos2d::Vec2* out);
     static void deserialize(GAFStream* in, cocos2d::Rect* out);
     static void deserialize(GAFStream* in, cocos2d::AffineTransform* out);
     static void deserialize(GAFStream* in, cocos2d::Size* out);

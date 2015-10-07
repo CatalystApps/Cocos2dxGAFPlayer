@@ -8,7 +8,7 @@ class GAFTextureAtlasElement
 {
 public:
     std::string name;
-    cocos2d::Vect      pivotPoint;
+    cocos2d::Vec2      pivotPoint;
     cocos2d::Rect      bounds;
     
     unsigned int       atlasIdx;

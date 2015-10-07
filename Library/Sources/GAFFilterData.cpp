@@ -60,7 +60,7 @@ void GAFDropShadowFilterData::apply(GAFMovieClip* subObject)
 
     const float anglerad = ((float)M_PI / 180.f) * angle;
     cocos2d::Size shadowTextureSize = shadowSprite->getContentSize();
-    cocos2d::Vect offset = cocos2d::Vect(cos(anglerad) * distance, -sin(anglerad) * distance);
+    cocos2d::Vec2 offset = cocos2d::Vec2(cos(anglerad) * distance, -sin(anglerad) * distance);
     shadowSprite->setPosition(cocos2d::Vec2(texRect.size / 2) + offset);
     subObject->addChild(shadowSprite, -1);
 }
