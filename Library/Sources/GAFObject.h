@@ -14,7 +14,6 @@ class GAFObject : public GAFSprite
 {
 private:
     const cocos2d::AffineTransform AffineTransformFlashToCocos(const cocos2d::AffineTransform& aTransform);
-    const cocos2d::AffineTransform AffineTransformFlashToCocosWithPosition(const cocos2d::AffineTransform& aTransform, const cocos2d::Point aPos);
 
 public:
 
@@ -43,9 +42,6 @@ private:
     bool                                    m_animationsSelectorScheduled;
 
     bool                                    m_isInResetState;
-
-    bool                                    m_useManualPosition;
-    cocos2d::Point                          m_manualPosition;
 
 private:
     void constructObject();
@@ -187,9 +183,6 @@ public:
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
     virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
-
-    const cocos2d::Point getSubobjectPosition() const;
-    void setSubobjectPosition(const cocos2d::Point& position);
 
     //////////////////////////////////////////////////////////////////////////
     // Accessors
