@@ -61,6 +61,8 @@ protected:
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
 
+    bool                                    m_isManualColor;
+
     void    setTimelineParentObject(GAFObject* obj) { m_timelineParentObject = obj; }
 
     void    processAnimation();
@@ -183,6 +185,9 @@ public:
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
     virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
+
+    virtual void setColor(const cocos2d::Color3B& color) override;
+    virtual void setOpacity(GLubyte opacity) override;
 
     //////////////////////////////////////////////////////////////////////////
     // Accessors

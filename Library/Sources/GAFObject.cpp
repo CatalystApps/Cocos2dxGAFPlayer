@@ -51,6 +51,7 @@ GAFObject::GAFObject()
     , m_objectType(GAFObjectType::None)
     , m_animationsSelectorScheduled(false)
     , m_isInResetState(false)
+    , m_isManualColor(false)
 {
     m_charType = GAFCharacterType::Timeline;
     m_parentColorTransforms[0] = cocos2d::Vec4::ONE;
@@ -747,6 +748,18 @@ cocos2d::AffineTransform GAFObject::getNodeToParentAffineTransform() const
         return cocos2d::Node::getNodeToParentAffineTransform();
     else
         return GAFSprite::getNodeToParentAffineTransform();
+}
+
+void GAFObject::setColor(const cocos2d::Color3B& color)
+{
+    m_isManualColor = true;
+    Node::setColor(color);
+}
+
+void GAFObject::setOpacity(GLubyte opacity)
+{
+    m_isManualColor = true;
+    Node::setOpacity(opacity);
 }
 
 void GAFObject::rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex)
