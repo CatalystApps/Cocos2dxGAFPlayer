@@ -236,7 +236,7 @@ void GAFMovieClip::_setBlendingFunc()
     setBlendFunc(cocos2d::BlendFunc::ALPHA_PREMULTIPLIED);
 }
 
-void GAFMovieClip::setColorMarixFilterData(GAFColorColorMatrixFilterData* data)
+void GAFMovieClip::setColorMarixFilterData(GAFColorMatrixFilterData* data)
 {
     m_colorMatrixFilterData = data;
 }

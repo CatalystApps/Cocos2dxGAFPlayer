@@ -33,12 +33,12 @@ public:
     virtual void apply(GAFMovieClip*) override;
 };
 
-class GAFColorColorMatrixFilterData : public GAFFilterData
+class GAFColorMatrixFilterData : public GAFFilterData
 {
 public:
     float matrix[16];
     float matrix2[4];
-    GAFColorColorMatrixFilterData();
+    GAFColorMatrixFilterData();
 
     void setMatrix(const float m[16]);
     void setMatrix2(const float m[4]);

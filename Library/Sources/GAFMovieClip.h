@@ -4,7 +4,7 @@
 
 NS_GAF_BEGIN
 
-class GAFColorColorMatrixFilterData;
+class GAFColorMatrixFilterData;
 class GAFGlowFilterData;
 class GAFBlurFilterData;
 
@@ -19,7 +19,7 @@ protected:
     cocos2d::Vec4                   m_colorTransformOffsets;
     cocos2d::Mat4                   m_colorMatrixIdentity1;
     cocos2d::Vec4                   m_colorMatrixIdentity2;
-    GAFColorColorMatrixFilterData*  m_colorMatrixFilterData;
+    GAFColorMatrixFilterData*       m_colorMatrixFilterData;
     GAFGlowFilterData*              m_glowFilterData;
     GAFBlurFilterData*              m_blurFilterData;
     cocos2d::Texture2D *            m_initialTexture;
@@ -42,7 +42,7 @@ public:
     void setColorTransform(const GLfloat * mults, const GLfloat * offsets);
     void setColorTransform(const GLfloat * colorTransform);
 
-    void setColorMarixFilterData(GAFColorColorMatrixFilterData* data);
+    void setColorMarixFilterData(GAFColorMatrixFilterData* data);
     void setGlowFilterData(GAFGlowFilterData* data);
     void setBlurFilterData(GAFBlurFilterData* data);
 

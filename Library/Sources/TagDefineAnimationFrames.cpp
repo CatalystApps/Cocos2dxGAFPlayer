@@ -144,7 +144,7 @@ GAFSubobjectState* TagDefineAnimationFrames::extractState(GAFStream* in)
             }
             else if (type == GAFFilterType::ColorMatrix)
             {
-                GAFColorColorMatrixFilterData* colorFilter = new GAFColorColorMatrixFilterData();
+                GAFColorMatrixFilterData* colorFilter = new GAFColorMatrixFilterData();
                 for (unsigned int i = 0; i < 4; ++i)
                 {
                     for (unsigned int j = 0; j < 4; ++j)
