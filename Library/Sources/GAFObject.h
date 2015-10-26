@@ -61,6 +61,8 @@ protected:
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
 
+    GAFFilterData*                          m_customFilter;
+
     bool                                    m_isManualColor;
 
     void    setTimelineParentObject(GAFObject* obj) { m_timelineParentObject = obj; }
@@ -188,6 +190,16 @@ public:
 
     virtual void setColor(const cocos2d::Color3B& color) override;
     virtual void setOpacity(GLubyte opacity) override;
+
+    template <typename FilterSubtype>
+    void setCustomFilter(const FilterSubtype* filter)
+    {
+        CC_SAFE_DELETE(m_customFilter);
+        if (filter)
+        {
+            m_customFilter = new FilterSubtype(*filter);
+        }
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Accessors

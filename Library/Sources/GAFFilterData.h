@@ -40,7 +40,16 @@ public:
     float matrix2[4];
     GAFColorColorMatrixFilterData();
 
+    void setMatrix(const float m[16]);
+    void setMatrix2(const float m[4]);
+
     virtual void apply(GAFMovieClip*) override;
+
+    struct Grayscale
+    {
+        static const float matrix[16];
+        static const float matrix2[4];
+    };
 };
 
 class GAFGlowFilterData : public GAFFilterData

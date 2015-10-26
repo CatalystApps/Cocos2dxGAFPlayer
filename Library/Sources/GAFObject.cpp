@@ -51,6 +51,7 @@ GAFObject::GAFObject()
     , m_objectType(GAFObjectType::None)
     , m_animationsSelectorScheduled(false)
     , m_isInResetState(false)
+    , m_customFilter(nullptr)
     , m_isManualColor(false)
 {
     m_charType = GAFCharacterType::Timeline;
@@ -64,6 +65,7 @@ GAFObject::~GAFObject()
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(MaskList_t, m_masks);
     GAF_SAFE_RELEASE_ARRAY_WITH_NULL_CHECK(DisplayList_t, m_displayList);
     CC_SAFE_RELEASE(m_asset);
+    CC_SAFE_DELETE(m_customFilter);
 }
 
 GAFObject * GAFObject::create(GAFAsset * anAsset, GAFTimeline* timeline)
@@ -819,10 +821,16 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                 cocos2d::AffineTransform t = AffineTransformFlashToCocos(stateTransform);
                 
                 subObject->setAdditionalTransform(t);
+                
                 subObject->m_parentFilters.clear();
+                if (m_customFilter)
+                {
+                    subObject->m_parentFilters.push_back(m_customFilter);
+                }
+
                 const Filters_t& filters = state->getFilters();
                 subObject->m_parentFilters.insert(subObject->m_parentFilters.end(), filters.begin(), filters.end());
-
+                
                 const float* cm = state->colorMults();
                 subObject->m_parentColorTransforms[0] = cocos2d::Vec4(
                     m_parentColorTransforms[0].x * cm[0],
@@ -870,7 +878,11 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
 
                 GAFMovieClip* mc = static_cast<GAFMovieClip*>(subObject);
 
-                if (m_parentFilters.size() > 0)
+                if (m_customFilter)
+                {
+                    filter = m_customFilter;
+                }
+                else if (m_parentFilters.size() > 0)
                 {
                     filter = *m_parentFilters.begin();
                 }
