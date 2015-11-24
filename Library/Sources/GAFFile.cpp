@@ -200,7 +200,7 @@ unsigned char* GAFFile::_getData(const std::string& filename, const char* openMo
         size = ftell(fp);
         fseek(fp, 0, SEEK_SET);
         
-        ret = (unsigned char*)malloc(sizeof(unsigned char)* size);
+        ret = new unsigned char[size];
 
         size = fread(ret, sizeof(unsigned char), size, fp);
         fclose(fp);

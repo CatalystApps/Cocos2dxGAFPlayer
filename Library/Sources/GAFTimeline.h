@@ -92,14 +92,14 @@ public:
 
     // Custom fiels functionality
 public:
-    void appendUserData(std::string K, GAFAnyInterface* V) { m_userData[K] = V; }
+    void appendUserData(const std::string& K, GAFAnyInterface* V) { m_userData[K] = V; }
 
-    template<class T> T* getUserData(std::string K) 
+    template<class T> T getUserData(const std::string& K) 
     {
         CustomData_t::const_iterator it = m_userData.find(K);
-        if (it == m_userData.end()) return nullptr;
+        if (it == m_userData.end()) return T();
         
-        return static_cast<GAFAny<T>>(it->second)->data;
+        return reinterpret_cast<GAFAny<T>*>(it->second)->data;
     }
 
 private:    
