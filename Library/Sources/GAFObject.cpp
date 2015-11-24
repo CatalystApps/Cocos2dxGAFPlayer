@@ -320,7 +320,7 @@ void GAFObject::stop()
     enableTick(false);
     if (m_isRunning)
     {
-        m_currentFrame = GAFFirstFrameIndex;
+        setFrame(GAFFirstFrameIndex);
         setAnimationRunning(false, true);
     }
 }
