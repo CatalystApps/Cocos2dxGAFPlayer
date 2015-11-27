@@ -556,7 +556,8 @@ bool GAFObject::playSequence(const std::string& name, bool looped, bool resume /
     m_currentSequenceStart = s;
     m_currentSequenceEnd = e;
 
-    m_currentFrame = m_isReversed ? (e - 1) : (s);
+    uint32_t frame = m_isReversed ? (e - 1) : (s);
+    setFrame(frame);
     
     setLooped(looped, false);
 
