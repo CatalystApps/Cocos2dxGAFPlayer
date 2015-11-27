@@ -4,6 +4,7 @@
 #include "GAFSprite.h"
 #include "GAFCollections.h"
 #include "GAFTextureAtlas.h"
+#include "GAFFilterData.h"
 
 NS_GAF_BEGIN
 
