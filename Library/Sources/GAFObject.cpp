@@ -156,7 +156,6 @@ GAFObject* GAFObject::_instantiateObject(uint32_t id, GAFCharacterType type, uin
         const GAFTextureAtlas::Elements_t& elementsMap = atlas->getElements();
         cocos2d::SpriteFrame * spriteFrame = nullptr;
         GAFTextureAtlas::Elements_t::const_iterator elIt = elementsMap.find(reference); // Search for atlas element by its xref
-        assert(elIt != elementsMap.end());
         const GAFTextureAtlasElement* txElemet = nullptr;
         if (elIt != elementsMap.end())
         {
@@ -798,7 +797,6 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
     {
         GAFObject* subObject = m_displayList[state->objectIdRef];
 
-        CCASSERT(subObject, "Error. SubObject with current ID not found");
         if (!subObject)
             continue;
 
