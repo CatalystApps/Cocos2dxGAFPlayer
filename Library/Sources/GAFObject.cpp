@@ -356,6 +356,11 @@ void GAFObject::pauseAnimation()
     if (m_isRunning)
     {
         setAnimationRunning(false, false);
+
+        if (m_animationFinishedPlayDelegate)
+        {
+            m_animationFinishedPlayDelegate(this);
+        }
     }
 }
 
@@ -472,6 +477,12 @@ bool GAFObject::gotoAndStop(uint32_t frameNumber)
     if (setFrame(frameNumber))
     {
         m_isRunning = false;
+
+        if (m_animationFinishedPlayDelegate)
+        {
+            m_animationFinishedPlayDelegate(this);
+        }
+
         return true;
     }
     return false;
