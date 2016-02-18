@@ -830,12 +830,8 @@ void GAFObject::realizeFrame(cocos2d::Node* out, uint32_t frameIndex)
                 stateTransform.ty *= csf;
                 cocos2d::AffineTransform t = AffineTransformFlashToCocos(stateTransform);
 
-                float curScale = subObject->getScale();
-                if (fabs(curScale - 1.0) > std::numeric_limits<float>::epsilon())
-                {
-                    t.tx /= curScale;
-                    t.ty /= curScale;
-                }
+                t.tx /= subObject->getScaleX();
+                t.ty /= subObject->getScaleY();
                 
                 subObject->setAdditionalTransform(t);
                 
