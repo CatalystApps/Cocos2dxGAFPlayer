@@ -256,10 +256,6 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
         return;
     }
 
-    _insideBounds = (flags & FLAGS_TRANSFORM_DIRTY) ? renderer->checkVisibility(transform, _contentSize) : _insideBounds;
-    if (!_insideBounds)
-        return;
-
     uint32_t id = setUniforms();
 
     if (m_useSeparateBlendFunc || (m_blendEquation != -1))
