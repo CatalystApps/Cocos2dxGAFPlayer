@@ -15,12 +15,11 @@ GAF stands for Generic Animation Format. GAF is designed to store Flash animatio
 
 Supported Platforms
 -----------------------
-- Windows - Cocos2d-x v3.3, v3.4
-- Mac OS X - Cocos2d-x v3.3, v3.4
-- iOS - Cocos2d-x v3.3, v3.4
-- Android - Cocos2d-x v3.3, v3.4
-- Windows Phone 8 - Cocos2d-x v3.3, v3.4
-- *Upcoming Linux project*
+- Windows - Cocos2d-x v3.7+
+- Mac OS X - Cocos2d-x v3.7+
+- iOS - Cocos2d-x v3.7+
+- Android - Cocos2d-x v3.7+
+- Windows Phone 8 - Cocos2d-x v3.7+
 
 Benefits
 -----------------------
