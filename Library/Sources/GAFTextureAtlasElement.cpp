@@ -7,7 +7,7 @@ GAFTextureAtlasElement::GAFTextureAtlasElement()
 : rotation(GAFRotation::NONE)
 , name("")
 {
-
+    setScale(1.0f);
 }
 
 void GAFTextureAtlasElement::setScale(float s)

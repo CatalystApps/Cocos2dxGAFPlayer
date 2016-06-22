@@ -21,6 +21,10 @@ void GAFQuadCommand::init(float globalOrder, GLuint textureID, GLProgramState* g
     if (_materialID != materialId) 
     {
         _materialID = materialId;
+        if (_materialID != cocos2d::Renderer::MATERIAL_ID_DO_NOT_BATCH)
+        {
+            setSkipBatching(false);
+        }
     }
 }
 

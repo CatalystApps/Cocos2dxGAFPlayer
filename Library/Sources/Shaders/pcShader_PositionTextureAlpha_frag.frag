@@ -23,17 +23,15 @@ void main()
     vec4 texColor = texture2D(CC_Texture0, v_texCoord);
     
     const float kMinimalAlphaAllowed = 1.0e-8;
+    texColor.a = clamp(texColor.a, kMinimalAlphaAllowed, 1.0);
+    
+    texColor = vec4(texColor.rgb / texColor.a, texColor.a);
 
-    if (texColor.a > kMinimalAlphaAllowed)
-    {
-        texColor = vec4(texColor.rgb / texColor.a, texColor.a);
+    vec4 ctxColor = texColor * colorTransformMult + colorTransformOffsets;
+    vec4 adjustColor = colorMatrix * ctxColor + colorMatrix2;
+    adjustColor *= v_fragmentColor;
 
-        vec4 ctxColor = texColor * colorTransformMult + colorTransformOffsets;
-        vec4 adjustColor = colorMatrix * ctxColor + colorMatrix2;
-        adjustColor *= v_fragmentColor;
-
-        texColor = vec4(adjustColor.rgb * adjustColor.a, adjustColor.a);
-    }
+    texColor = vec4(adjustColor.rgb * adjustColor.a, adjustColor.a);
     
     gl_FragColor = texColor;
 }

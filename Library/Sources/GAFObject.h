@@ -4,6 +4,7 @@
 #include "GAFSprite.h"
 #include "GAFCollections.h"
 #include "GAFTextureAtlas.h"
+#include "GAFFilterData.h"
 
 NS_GAF_BEGIN
 
@@ -13,7 +14,7 @@ class GAFTimeline;
 class GAFObject : public GAFSprite
 {
 private:
-    cocos2d::AffineTransform GAF_CGAffineTransformCocosFormatFromFlashFormat(cocos2d::AffineTransform aTransform);
+    const cocos2d::AffineTransform AffineTransformFlashToCocos(const cocos2d::AffineTransform& aTransform);
 
 public:
 
@@ -46,6 +47,12 @@ private:
 private:
     void constructObject();
     GAFObject* _instantiateObject(uint32_t id, GAFCharacterType type, uint32_t reference, bool isMask);
+    
+    /// schedule/unschedule
+    /// @note this function is automatically called in start/stop
+    void enableTick(bool val);
+    void realizeFrame(cocos2d::Node* out, uint32_t frameIndex);
+    void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex);
 
 protected:
     GAFObject*                              m_timelineParentObject;
@@ -61,9 +68,12 @@ protected:
     Filters_t                               m_parentFilters;
     cocos2d::Vec4                           m_parentColorTransforms[2];
 
-    void    setTimelineParentObject(GAFObject* obj) { m_timelineParentObject = obj; }
+    GAFFilterData*                          m_customFilter;
 
-    void    processAnimation();
+    bool                                    m_isManualColor;
+
+    void    setTimelineParentObject(GAFObject* obj) { m_timelineParentObject = obj; }
+    
     void    processAnimations(float dt);
 
     void    instantiateObject(const AnimationObjects_t& objs, const AnimationMasks_t& masks);
@@ -107,7 +117,9 @@ public:
     }
 
     void useExternalTextureAtlas(std::vector<cocos2d::Texture2D*>& textures, GAFTextureAtlas::Elements_t& elements);
+
 public:
+    void    processAnimation();
     // Playback accessing
     void        start();
     void        stop();
@@ -157,10 +169,6 @@ public:
     /// Stops playing an animation as a sequence
     void        clearSequence();
 
-    /// schedule/unschedule
-    /// @note this function is automatically called in start/stop
-    void        enableTick(bool val);
-
     void        setAnimationRunning(bool value, bool recurcive);
 public:
 
@@ -184,6 +192,19 @@ public:
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
     virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
 
+    virtual void setColor(const cocos2d::Color3B& color) override;
+    virtual void setOpacity(GLubyte opacity) override;
+
+    template <typename FilterSubtype>
+    void setCustomFilter(const FilterSubtype* filter)
+    {
+        CC_SAFE_DELETE(m_customFilter);
+        if (filter)
+        {
+            m_customFilter = new FilterSubtype(*filter);
+        }
+    }
+
     //////////////////////////////////////////////////////////////////////////
     // Accessors
 
@@ -193,9 +214,6 @@ public:
     // @returns instance of GAFObject or null. Warning: the instance could be invalidated when the system catches EVENT_COME_TO_FOREGROUND event
     GAFObject* getObjectByName(const std::string& name);
     const GAFObject* getObjectByName(const std::string& name) const;
-
-    void realizeFrame(cocos2d::Node* out, uint32_t frameIndex);
-    void rearrangeSubobject(cocos2d::Node* out, cocos2d::Node* child, int zIndex);
 
     uint32_t getFps() const;
 

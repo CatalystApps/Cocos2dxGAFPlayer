@@ -44,7 +44,8 @@ NS_GAF_BEGIN
         "u_step",                   // BlurTexelOffset
 
         "u_step",                   // GlowTexelOffset
-        "u_glowColor"               // GlowColor
+        "u_glowColor",              // GlowColor
+        "u_strength",               // Strength
     };
 
     GLint GAFShaderManager::s_uniformLocations[] =
@@ -67,7 +68,7 @@ NS_GAF_BEGIN
 #else
             const std::string eventName = EVENT_RENDERER_RECREATED;
 #endif
-            CCDirector::getInstance()->getEventDispatcher()->addCustomEventListener(eventName, GAFShaderManager::renderRecreate);
+            Director::getInstance()->getEventDispatcher()->addCustomEventListener(eventName, GAFShaderManager::renderRecreate);
         }
 
         bool skip = !force && s_initialized;
@@ -179,6 +180,7 @@ NS_GAF_BEGIN
                 program->bindAttribLocation(cocos2d::GLProgram::ATTRIBUTE_NAME_TEX_COORD, cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS);
                 s_uniformLocations[EUniforms::GlowTexelOffset] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowTexelOffset]);
                 s_uniformLocations[EUniforms::GlowColor] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::GlowColor]);
+                s_uniformLocations[EUniforms::Strength] = glGetUniformLocation(program->getProgram(), s_uniformNames[EUniforms::Strength]);
                 CHECK_GL_ERROR_DEBUG();
 
             }

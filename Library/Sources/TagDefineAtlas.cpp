@@ -50,7 +50,7 @@ void TagDefineAtlas::read(GAFStream* in, GAFAsset* asset, GAFTimeline* timeline)
         GAFTextureAtlasElement* element = new GAFTextureAtlasElement();
 
         PrimitiveDeserializer::deserialize(in, &element->pivotPoint);
-        cocos2d::Vect origin;
+        cocos2d::Vec2 origin;
         PrimitiveDeserializer::deserialize(in, &origin);
         float scale = in->readFloat();
         element->setScale(scale);

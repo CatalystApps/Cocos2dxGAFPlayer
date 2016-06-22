@@ -17,13 +17,31 @@ void GAFBlurFilterData::apply(GAFMovieClip* subObject)
     subObject->setBlurFilterData(this);
 }
 
-GAFColorColorMatrixFilterData::GAFColorColorMatrixFilterData():
+const float GAFColorMatrixFilterData::Grayscale::matrix[16] = { 
+    0.299f, 0.299f, 0.299f, 0,
+    0.587f, 0.587f, 0.587f, 0,
+    0.114f, 0.114f, 0.114f, 0,
+    0, 0, 0, 1 
+};
+const float GAFColorMatrixFilterData::Grayscale::matrix2[4] = { 0, 0, 0, 0 };
+
+GAFColorMatrixFilterData::GAFColorMatrixFilterData() :
 GAFFilterData(GAFFilterType::ColorMatrix)
 {
 
 }
 
-void GAFColorColorMatrixFilterData::apply(GAFMovieClip* subObject)
+void GAFColorMatrixFilterData::setMatrix(const float m[16])
+{
+    std::copy(m, m + 16, matrix);
+}
+
+void GAFColorMatrixFilterData::setMatrix2(const float m[4])
+{
+    std::copy(m, m + 4, matrix2);
+}
+
+void GAFColorMatrixFilterData::apply(GAFMovieClip* subObject)
 {
     subObject->setColorMarixFilterData(this);
 }
@@ -60,7 +78,7 @@ void GAFDropShadowFilterData::apply(GAFMovieClip* subObject)
 
     const float anglerad = ((float)M_PI / 180.f) * angle;
     cocos2d::Size shadowTextureSize = shadowSprite->getContentSize();
-    cocos2d::Vect offset = cocos2d::Vect(cos(anglerad) * distance, -sin(anglerad) * distance);
+    cocos2d::Vec2 offset = cocos2d::Vec2(cos(anglerad) * distance, -sin(anglerad) * distance);
     shadowSprite->setPosition(cocos2d::Vec2(texRect.size / 2) + offset);
     subObject->addChild(shadowSprite, -1);
 }

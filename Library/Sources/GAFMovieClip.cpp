@@ -92,7 +92,7 @@ void GAFMovieClip::setGLProgram(GLProgram *glProgram)
             // This node is set as stencil
             handleStencilProgram();
         }
-        CCNode::setGLProgram(glProgram);
+        Node::setGLProgram(glProgram);
     }
 }
 
@@ -166,8 +166,8 @@ uint32_t GAFMovieClip::setUniforms()
     if (!ctx)
     {
         Color4F color(m_colorTransformMult.x, m_colorTransformMult.y, m_colorTransformMult.z, m_colorTransformMult.w);
-        setColor(Color3B(color));
-        setOpacity(static_cast<GLubyte>(color.a * 255.0f));
+        Node::setColor(Color3B(color));
+        Node::setOpacity(static_cast<GLubyte>(color.a * 255.0f));
     }
     else
     {
@@ -236,7 +236,7 @@ void GAFMovieClip::_setBlendingFunc()
     setBlendFunc(cocos2d::BlendFunc::ALPHA_PREMULTIPLIED);
 }
 
-void GAFMovieClip::setColorMarixFilterData(GAFColorColorMatrixFilterData* data)
+void GAFMovieClip::setColorMarixFilterData(GAFColorMatrixFilterData* data)
 {
     m_colorMatrixFilterData = data;
 }
@@ -276,7 +276,7 @@ void GAFMovieClip::updateCtx()
         return;
     }
     m_ctxDirty = false;
-    if (!m_colorTransformOffsets.isZero() || m_colorMatrixFilterData)
+    if (!m_colorTransformOffsets.isZero() || m_colorMatrixFilterData || m_isManualColor)
     {
         _glProgramState = m_programBase;
     }

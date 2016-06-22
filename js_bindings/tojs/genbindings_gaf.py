@@ -90,15 +90,17 @@ def main():
         print 'path: %s or path: %s are not valid! ' % (x86_llvm_path, x64_llvm_path)
         sys.exit(1)
 
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', '..'))
-    cocos_root = os.path.abspath(os.path.join(project_root, 'frameworks/js-bindings/cocos2d-x'))
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+    cocos_root = project_root
     cxx_generator_root = os.path.abspath(os.path.join(project_root, 'tools/bindings-generator'))
-
+    gaf_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', ".."))
+    
     # save config to file
     config = ConfigParser.ConfigParser()
     config.set('DEFAULT', 'androidndkdir', ndk_root)
     config.set('DEFAULT', 'clangllvmdir', llvm_path)
     config.set('DEFAULT', 'cocosdir', cocos_root)
+    config.set('DEFAULT', 'gafdir', gaf_root)
     config.set('DEFAULT', 'cxxgeneratordir', cxx_generator_root)
     config.set('DEFAULT', 'extra_flags', '')
 

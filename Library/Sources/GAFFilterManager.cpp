@@ -138,6 +138,7 @@ cocos2d::Texture2D* GAFFilterManager::renderGlowTexture(cocos2d::Sprite* sprite,
         GLProgramState* state = GLProgramState::create(program);
         state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffset), texelValue);
         state->setUniformVec4(getUniformId(GAFShaderManager::EUniforms::GlowColor), *(Vec4*)(&filter->color));
+        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::Strength), (float)sqrt(filter->strength));
 
         Sprite* s = Sprite::createWithTexture(outA->getSprite()->getTexture());
         s->setPosition(rTextureSize.width / 2, rTextureSize.height / 2);
@@ -160,6 +161,7 @@ cocos2d::Texture2D* GAFFilterManager::renderGlowTexture(cocos2d::Sprite* sprite,
         GLProgramState* state = GLProgramState::create(program);
         state->setUniformVec2(getUniformId(GAFShaderManager::EUniforms::GlowTexelOffset), texelValue);
         state->setUniformVec4(getUniformId(GAFShaderManager::EUniforms::GlowColor), *(Vec4*)(&filter->color));
+        state->setUniformFloat(getUniformId(GAFShaderManager::EUniforms::Strength), (float)sqrt(filter->strength));
 
         Sprite* s = Sprite::createWithTexture(outB->getSprite()->getTexture());
         s->setPosition(rTextureSize.width / 2, rTextureSize.height / 2);

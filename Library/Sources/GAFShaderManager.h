@@ -39,6 +39,8 @@ public:
             GlowTexelOffset,
             GlowColor,
 
+            Strength,
+
 
             SIZE
         };

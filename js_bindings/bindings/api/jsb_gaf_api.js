@@ -31,13 +31,25 @@ str
 },
 
 /**
- * @method setSceneHeight
- * @param {unsigned int} arg0
+ * @method getCustomRegion
+ * @param {String} arg0
+ * @return {gaf.GAFSprite}
  */
-setSceneHeight : function (
-int 
+getCustomRegion : function (
+str 
 )
 {
+    return gaf.GAFSprite;
+},
+
+/**
+ * @method createObject
+ * @return {gaf.GAFObject}
+ */
+createObject : function (
+)
+{
+    return gaf.GAFObject;
 },
 
 /**
@@ -71,15 +83,25 @@ getGAFFileName : function (
 },
 
 /**
+ * @method loadImages
+ * @param {float} arg0
+ */
+loadImages : function (
+float 
+)
+{
+},
+
+/**
  * @method createObjectAndRun
  * @param {bool} arg0
- * @return {gaf::GAFObject}
+ * @return {gaf.GAFObject}
  */
 createObjectAndRun : function (
 bool 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
@@ -103,6 +125,16 @@ getSceneWidth : function (
 },
 
 /**
+ * @method soundEvent
+ * @param {gaf.GAFTimelineAction} arg0
+ */
+soundEvent : function (
+gaftimelineaction 
+)
+{
+},
+
+/**
  * @method getSceneFps
  * @return {unsigned int}
  */
@@ -120,6 +152,16 @@ desiredAtlasScale : function (
 )
 {
     return 0;
+},
+
+/**
+ * @method setSceneHeight
+ * @param {unsigned int} arg0
+ */
+setSceneHeight : function (
+int 
+)
+{
 },
 
 /**
@@ -143,13 +185,13 @@ int
 },
 
 /**
- * @method createObject
- * @return {gaf::GAFObject}
+ * @method getTextureAtlas
+ * @return {gaf.GAFTextureAtlas}
  */
-createObject : function (
+getTextureAtlas : function (
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFTextureAtlas;
 },
 
 /**
@@ -230,13 +272,13 @@ int
 /**
  * @method getObjectByName
 * @param {String|String} str
-* @return {gaf::GAFObject|gaf::GAFObject}
+* @return {gaf.GAFObject|gaf.GAFObject}
 */
 getObjectByName : function(
 str 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**
@@ -321,8 +363,8 @@ start : function (
 
 /**
  * @method init
- * @param {gaf::GAFAsset} arg0
- * @param {gaf::GAFTimeline} arg1
+ * @param {gaf.GAFAsset} arg0
+ * @param {gaf.GAFTimeline} arg1
  * @return {bool}
  */
 init : function (
@@ -368,6 +410,16 @@ stop : function (
 },
 
 /**
+ * @method setSubobjectPosition
+ * @param {vec2_object} arg0
+ */
+setSubobjectPosition : function (
+vec2 
+)
+{
+},
+
+/**
  * @method setAnimationRunning
  * @param {bool} arg0
  * @param {bool} arg1
@@ -387,6 +439,16 @@ isReversed : function (
 )
 {
     return false;
+},
+
+/**
+ * @method getSubobjectPosition
+ * @return {vec2_object}
+ */
+getSubobjectPosition : function (
+)
+{
+    return cc.Vec2;
 },
 
 /**
@@ -476,6 +538,16 @@ bool
 },
 
 /**
+ * @method setFpsLimitations
+ * @param {bool} arg0
+ */
+setFpsLimitations : function (
+bool 
+)
+{
+},
+
+/**
  * @method hasSequences
  * @return {bool}
  */
@@ -496,17 +568,27 @@ getFps : function (
 },
 
 /**
+ * @method getTimeLine
+ * @return {gaf.GAFTimeline}
+ */
+getTimeLine : function (
+)
+{
+    return gaf.GAFTimeline;
+},
+
+/**
  * @method create
- * @param {gaf::GAFAsset} arg0
- * @param {gaf::GAFTimeline} arg1
- * @return {gaf::GAFObject}
+ * @param {gaf.GAFAsset} arg0
+ * @param {gaf.GAFTimeline} arg1
+ * @return {gaf.GAFObject}
  */
 create : function (
 gafasset, 
 gaftimeline 
 )
 {
-    return gaf::GAFObject;
+    return gaf.GAFObject;
 },
 
 /**

@@ -50,7 +50,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>
       </SDLCheck>
-      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/../external/spidermonkey/include/win32;$(CCX_ROOT)/cocos;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT)/../bindings/manual;$(CCX_ROOT)/cocos/base;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT)/external/chipmunk/include/chipmunk;$(CCX_ROOT)/external/win32-specific/zlib/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GAF_SOURCES_ROOT);$(CCX_ROOT)/external/spidermonkey/include/win32;$(CCX_ROOT)/cocos;$(CCX_ROOT)/external/win32-specific/gles/include/OGLES;$(CCX_ROOT)/external;$(CCX_ROOT)/../bindings/manual;$(CCX_ROOT)/cocos/base;$(CCX_ROOT)/external/glfw3/include/win32/;$(CCX_ROOT)/external/chipmunk/include/chipmunk;$(CCX_ROOT)/external/win32-specific/zlib/include;$(CCX_ROOT)/cocos/scripting/js-bindings/manual;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_WINDOWS;WIN32;COCOS2D_DEBUG=1;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -121,7 +121,7 @@
     <ClInclude Include="..\bindings\js_gaf_manual_conversions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\cocos2d-x\cocos\2d\libcocos2d.vcxproj">
+    <ProjectReference Include="..\..\..\..\cocos\2d\libcocos2d.vcxproj">
       <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
     </ProjectReference>
   </ItemGroup>
