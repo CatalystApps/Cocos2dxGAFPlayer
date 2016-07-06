@@ -231,6 +231,7 @@ void GAFObject::instantiateObject(const AnimationObjects_t& objs, const Animatio
         m_displayList[objectId] = stencil;
         cocos2d::ClippingNode* mask = cocos2d::ClippingNode::create(stencil);
         mask->retain();
+        mask->setAlphaThreshold(0.1);
         m_masks[objectId] = mask;
     }
 }
