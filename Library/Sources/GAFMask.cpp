@@ -23,6 +23,11 @@ bool GAFMask::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect&
     {
         return false;
     }
+
+#if COCOS2D_VERSION >= 0x00031300
+    // Fixed just another bug in cocos
+    setGLProgramState(cocos2d::GLProgramState::getOrCreateWithGLProgramName(cocos2d::GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP));
+#endif
     return true;
 }
 
