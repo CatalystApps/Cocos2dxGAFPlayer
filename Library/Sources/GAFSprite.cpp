@@ -91,9 +91,13 @@ void GAFSprite::setTextureRect(const cocos2d::Rect& rect, bool rotated, const co
     cocos2d::Sprite::setTextureRect(rect, rotated, rotatedSize);
 }
 
+#if COCOS2D_VERSION < 0x00031300
 void GAFSprite::setTextureCoords(cocos2d::Rect rect)
+#else
+void GAFSprite::setTextureCoords(const cocos2d::Rect& rect)
+#endif
 {
-    rect = CC_RECT_POINTS_TO_PIXELS(rect);
+    cocos2d::Rect rectInPixels = CC_RECT_POINTS_TO_PIXELS(rect);
 
     cocos2d::Texture2D *tex = _batchNode ? _textureAtlas->getTexture() : _texture;
     if (!tex)
@@ -104,10 +108,10 @@ void GAFSprite::setTextureCoords(cocos2d::Rect rect)
     float atlasWidth = (float)tex->getPixelsWide();
     float atlasHeight = (float)tex->getPixelsHigh();
 
-    float left = rect.origin.x / atlasWidth;
-    float right = (rect.origin.x + rect.size.width) / atlasWidth;
-    float top = rect.origin.y / atlasHeight;
-    float bottom = (rect.origin.y + rect.size.height) / atlasHeight;
+    float left = rectInPixels.origin.x / atlasWidth;
+    float right = (rectInPixels.origin.x + rectInPixels.size.width) / atlasWidth;
+    float top = rectInPixels.origin.y / atlasHeight;
+    float bottom = (rectInPixels.origin.y + rectInPixels.size.height) / atlasHeight;
 
     switch (m_rotation)
     {
