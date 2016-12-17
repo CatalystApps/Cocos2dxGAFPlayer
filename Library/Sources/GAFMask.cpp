@@ -26,20 +26,12 @@ bool GAFMask::initWithTexture(cocos2d::Texture2D *pTexture, const cocos2d::Rect&
     return true;
 }
 
-#if COCOS2D_VERSION < 0x00030200
-void GAFMask::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
-#else
 void GAFMask::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-#endif
 {
     return Sprite::draw(renderer, transform, flags);
 }
 
-#if COCOS2D_VERSION < 0x00030200
-void GAFMask::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
-#else
 void GAFMask::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-#endif
 {
     // Clipping node works well only with cocos sprite for now.
     return Sprite::visit(renderer, transform, flags);

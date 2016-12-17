@@ -41,11 +41,7 @@ public:
 
     virtual const cocos2d::Mat4& getNodeToParentTransform() const override;
     virtual cocos2d::AffineTransform getNodeToParentAffineTransform() const override;
-#if COCOS2D_VERSION < 0x00030200
-    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
-#else
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
-#endif
     
     void setAtlasScale(float scale);
 
@@ -71,17 +67,6 @@ protected:
     virtual uint32_t setUniforms();
 
 
-    /**
-    * Manually draws sprite.
-    *
-    * This call will set up a GL state and manually draw sprite.
-    * Used as callback for m_customCommand
-    *
-    * @property model-view-projection matrix for current sprite
-    */
-    virtual void customDraw(cocos2d::Mat4& transform);
-
-
     /* Members */
 public:
     uint32_t objectIdRef;
@@ -99,11 +84,6 @@ private:
 
     float                   m_atlasScale;
     bool                    m_isLocator;
-
-    /* Never used */
-    gafBlendFuncSeparate    m_blendFuncSeparate;
-    bool                    m_useSeparateBlendFunc;
-    GLint                   m_blendEquation;
 
     GAFRotation             m_rotation;
 };

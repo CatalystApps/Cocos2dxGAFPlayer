@@ -17,16 +17,11 @@ NS_GAF_BEGIN
 
 GAFSprite::GAFSprite()
 : objectIdRef(IDNONE)
-, m_useSeparateBlendFunc(false)
 , m_isLocator(false)
-, m_blendEquation(-1)
 , m_atlasScale(1.0f)
 , m_externalTransform(AffineTransform::IDENTITY)
 , m_rotation(GAFRotation::NONE)
 {
-#if COCOS2D_VERSION < 0x00030300
-    _batchNode = nullptr; // this will fix a bug in cocos2dx 3.2 tag
-#endif
     setFlippedX(false); // Fix non-inited vars in cocos
     setFlippedY(false);
     _rectRotated = false;
@@ -242,15 +237,9 @@ cocos2d::AffineTransform GAFSprite::getNodeToParentAffineTransform() const
     return transform;
 }
 
-#if COCOS2D_VERSION < 0x00030200
-void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
-{
-    (void)transformUpdated;
-#else
 void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
 {
     (void)flags;
-#endif
     if (m_isLocator)
     {
         return;
@@ -258,24 +247,15 @@ void GAFSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform
 
     uint32_t id = setUniforms();
 
-    if (m_useSeparateBlendFunc || (m_blendEquation != -1))
-    {
-        m_customCommand.init(_globalZOrder);
-        m_customCommand.func = CC_CALLBACK_0(GAFSprite::customDraw, this, transform);
-        renderer->addCommand(&m_customCommand);
-    }
-    else
-    {
-        m_quad = _quad;
+    m_quad = _quad;
 
-        transform.transformPoint(&m_quad.tl.vertices);
-        transform.transformPoint(&m_quad.tr.vertices);
-        transform.transformPoint(&m_quad.bl.vertices);
-        transform.transformPoint(&m_quad.br.vertices);
+    transform.transformPoint(&m_quad.tl.vertices);
+    transform.transformPoint(&m_quad.tr.vertices);
+    transform.transformPoint(&m_quad.bl.vertices);
+    transform.transformPoint(&m_quad.br.vertices);
 
-        m_quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &m_quad, 1, Mat4::IDENTITY, id);
-        renderer->addCommand(&m_quadCommand);
-    }
+    m_quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &m_quad, 1, Mat4::IDENTITY, id);
+    renderer->addCommand(&m_quadCommand);
 }
 
 void GAFSprite::setAtlasScale(float scale)
@@ -290,11 +270,7 @@ void GAFSprite::setAtlasScale(float scale)
 
 uint32_t GAFSprite::setUniforms()
 {
-#if COCOS2D_VERSION < 0x00030300
-    uint32_t materialID = QuadCommand::MATERIAL_ID_DO_NOT_BATCH;
-#else
     uint32_t materialID = Renderer::MATERIAL_ID_DO_NOT_BATCH;
-#endif
     if (_glProgramState->getUniformCount() == 0)
     {
         int glProgram = (int)getGLProgram()->getProgram();
@@ -303,67 +279,6 @@ uint32_t GAFSprite::setUniforms()
         materialID = XXH32((const void*)intArray, sizeof(intArray), 0);
     }
     return materialID;
-}
-
-void GAFSprite::customDraw(cocos2d::Mat4& transform)
-{
-    CCAssert(!_batchNode, "If cocos2d::Sprite is being rendered by CCSpriteBatchNode, cocos2d::Sprite#draw SHOULD NOT be called");
-
-    getGLProgramState()->apply(transform);
-
-    if (m_useSeparateBlendFunc)
-    {
-        glBlendFuncSeparate(m_blendFuncSeparate.src, m_blendFuncSeparate.dst,
-            m_blendFuncSeparate.srcAlpha, m_blendFuncSeparate.dstAlpha);
-    }
-    else
-    {
-        cocos2d::GL::blendFunc(_blendFunc.src, _blendFunc.dst);
-    }
-
-    if (m_blendEquation != -1)
-    {
-        glBlendEquation(m_blendEquation);
-    }
-
-    if (_texture != NULL)
-    {
-        cocos2d::GL::bindTexture2D(_texture->getName());
-    }
-    else
-    {
-        cocos2d::GL::bindTexture2D(0);
-    }
-
-    //
-    // Attributes
-    //
-
-    cocos2d::GL::enableVertexAttribs(cocos2d::GL::VERTEX_ATTRIB_FLAG_POS_COLOR_TEX);
-    CHECK_GL_ERROR_DEBUG();
-
-#define kQuadSize sizeof(_quad.bl)
-    long offset = (long)&_quad;
-
-    // vertex
-    int diff = offsetof(cocos2d::V3F_C4B_T2F, vertices);
-    glVertexAttribPointer(cocos2d::GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
-
-    // texCoods
-    diff = offsetof(cocos2d::V3F_C4B_T2F, texCoords);
-    glVertexAttribPointer(cocos2d::GLProgram::VERTEX_ATTRIB_TEX_COORDS, 2, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
-
-    // color
-    diff = offsetof(cocos2d::V3F_C4B_T2F, colors);
-    glVertexAttribPointer(cocos2d::GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_UNSIGNED_BYTE, GL_TRUE, kQuadSize, (void*)(offset + diff));
-
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    CHECK_GL_ERROR_DEBUG();
-
-    //USING_NS_CC;
-    //CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, 4);
-    //CC_INCREMENT_GL_DRAWS(1);
 }
 
 NS_GAF_END

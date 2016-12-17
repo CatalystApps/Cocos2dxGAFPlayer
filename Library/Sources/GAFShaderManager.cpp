@@ -63,11 +63,7 @@ NS_GAF_BEGIN
     {
         if (!s_initialized)
         {
-#if COCOS2D_VERSION < 0x00030200
-            const std::string eventName = EVENT_COME_TO_FOREGROUND;
-#else
             const std::string eventName = EVENT_RENDERER_RECREATED;
-#endif
             Director::getInstance()->getEventDispatcher()->addCustomEventListener(eventName, GAFShaderManager::renderRecreate);
         }
 

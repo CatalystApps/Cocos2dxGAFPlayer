@@ -99,17 +99,8 @@ public:
     /// @note do not forget to call setFramePlayedDelegate(nullptr) before deleting your subscriber
     void setFramePlayedDelegate(GAFFramePlayedDelegate_t delegate);
 
-#if COCOS2D_VERSION < 0x00030200
-    void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags) override;
-#else
     void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
-#endif
-
-#if COCOS2D_VERSION < 0x00030200
-    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags) override
-#else
     void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override
-#endif
     {
         (void)flags;
         (void)renderer;

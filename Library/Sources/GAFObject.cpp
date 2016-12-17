@@ -1161,11 +1161,7 @@ bool GAFObject::isVisibleInCurrentFrame() const
     return true;
 }
 
-#if COCOS2D_VERSION < 0x00030200
-void GAFObject::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
-#else
 void GAFObject::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-#endif
 {
     if (isVisibleInCurrentFrame())
     {

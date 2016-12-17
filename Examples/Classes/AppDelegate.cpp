@@ -50,11 +50,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     if (!glView)
     {
-#if COCOS2D_VERSION < 0x00030300
-        glView = cocos2d::GLView::createWithRect("GAF Animation sample", cocos2d::Rect(0, 0, 1024, 768));
-#else
         glView = GLViewImpl::create("GAF Animation sample");
-#endif
         pDirector->setOpenGLView(glView);
     }
 

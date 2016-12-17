@@ -294,11 +294,7 @@ bool GAFMovieClip::hasCtx()
     return _glProgramState == m_programBase;
 }
 
-#if COCOS2D_VERSION < 0x00030200
-void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool flags)
-#else
 void GAFMovieClip::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
-#endif
 {
     GAFSprite::draw(renderer, transform, flags);
 }
