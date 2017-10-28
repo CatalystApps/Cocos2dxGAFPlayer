@@ -86,104 +86,112 @@ void GAFSprite::setTextureRect(const cocos2d::Rect& rect, bool rotated, const co
     cocos2d::Size rotatedSize = untrimmedSize;
     if (m_rotation != GAFRotation::NONE)
     {
+        rotated = true;
         rotatedSize = cocos2d::Size(rotatedSize.height, rotatedSize.width);
     }
     cocos2d::Sprite::setTextureRect(rect, rotated, rotatedSize);
 }
 
-#if COCOS2D_VERSION < 0x00031300
-void GAFSprite::setTextureCoords(cocos2d::Rect rect)
-#else
 void GAFSprite::setTextureCoords(const cocos2d::Rect& rect)
-#endif
+{
+    cocos2d::Sprite::setTextureCoords(rect, &_quad);
+}
+
+void GAFSprite::setTextureCoords(const cocos2d::Rect& rect, cocos2d::V3F_C4B_T2F_Quad* outQuad)
 {
     cocos2d::Rect rectInPixels = CC_RECT_POINTS_TO_PIXELS(rect);
-
+    
     cocos2d::Texture2D *tex = _batchNode ? _textureAtlas->getTexture() : _texture;
     if (!tex)
     {
         return;
     }
-
+    
     float atlasWidth = (float)tex->getPixelsWide();
     float atlasHeight = (float)tex->getPixelsHigh();
-
+    
+    float rw = rectInPixels.size.width;
+    float rh = rectInPixels.size.height;
+    
+    if (_rectRotated)
+        std::swap(rw, rh);
+    
     float left = rectInPixels.origin.x / atlasWidth;
-    float right = (rectInPixels.origin.x + rectInPixels.size.width) / atlasWidth;
+    float right = (rectInPixels.origin.x + rw) / atlasWidth;
     float top = rectInPixels.origin.y / atlasHeight;
-    float bottom = (rectInPixels.origin.y + rectInPixels.size.height) / atlasHeight;
-
+    float bottom = (rectInPixels.origin.y + rh) / atlasHeight;
+    
     switch (m_rotation)
     {
-    case gaf::GAFRotation::CCW_90:
-    {
-        if (_flippedX)
+        case gaf::GAFRotation::CCW_90:
         {
-            std::swap(top, bottom);
+            if (_flippedX)
+            {
+                std::swap(top, bottom);
+            }
+            
+            if (_flippedY)
+            {
+                std::swap(left, right);
+            }
+            
+            outQuad->bl.texCoords.u = right;
+            outQuad->bl.texCoords.v = bottom;
+            outQuad->br.texCoords.u = right;
+            outQuad->br.texCoords.v = top;
+            outQuad->tl.texCoords.u = left;
+            outQuad->tl.texCoords.v = bottom;
+            outQuad->tr.texCoords.u = left;
+            outQuad->tr.texCoords.v = top;
         }
-
-        if (_flippedY)
+            break;
+            
+        case gaf::GAFRotation::CW_90:
         {
-            std::swap(left, right);
+            if (_flippedX)
+            {
+                std::swap(top, bottom);
+            }
+            
+            if (_flippedY)
+            {
+                std::swap(left, right);
+            }
+            
+            outQuad->bl.texCoords.u = left;
+            outQuad->bl.texCoords.v = top;
+            outQuad->br.texCoords.u = left;
+            outQuad->br.texCoords.v = bottom;
+            outQuad->tl.texCoords.u = right;
+            outQuad->tl.texCoords.v = top;
+            outQuad->tr.texCoords.u = right;
+            outQuad->tr.texCoords.v = bottom;
         }
-
-        _quad.bl.texCoords.u = right;
-        _quad.bl.texCoords.v = bottom;
-        _quad.br.texCoords.u = right;
-        _quad.br.texCoords.v = top;
-        _quad.tl.texCoords.u = left;
-        _quad.tl.texCoords.v = bottom;
-        _quad.tr.texCoords.u = left;
-        _quad.tr.texCoords.v = top;
-    }
-        break;
-
-    case gaf::GAFRotation::CW_90:
-    {
-        if (_flippedX)
+            break;
+            
+        case gaf::GAFRotation::NONE:
+        default:
         {
-            std::swap(top, bottom);
+            if (_flippedX)
+            {
+                std::swap(left, right);
+            }
+            
+            if (_flippedY)
+            {
+                std::swap(top, bottom);
+            }
+            
+            outQuad->bl.texCoords.u = left;
+            outQuad->bl.texCoords.v = bottom;
+            outQuad->br.texCoords.u = right;
+            outQuad->br.texCoords.v = bottom;
+            outQuad->tl.texCoords.u = left;
+            outQuad->tl.texCoords.v = top;
+            outQuad->tr.texCoords.u = right;
+            outQuad->tr.texCoords.v = top;
         }
-
-        if (_flippedY)
-        {
-            std::swap(left, right);
-        }
-
-        _quad.bl.texCoords.u = left;
-        _quad.bl.texCoords.v = top;
-        _quad.br.texCoords.u = left;
-        _quad.br.texCoords.v = bottom;
-        _quad.tl.texCoords.u = right;
-        _quad.tl.texCoords.v = top;
-        _quad.tr.texCoords.u = right;
-        _quad.tr.texCoords.v = bottom;
-    }
-        break;
-
-    case gaf::GAFRotation::NONE:
-    default:
-    {
-        if (_flippedX)
-        {
-            std::swap(left, right);
-        }
-
-        if (_flippedY)
-        {
-            std::swap(top, bottom);
-        }
-
-        _quad.bl.texCoords.u = left;
-        _quad.bl.texCoords.v = bottom;
-        _quad.br.texCoords.u = right;
-        _quad.br.texCoords.v = bottom;
-        _quad.tl.texCoords.u = left;
-        _quad.tl.texCoords.v = top;
-        _quad.tr.texCoords.u = right;
-        _quad.tr.texCoords.v = top;
-    }
-        break;
+            break;
     }
 }
 
